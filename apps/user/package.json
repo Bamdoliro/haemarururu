@@ -1,0 +1,48 @@
+{
+  "name": "user",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@heamaru/design-system": "workspace:*",
+    "@heamaru/hooks": "workspace:*",
+    "@heamaru/icon": "workspace:*",
+    "@heamaru/ui": "workspace:*",
+    "@heamaru/utils": "workspace:*",
+    "@suspensive/react": "^2.18.12",
+    "@suspensive/react-query": "^2.18.12",
+    "@tanstack/react-query": "^5.66.0",
+    "@tanstack/react-query-devtools": "^5.66.0",
+    "@toss/react": "^1.8.1",
+    "@toss/use-overlay": "^1.4.2",
+    "@types/styled-components": "^5.1.26",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-cookie": "^7.2.2",
+    "react-daum-postcode": "^3.2.0",
+    "react-dom": "^18.2.0",
+    "react-toastify": "^11.0.3",
+    "recoil": "^0.7.7",
+    "smartcrop": "^2.0.5",
+    "styled-components": "^6.1.14",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@heamaru/eslint-config": "workspace:*",
+    "@heamaru/tsconfig": "workspace:*",
+    "@next/eslint-plugin-next": "^14.0.0",
+    "@types/node": "^20.17.17",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "typescript": "^5.1.3"
+  }
+}

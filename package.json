@@ -1,14 +1,22 @@
 {
-  "name": "${PROJECT_NAME}",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "name": "heaheamarururu",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "configs/*"
+  ],
   "scripts": {
-    "build": "tsc"
+    "build": "turbo run build",
+    "dev": "turbo run dev --filter=./apps/**",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "eslint": "^7.32.0",
+    "prettier": "^2.8.8",
+    "turbo": "^2.3.3",
+    "typescript": "^5.1.3"
   },
-  "private": true
+  "packageManager": "pnpm@9.0.0"
 }

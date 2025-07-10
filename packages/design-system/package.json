@@ -1,0 +1,23 @@
+{
+  "name": "@heamaru/design-system",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@heamaru/eslint-config-ts": "workspace:*",
+    "@heamaru/eslint-config": "workspace:*",
+    "@heamaru/tsconfig": "workspace:*",
+    "@types/react": "18.2.13",
+    "@types/styled-components": "^5.1.26",
+    "styled-components": "^6.0.3",
+    "styled-reset": "^4.4.7",
+    "typescript": "^5.1.3"
+  }
+}
