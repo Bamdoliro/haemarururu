@@ -13,6 +13,9 @@
   "dependencies": {
     "@heamaru/design-system": "workspace:*",
     "@heamaru/hooks": "workspace:*",
+    "@heamaru/icon": "workspace:*",
+    "@heamaru/ui": "workspace:*",
+    "@heamaru/utils": "workspace:*",
     "@suspensive/react": "^2.18.12",
     "@suspensive/react-query": "^2.18.12",
     "@tanstack/react-query": "^5.66.0",
