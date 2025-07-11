@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['@maru/eslint-config/react-ts-noimport'],
+  extends: ['@heamaru/eslint-config/react-ts-noimport'],
 };

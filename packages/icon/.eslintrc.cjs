@@ -1,5 +1,5 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   root: true,
-  extends: ['@maru/eslint-config/react-ts'],
+  extends: ['@heamaru/eslint-config/react-ts'],
 };
