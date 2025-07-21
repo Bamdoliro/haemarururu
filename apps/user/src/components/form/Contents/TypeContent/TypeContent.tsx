@@ -132,9 +132,9 @@ const TypeContent = () => {
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="MEISTER_TALENT"
+              value="NATIONAL_VETERANS"
               onChange={handleFormTypeChange}
-              checked={form.type === 'MEISTER_TALENT'}
+              checked={form.type === 'NATIONAL_VETERANS'}
             />
           </Td>
           <Td width="100%" height={56} isRight={true}>
@@ -148,6 +148,14 @@ const TypeContent = () => {
           <Td width="100%" height={56} isRight={true}>
             <Radio
               name="type"
+              value="ONE_PARENT"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'ONE_PARENT'}
+            />
+          </Td>
+          <Td width="100%" height={56} isRight={true}>
+            <Radio
+              name="type"
               value="NEAR_POVERTY"
               onChange={handleFormTypeChange}
               checked={form.type === 'NEAR_POVERTY'}
@@ -156,25 +164,25 @@ const TypeContent = () => {
           <Td width="100%" height={56} isRight={true}>
             <Radio
               name="type"
-              value="NATIONAL_VETERANS"
+              value="LOWER_MIDDLE"
               onChange={handleFormTypeChange}
-              checked={form.type === 'NATIONAL_VETERANS'}
-            />
-          </Td>
-          <Td width="100%" height={56} isRight={true}>
-            <Radio
-              name="type"
-              value="ONE_PARENT"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'ONE_PARENT'}
+              checked={form.type === 'LOWER_MIDDLE'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FROM_NORTH_KOREA"
+              value="PRINCIPAL_RECOMMENDATION"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FROM_NORTH_KOREA'}
+              checked={form.type === 'PRINCIPAL_RECOMMENDATION'}
+            />
+          </Td>
+          <Td width="100%" height={56} isRight={true}>
+            <Radio
+              name="type"
+              value="SUPERINTENDENT_RECOMMENDATION"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'SUPERINTENDENT_RECOMMENDATION'}
             />
           </Td>
           <Td width="100%" height={56} isRight={true}>
@@ -188,12 +196,60 @@ const TypeContent = () => {
           <Td width="100%" height={56} isRight={true}>
             <Radio
               name="type"
+              value="FROM_NORTH_KOREA"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FROM_NORTH_KOREA'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="SPECIAL_EDUCATION_STUDENT"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'SPECIAL_EDUCATION_STUDENT'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="CHILD_WELFARE_FACILITY"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'CHILD_WELFARE_FACILITY'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
               value="TEEN_HOUSEHOLDER"
               onChange={handleFormTypeChange}
               checked={form.type === 'TEEN_HOUSEHOLDER'}
             />
           </Td>
-          <Td width="100%" height={56} isRight={true}>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="GRANDFAMILY"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'GRANDFAMILY'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="DISABLED_PARENT"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'DISABLED_PARENT'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FALLEN_HERO"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FALLEN_HERO'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
               value="MULTI_CHILDREN"
@@ -204,113 +260,57 @@ const TypeContent = () => {
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="NON_STATUTORY_ONE_PARENT"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'NON_STATUTORY_ONE_PARENT'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="WELFARE_FACILITY_WORKER"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'WELFARE_FACILITY_WORKER'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="PUBLIC_SERVANT"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'PUBLIC_SERVANT'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="STREET_CLEANER"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'STREET_CLEANER'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="DEPLOYED_SOLDIER"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'DEPLOYED_SOLDIER'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="INTANGIBLE_CULTURAL_HERITAGE"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'INTANGIBLE_CULTURAL_HERITAGE'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="FARMING_AND_FISHING"
+              value="SAILOR"
               onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
-            />
-          </Td>
-          <Td width="100%" height={56} isBottom={true} isRight={true}>
-            <Radio
-              name="type"
-              value="FARMING_AND_FISHING"
-              onChange={handleFormTypeChange}
-              checked={form.type === 'FARMING_AND_FISHING'}
+              checked={form.type === 'SAILOR'}
             />
           </Td>
         </Column>
@@ -345,9 +345,9 @@ const TypeContent = () => {
           <Td width="100%" height={56} isRight={true}>
             <Radio
               name="type"
-              value="NATIONAL_VETERANS_EDUCATION"
+              value="SPECIAL_ADMISSION"
               onChange={handleFormTypeChange}
-              checked={form.type === 'NATIONAL_VETERANS_EDUCATION'}
+              checked={form.type === 'SPECIAL_ADMISSION'}
             />
           </Td>
           <Td
@@ -359,9 +359,9 @@ const TypeContent = () => {
           >
             <Radio
               name="type"
-              value="SPECIAL_ADMISSION"
+              value="NATIONAL_VETERANS_EDUCATION"
               onChange={handleFormTypeChange}
-              checked={form.type === 'SPECIAL_ADMISSION'}
+              checked={form.type === 'NATIONAL_VETERANS_EDUCATION'}
             />
           </Td>
         </Column>
