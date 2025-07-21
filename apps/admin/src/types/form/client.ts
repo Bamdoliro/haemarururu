@@ -93,8 +93,8 @@ export interface FormDetail {
   };
   document: {
     learningExperience: string;
-    motivationAndPlan: string;
-    personalStatement: string;
+    statementOfPurpose: string;
+    personality: string;
   };
   formUrl: string;
   type: FormType;
@@ -106,7 +106,7 @@ export interface UserInfo {
   identificationPictureUri: string;
   name: string;
   phoneNumber: string;
-  birthday: string;
+  registrationNumber: string;
 }
 
 export interface ParentInfo {

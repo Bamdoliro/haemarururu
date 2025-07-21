@@ -17,7 +17,7 @@ const ApplicantInfo = ({ id }: ApplicantInfoProps) => {
     { label: '이름', data: formDetailData.applicant.name },
     {
       label: '주민등록번호',
-      data: formatDate.toShortDateTime(formDetailData.applicant.birthday),
+      data: formatDate.toShortDateTime(formDetailData.applicant.registrationNumber),
     },
     { label: '전화번호', data: formatPhoneNumber(formDetailData.applicant.phoneNumber) },
   ];

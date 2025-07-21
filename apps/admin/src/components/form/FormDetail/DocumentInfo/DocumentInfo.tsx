@@ -21,12 +21,12 @@ const DocumentInfo = ({ id }: DocumentInfoProps) => {
     {
       label:
         '2. 본교 건학이념과 연계해 본교에 관심을 갖게 된 동기와 고등학교 입학 후 본인의 꿈과 끼를 살리기 위한 활동계획, 그리고 고등학교 졸업 후 진로계획에 관하여 구체적으로 기술해주세요.',
-      data: formDetailData.document.motivationAndPlan,
+      data: formDetailData.document.statementOfPurpose,
     },
     {
       label:
         '3. 본인의 인성(배려, 나눔, 협력, 타인 존중, 규칙준수 등)을 나타낼 수 있는 개인적 경험 및 이를 통해 배우고 느낀 점을 구체적으로 기술해주세요.',
-      data: formDetailData.document.personalStatement,
+      data: formDetailData.document.personality,
     },
   ];
 
