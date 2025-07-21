@@ -9,23 +9,11 @@ import { EMPTY_VALUE } from '@/constants/common/constant';
 type DetailTableProps = { formList: GradeDistributionType[] | undefined };
 
 const DetailContent = ({ formList }: DetailTableProps) => {
-  const {
-    regularApplicant,
-    meisterTalentApplicant,
-    nationalBasicLivingApplicant,
-    nearPovertyApplicant,
-    nationalVeteransApplicant,
-    oneParentApplicant,
-    fromNorthKoreaApplicant,
-    multiculturalApplicant,
-    teenHouseholderApplicant,
-    multiChildrenApplicant,
-    farmingAndFishingApplicant,
-    specialAdmissionApplicant,
-    nationalVeteransEducationApplicant,
-  } = useMaxMinByType(formList);
+  const data = useMaxMinByType(formList);
 
-  const value = 0;
+  const renderValue = (key: keyof typeof data) => {
+    return `${data[key].min} ~ ${data[key].max}`;
+  };
 
   return (
     <StyledDetailTable>
@@ -42,10 +30,10 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             {null}
           </Td>
           <Td width="12.5%" height={56}>
-            {value}
+            {renderValue('regularApplicant')}
           </Td>
           <Td width="12.5%" height={56}>
-            {value}
+            {renderValue('regularApplicant')}
           </Td>
         </Row>
         <Row>
@@ -109,169 +97,63 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             <Td width="100%" height={56}>
               다자녀가정 자녀
             </Td>
-            <Td width="100%" height={56}>
-              한부모가족 자녀(비법정)
-            </Td>
-            <Td width="100%" height={56}>
-              복지시설 운영자•종사자 자녀
-            </Td>
-            <Td width="100%" height={56}>
-              경찰•군인•소방공무원 자녀
-            </Td>
-            <Td width="100%" height={56}>
-              환경미화원 자녀
-            </Td>
-            <Td width="100%" height={56}>
-              해외파병군인 자녀
-            </Td>
-            <Td width="100%" height={56}>
-              무형문화재 보유자 자녀
-            </Td>
-            <Td width="100%" height={56}>
-              선원 자녀
-            </Td>
           </Column>
           <Column width="12.5%">
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('nationalVeteransApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('nationalBasicLivingApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('oneParentApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('nearPovertyApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('lowerMiddleApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('principalRecommendationApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('superintendentRecommendationApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('multiculturalApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('fromNorthKoreaApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('specialEducationStudentApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('childWelfareFacilityApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('teenHouseholderApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('grandfamilyApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('disabledParentApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {renderValue('fallenHeroApplicant')}
             </Td>
             <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
+              {renderValue('multiChildrenApplicant')}
             </Td>
           </Column>
           <Column width="12.5%">
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
+            {[...Array(8)].map((_, i) => (
+              <Td key={i} width="100%" height={56}>
+                {EMPTY_VALUE}
+              </Td>
+            ))}
           </Column>
         </Row>
         <Row>
@@ -296,18 +178,18 @@ const DetailContent = ({ formList }: DetailTableProps) => {
           </Column>
           <Column width="12.5%">
             <Td width="100%" height={56}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
             <Td width="100%" height={56}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
           </Column>
           <Column width="12.5%">
             <Td width="100%" height={56}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
             <Td width="100%" height={56} borderBottomRightRadius={12}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
           </Column>
         </Row>

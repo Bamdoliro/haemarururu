@@ -14,18 +14,24 @@ const useMaxMinByType = (formList: GradeDistributionType[] | undefined) => {
 
   return {
     regularApplicant: getMaxMinByType('REGULAR'),
-    meisterTalentApplicant: getMaxMinByType('MEISTER_TALENT'),
-    nationalBasicLivingApplicant: getMaxMinByType('NATIONAL_BASIC_LIVING'),
-    nearPovertyApplicant: getMaxMinByType('NEAR_POVERTY'),
     nationalVeteransApplicant: getMaxMinByType('NATIONAL_VETERANS'),
+    nationalBasicLivingApplicant: getMaxMinByType('NATIONAL_BASIC_LIVING'),
     oneParentApplicant: getMaxMinByType('ONE_PARENT'),
-    fromNorthKoreaApplicant: getMaxMinByType('FROM_NORTH_KOREA'),
+    nearPovertyApplicant: getMaxMinByType('NEAR_POVERTY'),
+    lowerMiddleApplicant: getMaxMinByType('LOWER_MIDDLE'),
+    principalRecommendationApplicant: getMaxMinByType('PRINCIPAL_RECOMMENDATION'),
+    superintendentRecommendationApplicant: getMaxMinByType(
+      'SUPERINTENDENT_RECOMMENDATION'
+    ),
     multiculturalApplicant: getMaxMinByType('MULTICULTURAL'),
+    fromNorthKoreaApplicant: getMaxMinByType('FROM_NORTH_KOREA'),
+    specialEducationStudentApplicant: getMaxMinByType('SPECIAL_EDUCATION_STUDENT'),
+    childWelfareFacilityApplicant: getMaxMinByType('CHILD_WELFARE_FACILITY'),
     teenHouseholderApplicant: getMaxMinByType('TEEN_HOUSEHOLDER'),
+    grandfamilyApplicant: getMaxMinByType('GRANDFAMILY'),
+    disabledParentApplicant: getMaxMinByType('DISABLED_PARENT'),
+    fallenHeroApplicant: getMaxMinByType('FALLEN_HERO'),
     multiChildrenApplicant: getMaxMinByType('MULTI_CHILDREN'),
-    farmingAndFishingApplicant: getMaxMinByType('FARMING_AND_FISHING'),
-    specialAdmissionApplicant: getMaxMinByType('SPECIAL_ADMISSION'),
-    nationalVeteransEducationApplicant: getMaxMinByType('NATIONAL_VETERANS_EDUCATION'),
   };
 };
 

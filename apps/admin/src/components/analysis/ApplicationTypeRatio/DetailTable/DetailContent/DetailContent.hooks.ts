@@ -11,18 +11,24 @@ const useApplicantRatios = (formList: ApplicantCountType[] | undefined) => {
 
   return {
     regularApplicant: getRatioByType('REGULAR'),
-    meisterTalentApplicant: getRatioByType('MEISTER_TALENT'),
-    nationalBasicLivingApplicant: getRatioByType('NATIONAL_BASIC_LIVING'),
-    nearPovertyApplicant: getRatioByType('NEAR_POVERTY'),
     nationalVeteransApplicant: getRatioByType('NATIONAL_VETERANS'),
+    nationalBasicLivingApplicant: getRatioByType('NATIONAL_BASIC_LIVING'),
     oneParentApplicant: getRatioByType('ONE_PARENT'),
-    fromNorthKoreaApplicant: getRatioByType('FROM_NORTH_KOREA'),
+    nearPovertyApplicant: getRatioByType('NEAR_POVERTY'),
+    lowerMiddleApplicant: getRatioByType('LOWER_MIDDLE'),
+    principalRecommendationApplicant: getRatioByType('PRINCIPAL_RECOMMENDATION'),
+    superintendentRecommendationApplicant: getRatioByType(
+      'SUPERINTENDENT_RECOMMENDATION'
+    ),
     multiculturalApplicant: getRatioByType('MULTICULTURAL'),
+    fromNorthKoreaApplicant: getRatioByType('FROM_NORTH_KOREA'),
+    specialEducationStudentApplicant: getRatioByType('SPECIAL_EDUCATION_STUDENT'),
+    childWelfareFacilityApplicant: getRatioByType('CHILD_WELFARE_FACILITY'),
     teenHouseholderApplicant: getRatioByType('TEEN_HOUSEHOLDER'),
+    grandfamilyApplicant: getRatioByType('GRANDFAMILY'),
+    disabledParentApplicant: getRatioByType('DISABLED_PARENT'),
+    fallenHeroApplicant: getRatioByType('FALLEN_HERO'),
     multiChildrenApplicant: getRatioByType('MULTI_CHILDREN'),
-    farmingAndFishingApplicant: getRatioByType('FARMING_AND_FISHING'),
-    specialAdmissionApplicant: getRatioByType('SPECIAL_ADMISSION'),
-    nationalVeteransEducationApplicant: getRatioByType('NATIONAL_VETERANS_EDUCATION'),
   };
 };
 

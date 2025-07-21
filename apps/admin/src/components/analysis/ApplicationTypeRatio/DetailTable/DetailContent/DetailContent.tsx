@@ -11,20 +11,23 @@ type DetailTableProps = { formList: ApplicantCountType[] | undefined };
 const DetailContent = ({ formList }: DetailTableProps) => {
   const {
     regularApplicant,
-    meisterTalentApplicant,
-    nationalBasicLivingApplicant,
-    nearPovertyApplicant,
     nationalVeteransApplicant,
+    nationalBasicLivingApplicant,
     oneParentApplicant,
-    fromNorthKoreaApplicant,
+    nearPovertyApplicant,
+    lowerMiddleApplicant,
+    principalRecommendationApplicant,
+    superintendentRecommendationApplicant,
     multiculturalApplicant,
+    fromNorthKoreaApplicant,
+    specialEducationStudentApplicant,
+    childWelfareFacilityApplicant,
     teenHouseholderApplicant,
+    grandfamilyApplicant,
+    disabledParentApplicant,
+    fallenHeroApplicant,
     multiChildrenApplicant,
-    farmingAndFishingApplicant,
-    specialAdmissionApplicant,
-    nationalVeteransEducationApplicant,
   } = useApplicantRatios(formList);
-  const value = 0;
 
   return (
     <StyledDetailTable>
@@ -38,10 +41,10 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             일반 전형
           </Td>
           <Td width="30%" height={56}>
-            {null}
+            {regularApplicant}
           </Td>
           <Td width="10%" height={56}>
-            {value}
+            {regularApplicant}
           </Td>
         </Row>
         <Row>
@@ -128,75 +131,36 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             </Td>
           </Column>
           <Column width="10%">
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
-            <Td width="100%" height={56}>
-              {value}
-            </Td>
+            {[
+              nationalVeteransApplicant,
+              nationalBasicLivingApplicant,
+              oneParentApplicant,
+              nearPovertyApplicant,
+              lowerMiddleApplicant,
+              principalRecommendationApplicant,
+              superintendentRecommendationApplicant,
+              multiculturalApplicant,
+              fromNorthKoreaApplicant,
+              specialEducationStudentApplicant,
+              childWelfareFacilityApplicant,
+              teenHouseholderApplicant,
+              grandfamilyApplicant,
+              disabledParentApplicant,
+              fallenHeroApplicant,
+              multiChildrenApplicant,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+              EMPTY_VALUE,
+            ].map((ratio, i) => (
+              <Td key={i} width="100%" height={56}>
+                {ratio}
+              </Td>
+            ))}
           </Column>
         </Row>
         <Row>
@@ -221,10 +185,10 @@ const DetailContent = ({ formList }: DetailTableProps) => {
           </Column>
           <Column width="10%">
             <Td width="100%" height={56}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
             <Td width="100%" height={56} borderBottomRightRadius={12}>
-              {value}
+              {EMPTY_VALUE}
             </Td>
           </Column>
         </Row>
