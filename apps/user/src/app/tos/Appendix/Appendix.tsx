@@ -13,7 +13,7 @@ const Appendix = () => {
           부칙
         </StyledText>
         <PolicyRoule title="(240711) 이 약관은 공시한 날부터 시행합니다.">
-          <StyledText fontType="p3" color={color.maruDefault}>
+          <StyledText fontType="p3" color={color.haeMaruDefault}>
             공고 일자 : [240711]
             <br />
             시행 일자 : [240711]

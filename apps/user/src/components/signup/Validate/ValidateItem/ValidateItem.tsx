@@ -11,7 +11,7 @@ const ValidateItem = ({ condition, text }: ValidateItem) => {
   return (
     <Row alignItems="center">
       {condition ? <IconSignUpCheckTrue /> : <IconSignUpCheckFalse />}
-      <Text fontType="caption" color={condition ? color.maruDefault : color.gray400}>
+      <Text fontType="caption" color={condition ? color.haeMaruDefault : color.gray400}>
         {text}
       </Text>
     </Row>

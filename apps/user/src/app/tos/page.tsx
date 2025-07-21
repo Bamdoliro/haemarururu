@@ -22,7 +22,7 @@ const Tos = () => {
         <Column alignItems="center" style={{ marginBottom: '39px' }}>
           <Divider />
           <StyledText fontType="H1" color={color.gray900}>
-            부산소프트웨어마이스터고등학교 이용약관
+            해운대고등학교 이용약관
           </StyledText>
         </Column>
         <Column gap={36}>

@@ -90,7 +90,7 @@ const StyledCellInput = styled.input<{ $isError: boolean }>`
   }
 
   &:focus {
-    border: 1px solid ${color.maruDefault};
+    border: 1px solid ${color.haeMaruDefault};
     outline: 2px solid rgba(20, 112, 255, 0.25);
   }
 

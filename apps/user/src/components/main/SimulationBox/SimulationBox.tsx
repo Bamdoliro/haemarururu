@@ -19,7 +19,7 @@ const SimulationBox = () => {
         <Text fontType="H3" color={color.gray900}>
           성적 모의 계산
         </Text>
-        <IconFunction width={64} height={64} color={color.maruDefault} />
+        <IconFunction width={64} height={64} color={color.haeMaruDefault} />
       </Row>
       <Text fontType="p2" color={color.gray500}>
         복잡한 성적 산출 공식을

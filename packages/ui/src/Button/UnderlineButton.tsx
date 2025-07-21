@@ -38,7 +38,7 @@ const StyledUnderlineButton = styled.button<{ $active: boolean }>`
     left: 0;
     width: 100%;
     height: 3px;
-    background-color: ${color.maruDefault};
+    background-color: ${color.haeMaruDefault};
     transform: scaleX(0);
   }
   &:hover ${HoverStateBox} {

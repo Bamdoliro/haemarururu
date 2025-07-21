@@ -18,7 +18,7 @@ const FaqBoxItem = ({ title }: FaqBoxItemProps) => {
 
   return (
     <StyledFaqBoxItem onClick={handleMoveFaq}>
-      <IconFaq width={24} height={34} color={color.maruDefault} />
+      <IconFaq width={24} height={34} color={color.haeMaruDefault} />
       <Question>{title}</Question>
     </StyledFaqBoxItem>
   );

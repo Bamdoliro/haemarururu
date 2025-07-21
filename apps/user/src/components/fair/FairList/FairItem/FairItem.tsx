@@ -30,7 +30,7 @@ const FairItem = ({
           {formatStartDate(start)}
         </Text>
         <StatusBox status={status}>
-          <Text fontType="code" color={color.maruDefault}>
+          <Text fontType="code" color={color.haeMaruDefault}>
             {formatStatus(status)}
           </Text>
         </StatusBox>
@@ -68,10 +68,10 @@ const StatusBox = styled.div<{ status: string }>`
   border-radius: 16px;
   border: 1px solid
     ${({ status }) =>
-      status === 'APPLICATION_IN_PROGRESS' ? color.maruDefault : color.red};
+      status === 'APPLICATION_IN_PROGRESS' ? color.haeMaruDefault : color.red};
   background-color: ${({ status }) =>
     status === 'APPLICATION_IN_PROGRESS'
-      ? 'rgba(37, 124, 255, 0.1)'
+      ? 'rgba(28, 66, 146, 0.1)'
       : 'rgba(244, 67, 54, 0.1)'};
 `;
 

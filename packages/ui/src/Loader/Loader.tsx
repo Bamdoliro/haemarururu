@@ -12,7 +12,7 @@ interface LoaderProps {
 const Loader = ({ top = '50%', left = '50%' }: LoaderProps) => {
   return (
     <SpinnerBox top={top} left={left}>
-      <ClipLoader color={color.maruDefault} />
+      <ClipLoader color={color.haeMaruDefault} />
     </SpinnerBox>
   );
 };

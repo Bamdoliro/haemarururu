@@ -35,7 +35,7 @@ const TermsItem = ({
       <label htmlFor={id}>{label}</label>
       {enabled ? (
         <AgreementLink onClick={handleClick}>
-          [ 필수 ] <IconArrowRight color={color.maruDefault} width={12} height={12} />
+          [ 필수 ] <IconArrowRight color={color.haeMaruDefault} width={12} height={12} />
         </AgreementLink>
       ) : (
         <></>
@@ -56,7 +56,7 @@ const Agreement = styled.div`
 const AgreementLink = styled.div`
   ${flex({ alignItems: 'center' })}
   ${font.btn3};
-  color: ${color.maruDefault};
+  color: ${color.haeMaruDefault};
   display: flex;
   cursor: pointer;
 `;

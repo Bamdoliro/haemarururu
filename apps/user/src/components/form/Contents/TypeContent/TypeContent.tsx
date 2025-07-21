@@ -46,50 +46,86 @@ const TypeContent = () => {
         </Td>
       </Row>
       <Row>
-        <Td width="30%" height={560} isBottom={true} isLeft={true}>
+        <Td width="30%" height={1288} isBottom={true} isLeft={true}>
           특별 전형
         </Td>
         <Column width="30%">
-          <Td width="100%" height={56} isBottom={true}>
-            마이스터 인재전형
-          </Td>
-          <Td width="100%" height={280} isBottom={true}>
+          <Td width="100%" height={392} isBottom={true}>
             기회균등 전형
           </Td>
-          <Td width="100%" height={224} isBottom={true}>
+          <Td width="100%" height={896} isBottom={true}>
             사회다양성 전형
           </Td>
         </Column>
         <Column width="30%">
           <Td width="100%" height={56} isBottom={true}>
-            {null}
+            국가보훈대상자
           </Td>
           <Td width="100%" height={56}>
             국민기초생활수급자
           </Td>
           <Td width="100%" height={56}>
+            한부모가족 보호대상자
+          </Td>
+          <Td width="100%" height={56}>
             차상위계층
           </Td>
           <Td width="100%" height={56}>
-            국가보훈대상자 (국가유공자)
-          </Td>
-          <Td width="100%" height={56}>
-            한부모가정보호대상자
+            차차상위계층
           </Td>
           <Td width="100%" height={56} isBottom={true}>
-            북한이탈주민 또는 그 자녀
+            학교장 추천
           </Td>
           <Td width="100%" height={56}>
-            다문화가정 자녀
+            교육감 추천
           </Td>
           <Td width="100%" height={56}>
-            소년 · 소녀가장
+            다문화가족자녀
           </Td>
           <Td width="100%" height={56}>
-            다자녀 가정 자녀
+            북한이탈청소년
           </Td>
           <Td width="100%" height={56} isBottom={true}>
-            농어촌지역출신자
+            특수교육대상자
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            아동복지시설 보호학생
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            소년•소녀 가장
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            조손 가정 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            장애인의 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            순직 군경•소방관 등 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            다자녀가정 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            한부모가족 자녀(비법정)
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            복지시설 운영자•종사자 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            경찰•군인•소방공무원 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            환경미화원 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            해외파병군인 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            무형문화재 보유자 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            선원 자녀
           </Td>
         </Column>
         <Column width="10%">
@@ -173,6 +209,110 @@ const TypeContent = () => {
               checked={form.type === 'FARMING_AND_FISHING'}
             />
           </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="FARMING_AND_FISHING"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'FARMING_AND_FISHING'}
+            />
+          </Td>
         </Column>
       </Row>
       <Row>
@@ -187,18 +327,18 @@ const TypeContent = () => {
         </Td>
         <Column width="30%">
           <Td width="100%" height={56}>
-            {null}
+            특례입학 대상자
           </Td>
           <Td width="100%" height={56} isBottomBold={true}>
-            {null}
+            국가보훈대상자 중 교육지원대상자
           </Td>
         </Column>
         <Column width="30%">
           <Td width="100%" height={56}>
-            국가보훈대상자 중 교육지원대상자
+            특례입학 대상자
           </Td>
           <Td width="100%" height={56} isBottomBold={true}>
-            특례입학 대상자
+            국가보훈대상자 중 교육지원대상자
           </Td>
         </Column>
         <Column width="10%">

@@ -22,7 +22,7 @@ const DownloadButton = ({ buttonClick, textClick, fileName }: DownloadButtonProp
       </FileDownloadButton>
       {!fileName.endsWith('.hwp') && (
         <FileNowViewButton onClick={textClick}>
-          <Text fontType="p2" color={color.maruDefault}>
+          <Text fontType="p2" color={color.haeMaruDefault}>
             [바로보기]
           </Text>
         </FileNowViewButton>

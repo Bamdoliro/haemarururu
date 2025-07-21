@@ -73,7 +73,7 @@ const StyledPreviewInput = styled.div<{ $isError: boolean }>`
   border-radius: 6px;
 
   &:focus-within {
-    border: 1px solid ${(props) => (props.$isError ? color.red : color.maruDefault)};
+    border: 1px solid ${(props) => (props.$isError ? color.red : color.haeMaruDefault)};
     ${(props) =>
       !props.$isError &&
       css`

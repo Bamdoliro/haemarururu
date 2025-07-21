@@ -15,7 +15,7 @@ export const SchoolItem = ({ school, selected, onClick }: Props) => {
   return (
     <StyledSchoolItem selected={selected} onClick={onClick}>
       <SchoolName>
-        {selected && <IconCheck color={color.maruDefault} width={24} height={24} />}
+        {selected && <IconCheck color={color.haeMaruDefault} width={24} height={24} />}
         {school.name}
       </SchoolName>
       <Text fontType="caption" color={color.gray600}>
@@ -37,7 +37,7 @@ const StyledSchoolItem = styled.div<{ selected: boolean }>`
     props.selected &&
     css`
       padding: 15px 15px;
-      border: 1px solid ${color.maruDefault};
+      border: 1px solid ${color.haeMaruDefault};
     `}
 `;
 

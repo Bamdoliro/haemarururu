@@ -45,7 +45,7 @@ const SwitchButton = styled.button<{ $active: boolean }>`
   ${(props) =>
     props.$active &&
     css`
-      background-color: ${color.maruDefault};
+      background-color: ${color.haeMaruDefault};
       color: ${color.white};
     `}
 `;

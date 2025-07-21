@@ -18,7 +18,9 @@ const CheckingBox = ({ title, subTitle, onClick, isIcon = false }: CheckingBoxPr
         <Text fontType="H3" color={color.gray900}>
           {title}
         </Text>
-        {isIcon && <IconArrowOutward width={36} height={36} color={color.maruDefault} />}
+        {isIcon && (
+          <IconArrowOutward width={36} height={36} color={color.haeMaruDefault} />
+        )}
       </Row>
       <Text fontType="p2" color={color.gray600}>
         {subTitle}

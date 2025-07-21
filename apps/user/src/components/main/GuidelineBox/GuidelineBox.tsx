@@ -20,7 +20,7 @@ const GuidelineBox = () => {
         <Text fontType="H3" color={color.gray900}>
           입학 전형 요강
         </Text>
-        <IconArrowOutward width={36} height={36} color={color.maruDefault} />
+        <IconArrowOutward width={36} height={36} color={color.haeMaruDefault} />
       </Row>
       <Text fontType="p2" color={color.gray500}>
         클릭해서 입학 전형 요강을 확인하세요

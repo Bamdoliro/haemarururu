@@ -1,4 +1,4 @@
-import { Box, PolicyRoule } from '@/components/policy';
+import { PolicyRoule } from '@/components/policy';
 import { color, font } from '@maru/design-system';
 import { styled } from 'styled-components';
 
@@ -6,14 +6,31 @@ type Font = keyof typeof font;
 
 const Chpater03 = () => {
   return (
-    <PolicyRoule title="제3조 (개인정보 처리 위탁)">
-      <Box color={color.white}>
-        <StyledText fontType="p2" color={color.gray900}>
-          <span style={{ color: color.maruDefault }}>(위탁사항이 없는 경우)</span>{' '}
-          개인정보 처리를 위탁하는 경우 위탁하는 업무의 내용과 위탁받아 처리하는 자에 대한
-          사항을 정보주체가 확인할 수 있도록 개인정보처리방침을 통해 안내하겠습니다.
-        </StyledText>
-      </Box>
+    <PolicyRoule title="제3조 처리하는 개인정보의 항목">
+      <StyledText fontType="p3" color={color.gray900}>
+        <ol style={{ marginLeft: '20px' }}>
+          <li>
+            우리학교는 법령의 규정과 정보주체의 동의에 의해서만 개인정보를 수집ㆍ보유하며,
+            개인정보 항목 및 수집 방법은 다음과 같습니다.
+            <br />
+            <span>
+              ▶ 개인정보 항목 :{' '}
+              <span style={{ color: `${color.haeMaruDefault}` }}>개인정보 항목 보기</span>
+            </span>
+          </li>
+        </ol>
+        열람방법: 개인정보 포털(
+        <span style={{ color: `${color.haeMaruDefault}` }}>www.privacy.go.kr</span>){'>'}{' '}
+        개인서비스 {'>'} 개인정보 열람등 요구 {'>'} 개인정보파일 검색 ‘해운대고등학교’
+        입력 후 검색
+        <ol style={{ marginLeft: '20px' }} type="1" start={2}>
+          <li>
+            우리학교 홈페이지 서비스 이용과정에서 IP주소, 쿠키, MAC주소, 서비스 이용기록,
+            방문기록, 불량 이용기록 등의 개인정보 항목이 자동으로 생성되어 수집될 수
+            있습니다.
+          </li>
+        </ol>
+      </StyledText>
     </PolicyRoule>
   );
 };

@@ -1,16 +1,12 @@
 import { ROUTES } from '@/constants/common/constants';
 import { color, font } from '@maru/design-system';
-import { IconRoundBamdoliro, IconRoundInstagram } from '@maru/icon';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 const Footer = () => {
-  const router = useRouter();
-
   return (
     <StyledFooter>
       <FooterBox>
@@ -19,16 +15,16 @@ const Footer = () => {
           <Column gap={8}>
             <InfoBox>
               <Text fontType="p2" color={color.gray600}>
-                주소: 부산광역시 강서구 가락대로 1393 봉림동 15 (46708)
+                주소: 부산광역시 해운대구 우동3로 11번길 43 (46708)
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                교무실(입학처): 051-971-2153, Fax: 051-971-2061
+                교무실: 051-742-0313, Fax: 731-9838
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                입학담당자: 051-970-1725, Fax: 051-971-2061
+                입학문의: 070-4006-8260, 070-4006-8261
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                행정실: 051-971-2152, Fax: 051-971-6325
+                행정실: 742-0312, Fax: 742-0321
               </Text>
             </InfoBox>
             <Text fontType="p3" color={color.gray600}>
@@ -53,18 +49,6 @@ const Footer = () => {
                 개인정보 수집
               </StyledLink>
             </Column>
-          </Row>
-          <Row gap={17} alignItems="center">
-            <HoverdIconRoundInstagram
-              width={36}
-              height={36}
-              onClick={() => router.push('https://www.instagram.com/bamdoliro')}
-            />
-            <HoveredIconRoundBamdoliro
-              width={36}
-              height={36}
-              onClick={() => router.push('https://bamdoliro.com/')}
-            />
           </Row>
         </Row>
       </FooterBox>
@@ -97,20 +81,4 @@ const InfoBox = styled.div`
 const StyledLink = styled(Link)`
   ${font.p2}
   color: ${color.gray600};
-`;
-
-const HoveredIconRoundBamdoliro = styled(IconRoundBamdoliro)`
-  :hover :first-child {
-    fill: ${color.bamdoliro};
-  }
-
-  cursor: pointer;
-`;
-
-const HoverdIconRoundInstagram = styled(IconRoundInstagram)`
-  :hover :first-child {
-    fill: ${color.bamdoliro};
-  }
-
-  cursor: pointer;
 `;

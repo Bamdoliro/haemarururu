@@ -17,7 +17,7 @@ const FaqItem = ({ title, content, isOpen, onToggle }: FaqItemProps) => {
       <QuestionBox onClick={onToggle}>
         <Row alignItems="center" gap={12}>
           <IconFaq
-            color={isOpen ? color.maruDefault : color.gray400}
+            color={isOpen ? color.haeMaruDefault : color.gray400}
             width={24}
             height={24}
           />

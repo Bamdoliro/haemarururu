@@ -1,5 +1,5 @@
 import { color, font } from '@maru/design-system';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import type { InputProps } from './Input.type';
 
 const FormInput = ({
@@ -45,7 +45,7 @@ const StyledInput = styled.input`
     color: ${color.gray500};
   }
   &:focus {
-    border: 1px solid ${color.maruDefault};
+    border: 1px solid ${color.haeMaruDefault};
     outline: 2px solid rgba(20, 112, 255, 0.25);
   }
 `;

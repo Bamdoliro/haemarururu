@@ -15,7 +15,6 @@ import Chpater07 from './Chapter07/Chapter07';
 import Chpater08 from './Chapter08/Chapter08';
 import Chpater09 from './Chapter09/Chapter09';
 import Chpater10 from './Chapter10/Chapter10';
-import Chpater11 from './Chapter11/Chapter11';
 
 type Font = keyof typeof font;
 
@@ -29,16 +28,16 @@ const Privacy = () => {
         <Column alignItems="center" gap={28} style={{ marginBottom: '28px' }}>
           <Divider />
           <StyledText fontType="H1" color={color.gray900}>
-            부산소프트웨어마이스터고등학교 개인정보처리방침
+            해운대고등학교 개인정보처리방침
           </StyledText>
           <Box color={color.gray100}>
             <StyledText fontType="p2" color={color.gray900}>
-              <span style={{ color: color.maruDefault }}>
-                부산소프트웨어마이스터고등학교(이하 ‘우리학교’ )
+              <span style={{ color: color.haeMaruDefault }}>
+                해운대고등학교(이하 ‘우리학교’)
               </span>
-              는 개인정보 보호법 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한
-              고충을 신속하고 원활하게 처리할 수 있도록 다음과 같은 개인정보처리방침을
-              두고 있습니다.
+              는「개인정보 보호법」제30조에 따라 정보주체에게 개인정보 처리에 관한 절차 및
+              기준을 안내하고, 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록
+              다음과 같이 개인정보 처리방침을 수립·공개하고 있습니다.
             </StyledText>
           </Box>
         </Column>
@@ -53,7 +52,6 @@ const Privacy = () => {
           <Chpater08 />
           <Chpater09 />
           <Chpater10 />
-          <Chpater11 />
         </Column>
       </StyledTos>
     </AppLayout>

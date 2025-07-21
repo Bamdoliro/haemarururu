@@ -10,7 +10,7 @@ interface FirstResultItemProps {
 const FinalResultItem = ({ isPassed }: FirstResultItemProps) => {
   return (
     <StyledFinalResultItem>
-      <Text fontType="H2" color={color.maruDefault}>
+      <Text fontType="H2" color={color.haeMaruDefault}>
         {isPassed ? '합격을 축하합니다.' : '합격자 명단에 없습니다.'}
       </Text>
     </StyledFinalResultItem>

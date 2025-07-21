@@ -23,7 +23,7 @@ const ScheduleItem = ({ title, date, startTime, endTime }: ScheduleItemProps) =>
 
   return (
     <StyledScheduleItem isActive={active}>
-      <Text fontType="H5" color={active ? color.maruDefault : color.gray900}>
+      <Text fontType="H5" color={active ? color.haeMaruDefault : color.gray900}>
         {title}
       </Text>
       <Text fontType="p2" color={color.gray700}>
@@ -43,5 +43,5 @@ const StyledScheduleItem = styled.div<{ isActive: boolean }>`
   background-color: ${color.gray50};
   border-radius: 12px;
   padding: 0 20px;
-  border: ${(props) => (props.isActive ? `1px solid ${color.maruDefault}` : 'none')};
+  border: ${(props) => (props.isActive ? `1px solid ${color.haeMaruDefault}` : 'none')};
 `;

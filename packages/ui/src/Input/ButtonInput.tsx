@@ -61,7 +61,7 @@ export const StyledButtonInput = styled.div`
 export const Button = styled.button<{ disabled: boolean }>`
   ${font.btn2};
   color: ${color.white};
-  background-color: ${(props) => (props.disabled ? color.gray400 : color.maruDefault)};
+  background-color: ${(props) => (props.disabled ? color.gray400 : color.haeMaruDefault)};
   ${flex({ alignItems: 'center', justifyContent: 'center' })}
   border-radius: 6px;
   height: 48px;
@@ -70,7 +70,8 @@ export const Button = styled.button<{ disabled: boolean }>`
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? color.gray400 : color.maruHoverd)};
+    background-color: ${(props) =>
+      props.disabled ? color.gray400 : color.haeMaruHoverd};
   }
 `;
 

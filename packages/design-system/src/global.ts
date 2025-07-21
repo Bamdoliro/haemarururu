@@ -50,7 +50,7 @@ button {
 }
 
 .link {
-  color: ${color.maruDefault};
+  color: ${color.haeMaruDefault};
   text-decoration: underline;
 }
 

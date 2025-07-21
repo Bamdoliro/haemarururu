@@ -35,7 +35,7 @@ const DraftFormModal = ({ isOpen, onClose, onConfirm }: DraftFormModalProps) => 
               원서 초안을 다시 한번 확인 하시고 잘못 입력한 부분이 없다고 판단되시는 경우
               아래
               <br />의 입력 칸에{' '}
-              <Text fontType="H5" color={color.maruDefault}>
+              <Text fontType="H5" color={color.haeMaruDefault}>
                 ‘확인했습니다’
               </Text>
               를 입력해 주세요.
@@ -55,7 +55,7 @@ const DraftFormModal = ({ isOpen, onClose, onConfirm }: DraftFormModalProps) => 
       onConfirm={isInputValid ? onConfirm : () => {}}
       confirmButtonText="제출"
       confirmButtonStyle={{
-        backgroundColor: isInputValid ? color.maruDefault : color.gray500,
+        backgroundColor: isInputValid ? color.haeMaruDefault : color.gray500,
         cursor: isInputValid ? 'pointer' : 'not-allowed',
       }}
     />

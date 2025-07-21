@@ -3,10 +3,10 @@ import { css } from 'styled-components';
 
 export const getButtonStyle = {
   PRIMARY: css`
-    background-color: ${color.maruDefault};
+    background-color: ${color.haeMaruDefault};
     color: ${color.white};
     &:hover {
-      background-color: ${color.maruHoverd};
+      background-color: ${color.haeMaruHoverd};
     }
   `,
   SECONDARY: css`

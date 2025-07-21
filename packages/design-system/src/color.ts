@@ -17,9 +17,12 @@ const color = {
   gray50: '#FAFAFB',
 
   bamdoliro: '#1E2E3D',
+  haeMaruDefault: '#1B4292',
   maruDefault: '#257CFF',
+  haeMaruHoverd: '#173980',
   maruHoverd: '#186EEE',
   maruLightBlue: '#E5F0FF',
+  haeMaruLightBlue: '#C0D2F7',
   maruHigh: '#3081FF',
   maruRow: '#0C57CB',
 

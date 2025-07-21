@@ -35,9 +35,9 @@ const Header = () => {
           justifyContent="space-between"
         >
           <Image
-            src="/svg/maruLogo.svg"
-            width={106}
-            height={32}
+            src="/svg/HaeMaruLogo.svg"
+            width={264.739}
+            height={31.98}
             style={{ cursor: 'pointer' }}
             alt="logo"
             onClick={() => router.push(ROUTES.MAIN)}

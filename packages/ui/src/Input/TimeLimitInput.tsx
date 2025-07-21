@@ -82,7 +82,7 @@ const StyledTimeLimitInput = styled.div<{ $isError: boolean }>`
   border-radius: 6px;
 
   &:focus-within {
-    border: 1px solid ${(props) => (props.$isError ? color.red : color.maruDefault)};
+    border: 1px solid ${(props) => (props.$isError ? color.red : color.haeMaruDefault)};
     ${(props) =>
       !props.$isError &&
       css`
@@ -116,7 +116,7 @@ const StyledInput = styled.input`
 const Button = styled.button<{ enabled: boolean }>`
   ${font.btn2};
   color: ${color.white};
-  background-color: ${(props) => (props.enabled ? color.gray400 : color.maruDefault)};
+  background-color: ${(props) => (props.enabled ? color.gray400 : color.haeMaruDefault)};
   pointer-events: ${(props) => props.enabled && 'none'};
   ${flex({ alignItems: 'center', justifyContent: 'center' })}
   border-radius: 6px;
@@ -125,7 +125,7 @@ const Button = styled.button<{ enabled: boolean }>`
   flex-shrink: 0;
 
   &:hover {
-    background-color: ${(props) => (props.enabled ? color.gray400 : color.maruHoverd)};
+    background-color: ${(props) => (props.enabled ? color.gray400 : color.haeMaruHoverd)};
     cursor: ${(props) => (props.enabled ? 'default' : 'pointer')};
   }
 `;

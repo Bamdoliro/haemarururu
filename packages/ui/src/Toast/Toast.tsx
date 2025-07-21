@@ -18,7 +18,7 @@ const Toast = ({ children, width, type }: ToastProps) => {
       {type === 'ERROR' ? (
         <IconCancelCircle width={32} height={32} />
       ) : (
-        <IconCheckCircle width={32} height={32} />
+        <IconCheckCircle width={32} height={32} color={color.haeMaruDefault} />
       )}
       <Text fontType="p2" color={color.gray900}>
         {children}

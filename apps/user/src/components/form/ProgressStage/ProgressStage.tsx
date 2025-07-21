@@ -68,16 +68,21 @@ const Circle = styled.div<{ $active: boolean; $isCurrent: boolean; name: string 
   z-index: 1;
   ${font.p1}
   color: ${(props) =>
-    props.$active ? color.white : props.$isCurrent ? color.maruDefault : color.gray600};
+    props.$active
+      ? color.white
+      : props.$isCurrent
+      ? color.haeMaruDefault
+      : color.gray600};
   background-color: ${(props) =>
-    props.$active ? color.maruDefault : props.$isCurrent ? color.white : color.gray50};
+    props.$active ? color.haeMaruDefault : props.$isCurrent ? color.white : color.gray50};
   border-radius: 50%;
   border: 2px solid
-    ${(props) => (props.$active || props.$isCurrent ? color.maruDefault : color.gray300)};
+    ${(props) =>
+      props.$active || props.$isCurrent ? color.haeMaruDefault : color.gray300};
 
   &::after {
     ${font.context}
-    color: ${(props) => (props.$isCurrent ? color.maruDefault : color.gray600)};
+    color: ${(props) => (props.$isCurrent ? color.haeMaruDefault : color.gray600)};
     content: '${(props) => props.name}';
     position: absolute;
     top: calc(100% + 4px);

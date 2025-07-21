@@ -12,7 +12,7 @@ const SchoolNumberBox = ({ size }: SchoolNumberBoxProps) => {
   return (
     <StyledSchoolNumberBox size={size}>
       <Row gap={12} alignItems="center">
-        <IconPhone width={36} height={36} fill={color.maruDefault} />
+        <IconPhone width={36} height={36} color={color.haeMaruDefault} />
         <Text fontType={size === 'big' ? 'H2' : 'H3'} color={color.gray900}>
           입학 문의 전화
         </Text>

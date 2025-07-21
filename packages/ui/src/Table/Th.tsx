@@ -39,7 +39,7 @@ const StyledTh = styled.div<{ styleType: TableStyleType }>`
     props.styleType === 'PRIMARY'
       ? css`
           ${font.context}
-          background-color: ${color.maruDefault};
+          background-color: ${color.haeMaruDefault};
           color: ${color.white};
           border-right: 1px solid ${color.white};
           border-bottom: 1px solid ${color.white};
@@ -50,7 +50,7 @@ const StyledTh = styled.div<{ styleType: TableStyleType }>`
       : props.styleType === 'ANALYSIS'
       ? css`
           ${font.caption}
-          background-color: ${color.maruDefault};
+          background-color: ${color.haeMaruDefault};
           color: ${color.white};
           border-right: 1px solid ${color.white};
           border-bottom: 1px solid ${color.white};
