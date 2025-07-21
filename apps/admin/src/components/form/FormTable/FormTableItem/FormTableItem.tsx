@@ -42,7 +42,7 @@ const FormTableItem = ({
 
   const getStatusColor = (status: boolean | null) => {
     if (status === null) return color.gray600;
-    return status ? color.maruDefault : color.red;
+    return status ? color.haeMaruDefault : color.red;
   };
 
   const getRoundResult = (roundPassed: boolean | null, FormStatus?: string) => {

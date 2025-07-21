@@ -30,7 +30,7 @@ const FaqDetail = ({ id }: FaqDetailProps) => {
             {faqDetailData.title}
           </Text>
           <Row gap={16} alignItems="center">
-            <Text fontType="context" color={color.maruDefault}>
+            <Text fontType="context" color={color.haeMaruDefault}>
               {FAQ_CATEGORY[faqDetailData.category]}
             </Text>
             <Text fontType="p2" color={color.gray600}>

@@ -68,7 +68,7 @@ const StyledFunctionDropdown = styled.div<{ isOpen: boolean }>`
   padding: 0 10px 0 16px;
   border-radius: 6px;
   background: ${color.white};
-  border: 1px solid ${({ isOpen }) => (isOpen ? color.maruDefault : color.gray400)};
+  border: 1px solid ${({ isOpen }) => (isOpen ? color.haeMaruDefault : color.gray400)};
   ${({ isOpen }) =>
     isOpen &&
     css`

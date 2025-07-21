@@ -76,8 +76,8 @@ const ItemStatusBox = styled.div<{ status: StatusType }>`
     switch (status) {
       case 'open':
         return `
-          color: ${color.maruDefault};
-          border: 1px solid ${color.maruDefault};
+          color: ${color.haeMaruDefault};
+          border: 1px solid ${color.haeMaruDefault};
           background: rgba(37, 124, 255, 0.10);
         `;
       case 'closed':

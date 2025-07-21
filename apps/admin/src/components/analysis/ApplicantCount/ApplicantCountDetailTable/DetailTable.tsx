@@ -26,9 +26,7 @@ const DetailTable = ({ formList }: DetailTableProps) => {
             </Column>
           </Column>
         </Column>
-        <Column justifyContent="space-between">
-          <Competition formList={formList} />
-        </Column>
+        <Competition formList={formList} />
       </ApplicantInfoWrapper>
       <DetailContent formList={formList} />
     </Row>
@@ -38,6 +36,7 @@ const DetailTable = ({ formList }: DetailTableProps) => {
 export default DetailTable;
 
 const ApplicantInfoWrapper = styled.div`
-  ${flex({ flexDirection: 'column', justifyContent: 'space-between' })}
+  ${flex({ flexDirection: 'column' })}
   height: 100%;
+  gap: 64px;
 `;

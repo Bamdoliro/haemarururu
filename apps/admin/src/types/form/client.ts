@@ -79,8 +79,9 @@ export interface FormDetail {
     certificateList: string[];
   };
   document: {
-    coverLetter: string;
-    statementOfPurpose: string;
+    learningExperience: string;
+    motivationAndPlan: string;
+    personalStatement: string;
   };
   formUrl: string;
   type: FormType;
@@ -88,14 +89,11 @@ export interface FormDetail {
   changedToRegular: boolean;
 }
 
-export type Gender = 'MALE' | 'FEMALE';
-
 export interface UserInfo {
   identificationPictureUri: string;
   name: string;
   phoneNumber: string;
   birthday: string;
-  gender: Gender;
 }
 
 export interface ParentInfo {

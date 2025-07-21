@@ -3,7 +3,6 @@ import type {
   FormSort,
   FormStatus,
   FormType,
-  Gender,
   GraduationType,
 } from '@/types/form/client';
 
@@ -65,11 +64,6 @@ export const FORM_DETAIL_FIELDS = [
   '성적',
   '자기소개서',
 ] as const;
-
-export const GENDER: Record<Gender, string> = {
-  MALE: '남자',
-  FEMALE: '여자',
-} as const;
 
 export const GRADUATION_TYPE_VALUE: Record<GraduationType, string> = {
   QUALIFICATION_EXAMINATION: '검정고시',

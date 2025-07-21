@@ -122,7 +122,7 @@ const StyledLink = styled(Link).attrs<{ $active: boolean }>((props) => ({
         left: 0;
         width: 4px;
         height: 100%;
-        background: ${color.maruDefault};
+        background: ${color.haeMaruDefault};
       }
     `}
 `;
