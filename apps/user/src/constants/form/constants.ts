@@ -79,3 +79,19 @@ export const ATTENDANCE_TYPE = [
 ];
 
 export const ATTENDANCE_GRADE = ['attendance1', 'attendance2', 'attendance3'];
+
+export const SCORE_TABLE = {
+  A: 40,
+  B: 32,
+  C: 24,
+  D: 16,
+  E: 8,
+} as const;
+
+export const SUBJECT_WEIGHT = {
+  국어: [0.24, 0.24, 0.24, 0.24],
+  수학: [0.28, 0.28, 0.28, 0.28],
+  영어: [0.28, 0.28, 0.28, 0.28],
+  사회: [0.1, 0.1, 0.1, 0.1],
+  과학: [0.1, 0.1, 0.1, 0.1],
+};

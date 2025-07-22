@@ -10,15 +10,10 @@ import BasicCalculator from './BasicCalculator/BasicCalculator';
 
 interface GradeCalculatorProps {
   subjectError?: boolean[];
-  newSubjectError?: boolean[];
   option: 'SIMULATION' | 'FORM';
 }
 
-const GradeCalculator = ({
-  subjectError,
-  newSubjectError,
-  option,
-}: GradeCalculatorProps) => {
+const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
   const [form, setForm] = useFormStore();
 
   const handleChangeGraduationType = (value: string) => {
@@ -39,10 +34,6 @@ const GradeCalculator = ({
               <br />
             </>
           )}
-          *과목명이 없는 경우 ‘과목추가’를 선택하여 성취 수준을 입력해주시길 바랍니다.
-          <br />
-          *국어•영어•수학에서 미이수 입력 시 자동으로 C로 처리됩니다.
-          <br />
           {option === 'SIMULATION' && <>*-(하이픈)은 점수에 반영되지 않습니다.</>}
         </Text>
         {option === 'SIMULATION' && (
@@ -62,12 +53,7 @@ const GradeCalculator = ({
         caseBy={{
           QUALIFICATION_EXAMINATION: <GEDCalculator />,
         }}
-        defaultComponent={
-          <BasicCalculator
-            subjectError={subjectError}
-            newSubjectError={newSubjectError}
-          />
-        }
+        defaultComponent={<BasicCalculator subjectError={subjectError} />}
       />
     </StyledGradeCalculator>
   );

@@ -59,7 +59,7 @@ export interface Form {
     certificateList: Certificate[];
   };
   document: {
-    leaningExperience: string;
+    learningExperience: string;
     statementOfPurpose: string;
     personality: string;
   };
@@ -69,7 +69,7 @@ export interface Form {
 export interface User {
   name: string;
   phoneNumber: string;
-  birthday: string;
+  registrationNumber: string;
   gender: 'FEMALE' | 'MALE';
 }
 
@@ -115,6 +115,7 @@ export interface Subject {
   achievementLevel21: AchievementLevel | null;
   achievementLevel22: AchievementLevel | null;
   achievementLevel31: AchievementLevel | null;
+  achievementLevel32: AchievementLevel | null;
   score: number | null;
 }
 
@@ -140,6 +141,7 @@ export interface Incomplete {
     isIncomplete21: boolean | null;
     isIncomplete22: boolean | null;
     isIncomplete31: boolean | null;
+    isIncomplete32: boolean | null;
   };
 }
 

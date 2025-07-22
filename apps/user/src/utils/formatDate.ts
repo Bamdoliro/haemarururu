@@ -1,16 +1,14 @@
-const formatDate = (value: string) => {
-  const date = value.replace(/\D/g, '');
+const formatDate = (value: string): string => {
+  const digits = value.replace(/\D/g, '');
 
-  let year = date.slice(0, 4);
-  if (parseInt(year) > 2025) {
-    year = '';
+  const front = digits.slice(0, 6);
+  const back = digits.slice(6, 13);
+
+  if (front.length < 6 || back.length < 7) {
+    return '';
   }
 
-  const month = date.slice(4, 6);
-  const day = date.slice(6, 8);
-  const formatDate = [year, month, day].filter(Boolean).join('-');
-
-  return formatDate;
+  return `${front}-${back}`;
 };
 
 export default formatDate;

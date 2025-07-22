@@ -17,8 +17,12 @@ const FormDownload = ({ onClick }: FormDownloadProps) => {
         <br />
         사회통합전형 및 정원 외 전형 대상자 제출서류 중 각 지원 자격 증명서류는 우편으로
         제출해야 합니다.
+        <br />
+        <Text fontType="p2" color={color.red}>
+          원서를 최종 제출했을 경우 재업로드는 불가능합니다.
+        </Text>
       </Text>
-      <ExportFormButton onClick={onClick}>[ 원서 초안 pdf 다운로드 ]</ExportFormButton>
+      <ExportFormButton onClick={onClick}>[ 작성한 원서(pdf) 다운로드 ]</ExportFormButton>
     </Column>
   );
 };

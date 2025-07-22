@@ -1,5 +1,5 @@
 import { useFormValueStore } from '@/stores';
-import { Column, Input, RadioGroup, Row } from '@maru/ui';
+import { Column, Input, Row } from '@maru/ui';
 import ProfileUploader from '../../ProfileUploader/ProfileUploader';
 import FormController from '../../FormController/FormController';
 import { useApplicantForm } from './ApplicantInformationContent.hook';
@@ -26,27 +26,15 @@ const ApplicantInformationContent = () => {
             errorMessage={errors.name ? errors.name[0] : ''}
           />
           <Input
-            label="생년월일"
+            label="주민등록번호"
             name="birthday"
-            value={form.applicant.birthday}
+            value={form.applicant.registrationNumber}
             onChange={onFieldChange}
-            placeholder="예) 20061103"
+            placeholder="주민등록번호를 입력해주세요."
             width="100%"
             isError={!!errors.birthday?.length}
             errorMessage={errors.birthday ? errors.birthday[0] : ''}
           />
-          <Row gap={40} alignItems="flex-end">
-            <RadioGroup
-              label="성별"
-              value={form.applicant.gender}
-              onChange={onFieldChange}
-              name="gender"
-              items={[
-                { label: '남자', value: 'MALE' },
-                { label: '여자', value: 'FEMALE' },
-              ]}
-            />
-          </Row>
           <Input
             label="전화번호"
             value={form.applicant.phoneNumber}

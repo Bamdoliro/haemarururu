@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  AttendanceCalculator,
-  CertificateCalculator,
-  GradeCalculator,
-  GradePreview,
-  VolunteerCalculator,
-} from '@/components/form';
+import { AttendanceCalculator, GradeCalculator, GradePreview } from '@/components/form';
 import { STEP_LIST } from '@/constants/form/data';
 import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
@@ -57,8 +51,6 @@ const Simulation = () => {
             caseBy={{
               성적입력: <GradeCalculator option="SIMULATION" />,
               출결상황: <AttendanceCalculator />,
-              봉사시간: <VolunteerCalculator />,
-              자격증: <CertificateCalculator />,
             }}
             defaultComponent={<GradeCalculator option="SIMULATION" />}
           />

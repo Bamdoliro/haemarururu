@@ -1,20 +1,12 @@
-import { COUNT, SCORE, WEIGHT } from '@/constants/form/constants';
+import { SCORE_TABLE, SUBJECT_WEIGHT } from '@/constants/form/constants';
 import { useFormValueStore } from '@/stores';
-import { getAchivementLevel } from '@/utils';
-
-enum AchievementScore {
-  '-' = 0,
-  'A' = 5,
-  'B' = 4,
-  'C' = 3,
-  'D' = 2,
-  'E' = 1,
-}
 
 type AchievementLevelKey =
   | 'achievementLevel21'
   | 'achievementLevel22'
-  | 'achievementLevel31';
+  | 'achievementLevel31'
+  | 'achievementLevel32';
+
 type AttenedanceKey =
   | 'absenceCount'
   | 'latenessCount'
@@ -24,66 +16,40 @@ type AttenedanceKey =
 const useGradeCalculation = () => {
   const form = useFormValueStore();
 
-  const getScoreOf = (achievementLevelKey: AchievementLevelKey) => {
-    const scoreTotal = form.grade.subjectList?.reduce((acc, subject) => {
-      const achievementLevel = subject[achievementLevelKey];
-      const subjectName = subject.subjectName;
-      if (
-        (subjectName === '국어' || subjectName === '영어') &&
-        achievementLevel === null
-      ) {
-        return acc + AchievementScore['C'];
-      } else if (subjectName === '수학' && achievementLevel === null) {
-        return acc + AchievementScore['C'] * 2;
-      }
-      if (subjectName === '수학' && achievementLevel !== null) {
-        return acc + AchievementScore[achievementLevel] * 2;
-      } else {
-        return acc + (achievementLevel ? AchievementScore[achievementLevel] : 0);
-      }
-    }, 0);
-    const scoreLength = form.grade.subjectList?.reduce((acc, subject) => {
-      if (subject[achievementLevelKey] !== null && subject[achievementLevelKey] !== '-') {
-        return acc + (subject.subjectName === '수학' ? 2 : 1);
-      }
-      return acc;
-    }, 0);
-
-    if (scoreLength === 0) {
+  const calculateRegularScore = () => {
+    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       return 0;
     }
 
-    return scoreTotal / scoreLength;
-  };
+    const semesterKeys: AchievementLevelKey[] = [
+      'achievementLevel21',
+      'achievementLevel22',
+      'achievementLevel31',
+      'achievementLevel32',
+    ];
 
-  const calculateRegularScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      const regularTotal = form.grade.subjectList.reduce((acc, subject) => {
-        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
+    const SEMESTER_WEIGHT = [0.2, 0.2, 0.3, 0.3];
 
-        if (achievementLevel) {
-          if (subject.subjectName === '수학') {
-            return acc + AchievementScore[achievementLevel] * 2;
-          }
-          return acc + AchievementScore[achievementLevel];
-        }
-        return acc;
-      }, 0);
+    let total = 0;
 
-      const regularLength = form.grade.subjectList.length + 1;
+    form.grade.subjectList.forEach((subject) => {
+      const subjectWeight =
+        SUBJECT_WEIGHT[subject.subjectName as keyof typeof SUBJECT_WEIGHT];
+      if (!subjectWeight) return;
 
-      const regularScore = SCORE.REGULAR_TYPE + (12 * 2 * regularTotal) / regularLength;
+      semesterKeys.forEach((key, i) => {
+        const level = subject[key as keyof typeof subject];
+        if (!level || level === '-') return;
 
-      return Number(regularScore.toFixed(3));
-    }
+        const score = SCORE_TABLE[level as keyof typeof SCORE_TABLE];
+        const semesterRate = SEMESTER_WEIGHT[i];
+        const subjectRate = subjectWeight[i];
 
-    const regularScore =
-      SCORE.REGULAR_TYPE +
-      WEIGHT.REGULAR_21_22 *
-        (getScoreOf('achievementLevel21') + getScoreOf('achievementLevel22')) +
-      WEIGHT.REGULAR_31 * getScoreOf('achievementLevel31');
+        total += score * semesterRate * subjectRate * 3.5;
+      });
+    });
 
-    return Number(regularScore.toFixed(3));
+    return Number(total.toFixed(3));
   };
 
   const calculateSpecialScore = () => {
@@ -91,109 +57,63 @@ const useGradeCalculation = () => {
       return 0;
     }
 
-    const specialScore =
-      SCORE.SPECIAL_TYPE +
-      WEIGHT.SPECIAL_21_22 *
-        (getScoreOf('achievementLevel21') + getScoreOf('achievementLevel22')) +
-      WEIGHT.SPECIAL_31 * getScoreOf('achievementLevel31');
-
-    return Number(specialScore.toFixed(3));
+    return calculateRegularScore();
   };
 
   const calculateAttendanceScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return SCORE.ATTENDANCE;
+      return 0;
     }
 
-    const getAttendanceCount = (type: AttenedanceKey) => {
-      const attendanceCount =
-        form.grade.attendance1[type] +
-        form.grade.attendance2[type] +
-        form.grade.attendance3[type];
+    const getCount = (type: AttenedanceKey) =>
+      form.grade.attendance1[type] +
+      form.grade.attendance2[type] +
+      form.grade.attendance3[type];
 
-      return attendanceCount;
-    };
+    const absence = getCount('absenceCount');
+    const extra = Math.floor(
+      (getCount('latenessCount') +
+        getCount('earlyLeaveCount') +
+        getCount('classAbsenceCount')) /
+        3
+    );
 
-    const absenceCount =
-      getAttendanceCount('absenceCount') +
-      (getAttendanceCount('latenessCount') +
-        getAttendanceCount('earlyLeaveCount') +
-        getAttendanceCount('classAbsenceCount')) /
-        3;
+    const totalDays = absence + extra;
 
-    const attendanceScore =
-      absenceCount > COUNT.MAX_ABSENCE
-        ? SCORE.MIN_ATTENDANCE
-        : SCORE.MAX_ATTENDANCE - absenceCount;
+    if (totalDays === 0) return 0;
 
-    return Math.round(attendanceScore);
-  };
+    const penaltyTable: [number, number][] = [
+      [2, 1],
+      [4, 2],
+      [6, 3],
+      [8, 4],
+      [10, 5],
+      [12, 6],
+      [14, 7],
+      [16, 8],
+      [Infinity, 9],
+    ];
 
-  const calculateVolunteerScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return SCORE.VOLUNTEER;
+    for (const [limit, score] of penaltyTable) {
+      if (totalDays <= limit) return -score;
     }
 
-    const totalVolunteerTime =
-      form.grade.volunteerTime1 + form.grade.volunteerTime2 + form.grade.volunteerTime3;
-
-    if (totalVolunteerTime < COUNT.MIN_VOLUNTEER) return SCORE.MIN_VOLUNTEER;
-    if (totalVolunteerTime > COUNT.MAX_VOLUNTEER) return SCORE.MAX_VOLUNTEER;
-
-    const volunteerTime =
-      SCORE.MAX_VOLUNTEER - (COUNT.MAX_VOLUNTEER - totalVolunteerTime) * 0.5;
-    return Math.round(volunteerTime);
-  };
-
-  const calculateCertificateScore = () => {
-    let certificateScore = 0;
-    if (form.grade.certificateList !== null) {
-      if (
-        form.grade.certificateList.includes('CRAFTSMAN_INFORMATION_PROCESSING') ||
-        form.grade.certificateList.includes(
-          'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION'
-        ) ||
-        form.grade.certificateList.includes('CRAFTSMAN_COMPUTER')
-      )
-        certificateScore += 4;
-
-      if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_1'))
-        certificateScore += 3;
-      else if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_2'))
-        certificateScore += 2;
-      else if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_3'))
-        certificateScore += 1;
-    }
-
-    return Math.min(certificateScore, 4);
+    return 0;
   };
 
   const regularScore = calculateRegularScore();
   const specialScore =
     form.type === 'SPECIAL_ADMISSION' ? calculateRegularScore() : calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
-  const volunteerScore = calculateVolunteerScore();
-  const certificateScore = calculateCertificateScore();
 
-  const regularTotalScore = (
-    regularScore +
-    attendanceScore +
-    volunteerScore +
-    certificateScore
-  ).toFixed(3);
-  const specialTotalScore = (
-    specialScore +
-    attendanceScore +
-    volunteerScore +
-    certificateScore
-  ).toFixed(3);
+  const regularTotalScore = (regularScore + attendanceScore).toFixed(3);
+  const specialTotalScore = (specialScore + attendanceScore).toFixed(3);
 
   return {
     regularScore,
     specialScore,
     attendanceScore,
-    volunteerScore,
-    certificateScore,
+    certificateScore: 0,
     regularTotalScore,
     specialTotalScore,
   };
