@@ -38,6 +38,7 @@ const GradeDistributionDetailTable = ({ formList }: DetailTableProps) => {
 export default GradeDistributionDetailTable;
 
 const ScoreInfoWrapper = styled.div`
-  ${flex({ flexDirection: 'column', justifyContent: 'space-between' })}
+  ${flex({ flexDirection: 'column' })}
   height: 100%;
+  gap: 64px;
 `;

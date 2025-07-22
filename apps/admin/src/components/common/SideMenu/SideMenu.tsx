@@ -36,7 +36,7 @@ const StyledSideMenu = styled.button<{ isActive: boolean }>`
   ${(props) =>
     props.isActive &&
     css`
-      color: ${color.maruDefault};
+      color: ${color.haeMaruDefault};
       background: ${color.gray100};
     `}
 `;

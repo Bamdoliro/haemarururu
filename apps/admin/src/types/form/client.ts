@@ -12,19 +12,32 @@ export type FormStatus =
   | 'ENTERED';
 
 export type FormType =
-  | 'MULTI_CHILDREN'
-  | 'ONE_PARENT'
-  | 'FROM_NORTH_KOREA'
-  | 'MULTICULTURAL'
-  | 'NATIONAL_BASIC_LIVING'
-  | 'SPECIAL_ADMISSION'
-  | 'NATIONAL_VETERANS_EDUCATION'
   | 'REGULAR'
-  | 'NEAR_POVERTY'
-  | 'MEISTER_TALENT'
-  | 'FARMING_AND_FISHING'
   | 'NATIONAL_VETERANS'
-  | 'TEEN_HOUSEHOLDER';
+  | 'NATIONAL_BASIC_LIVING'
+  | 'ONE_PARENT'
+  | 'NEAR_POVERTY'
+  | 'LOWER_MIDDLE'
+  | 'PRINCIPAL_RECOMMENDATION'
+  | 'SUPERINTENDENT_RECOMMENDATION'
+  | 'MULTICULTURAL'
+  | 'FROM_NORTH_KOREA'
+  | 'SPECIAL_EDUCATION_STUDENT'
+  | 'CHILD_WELFARE_FACILITY'
+  | 'TEEN_HOUSEHOLDER'
+  | 'GRANDFAMILY'
+  | 'DISABLED_PARENT'
+  | 'FALLEN_HERO'
+  | 'MULTI_CHILDREN'
+  | 'NON_STATUTORY_ONE_PARENT'
+  | 'WELFARE_FACILITY_WORKER'
+  | 'PUBLIC_SERVANT'
+  | 'STREET_CLEANER'
+  | 'DEPLOYED_SOLDIER'
+  | 'INTANGIBLE_CULTURAL_HERITAGE'
+  | 'SAILOR'
+  | 'SPECIAL_ADMISSION'
+  | 'NATIONAL_VETERANS_EDUCATION';
 
 export type GraduationType = 'EXPECTED' | 'GRADUATED' | 'QUALIFICATION_EXAMINATION';
 
@@ -79,8 +92,9 @@ export interface FormDetail {
     certificateList: string[];
   };
   document: {
-    coverLetter: string;
+    learningExperience: string;
     statementOfPurpose: string;
+    personality: string;
   };
   formUrl: string;
   type: FormType;
@@ -88,14 +102,11 @@ export interface FormDetail {
   changedToRegular: boolean;
 }
 
-export type Gender = 'MALE' | 'FEMALE';
-
 export interface UserInfo {
   identificationPictureUri: string;
   name: string;
   phoneNumber: string;
-  birthday: string;
-  gender: Gender;
+  registrationNumber: string;
 }
 
 export interface ParentInfo {

@@ -38,6 +38,7 @@ const DetailTable = ({ formList }: DetailTableProps) => {
 export default DetailTable;
 
 const RatioInfoWrapper = styled.div`
-  ${flex({ flexDirection: 'column', justifyContent: 'space-between' })}
+  ${flex({ flexDirection: 'column' })}
   height: 100%;
+  gap: 64px;
 `;

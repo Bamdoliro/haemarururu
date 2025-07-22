@@ -9,219 +9,191 @@ import { EMPTY_VALUE } from '@/constants/common/constant';
 type DetailTableProps = { formList: GradeDistributionType[] | undefined };
 
 const DetailContent = ({ formList }: DetailTableProps) => {
-  const {
-    regularApplicant,
-    meisterTalentApplicant,
-    nationalBasicLivingApplicant,
-    nearPovertyApplicant,
-    nationalVeteransApplicant,
-    oneParentApplicant,
-    fromNorthKoreaApplicant,
-    multiculturalApplicant,
-    teenHouseholderApplicant,
-    multiChildrenApplicant,
-    farmingAndFishingApplicant,
-    specialAdmissionApplicant,
-    nationalVeteransEducationApplicant,
-  } = useMaxMinByType(formList);
+  const data = useMaxMinByType(formList);
+
+  const renderValue = (key: keyof typeof data) => {
+    return `${data[key].min} ~ ${data[key].max}`;
+  };
 
   return (
     <StyledDetailTable>
       <Column>
         <DetailHeader />
         <Row>
-          <Td width={140} height={44} styleType="ANALYSIS">
+          <Td width="25%" height={56}>
             일반 전형
           </Td>
-          <Td width={160} height={44} styleType="ANALYSIS">
+          <Td width="25%" height={56}>
             일반 전형
           </Td>
-          <Td width={160} height={44} styleType="ANALYSIS">
-            {EMPTY_VALUE}
+          <Td width="25%" height={56}>
+            {null}
           </Td>
-          <Td width={80} height={44} styleType="ANALYSIS">
-            {regularApplicant.max}
+          <Td width="12.5%" height={56}>
+            {renderValue('regularApplicant')}
           </Td>
-          <Td width={80} height={44} styleType="ANALYSIS">
-            {regularApplicant.min}
+          <Td width="12.5%" height={56}>
+            {renderValue('regularApplicant')}
           </Td>
         </Row>
         <Row>
-          <Td width={140} height={440} styleType="ANALYSIS">
+          <Td width="25%" height={1288}>
             특별 전형
           </Td>
-          <Column>
-            <Row>
-              <Td width={160} height={44} styleType="ANALYSIS">
-                마이스터 인재전형
-              </Td>
-              <Td width={160} height={44} styleType="ANALYSIS">
+          <Column width="25%">
+            <Td width="100%" height={392}>
+              기회균등 전형
+            </Td>
+            <Td width="100%" height={896}>
+              사회다양성 전형
+            </Td>
+          </Column>
+          <Column width="25%">
+            <Td width="100%" height={56}>
+              국가보훈대상자
+            </Td>
+            <Td width="100%" height={56}>
+              국민기초생활수급자
+            </Td>
+            <Td width="100%" height={56}>
+              한부모가족 보호대상자
+            </Td>
+            <Td width="100%" height={56}>
+              차상위계층
+            </Td>
+            <Td width="100%" height={56}>
+              차차상위계층
+            </Td>
+            <Td width="100%" height={56}>
+              학교장 추천
+            </Td>
+            <Td width="100%" height={56}>
+              교육감 추천
+            </Td>
+            <Td width="100%" height={56}>
+              다문화가족자녀
+            </Td>
+            <Td width="100%" height={56}>
+              북한이탈청소년
+            </Td>
+            <Td width="100%" height={56}>
+              특수교육대상자
+            </Td>
+            <Td width="100%" height={56}>
+              아동복지시설 보호학생
+            </Td>
+            <Td width="100%" height={56}>
+              소년•소녀 가장
+            </Td>
+            <Td width="100%" height={56}>
+              조손 가정 자녀
+            </Td>
+            <Td width="100%" height={56}>
+              장애인의 자녀
+            </Td>
+            <Td width="100%" height={56}>
+              순직 군경•소방관 등 자녀
+            </Td>
+            <Td width="100%" height={56}>
+              다자녀가정 자녀
+            </Td>
+          </Column>
+          <Column width="12.5%">
+            <Td width="100%" height={56}>
+              {renderValue('nationalVeteransApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('nationalBasicLivingApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('oneParentApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('nearPovertyApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('lowerMiddleApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('principalRecommendationApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('superintendentRecommendationApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('multiculturalApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('fromNorthKoreaApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('specialEducationStudentApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('childWelfareFacilityApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('teenHouseholderApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('grandfamilyApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('disabledParentApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('fallenHeroApplicant')}
+            </Td>
+            <Td width="100%" height={56}>
+              {renderValue('multiChildrenApplicant')}
+            </Td>
+          </Column>
+          <Column width="12.5%">
+            {[...Array(8)].map((_, i) => (
+              <Td key={i} width="100%" height={56}>
                 {EMPTY_VALUE}
               </Td>
-              <Td width={80} height={44} styleType="ANALYSIS">
-                {meisterTalentApplicant.max}
-              </Td>
-              <Td width={80} height={44} styleType="ANALYSIS">
-                {meisterTalentApplicant.min}
-              </Td>
-            </Row>
-            <Row>
-              <Td width={160} height={220} styleType="ANALYSIS">
-                기회균등 전형
-              </Td>
-              <Column>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    국민기초생활수급자
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nationalBasicLivingApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nationalBasicLivingApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    차상위계층
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nearPovertyApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nearPovertyApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    국가보훈대상자
-                    <br />
-                    (국가유공자)
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nationalVeteransApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {nationalVeteransApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    한부모가정보호대상자
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {oneParentApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {oneParentApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    북한이탈주민
-                    <br />
-                    또는 그 자녀
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {fromNorthKoreaApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {fromNorthKoreaApplicant.min}
-                  </Td>
-                </Row>
-              </Column>
-            </Row>
-            <Row>
-              <Td width={160} height={176} styleType="ANALYSIS">
-                사회다양성 전형
-              </Td>
-              <Column>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    다문화가정 자녀
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {multiculturalApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {multiculturalApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    소년 · 소녀가장
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {teenHouseholderApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {teenHouseholderApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    다자녀 가정 자녀
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {multiChildrenApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {multiChildrenApplicant.min}
-                  </Td>
-                </Row>
-                <Row>
-                  <Td width={160} height={44} styleType="ANALYSIS">
-                    농어촌지역출신자
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {farmingAndFishingApplicant.max}
-                  </Td>
-                  <Td width={80} height={44} styleType="ANALYSIS">
-                    {farmingAndFishingApplicant.min}
-                  </Td>
-                </Row>
-              </Column>
-            </Row>
+            ))}
+          </Column>
+        </Row>
+        <Row>
+          <Td width="25%" height={112} borderBottomLeftRadius={12}>
+            전형 외 전형
+          </Td>
+          <Column width="25%">
+            <Td width="100%" height={56}>
+              특례입학 대상자
+            </Td>
+            <Td width="100%" height={56}>
+              국가보훈대상자 중 교육지원대상자
+            </Td>
+          </Column>
+          <Column width="25%">
+            <Td width="100%" height={56}>
+              특례입학 대상자
+            </Td>
+            <Td width="100%" height={56}>
+              국가보훈대상자 중 교육지원대상자
+            </Td>
+          </Column>
+          <Column width="12.5%">
+            <Td width="100%" height={56}>
+              {EMPTY_VALUE}
+            </Td>
+            <Td width="100%" height={56}>
+              {EMPTY_VALUE}
+            </Td>
+          </Column>
+          <Column width="12.5%">
+            <Td width="100%" height={56}>
+              {EMPTY_VALUE}
+            </Td>
+            <Td width="100%" height={56} borderBottomRightRadius={12}>
+              {EMPTY_VALUE}
+            </Td>
           </Column>
         </Row>
       </Column>
-      <Row>
-        <Td width={140} height={88} borderBottomLeftRadius={12} styleType="ANALYSIS">
-          정원 외 전형
-        </Td>
-        <Column>
-          <Row>
-            <Td width={160} height={44} styleType="ANALYSIS">
-              국가보훈대상자 중
-              <br />
-              교육지원대상자
-            </Td>
-            <Td width={160} height={44} styleType="ANALYSIS">
-              {EMPTY_VALUE}
-            </Td>
-            <Td width={80} height={44} styleType="ANALYSIS">
-              {nationalVeteransEducationApplicant.max}
-            </Td>
-            <Td width={80} height={44} styleType="ANALYSIS">
-              {nationalVeteransEducationApplicant.min}
-            </Td>
-          </Row>
-          <Row>
-            <Td width={160} height={44} styleType="ANALYSIS">
-              특례입학 대상자
-            </Td>
-            <Td width={160} height={44} styleType="ANALYSIS">
-              {EMPTY_VALUE}
-            </Td>
-            <Td width={80} height={44} styleType="ANALYSIS">
-              {specialAdmissionApplicant.max}
-            </Td>
-            <Td width={80} height={44} borderBottomRightRadius={12} styleType="ANALYSIS">
-              {specialAdmissionApplicant.min}
-            </Td>
-          </Row>
-        </Column>
-      </Row>
     </StyledDetailTable>
   );
 };

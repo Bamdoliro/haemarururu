@@ -50,7 +50,7 @@ const ExportExcelModal = ({ isOpen, onClose }: ExportExcelModalProps) => {
             <CardRadioBox checked={exportExcelType === type}>
               <Text
                 fontType="context"
-                color={exportExcelType === type ? color.maruDefault : color.gray600}
+                color={exportExcelType === type ? color.haeMaruDefault : color.gray600}
               >
                 {type}
               </Text>

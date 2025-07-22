@@ -124,7 +124,7 @@ const CreateInputSort = styled.div`
 `;
 
 const CreateFairButton = styled.button`
-  background-color: ${color.maruDefault};
+  background-color: ${color.haeMaruDefault};
   color: ${color.white};
   border-radius: 6px;
   margin-top: 24px;

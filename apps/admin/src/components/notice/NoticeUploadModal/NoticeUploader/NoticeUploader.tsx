@@ -108,7 +108,8 @@ export default NoticeUploader;
 
 const StyledNoticeUploader = styled.div<{ isDragging: boolean }>`
   ${flex({ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' })};
-  border: 1px dashed ${(props) => (props.isDragging ? color.maruDefault : color.gray400)};
+  border: 1px dashed
+    ${(props) => (props.isDragging ? color.haeMaruDefault : color.gray400)};
   height: 240px;
   border-radius: 6px;
   background: ${color.gray50};

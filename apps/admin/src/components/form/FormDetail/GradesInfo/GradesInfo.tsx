@@ -6,8 +6,6 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 import Grade from './Grade/Grade';
 import AttendanceStatus from './AttendanceStatus/AttendanceStatus';
-import Volunteer from './Volunteer/Volunteer';
-import Certificate from './Certificate/Certificate';
 import { useFormDetailQuery } from '@/services/form/queries';
 
 interface GradesInfoProps {
@@ -53,8 +51,6 @@ const GradesInfo = ({ id }: GradesInfoProps) => {
         caseBy={{
           '교과 성적': <Grade subjectList={gradesData.subjectList} />,
           '출결 상황': <AttendanceStatus attendanceList={gradesData.attendanceList} />,
-          '봉사 시간': <Volunteer VolunteerList={gradesData.volunteerList} />,
-          자격증: <Certificate certificateList={gradesData.certificateList} />,
         }}
       />
     </StyledGradesInfo>

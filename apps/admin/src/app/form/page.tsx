@@ -161,14 +161,14 @@ const FormPage = () => {
                 <ReviewFilterBox>
                   <Row alignItems="center" gap={4}>
                     <IconFilter width={24} height={24} />
-                    <Text fontType="context" color={color.maruDefault}>
+                    <Text fontType="context" color={color.haeMaruDefault}>
                       검토해야 하는 원서
                     </Text>
                   </Row>
                   <IconClose
                     width={18}
                     height={18}
-                    color={color.maruDefault}
+                    color={color.haeMaruDefault}
                     cursor="pointer"
                     onClick={handleFormListTypeAll}
                   />

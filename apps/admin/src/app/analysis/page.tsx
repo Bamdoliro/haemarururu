@@ -10,7 +10,6 @@ import { ANALYSIS_TYPE } from '@/constants/analysis/constant';
 import { useState } from 'react';
 import { SwitchCase } from '@toss/react';
 import ApplicationTypeRatio from '@/components/analysis/ApplicationTypeRatio/ApplicationTypeRatio';
-import GenderRatio from '@/components/analysis/GenderRatio/GenderRatio';
 import GraduatedSchool from '@/components/analysis/GraduatedSchool/GraduatedSchool';
 import GradeDistribution from '@/components/analysis/GradeDistribution/GradeDistribution';
 
@@ -38,7 +37,6 @@ const AnalysisPage = () => {
               '지원자 수 (경쟁률)': <ApplicantCount />,
               '성적 분포': <GradeDistribution />,
               '지원 전형 비율': <ApplicationTypeRatio />,
-              '지원자 성비': <GenderRatio />,
               '출신 학교 현황': <GraduatedSchool />,
             }}
           />

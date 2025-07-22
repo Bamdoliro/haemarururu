@@ -3,7 +3,6 @@ import type {
   FormSort,
   FormStatus,
   FormType,
-  Gender,
   GraduationType,
 } from '@/types/form/client';
 
@@ -23,18 +22,31 @@ export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
 
 export const FORM_TYPE_CATEGORY: Record<FormType, string> = {
   REGULAR: '일반전형',
-  MEISTER_TALENT: '마이스터인재전형',
-  NATIONAL_BASIC_LIVING: '국가기초생활수급권자',
-  NATIONAL_VETERANS_EDUCATION: '국가보훈대상자 중 교육지원대상자녀',
+  NATIONAL_VETERANS: '국가보훈대상자',
+  NATIONAL_BASIC_LIVING: '국민기초생활수급권자',
+  ONE_PARENT: '한부모가족 보호대상자',
   NEAR_POVERTY: '차상위계층',
-  NATIONAL_VETERANS: '국가보훈자녀',
-  ONE_PARENT: '한부모가정',
-  FROM_NORTH_KOREA: '북한이탈주민',
-  MULTICULTURAL: '다문화가정',
-  TEEN_HOUSEHOLDER: '소년소녀가장',
-  MULTI_CHILDREN: '다자녀가정자녀',
-  FARMING_AND_FISHING: '농어촌지역출신자',
-  SPECIAL_ADMISSION: '특례입학대상자',
+  LOWER_MIDDLE: '차차상위계층',
+  PRINCIPAL_RECOMMENDATION: '학교장 추천',
+  SUPERINTENDENT_RECOMMENDATION: '교육감추천',
+  MULTICULTURAL: '다문화가족자녀',
+  FROM_NORTH_KOREA: '북한이탈청소년',
+  SPECIAL_EDUCATION_STUDENT: '특수교육대상자',
+  CHILD_WELFARE_FACILITY: '아동복지시설 보호학생',
+  TEEN_HOUSEHOLDER: '소년·소녀 가장',
+  GRANDFAMILY: '조손 가정 자녀',
+  DISABLED_PARENT: '장애인의 자녀',
+  FALLEN_HERO: '순직 군경·소방관 등 자녀',
+  MULTI_CHILDREN: '다자녀가정 자녀',
+  NON_STATUTORY_ONE_PARENT: '한부모가족 자녀(비법정)',
+  WELFARE_FACILITY_WORKER: '복지시설 운영자·종사자 자녀 ',
+  PUBLIC_SERVANT: '경찰·군인·소방공무원 자녀',
+  STREET_CLEANER: '환경미화원 자녀',
+  DEPLOYED_SOLDIER: '우편집배원 자녀',
+  INTANGIBLE_CULTURAL_HERITAGE: '무형 문화재 보유자 자녀',
+  SAILOR: '선원 자녀',
+  SPECIAL_ADMISSION: '특례입학대상자전형',
+  NATIONAL_VETERANS_EDUCATION: '교육지원대상자 전형',
 } as const;
 
 export const FORM_SORTING_CATEGORY: Record<FormSort, string> = {
@@ -65,11 +77,6 @@ export const FORM_DETAIL_FIELDS = [
   '성적',
   '자기소개서',
 ] as const;
-
-export const GENDER: Record<Gender, string> = {
-  MALE: '남자',
-  FEMALE: '여자',
-} as const;
 
 export const GRADUATION_TYPE_VALUE: Record<GraduationType, string> = {
   QUALIFICATION_EXAMINATION: '검정고시',
