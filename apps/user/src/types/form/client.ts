@@ -59,8 +59,9 @@ export interface Form {
     certificateList: Certificate[];
   };
   document: {
-    coverLetter: string;
+    leaningExperience: string;
     statementOfPurpose: string;
+    personality: string;
   };
   type: FormType;
 }
