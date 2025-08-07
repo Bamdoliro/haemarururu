@@ -6,6 +6,7 @@ import { formatDate, useFormStep } from '@/utils';
 import { useEffect, useState } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { z } from 'zod';
+import formatBirthday from '@/utils/formatBirthday';
 
 export const useApplicantForm = () => {
   const form = useFormValueStore();
@@ -16,7 +17,8 @@ export const useApplicantForm = () => {
   const { run: FormStep } = useFormStep();
 
   const formatter: Record<string, (value: string) => string> = {
-    birthday: (value) => formatDate(value.replace(/\D/g, '')),
+    registrationNumber: (value) => formatDate(value.replace(/\D/g, '')),
+    birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
   };
 
