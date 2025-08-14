@@ -2,9 +2,9 @@ import { useUser } from '@/hooks';
 import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
 import { useFormValueStore, useSetFormStore } from '@/stores';
-import { formatDate, useFormStep } from '@/utils';
+import { useFormStep } from '@/utils';
 import { useEffect, useState } from 'react';
-import type { ChangeEventHandler } from 'react';
+import type { ChangeEvent } from 'react';
 import { z } from 'zod';
 import formatBirthday from '@/utils/formatBirthday';
 
@@ -17,7 +17,7 @@ export const useApplicantForm = () => {
   const { run: FormStep } = useFormStep();
 
   const formatter: Record<string, (value: string) => string> = {
-    registrationNumber: (value) => formatDate(value.replace(/\D/g, '')),
+    registrationNumber: (value) => value.replace(/\D/g, ''),
     birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
     gender: () =>
@@ -34,21 +34,33 @@ export const useApplicantForm = () => {
       },
     }));
   }, [
-    saveFormQuery?.applicant.name,
-    saveFormQuery?.applicant.phoneNumber,
+    saveFormQuery?.applicant?.name,
+    saveFormQuery?.applicant?.phoneNumber,
     setForm,
     userData,
   ]);
 
-  const onFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.target;
+  type OnArg = string | ChangeEvent<HTMLInputElement>;
+
+  const onFieldChange = (arg: OnArg) => {
+    const name =
+      typeof arg === 'string'
+        ? (document.activeElement as HTMLInputElement | null)?.name ?? ''
+        : arg.target.name;
+
+    const value = typeof arg === 'string' ? arg : arg.target.value;
+    if (!name) return;
+
+    const nextVal = formatter[name] ? formatter[name](value) : value;
+
     setForm((prev) => ({
       ...prev,
       applicant: {
         ...prev.applicant,
-        [name]: formatter[name] ? formatter[name](value) : value,
+        [name]: nextVal,
       },
     }));
+
     if (errors[name]?.length) {
       setErrors((prev) => ({ ...prev, [name]: [] }));
     }
