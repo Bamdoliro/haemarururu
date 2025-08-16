@@ -17,9 +17,9 @@ const ApplicantInformationContent = () => {
         <Column gap={30} width={492}>
           <Input
             label="성명"
-            value={form.applicant.name}
-            onChange={onFieldChange}
             name="name"
+            value={form.applicant.name ?? ''}
+            onChange={onFieldChange}
             placeholder="예) 홍길동"
             width="100%"
             isError={!!errors.name?.length}
@@ -27,19 +27,19 @@ const ApplicantInformationContent = () => {
           />
           <Input
             label="주민등록번호"
-            name="birthday"
-            value={form.applicant.registrationNumber}
+            name="registrationNumber"
+            value={form.applicant.registrationNumber ?? ''}
             onChange={onFieldChange}
             placeholder="주민등록번호를 입력해주세요."
             width="100%"
-            isError={!!errors.birthday?.length}
-            errorMessage={errors.birthday ? errors.birthday[0] : ''}
+            isError={!!errors.registrationNumber?.length}
+            errorMessage={errors.registrationNumber ? errors.registrationNumber[0] : ''}
           />
           <Input
             label="전화번호"
-            value={form.applicant.phoneNumber}
-            onChange={onFieldChange}
             name="phoneNumber"
+            value={form.applicant.phoneNumber ?? ''}
+            onChange={onFieldChange}
             placeholder="- 없이 입력해주세요."
             width="100%"
             isError={!!errors.phoneNumber?.length}

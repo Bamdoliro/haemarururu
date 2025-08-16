@@ -1,6 +1,6 @@
 import { ROUTES } from '@/constants/common/constants';
 import { SCHEDULE } from '@/constants/form/constants';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const useSchoolRecruitDate = () => {
