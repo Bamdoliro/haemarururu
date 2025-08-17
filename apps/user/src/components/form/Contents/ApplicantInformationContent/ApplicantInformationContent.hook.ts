@@ -20,8 +20,6 @@ export const useApplicantForm = () => {
     registrationNumber: (value) => value.replace(/\D/g, ''),
     birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
-    gender: () =>
-      (form.applicant.registrationNumber ?? '').charAt(6) === '3' ? 'MALE' : 'FEMALE',
   };
 
   useEffect(() => {
@@ -31,6 +29,7 @@ export const useApplicantForm = () => {
         ...prev.applicant,
         name: saveFormQuery?.applicant.name ?? userData.name,
         phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
+        gender: 'MALE',
       },
     }));
   }, [
