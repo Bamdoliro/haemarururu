@@ -9,3 +9,4 @@ export { default as formatDate } from './formatDate';
 export { default as downloadFile } from './useDownloadFile';
 export { default as bitmapToBlob } from './bitmapToBlob';
 export { default as useFormStep } from './formStep';
+export { default as formatBirthday } from './formatBirthday';

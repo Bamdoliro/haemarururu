@@ -2,11 +2,10 @@ import { useUser } from '@/hooks';
 import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
 import { useFormValueStore, useSetFormStore } from '@/stores';
-import { useFormStep } from '@/utils';
+import { useFormStep, formatDate, formatBirthday } from '@/utils';
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
-import formatBirthday from '@/utils/formatBirthday';
 
 export const useApplicantForm = () => {
   const form = useFormValueStore();
@@ -17,7 +16,7 @@ export const useApplicantForm = () => {
   const { run: FormStep } = useFormStep();
 
   const formatter: Record<string, (value: string) => string> = {
-    registrationNumber: (value) => value.replace(/\D/g, ''),
+    registrationNumber: (value) => formatDate(value.replace(/\D/g, '')),
     birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
   };
