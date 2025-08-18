@@ -7,7 +7,7 @@ export const ApplicantSchema = z.object({
     .nonempty('이름을 입력해 주세요.')
     .min(2, '이름은 2자 이상이어야 합니다.')
     .max(20, '이름은 20자 이하이어야 합니다.'),
-  registrationNumber: z.string().length(10, '주민등록번호를 정확히 입력해주세요.'),
+  registrationNumber: z.string().length(14, '주민등록번호를 정확히 입력해주세요.'),
   phoneNumber: z
     .string()
     .trim()
