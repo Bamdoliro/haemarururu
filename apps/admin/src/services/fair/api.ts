@@ -16,7 +16,7 @@ export const getFairDetail = async (id: number) => {
 };
 
 export const getFairExportExcel = async (id: number) => {
-  const { data } = await maru.get(`/fair/${id}/export`, {
+  const { data } = await maru.get(`/fairs/${id}/export`, {
     ...authorization(),
     responseType: 'blob',
   });

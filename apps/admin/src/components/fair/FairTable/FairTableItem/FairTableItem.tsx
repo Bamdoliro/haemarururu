@@ -58,7 +58,7 @@ const FairTableItem = ({
           fontType="p2"
           width={120}
           ellipsis={true}
-          onClick={handleFairQuestionModalButtonClick}
+          onClick={question ? handleFairQuestionModalButtonClick : undefined}
         >
           {question}
         </TextButton>
