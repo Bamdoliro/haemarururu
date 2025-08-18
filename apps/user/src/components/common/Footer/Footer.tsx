@@ -2,7 +2,6 @@ import { ROUTES } from '@/constants/common/constants';
 import { color, font } from '@maru/design-system';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -11,7 +10,13 @@ const Footer = () => {
     <StyledFooter>
       <FooterBox>
         <Column gap={40} height={262}>
-          <Image src="/svg/maruGrayLogo.svg" width={107} height={32} alt="logo" />
+          <img
+            loading="lazy"
+            src="/svg/maruGrayLogo.svg"
+            width={107}
+            height={32}
+            alt="logo"
+          />
           <Column gap={8}>
             <InfoBox>
               <Text fontType="p2" color={color.gray600}>

@@ -1,7 +1,6 @@
 import { PolicyRoule } from '@/components/policy';
 import { color, font } from '@maru/design-system';
 import { Column } from '@maru/ui';
-import Image from 'next/image';
 import { styled } from 'styled-components';
 
 type Font = keyof typeof font;
@@ -57,7 +56,13 @@ const Chpater06 = () => {
           </ol>
         </StyledText>
       </PolicyRoule>
-      <Image src="/images/privacy.png" width={680} height={591} alt="privacy" />
+      <img
+        loading="lazy"
+        src="/images/privacy.png"
+        width={680}
+        height={591}
+        alt="privacy"
+      />
     </Column>
   );
 };

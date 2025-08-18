@@ -1,7 +1,6 @@
 import { ROUTES } from '@/constants/common/constants';
 import { color } from '@maru/design-system';
 import { Button, Row, UnderlineButton } from '@maru/ui';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Profile from './Profile/Profile';
@@ -34,12 +33,13 @@ const Header = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Image
+          <img
             src="/svg/HaeMaruLogo.svg"
             width={264.739}
             height={31.98}
             style={{ cursor: 'pointer' }}
             alt="logo"
+            loading="lazy"
             onClick={() => router.push(ROUTES.MAIN)}
           />
           {isLogIn ? (
