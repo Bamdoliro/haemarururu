@@ -25,6 +25,10 @@ export const useApplicantForm = () => {
   };
 
   useEffect(() => {
+    const birthday = formatter.birthday(
+      saveFormQuery?.applicant?.registrationNumber ?? ''
+    );
+
     setForm((prev) => ({
       ...prev,
       applicant: {
@@ -32,6 +36,7 @@ export const useApplicantForm = () => {
         name: saveFormQuery?.applicant.name ?? userData.name,
         phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
         gender: 'MALE',
+        birthday,
       },
     }));
   }, [
