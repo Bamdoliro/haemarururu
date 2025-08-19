@@ -11,33 +11,37 @@ interface NoticeDetailContentProps {
 }
 
 const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
-  const { data: noticeDetailDta } = useNoticeDetailQuery(id);
+  const { data: noticeDetailData } = useNoticeDetailQuery(id);
   const { handleFileDownload, handleOpenFileWindow } = useNoticeFile();
 
   return (
     <StyledNoticeDetailContent>
       <NoticeDetailHeader>
         <Text fontType="H3" color={color.gray900}>
-          {noticeDetailDta?.title}
+          {noticeDetailData?.title}
         </Text>
         <Text fontType="p2" color={color.gray750}>
-          {formatCreatedAt(noticeDetailDta?.updatedAt ?? '')}
+          {formatCreatedAt(noticeDetailData?.updatedAt ?? '')}
         </Text>
       </NoticeDetailHeader>
       <Column gap={36}>
         <Content
           dangerouslySetInnerHTML={{
-            __html: convertLink(noticeDetailDta?.content ?? ''),
+            __html: convertLink(noticeDetailData?.content ?? ''),
           }}
         />
-        {noticeDetailDta?.fileList?.map((file, index) => (
-          <DownloadButton
-            key={index}
-            fileName={file.fileName}
-            buttonClick={() => handleFileDownload(file.downloadUrl, file.fileName)}
-            textClick={() => handleOpenFileWindow(file.downloadUrl)}
-          />
-        ))}
+        {noticeDetailData?.fileList && (
+          <Column gap={12}>
+            {noticeDetailData?.fileList?.map((file, index) => (
+              <DownloadButton
+                key={index}
+                fileName={file.fileName}
+                buttonClick={() => handleFileDownload(file.downloadUrl, file.fileName)}
+                textClick={() => handleOpenFileWindow(file.downloadUrl)}
+              />
+            ))}
+          </Column>
+        )}
       </Column>
     </StyledNoticeDetailContent>
   );

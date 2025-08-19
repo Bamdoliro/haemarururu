@@ -1,4 +1,3 @@
-import { formatFileName } from '@/utils';
 import { color } from '@maru/design-system';
 import { IconClip } from '@maru/icon';
 import { Text } from '@maru/ui';
@@ -17,7 +16,7 @@ const DownloadButton = ({ buttonClick, textClick, fileName }: DownloadButtonProp
       <FileDownloadButton onClick={buttonClick}>
         <IconClip width={19} height={12} color={color.gray700} />
         <Text fontType="p3" color={color.gray700}>
-          {formatFileName(fileName)}
+          {fileName}
         </Text>
       </FileDownloadButton>
       {!fileName.endsWith('.hwp') && (
