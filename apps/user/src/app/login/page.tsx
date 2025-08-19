@@ -6,7 +6,6 @@ import { color, font } from '@maru/design-system';
 import { IconArrowRight } from '@maru/icon';
 import { Button, Column, Input, PreviewInput } from '@maru/ui';
 import { flex } from '@maru/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useCTAButton, useInput, useKeyDown, useLoginAction } from './login.hook';
@@ -29,13 +28,14 @@ const Login = () => {
             width={446}
             height="100%"
           >
-            <Image
+            <img
               src="/svg/maruLogo.svg"
               onClick={handleMoveMainPage}
               style={{ cursor: 'pointer' }}
               width={232}
               height={70}
               alt="logo"
+              loading="lazy"
             />
             <Column gap={36} width="100%">
               <Column gap={24}>
