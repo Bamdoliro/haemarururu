@@ -41,12 +41,14 @@ const LoginContent = () => {
                 label="전화번호"
                 width="100%"
                 name="phoneNumber"
+                placeholder="전화번호을 입력해주세요."
                 onChange={handleLoginAdminDataChange}
               />
               <PreviewInput
                 label="비밀번호"
                 width="100%"
                 name="password"
+                placeholder="비밀번호를 입력해주세요."
                 onChange={handleLoginAdminDataChange}
                 onKeyDown={handleEnterKeyPress}
               />
