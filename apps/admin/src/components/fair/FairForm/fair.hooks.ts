@@ -32,13 +32,19 @@ export const useFairForm = () => {
   };
 
   const handleDateChange = (value: string) => {
-    const newStart = value + form.start.slice(8);
-    setForm((prev) => ({ ...prev, start: newStart }));
+    const raw = value.replace(/\D/g, '').slice(0, 8);
+    setForm((prev) => ({
+      ...prev,
+      start: raw + prev.start.slice(8),
+    }));
   };
 
   const handleTimeChange = (value: string) => {
-    const newStart = form.start.slice(0, 8) + value;
-    setForm((prev) => ({ ...prev, start: newStart }));
+    const raw = value.replace(/\D/g, '').slice(0, 4);
+    setForm((prev) => ({
+      ...prev,
+      start: prev.start.slice(0, 8) + raw,
+    }));
   };
 
   const handleSubmit = () => {

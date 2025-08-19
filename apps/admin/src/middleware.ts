@@ -20,12 +20,12 @@ export const middleware = (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    // '/form/:path*',
-    // '/notice/:path*',
+    '/form/:path*',
+    '/notice/:path*',
     '/faq/:path*',
-    // '/message/:path*',
-    // '/fair/:path*',
-    // '/registration/:path*',
-    // '/analysis/:path*',
+    '/message/:path*',
+    '/fair/:path*',
+    '/registration/:path*',
+    '/analysis/:path*',
   ],
 };
