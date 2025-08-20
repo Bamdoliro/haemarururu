@@ -208,9 +208,13 @@ const ProfileUploader = () => {
           </Column>
         </UploadImageBox>
       )}
-      {(previewUrl || profileUrl) && (
+      {fileSize ? (
         <Button size="SMALL" onClick={openFileUploader}>
           재업로드
+        </Button>
+      ) : (
+        <Button size="SMALL" onClick={openFileUploader}>
+          업로드
         </Button>
       )}
       <Desc>
