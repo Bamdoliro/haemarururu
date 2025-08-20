@@ -27,13 +27,13 @@ const ApplicantInformationContent = () => {
           />
           <Input
             label="주민등록번호"
-            name="birthday"
+            name="registrationNumber"
             value={form.applicant.registrationNumber}
             onChange={onFieldChange}
             placeholder="주민등록번호를 입력해주세요."
             width="100%"
-            isError={!!errors.birthday?.length}
-            errorMessage={errors.birthday ? errors.birthday[0] : ''}
+            isError={!!errors.registrationNumber?.length}
+            errorMessage={errors.registrationNumber ? errors.registrationNumber[0] : ''}
           />
           <Input
             label="전화번호"

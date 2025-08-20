@@ -2,9 +2,9 @@ import { useUser } from '@/hooks';
 import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
 import { useFormValueStore, useSetFormStore } from '@/stores';
-import { formatDate, useFormStep } from '@/utils';
+import { useFormStep, formatBirthday } from '@/utils';
 import { useEffect, useState } from 'react';
-import type { ChangeEventHandler } from 'react';
+import type { ChangeEvent } from 'react';
 import { z } from 'zod';
 
 export const useApplicantForm = () => {
@@ -16,35 +16,57 @@ export const useApplicantForm = () => {
   const { run: FormStep } = useFormStep();
 
   const formatter: Record<string, (value: string) => string> = {
-    birthday: (value) => formatDate(value.replace(/\D/g, '')),
+    registrationNumber: (value) => {
+      const num = value.replace(/\D/g, '').slice(0, 13);
+      return num.length > 6 ? `${num.slice(0, 6)}-${num.slice(6)}` : num;
+    },
+    birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
   };
 
   useEffect(() => {
+    const birthday = formatter.birthday(
+      saveFormQuery?.applicant?.registrationNumber ?? ''
+    );
+
     setForm((prev) => ({
       ...prev,
       applicant: {
         ...prev.applicant,
         name: saveFormQuery?.applicant.name ?? userData.name,
         phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
+        gender: 'MALE',
+        birthday,
       },
     }));
   }, [
-    saveFormQuery?.applicant.name,
-    saveFormQuery?.applicant.phoneNumber,
+    saveFormQuery?.applicant?.name,
+    saveFormQuery?.applicant?.phoneNumber,
     setForm,
     userData,
   ]);
 
-  const onFieldChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.target;
+  type OnArg = string | ChangeEvent<HTMLInputElement>;
+
+  const onFieldChange = (arg: OnArg) => {
+    const name =
+      typeof arg === 'string'
+        ? (document.activeElement as HTMLInputElement | null)?.name ?? ''
+        : arg.target.name;
+
+    const value = typeof arg === 'string' ? arg : arg.target.value;
+    if (!name) return;
+
+    const nextVal = formatter[name] ? formatter[name](value) : value;
+
     setForm((prev) => ({
       ...prev,
       applicant: {
         ...prev.applicant,
-        [name]: formatter[name] ? formatter[name](value) : value,
+        [name]: nextVal,
       },
     }));
+
     if (errors[name]?.length) {
       setErrors((prev) => ({ ...prev, [name]: [] }));
     }
