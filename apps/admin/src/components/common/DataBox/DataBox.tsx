@@ -30,13 +30,15 @@ const DataBox = ({
   };
 
   return (
-    <StyledDataBox lengthType={lengthType}>
+    <StyledDataBox viewType={ViewType} onClick={handleToggle}>
       <Row width="100%" justifyContent="space-between" alignItems="center">
-        <Text fontType="H4" color={color.gray900}>
-          {label}
-        </Text>
+        <TextWrapper style={{ marginRight: ViewType === 'TOGGLE' ? '50px' : '0' }}>
+          <Text fontType="H4" color={color.gray900} whiteSpace="pre-wrap">
+            {label}
+          </Text>
+        </TextWrapper>
         {ViewType === 'TOGGLE' && (
-          <ArrowWrapper isOpen={isOpen} onClick={handleToggle}>
+          <ArrowWrapper isOpen={isOpen}>
             <IconArrowBottom width={24} height={24} color={color.gray600} />
           </ArrowWrapper>
         )}
@@ -44,9 +46,11 @@ const DataBox = ({
 
       {isOpen && (
         <DataUnderlineBox lengthType={lengthType}>
-          <Text fontType="p2" color={color.gray900}>
-            {data}
-          </Text>
+          <TextWrapper>
+            <Text fontType="p2" color={color.gray900} whiteSpace="pre-wrap">
+              {data}
+            </Text>
+          </TextWrapper>
         </DataUnderlineBox>
       )}
     </StyledDataBox>
@@ -54,16 +58,18 @@ const DataBox = ({
 };
 export default DataBox;
 
-const StyledDataBox = styled.div<{ lengthType: LengthType }>`
+const StyledDataBox = styled.div<{ viewType: ViewType }>`
   ${flex({ flexDirection: 'column', alignItems: 'flex-start' })}
-  width: ${(props) => (props.lengthType === 'SHORT' ? '100%' : 'fit-content')};
+  width: 100%;
   min-width: 400px;
+  max-width: 100%;
   padding: 24px;
   gap: 16px;
 
   border-radius: 12px;
   border: 1px solid ${color.gray200};
   background: ${color.white};
+  cursor: ${(props) => (props.viewType === 'TOGGLE' ? 'pointer' : 'default')};
 `;
 
 const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
@@ -74,8 +80,13 @@ const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
 `;
 
 const ArrowWrapper = styled.div<{ isOpen: boolean }>`
+  visibility: ${(props) => (props.isOpen ? 'hidden' : 'visible')};
+  width: 24px;
   display: flex;
-  transform: rotate(${(props) => (props.isOpen ? '180deg' : '0deg')});
-  transition: transform 0.2s ease-in-out;
-  cursor: pointer;
+`;
+
+const TextWrapper = styled.div`
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
 `;
