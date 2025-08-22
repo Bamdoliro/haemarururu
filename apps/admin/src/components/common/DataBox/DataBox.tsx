@@ -62,7 +62,7 @@ export default DataBox;
 const StyledDataBox = styled.div<{ lengthType: LengthType; viewType: ViewType }>`
   ${flex({ flexDirection: 'column', alignItems: 'flex-start' })}
   width: 100%;
-  max-width: ${(props) => (props.lengthType === 'LONG' ? '800px' : '400px')};
+  max-width: ${(props) => (props.lengthType === 'LONG' ? '1000px' : '400px')};
   min-width: 0;
   padding: 24px;
   gap: 16px;
@@ -71,6 +71,30 @@ const StyledDataBox = styled.div<{ lengthType: LengthType; viewType: ViewType }>
   border: 1px solid ${color.gray200};
   background: ${color.white};
   cursor: ${(props) => (props.viewType === 'TOGGLE' ? 'pointer' : 'default')};
+
+  ${(props) =>
+    props.lengthType === 'LONG' &&
+    `
+      @media (max-width: 1919px) {
+        max-width: 800px;
+      }
+
+      @media (max-width: 1439px) {
+        max-width: 600px;
+      }
+
+      @media (max-width: 1279px) {
+        max-width: 500px;
+      }
+
+      @media (max-width: 1023px) {
+        max-width: 600px;
+      }
+
+      @media (max-width: 767px) {
+        max-width: 400px;
+      }
+    `}
 `;
 
 const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
