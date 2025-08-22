@@ -38,7 +38,7 @@ const DocumentInfo = ({ id }: DocumentInfoProps) => {
           label={item.label}
           data={item.data}
           lengthType="LONG"
-          ViewType="TOGGLE"
+          viewType="TOGGLE"
         />
       ))}
     </StyledDocumentInfo>

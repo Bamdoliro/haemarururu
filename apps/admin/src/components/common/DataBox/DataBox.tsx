@@ -12,32 +12,32 @@ interface DataBoxProps {
   label: string;
   data: string | number;
   lengthType?: LengthType;
-  ViewType?: ViewType;
+  viewType?: ViewType;
 }
 
 const DataBox = ({
   label,
   data,
   lengthType = 'SHORT',
-  ViewType = 'NORMAL',
+  viewType = 'NORMAL',
 }: DataBoxProps) => {
-  const [isOpen, setIsOpen] = useState(ViewType === 'NORMAL');
+  const [isOpen, setIsOpen] = useState(viewType === 'NORMAL');
 
   const handleToggle = () => {
-    if (ViewType === 'TOGGLE') {
+    if (viewType === 'TOGGLE') {
       setIsOpen((prev) => !prev);
     }
   };
 
   return (
-    <StyledDataBox viewType={ViewType} onClick={handleToggle}>
+    <StyledDataBox viewType={viewType} lengthType={lengthType} onClick={handleToggle}>
       <Row width="100%" justifyContent="space-between" alignItems="center">
-        <TextWrapper style={{ marginRight: ViewType === 'TOGGLE' ? '50px' : '0' }}>
+        <TextWrapper style={{ marginRight: viewType === 'TOGGLE' ? '50px' : '0' }}>
           <Text fontType="H4" color={color.gray900} whiteSpace="pre-wrap">
             {label}
           </Text>
         </TextWrapper>
-        {ViewType === 'TOGGLE' && (
+        {viewType === 'TOGGLE' && (
           <ArrowWrapper isOpen={isOpen}>
             <IconArrowBottom width={24} height={24} color={color.gray600} />
           </ArrowWrapper>
@@ -56,13 +56,14 @@ const DataBox = ({
     </StyledDataBox>
   );
 };
+
 export default DataBox;
 
-const StyledDataBox = styled.div<{ viewType: ViewType }>`
+const StyledDataBox = styled.div<{ lengthType: LengthType; viewType: ViewType }>`
   ${flex({ flexDirection: 'column', alignItems: 'flex-start' })}
   width: 100%;
-  min-width: 400px;
-  max-width: 100%;
+  max-width: ${(props) => (props.lengthType === 'LONG' ? '800px' : '400px')};
+  min-width: 0;
   padding: 24px;
   gap: 16px;
 
@@ -74,7 +75,8 @@ const StyledDataBox = styled.div<{ viewType: ViewType }>`
 
 const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
   ${flex({ alignItems: 'flex-start' })}
-  width: ${(props) => (props.lengthType === 'SHORT' ? '60%' : '100%')};
+  width: 100%;
+  max-width: ${(props) => (props.lengthType === 'SHORT' ? '60%' : '100%')};
   padding-bottom: 4px;
   border-bottom: 1px solid ${color.gray200};
 `;
@@ -82,11 +84,15 @@ const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
 const ArrowWrapper = styled.div<{ isOpen: boolean }>`
   visibility: ${(props) => (props.isOpen ? 'hidden' : 'visible')};
   width: 24px;
+  min-width: 24px;
   display: flex;
+  flex-shrink: 0;
 `;
 
 const TextWrapper = styled.div`
   flex: 1;
   min-width: 0;
   word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 `;
