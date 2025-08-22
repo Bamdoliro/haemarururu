@@ -30,8 +30,8 @@ import {
 import { color } from '@maru/design-system';
 import { useOverlay } from '@toss/use-overlay';
 import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/SecondScoreUploadModal';
-import { useAutoSecondRoundResultMutation } from '@/services/form/mutations';
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
+import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
 
 const FormPage = () => {
   const {
@@ -61,7 +61,7 @@ const FormPage = () => {
 
   const overlay = useOverlay();
 
-  const openSecondScoreUplaodModal = () => {
+  const openSecondScoreUploadModal = () => {
     overlay.open(({ isOpen, close }) => (
       <SecondScoreUploadModal isOpen={isOpen} onClose={close} />
     ));
@@ -73,10 +73,10 @@ const FormPage = () => {
     ));
   };
 
-  const { autoSecondRoundResult } = useAutoSecondRoundResultMutation();
-
-  const handleAutoSecondRoundResult = () => {
-    autoSecondRoundResult();
+  const openAutoSecondRoundResultModal = () => {
+    overlay.open(({ isOpen, close }) => (
+      <AutoSecondRoundResultModal isOpen={isOpen} onClose={close} />
+    ));
   };
 
   return (
@@ -216,7 +216,7 @@ const FormPage = () => {
                       icon: <IconEditDocument width={24} height={24} />,
                       label: '2차 전형 점수 입력하기',
                       value: 'input_second_round_scores',
-                      onClick: openSecondScoreUplaodModal,
+                      onClick: openSecondScoreUploadModal,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
@@ -228,7 +228,7 @@ const FormPage = () => {
                       icon: <IconEditAllDocument width={24} height={24} />,
                       label: '2차 합격자 자동 선발',
                       value: 'auto_select_second_round',
-                      onClick: handleAutoSecondRoundResult,
+                      onClick: openAutoSecondRoundResultModal,
                     },
                     {
                       icon: <IconUpload width={24} height={24} />,
