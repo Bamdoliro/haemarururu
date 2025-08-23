@@ -27,6 +27,8 @@ const ProfileUploader = () => {
   const mediaType = Storage.getItem('mediaType');
   const fileSize = Storage.getItem('fileSize');
 
+  const imgSrc = previewUrl ?? profileUrl?.downloadUrl ?? null;
+
   const { refreshProfileMutate } = useRefreshProfileMutation({
     fileName: fileName ?? '',
     mediaType: mediaType ?? '',
@@ -180,15 +182,14 @@ const ProfileUploader = () => {
     },
     [handleFile]
   );
-
   return (
     <StyledProfileUploader>
       <Text fontType="context" color={color.gray700}>
         증명사진
       </Text>
-      {previewUrl ? (
+      {imgSrc ? (
         <ImagePreview src={previewUrl} alt="preview-image" />
-      ) : profileUrl ? (
+      ) : profileUrl?.downloadUrl ? (
         <ImagePreview src={profileUrl.downloadUrl} alt="profile-image" />
       ) : (
         <UploadImageBox
@@ -208,13 +209,9 @@ const ProfileUploader = () => {
           </Column>
         </UploadImageBox>
       )}
-      {fileSize ? (
+      {imgSrc && (
         <Button size="SMALL" onClick={openFileUploader}>
           재업로드
-        </Button>
-      ) : (
-        <Button size="SMALL" onClick={openFileUploader}>
-          업로드
         </Button>
       )}
       <Desc>
