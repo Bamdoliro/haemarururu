@@ -13,6 +13,7 @@ export const useAddNewSubject = () => {
       achievementLevel21: '-',
       achievementLevel22: '-',
       achievementLevel31: '-',
+      achievementLevel32: '-',
       score: null,
     };
     setNewSubjectList((prev) => [...prev, newSubject]);
