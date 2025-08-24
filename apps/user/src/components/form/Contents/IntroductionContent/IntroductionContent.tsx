@@ -50,7 +50,7 @@ const IntroductionContent = () => {
             limit={700}
             label="1. 중학교 재학 중 자기주도적으로 수행한 활동 중 가장 큰 성취감을 느꼈던 학습 경험에 대하여 기술해주세요."
             placeholder="띄어쓰기 제외 700자 이내로 작성해주세요."
-            value={form.document.leaningExperience}
+            value={form.document.learningExperience}
             onChange={onFieldChange}
             isError={!!errors.coverLetter?.length}
             errorMessage={errors.coverLetter ? errors.coverLetter[0] : ''}
