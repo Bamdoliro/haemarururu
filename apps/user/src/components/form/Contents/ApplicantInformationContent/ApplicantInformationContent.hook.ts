@@ -20,14 +20,11 @@ export const useApplicantForm = () => {
       const num = value.replace(/\D/g, '').slice(0, 13);
       return num.length > 6 ? `${num.slice(0, 6)}-${num.slice(6)}` : num;
     },
-    birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
   };
 
   useEffect(() => {
-    const birthday = formatter.birthday(
-      saveFormQuery?.applicant?.registrationNumber ?? ''
-    );
+    const birthday = formatBirthday(saveFormQuery?.applicant?.registrationNumber ?? '');
 
     setForm((prev) => ({
       ...prev,
@@ -42,6 +39,7 @@ export const useApplicantForm = () => {
   }, [
     saveFormQuery?.applicant?.name,
     saveFormQuery?.applicant?.phoneNumber,
+    saveFormQuery?.applicant?.registrationNumber,
     setForm,
     userData,
   ]);
