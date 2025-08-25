@@ -1,6 +1,6 @@
 import { useSetmSubjectIncompleteStore, useSetSubjectListStore } from '@/stores';
 
-const CORE_SUBJECTS = ['국어', '영어', '수학'];
+const CORE_SUBJECTS = ['국어', '수학', '영어'];
 
 export const useInput = (id: number) => {
   const setSubjectList = useSetSubjectListStore();
