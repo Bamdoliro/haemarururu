@@ -15,6 +15,7 @@ export const useApplicantForm = () => {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();
 
+  console.log(userData);
   const formatter: Record<string, (value: string) => string> = {
     registrationNumber: (value) => {
       const num = value.replace(/\D/g, '').slice(0, 13);
@@ -89,5 +90,6 @@ export const useApplicantForm = () => {
     }
   };
 
+  console.log('cacd');
   return { onFieldChange, handleNextStep, errors };
 };
