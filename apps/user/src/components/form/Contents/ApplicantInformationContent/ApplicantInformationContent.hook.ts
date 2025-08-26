@@ -23,8 +23,6 @@ export const useApplicantForm = () => {
   };
 
   useEffect(() => {
-    const birthday = formatBirthday(saveFormQuery?.applicant?.registrationNumber ?? '');
-
     setForm((prev) => ({
       ...prev,
       applicant: {
@@ -32,7 +30,6 @@ export const useApplicantForm = () => {
         name: saveFormQuery?.applicant.name ?? userData.name,
         phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
         gender: 'MALE',
-        birthday,
       },
     }));
   }, [
@@ -55,7 +52,6 @@ export const useApplicantForm = () => {
     if (!name) return;
 
     const nextVal = formatter[name] ? formatter[name](value) : value;
-
     setForm((prev) => ({
       ...prev,
       applicant: {
@@ -70,6 +66,25 @@ export const useApplicantForm = () => {
   };
 
   const handleNextStep = () => {
+    const parsed = ApplicantSchema.safeParse({
+      name: form.applicant.name,
+      registrationNumber: form.applicant.registrationNumber,
+      phoneNumber: form.applicant.phoneNumber,
+    });
+
+    if (!parsed.success) {
+      const fieldErrors = parsed.error.flatten().fieldErrors;
+      const normalized = Object.fromEntries(
+        Object.entries(fieldErrors).map(([k, v]) => [k, v ?? []])
+      );
+      setErrors(normalized);
+      return;
+    }
+    const birthday = formatBirthday(parsed.data.registrationNumber);
+    setForm((prev) => ({
+      ...prev,
+      applicant: { ...prev.applicant, birthday }, // ⚠️ applicant 타입에 birthday가 있을 때만
+    }));
     try {
       FormStep({
         schema: ApplicantSchema,
