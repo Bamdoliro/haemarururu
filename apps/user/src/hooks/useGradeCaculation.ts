@@ -15,7 +15,6 @@ type AttenedanceKey =
 
 const useGradeCalculation = () => {
   const form = useFormValueStore();
-
   const calculateRegularScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       return 0;
@@ -31,7 +30,7 @@ const useGradeCalculation = () => {
     const SEMESTER_WEIGHT = [0.2, 0.2, 0.3, 0.3];
 
     let total = 0;
-
+    
     form.grade.subjectList?.forEach((subject) => {
       const subjectWeight =
         SUBJECT_WEIGHT[subject.subjectName as keyof typeof SUBJECT_WEIGHT];

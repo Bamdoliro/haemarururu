@@ -1,7 +1,7 @@
 import { Button, Dropdown, Td } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
-import { SUBJECT_LIST } from '@/constants/form/data';
+import { GED_SUBJECT_LIST, SUBJECT_LIST } from '@/constants/form/data';
 import { useNewSubjectListValueStore } from '@/stores';
 import color from '@maru/design-system/src/color';
 import { font } from '@maru/design-system';
@@ -36,7 +36,7 @@ const NewBasicCalculatorItem = ({
 
   const isDropdownDisabled =
     !subject.subjectName ||
-    SUBJECT_LIST.some(
+    GED_SUBJECT_LIST.some(
       (listSubject) =>
         listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
     );
