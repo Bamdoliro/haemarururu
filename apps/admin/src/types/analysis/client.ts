@@ -85,9 +85,7 @@ export interface GradeDistributionType {
 export interface GenderRatioType {
   category: GenderRatioCategory;
   busanMale: number;
-  busanFemale: number;
   otherLocationMale: number;
-  otherLocationFemale: number;
 }
 
 export interface GraduatedSchoolStatus {
@@ -98,7 +96,6 @@ export interface GraduatedSchoolStatus {
 
 export interface GenderRatioCount {
   maleCount: number;
-  femaleCount: number;
   regularRatio: GenderRatio;
   specialRatio: GenderRatio;
   supernumeraryRatio: GenderRatio;
@@ -106,5 +103,4 @@ export interface GenderRatioCount {
 
 export interface GenderRatio {
   totalMale: number;
-  totalFemale: number;
 }

@@ -32,14 +32,16 @@ export const useCTAButton = () => {
       (subject) =>
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
-        subject.achievementLevel31 === '-'
+        subject.achievementLevel31 === '-' ||
+        subject.achievementLevel32 === '-'
     );
 
     const newSubjectErrors = newSubjectList.map(
       (subject) =>
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
-        subject.achievementLevel31 === '-'
+        subject.achievementLevel31 === '-' ||
+        subject.achievementLevel32 === '-'
     );
 
     setSubjectError(subjectErrors);

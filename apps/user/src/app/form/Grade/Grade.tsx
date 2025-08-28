@@ -8,8 +8,6 @@ import { SwitchCase } from '@toss/react';
 import styled from 'styled-components';
 import Score from './Score/Score';
 import Attendance from './Attendance/Attendance';
-import Volunteer from './Volunteer/Volunteer';
-import Certificate from './Certificate/Certificate';
 
 const Grade = () => {
   const formStep = useFormGradeStepValueStore();
@@ -34,8 +32,6 @@ const Grade = () => {
             caseBy={{
               교과성적: <Score />,
               출결상황: <Attendance />,
-              봉사시간: <Volunteer />,
-              자격증: <Certificate />,
             }}
             defaultComponent={<Score />}
           />

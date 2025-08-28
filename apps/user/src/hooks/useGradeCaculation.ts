@@ -113,7 +113,6 @@ const useGradeCalculation = () => {
     regularScore,
     specialScore,
     attendanceScore,
-    certificateScore: 0,
     regularTotalScore,
     specialTotalScore,
   };

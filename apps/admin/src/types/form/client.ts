@@ -86,10 +86,6 @@ export interface FormDetail {
     attendance1: Attendance;
     attendance2: Attendance;
     attendance3: Attendance;
-    volunteerTime1: number;
-    volunteerTime2: number;
-    volunteerTime3: number;
-    certificateList: string[];
   };
   document: {
     learningExperience: string;

@@ -25,12 +25,6 @@ const GradesInfo = ({ id }: GradesInfoProps) => {
       formDetailData.grade.attendance2,
       formDetailData.grade.attendance3,
     ],
-    volunteerList: [
-      formDetailData.grade.volunteerTime1,
-      formDetailData.grade.volunteerTime2,
-      formDetailData.grade.volunteerTime3,
-    ],
-    certificateList: formDetailData.grade.certificateList,
   };
 
   return (
