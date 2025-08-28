@@ -9,8 +9,8 @@ export const ApplicantSchema = z.object({
     .max(20, '이름은 20자 이하이어야 합니다.'),
   registrationNumber: z
     .string()
-    .regex(/^\d{6}-\d{7}$/, '주민등록번호는 13자리여야 합니다.')
-    .length(14, '주민등록번호는 13자리여야 합니다.'),
+    .regex(/^\d{6}-\d{7}$/, '주민등록번호를 입력해주세요.')
+    .length(14, '주민등록번호를 입력해주세요.'),
   phoneNumber: z
     .string()
     .trim()
