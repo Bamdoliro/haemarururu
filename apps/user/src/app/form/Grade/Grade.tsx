@@ -16,9 +16,7 @@ const Grade = () => {
     <FormLayout title="성적 입력">
       <StyledGrade>
         <Text fontType="p3" color={color.red}>
-          *교과성적이 없는 학기나 학년의 경우 모집요강을 반드시 확인 바랍니다.
-          <br />
-          *성취수준이 없고 원점수로 되어있는 학기나 학년은 아래표를 참고 바랍니다.
+          <>*교과성적이 없는 학기나 학년의 경우 모집요강을 반드시 확인 바랍니다.</>
         </Text>
         <Column gap={64}>
           <Column gap={12}>
