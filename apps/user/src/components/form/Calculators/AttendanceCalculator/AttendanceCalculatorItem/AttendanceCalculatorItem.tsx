@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ATTENDANCE_TYPE } from '@/constants/form/constants';
 import { CellInput, Row, Td } from '@maru/ui';
 

@@ -28,7 +28,7 @@ export const SCORE = {
 
 export const COUNT = {
   MAX_ABSENCE: 18,
-  MIN_VOLUNTEER: 15,
+  MIN_VOLUNTEER: 16,
   MAX_VOLUNTEER: 30,
 };
 
