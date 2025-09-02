@@ -30,9 +30,8 @@ const useGradeCalculation = () => {
     const SEMESTER_WEIGHT = [0.2, 0.2, 0.3, 0.3];
 
     let total = 0;
-
-    const list = Array.isArray(form?.grade?.subjectList) ? form.grade.subjectList : [];
-    list.forEach((subject) => {
+    
+    form.grade.subjectList?.forEach((subject) => {
       const subjectWeight =
         SUBJECT_WEIGHT[subject.subjectName as keyof typeof SUBJECT_WEIGHT];
       if (!subjectWeight) return;
