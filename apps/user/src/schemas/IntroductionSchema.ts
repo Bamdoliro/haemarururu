@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { FORBIDDEN_WORDS } from '@/constants/form/constants';
-const forbidWords = (value: string) =>
-  !FORBIDDEN_WORDS.some((word) => value.includes(word));
+const forbidWords = (value: string) => {
+  const lowerValue = value.toLowerCase();
+  return !FORBIDDEN_WORDS.some((word) => lowerValue.includes(word.toLowerCase()));
+};
 
 export const IntroductionSchema = z.object({
   learningExperience: z
