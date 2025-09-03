@@ -19,7 +19,7 @@ const NoticeUploader = ({ isOpen }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen && uploadedFile) {
+    if (isOpen) {
       setUploadedFile(null);
     }
   }, [isOpen, setUploadedFile]);
