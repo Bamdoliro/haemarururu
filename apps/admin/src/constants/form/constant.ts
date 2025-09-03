@@ -4,7 +4,9 @@ import type {
   FormStatus,
   FormType,
   GraduationType,
+  ReceiveStatusValue,
 } from '@/types/form/client';
+import { color } from '@maru/design-system';
 
 export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
   APPROVED: '접수',
@@ -48,6 +50,27 @@ export const FORM_TYPE_CATEGORY: Record<FormType, string> = {
   SPECIAL_ADMISSION: '특례입학대상자전형',
   NATIONAL_VETERANS_EDUCATION: '교육지원대상자 전형',
 } as const;
+
+export const RECEIVED_STATUS_LIST: {
+  name: string;
+  value: ReceiveStatusValue;
+  color: string;
+  backgroundColor: string;
+}[] = [
+  {
+    name: '승인',
+    value: 'approve',
+    color: color.maruDefault,
+    backgroundColor: color.maruLightBlue,
+  },
+  { name: '반려', value: 'reject', color: color.red, backgroundColor: color.lightRed },
+  {
+    name: '확인 중',
+    value: 'receive',
+    color: color.green,
+    backgroundColor: color.lightGreen,
+  },
+];
 
 export const FORM_SORTING_CATEGORY: Record<FormSort, string> = {
   'total-score-desc': '최종 점수 높은 순',
