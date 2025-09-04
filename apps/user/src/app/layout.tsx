@@ -6,8 +6,8 @@ import React from 'react';
 import type { ReactNode } from 'react';
 
 export const metadata = {
-  title: '부산소프트웨어마이스터고 입학전형 | 마루',
-  description: '부산소프트웨어마이스터고등학교 입학전형 시스템 마루입니다.',
+  title: '해운대고등학교 입학전형 | 마루',
+  description: '해운대고등학교 입학전형 시스템 마루입니다.',
 };
 
 interface Props {
