@@ -53,10 +53,6 @@ export interface Form {
     attendance1: Attendance;
     attendance2: Attendance;
     attendance3: Attendance;
-    volunteerTime1: number;
-    volunteerTime2: number;
-    volunteerTime3: number;
-    certificateList: Certificate[];
   };
   document: {
     learningExperience: string;
@@ -70,7 +66,7 @@ export interface User {
   name: string;
   phoneNumber: string;
   registrationNumber: string;
-  gender: 'FEMALE' | 'MALE';
+  gender: 'MALE';
 }
 
 export interface Parent {
@@ -99,10 +95,6 @@ export interface Grade {
   attendance1: Attendance;
   attendance2: Attendance;
   attendance3: Attendance;
-  volunteerTime1: number;
-  volunteerTime2: number;
-  volunteerTime3: number;
-  certificateList: Certificate[];
 }
 
 export type GraduationType = 'QUALIFICATION_EXAMINATION' | 'EXPECTED' | 'GRADUATED';
@@ -128,14 +120,6 @@ export interface Attendance {
   classAbsenceCount: number;
 }
 
-export type Certificate =
-  | 'COMPUTER_SPECIALIST_LEVEL_3'
-  | 'COMPUTER_SPECIALIST_LEVEL_2'
-  | 'COMPUTER_SPECIALIST_LEVEL_1'
-  | 'CRAFTSMAN_INFORMATION_PROCESSING'
-  | 'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION'
-  | 'CRAFTSMAN_COMPUTER';
-
 export interface Incomplete {
   [subjectName: string]: {
     isIncomplete21: boolean | null;
@@ -159,7 +143,7 @@ export type FormStep =
   | '최종제출'
   | '최종제출완료';
 
-export type GradeStep = '교과성적' | '출결상황' | '봉사시간' | '자격증';
+export type GradeStep = '교과성적' | '출결상황';
 
 export type SaveSubject = Omit<Subject, 'id'>;
 

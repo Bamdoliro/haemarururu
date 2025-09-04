@@ -48,10 +48,6 @@ export const FORM: Form = {
       earlyLeaveCount: 0,
       classAbsenceCount: 0,
     },
-    volunteerTime1: 0,
-    volunteerTime2: 0,
-    volunteerTime3: 0,
-    certificateList: [],
   },
   document: {
     learningExperience: '',
@@ -84,20 +80,3 @@ export const GED_SUBJECT_LIST: Subject[] = ['국어', '수학', '사회', '과�
     score: 0,
   })
 );
-
-export const SELECT_GED_SUBJECT_LIST: Subject[] = [
-  '도덕',
-  '기술',
-  '가정',
-  '체육',
-  '음악',
-  '미술',
-].map((subject, index) => ({
-  id: index,
-  subjectName: subject,
-  achievementLevel21: null,
-  achievementLevel22: null,
-  achievementLevel31: null,
-  achievementLevel32: null,
-  score: 0,
-}));

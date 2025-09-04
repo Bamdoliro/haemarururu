@@ -49,7 +49,7 @@ export const useIntoductionForm = () => {
       IntroductionSchema.parse(form.document);
       setErrors({});
       setFormStep('성적입력');
-      setFormGradeStep('자격증');
+      setFormGradeStep('출결상황');
       saveFormMutate(form);
     } catch (err) {
       if (err instanceof z.ZodError) {
