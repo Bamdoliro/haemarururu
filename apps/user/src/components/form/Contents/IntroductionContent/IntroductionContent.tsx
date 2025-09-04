@@ -46,14 +46,14 @@ const IntroductionContent = () => {
         </Column>
         <Column gap={64}>
           <Textarea
-            name="coverLetter"
+            name="learningExperience"
             limit={700}
             label="1. 중학교 재학 중 자기주도적으로 수행한 활동 중 가장 큰 성취감을 느꼈던 학습 경험에 대하여 기술해주세요."
             placeholder="띄어쓰기 제외 700자 이내로 작성해주세요."
             value={form.document.learningExperience}
             onChange={onFieldChange}
-            isError={!!errors.coverLetter?.length}
-            errorMessage={errors.coverLetter ? errors.coverLetter[0] : ''}
+            isError={!!errors.learningExperience?.length}
+            errorMessage={errors.learningExperience ? errors.learningExperience[0] : ''}
           />
           <Textarea
             name="statementOfPurpose"
@@ -79,7 +79,7 @@ const IntroductionContent = () => {
             errorMessage={errors.statementOfPurpose ? errors.statementOfPurpose[0] : ''}
           />
           <Textarea
-            name="statementOfPurpose"
+            name="personality"
             limit={500}
             label={
               <Column gap={8}>
@@ -97,8 +97,8 @@ const IntroductionContent = () => {
             placeholder="띄어쓰기 제외 500자 이내로 작성해주세요."
             value={form.document.personality}
             onChange={onFieldChange}
-            isError={!!errors.statementOfPurpose?.length}
-            errorMessage={errors.statementOfPurpose ? errors.statementOfPurpose[0] : ''}
+            isError={!!errors.personality?.length}
+            errorMessage={errors.personality ? errors.personality[0] : ''}
           />
         </Column>
       </Column>

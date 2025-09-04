@@ -14,21 +14,15 @@ export const useApplicantForm = () => {
   const { data: saveFormQuery } = useSaveFormQuery();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();
-
   const formatter: Record<string, (value: string) => string> = {
     registrationNumber: (value) => {
       const num = value.replace(/\D/g, '').slice(0, 13);
       return num.length > 6 ? `${num.slice(0, 6)}-${num.slice(6)}` : num;
     },
-    birthday: (value) => formatBirthday(value.replace(/\D/g, '')),
     phoneNumber: (value) => value.replace(/\D/g, ''),
   };
 
   useEffect(() => {
-    const birthday = formatter.birthday(
-      saveFormQuery?.applicant?.registrationNumber ?? ''
-    );
-
     setForm((prev) => ({
       ...prev,
       applicant: {
@@ -36,12 +30,12 @@ export const useApplicantForm = () => {
         name: saveFormQuery?.applicant.name ?? userData.name,
         phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
         gender: 'MALE',
-        birthday,
       },
     }));
   }, [
     saveFormQuery?.applicant?.name,
     saveFormQuery?.applicant?.phoneNumber,
+    saveFormQuery?.applicant?.registrationNumber,
     setForm,
     userData,
   ]);
@@ -56,14 +50,14 @@ export const useApplicantForm = () => {
 
     const value = typeof arg === 'string' ? arg : arg.target.value;
     if (!name) return;
-
+    const birthday = formatBirthday(value);
     const nextVal = formatter[name] ? formatter[name](value) : value;
-
     setForm((prev) => ({
       ...prev,
       applicant: {
         ...prev.applicant,
         [name]: nextVal,
+        birthday,
       },
     }));
 
@@ -90,6 +84,5 @@ export const useApplicantForm = () => {
       }
     }
   };
-
   return { onFieldChange, handleNextStep, errors };
 };

@@ -7,10 +7,10 @@ import {
   useVerificationMutation,
 } from '@/services/user/mutations';
 import type { SignUp } from '@/types/user/client';
+import { useToast } from '@/hooks';
 
 export const useInput = () => {
   const [changePassword, setChangePassword] = useChangePasswordStore();
-
   const handleChangePasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
 
@@ -29,7 +29,7 @@ export const useVerificationCodeAction = (changePasswordData: SignUp) => {
   const [isVerificationCodeDisabled, setIsVerificationCodeDisabled] = useState(false);
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
   const [isVerificationCodeConfirmed, setIsVerificationCodeConfirmed] = useState(false);
-
+  const { toast } = useToast();
   const { verificationMutate } = useVerificationMutation(setIsVerificationCodeConfirmed);
 
   const { requestVerificationMutate } = useRequestUserVerificationMutation({
@@ -51,7 +51,7 @@ export const useVerificationCodeAction = (changePasswordData: SignUp) => {
 
   const handleVerificationConfirm = () => {
     if (changePasswordData.code.trim().length === 0) {
-      // toast('인증 코드를 입력해주세요', { type: 'error' });
+      toast('인증 코드를 입력해주세요', 'ERROR');
       return;
     }
 

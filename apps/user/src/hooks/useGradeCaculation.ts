@@ -31,8 +31,7 @@ const useGradeCalculation = () => {
 
     let total = 0;
 
-    const list = Array.isArray(form?.grade?.subjectList) ? form.grade.subjectList : [];
-    list.forEach((subject) => {
+    form.grade.subjectList?.forEach((subject) => {
       const subjectWeight =
         SUBJECT_WEIGHT[subject.subjectName as keyof typeof SUBJECT_WEIGHT];
       if (!subjectWeight) return;
@@ -79,26 +78,9 @@ const useGradeCalculation = () => {
     );
 
     const totalDays = absence + extra;
-
     if (totalDays === 0) return 0;
 
-    const penaltyTable: [number, number][] = [
-      [2, 1],
-      [4, 2],
-      [6, 3],
-      [8, 4],
-      [10, 5],
-      [12, 6],
-      [14, 7],
-      [16, 8],
-      [Infinity, 9],
-    ];
-
-    for (const [limit, score] of penaltyTable) {
-      if (totalDays <= limit) return -score;
-    }
-
-    return 0;
+    return -totalDays;
   };
 
   const regularScore = calculateRegularScore();

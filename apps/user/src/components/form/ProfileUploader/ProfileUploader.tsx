@@ -17,7 +17,15 @@ const MIN_WIDTH = 113.4;
 const MIN_HEIGHT = 151.2;
 const MAX_SIZE = 2 * 1024 * 1024;
 
-const ProfileUploader = () => {
+interface ProfileUploaderProps {
+  isError?: boolean;
+  onUploadStateChange?: (hasImage: boolean) => void;
+}
+
+const ProfileUploader = ({
+  isError = false,
+  onUploadStateChange,
+}: ProfileUploaderProps) => {
   const [profile, setProfile] = useProfileStore();
   const profileUrl = useFormProfileValueStore();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -26,8 +34,6 @@ const ProfileUploader = () => {
   const fileName = Storage.getItem('fileName');
   const mediaType = Storage.getItem('mediaType');
   const fileSize = Storage.getItem('fileSize');
-
-  const imgSrc = previewUrl ?? profileUrl?.downloadUrl ?? null;
 
   const { refreshProfileMutate } = useRefreshProfileMutation({
     fileName: fileName ?? '',
@@ -57,6 +63,13 @@ const ProfileUploader = () => {
 
     return;
   }, [refreshProfileMutate]);
+
+  useEffect(() => {
+    const hasImage = !!(previewUrl || profileUrl?.downloadUrl);
+    if (onUploadStateChange) {
+      onUploadStateChange(hasImage);
+    }
+  }, [previewUrl, profileUrl?.downloadUrl, onUploadStateChange]);
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -182,12 +195,13 @@ const ProfileUploader = () => {
     },
     [handleFile]
   );
+
   return (
     <StyledProfileUploader>
       <Text fontType="context" color={color.gray700}>
         증명사진
       </Text>
-      {imgSrc ? (
+      {previewUrl ? (
         <ImagePreview src={previewUrl} alt="preview-image" />
       ) : profileUrl?.downloadUrl ? (
         <ImagePreview src={profileUrl.downloadUrl} alt="profile-image" />
@@ -198,6 +212,7 @@ const ProfileUploader = () => {
           onDragOver={onDragOver}
           onDrop={onDrop}
           $isDragging={isDragging}
+          $isError={isError}
         >
           <Column gap={12} alignItems="center">
             <Button size="SMALL" onClick={openFileUploader}>
@@ -209,7 +224,7 @@ const ProfileUploader = () => {
           </Column>
         </UploadImageBox>
       )}
-      {imgSrc && (
+      {(previewUrl || profileUrl?.downloadUrl) && (
         <Button size="SMALL" onClick={openFileUploader}>
           재업로드
         </Button>
