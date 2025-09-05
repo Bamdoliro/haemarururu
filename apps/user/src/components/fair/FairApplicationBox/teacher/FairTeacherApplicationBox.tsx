@@ -114,7 +114,7 @@ const FairTeacherApplicationBox = ({ id }: FairTeacherApplicationBoxProps) => {
               개인정보 동의서
             </Text>
             <Text fontType="p2" color={color.gray600} tag="p">
-              입학설명회 진행을 위해 수집한 개인정보는 부산소프트웨어마이스터고등학교
+              입학설명회 진행을 위해 수집한 개인정보는 해운대고등학교
               <br />
               홍보자료 발송 및 입학안내 이외의 용도로 사용되지 않습니다.
               <br />

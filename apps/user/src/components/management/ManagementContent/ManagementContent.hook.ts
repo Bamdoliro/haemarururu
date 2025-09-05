@@ -37,10 +37,7 @@ export const useBoxClick = (status?: string) => {
     if (!status || !accept.includes(status)) {
       alert('원서를 제출하지 않아, 다운로드 할 수 없습니다.');
     } else {
-      downloadFile(
-        exportFormData,
-        `${userData.name} 부산소프트웨어마이스터고등학교 원서.pdf`
-      );
+      downloadFile(exportFormData, `${userData.name} 해운대고등학교 원서.pdf`);
     }
   };
 
