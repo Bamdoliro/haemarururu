@@ -67,6 +67,7 @@ export interface User {
   phoneNumber: string;
   registrationNumber: string;
   gender: 'MALE';
+  profile: string;
 }
 
 export interface Parent {

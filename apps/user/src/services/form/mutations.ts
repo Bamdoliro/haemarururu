@@ -30,7 +30,6 @@ export const useSaveFormMutation = () => {
 export const useSubmitDraftFormMutation = (formData: Form) => {
   const { handleError } = useApiError();
   const setFormStep = useSetFormStepStore();
-
   const { mutate: submitDraftFormMutate, ...restMutation } = useMutation({
     mutationFn: () => postSubmitDraftFrom(formData),
     onSuccess: () => setFormStep('초안제출완료'),
