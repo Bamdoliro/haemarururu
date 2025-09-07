@@ -99,22 +99,5 @@ export const useApplicantForm = () => {
       }
     }
   };
-  const handlePreviousStep = () => {
-    try {
-      ApplicantSchema.parse(form.applicant);
-      setErrors({});
-      setFormStep('전형선택');
-      saveFormMutate(form);
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const fieldErrors = err.flatten().fieldErrors;
-        const normalizedErrors = Object.fromEntries(
-          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []])
-        );
-        setErrors(normalizedErrors);
-      }
-    }
-  };
-
-  return { onFieldChange, handleNextStep, handlePreviousStep, errors };
+  return { onFieldChange, handleNextStep, errors };
 };
