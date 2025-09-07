@@ -5,8 +5,7 @@ import { useFormStep, formatBirthday } from '@/utils';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
 import { useEffect, useState } from 'react';
-import { useSaveFormMutation } from '@/services/form/mutations';
-import { useFormStore, useSetFormStepStore } from '@/stores';
+import { useFormStore } from '@/stores';
 import { useFormProfileValueStore } from '@/stores/form/formProfile';
 
 export const useApplicantForm = () => {
@@ -14,8 +13,6 @@ export const useApplicantForm = () => {
   const profileUrl = useFormProfileValueStore();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();
-  const setFormStep = useSetFormStepStore();
-  const { saveFormMutate } = useSaveFormMutation();
   const { userData } = useUser();
   const { data: saveFormQuery } = useSaveFormQuery();
   const formatter: Record<string, (value: string) => string> = {
