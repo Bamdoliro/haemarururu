@@ -1,18 +1,18 @@
-import { useFormValueStore } from '@/stores';
 import { Column, Input, Row } from '@maru/ui';
+import { useFormProfileValueStore } from '@/stores/form/formProfile';
 import ProfileUploader from '../../ProfileUploader/ProfileUploader';
 import FormController from '../../FormController/FormController';
 import { useApplicantForm } from './ApplicantInformationContent.hook';
-
+import { useFormValueStore } from '@/stores';
 const ApplicantInformationContent = () => {
   const { onFieldChange, handleNextStep, errors } = useApplicantForm();
   const form = useFormValueStore();
-
+  const profileUrl = useFormProfileValueStore();
   return (
     <>
       <Row width="100%" justifyContent="space-between">
         <Column gap={40} alignItems="center">
-          <ProfileUploader />
+          <ProfileUploader isError={!!errors.profile?.length} />
         </Column>
         <Column gap={30} width={492}>
           <Input
@@ -47,7 +47,7 @@ const ApplicantInformationContent = () => {
           />
         </Column>
       </Row>
-      <FormController onNext={handleNextStep} step="지원자정보" />
+      <FormController onNext={handleNextStep} step="지원자정보" profileUrl={profileUrl} />
     </>
   );
 };

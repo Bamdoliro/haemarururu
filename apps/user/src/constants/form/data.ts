@@ -8,6 +8,7 @@ export const FORM: Form = {
     phoneNumber: '',
     registrationNumber: '',
     gender: 'MALE',
+    profile: '',
   },
   parent: {
     name: '',
@@ -77,6 +78,6 @@ export const GED_SUBJECT_LIST: Subject[] = ['국어', '수학', '사회', '과�
     achievementLevel22: null,
     achievementLevel31: null,
     achievementLevel32: null,
-    score: 0,
+    score: null,
   })
 );

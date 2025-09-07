@@ -18,7 +18,7 @@ export const useAddNewGEDSubject = () => {
       achievementLevel22: null,
       achievementLevel31: null,
       achievementLevel32: null,
-      score: 0,
+      score: null,
     };
     setNewGEDSubjectList((prev) => [...prev, newSubject]);
   };

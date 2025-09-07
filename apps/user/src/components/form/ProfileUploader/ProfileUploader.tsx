@@ -259,11 +259,7 @@ const UploadImageBox = styled.div<{ $isDragging: boolean; $isError?: boolean }>`
   border-radius: 6px;
   border: 1px dashed
     ${(props) =>
-      props.$isDragging
-        ? color.haeMaruDefault
-        : props.$isError
-        ? color.red
-        : color.gray400};
+      props.$isDragging ? color.maruDefault : props.$isError ? color.red : color.gray400};
   background-color: ${color.gray50};
   ${(props) =>
     props.$isError &&
