@@ -3,58 +3,68 @@ import { IconError } from '@maru/icon';
 import styled, { css } from 'styled-components';
 import ConditionalMessage from './ConditionalMessage';
 import type { InputProps } from './Input.type';
+import { forwardRef } from 'react';
 
-const Input = ({
-  width = 320,
-  height,
-  label,
-  placeholder,
-  type = 'text',
-  name,
-  value,
-  onChange,
-  errorMessage,
-  message,
-  readOnly,
-  textAlign,
-  isError = false,
-}: InputProps) => {
-  return (
-    <div style={{ width, height }}>
-      {label && <Label>{label}</Label>}
-      <div style={{ position: 'relative' }}>
-        <StyledInput
-          onChange={onChange}
-          placeholder={placeholder}
-          type={type}
-          name={name}
-          value={value}
-          readOnly={readOnly}
-          style={{ textAlign }}
-          $isError={isError}
-        />
-        {isError && (
-          <IconError
-            style={{
-              position: 'absolute',
-              right: 16,
-              top: '50%',
-              transform: 'translateY(-50%)',
-            }}
-            color={color.red}
-            width={24}
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      width = 320,
+      height,
+      label,
+      placeholder,
+      type = 'text',
+      name,
+      value,
+      onChange,
+      errorMessage,
+      message,
+      readOnly,
+      textAlign,
+      isError = false,
+      ...rest
+    },
+    ref
+  ) => {
+    return (
+      <div style={{ width, height }}>
+        {label && <Label>{label}</Label>}
+        <div style={{ position: 'relative' }}>
+          <StyledInput
+            ref={ref}
+            onChange={onChange}
+            placeholder={placeholder}
+            type={type}
+            name={name}
+            value={value}
+            readOnly={readOnly}
+            style={{ textAlign }}
+            $isError={isError}
+            {...rest}
           />
-        )}
+          {isError && (
+            <IconError
+              style={{
+                position: 'absolute',
+                right: 16,
+                top: '50%',
+                transform: 'translateY(-50%)',
+              }}
+              color={color.red}
+              width={24}
+            />
+          )}
+        </div>
+        <ConditionalMessage
+          isError={isError}
+          errorMessage={errorMessage}
+          message={message}
+        />
       </div>
-      <ConditionalMessage
-        isError={isError}
-        errorMessage={errorMessage}
-        message={message}
-      />
-    </div>
-  );
-};
+    );
+  }
+);
 
+Input.displayName = 'Input';
 export default Input;
 
 const StyledInput = styled.input<{ $isError: boolean }>`
