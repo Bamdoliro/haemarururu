@@ -158,7 +158,7 @@ const DetailContent = ({ formList }: DetailTableProps) => {
         </Row>
         <Row>
           <Td width="25%" height={112} borderBottomLeftRadius={12}>
-            전형 외 전형
+            정원 외 전형
           </Td>
           <Column width="25%">
             <Td width="100%" height={56}>

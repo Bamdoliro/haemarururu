@@ -323,7 +323,7 @@ const TypeContent = () => {
           isBottomBold={true}
           isLeft={true}
         >
-          전형 외 전형
+          정원 외 전형
         </Td>
         <Column width="30%">
           <Td width="100%" height={56}>
