@@ -64,7 +64,7 @@ const DetailContent = ({ formList }: DetailTableProps) => {
               국가보훈대상자
             </Td>
             <Td width="100%" height={56}>
-              국민기초생활수급자
+              국민기초생활수급권자
             </Td>
             <Td width="100%" height={56}>
               한부모가족 보호대상자
