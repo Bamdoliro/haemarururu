@@ -41,8 +41,15 @@ const BasicCalculatorItem = ({ id, achievementLevels, isError = [], isLast }: Pr
       >
         {subject.subjectName}
       </Td>
-      {ACHIEVEMENT_KEYS.map((key) => (
-        <Td key={key} width="22%" height={64}>
+      {ACHIEVEMENT_KEYS.map((key, colIndex) => (
+        <Td
+          key={key}
+          width="22%"
+          height={64}
+          borderBottomRightRadius={
+            isLast && colIndex === ACHIEVEMENT_KEYS.length - 1 ? '12px' : '0px'
+          }
+        >
           <Dropdown
             value={getDisplayValue(
               subject[key],

@@ -56,7 +56,7 @@ const GuardianInformationContent = () => {
           buttonText="검색"
           width="100%"
           value={form.parent.address}
-          placeholder="예) 부산광역시 강서구 가락대로 1393 봉림동 15"
+          placeholder="예) 부산광역시 해운대구 우동3로11번길 43"
           enabled={true}
           readOnly
           onClick={openFindAddressModal}
