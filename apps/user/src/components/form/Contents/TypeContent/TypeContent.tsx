@@ -16,7 +16,7 @@ const TypeContent = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       if (!(form.type === 'REGULAR')) {
         alert(
-          '서류상으로 검정고시 합격자는 특별전형 지원이 불가능해요. 일반전형으로 지원해주세요!'
+          '서류상으로 검정고시 합격자는 사회다양성전형 지원이 불가능해요. 일반전형으로 지원해주세요!'
         );
         setForm((prev) => ({ ...prev, type: 'REGULAR' }));
       }
@@ -47,14 +47,14 @@ const TypeContent = () => {
       </Row>
       <Row>
         <Td width="30%" height={1288} isBottom={true} isLeft={true}>
-          특별 전형
+          사회 다양성 전형
         </Td>
         <Column width="30%">
           <Td width="100%" height={392} isBottom={true}>
             기회균등 전형
           </Td>
           <Td width="100%" height={896} isBottom={true}>
-            사회다양성 전형
+            사회 다양성 전형
           </Td>
         </Column>
         <Column width="30%">

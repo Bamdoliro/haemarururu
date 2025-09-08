@@ -32,7 +32,7 @@ const ResultFirst = () => {
             MAIN: (
               <ResultMainBox
                 date={formatScheduleDate([SCHEDULE.일차_합격_발표], 'FORM')}
-                capacity="일반전형 및 특별전형 각각 모집정원의 130% 이내"
+                capacity="일반전형 및 사회 다양성 전형 각각 모집정원의 130% 이내"
                 setResultStep={setFirstResultStep}
               />
             ),
