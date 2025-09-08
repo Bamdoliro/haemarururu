@@ -54,6 +54,7 @@ const IntroductionContent = () => {
             onChange={onFieldChange}
             isError={!!errors.learningExperience?.length}
             errorMessage={errors.learningExperience ? errors.learningExperience[0] : ''}
+            excludeSpace
           />
           <Textarea
             name="statementOfPurpose"
@@ -77,6 +78,7 @@ const IntroductionContent = () => {
             onChange={onFieldChange}
             isError={!!errors.statementOfPurpose?.length}
             errorMessage={errors.statementOfPurpose ? errors.statementOfPurpose[0] : ''}
+            excludeSpace
           />
           <Textarea
             name="personality"
@@ -99,6 +101,7 @@ const IntroductionContent = () => {
             onChange={onFieldChange}
             isError={!!errors.personality?.length}
             errorMessage={errors.personality ? errors.personality[0] : ''}
+            excludeSpace
           />
         </Column>
       </Column>

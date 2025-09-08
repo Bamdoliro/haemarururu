@@ -11,6 +11,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   errorMessage?: string;
   message?: string;
   width?: CSSProperties['width'];
+  excludeSpace?: boolean;
 }
 
 const Textarea = ({
@@ -23,9 +24,10 @@ const Textarea = ({
   isError = false,
   errorMessage,
   message,
+  excludeSpace = false,
 }: TextareaProps) => {
   const textValue = value as string;
-
+  const length = excludeSpace ? textValue.replace(/\s/g, '').length : textValue.length;
   return (
     <div style={{ position: 'relative', width }}>
       {label && <Label>{label}</Label>}
@@ -40,7 +42,7 @@ const Textarea = ({
         />
       </div>
       <TextCount>
-        {limit - textValue.length}/{limit}
+        {limit - length}/{limit}
       </TextCount>
       <ConditionalMessage
         isError={isError}
