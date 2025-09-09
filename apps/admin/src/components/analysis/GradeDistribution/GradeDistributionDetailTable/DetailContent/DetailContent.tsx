@@ -38,14 +38,14 @@ const DetailContent = ({ formList }: DetailTableProps) => {
         </Row>
         <Row>
           <Td width="25%" height={1288}>
-            특별 전형
+            사회 다양성 전형
           </Td>
           <Column width="25%">
             <Td width="100%" height={392}>
               기회균등 전형
             </Td>
             <Td width="100%" height={896}>
-              사회다양성 전형
+              사회 다양성 전형
             </Td>
           </Column>
           <Column width="25%">
@@ -158,7 +158,7 @@ const DetailContent = ({ formList }: DetailTableProps) => {
         </Row>
         <Row>
           <Td width="25%" height={112} borderBottomLeftRadius={12}>
-            전형 외 전형
+            정원 외 전형
           </Td>
           <Column width="25%">
             <Td width="100%" height={56}>

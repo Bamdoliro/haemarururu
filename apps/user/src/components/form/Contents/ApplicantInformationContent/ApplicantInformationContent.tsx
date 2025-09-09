@@ -7,7 +7,8 @@ import { color } from '@maru/design-system';
 import { useEffect, useRef, useState } from 'react';
 
 const ApplicantInformationContent = () => {
-  const { onFieldChange, handleNextStep, errors, RRNBack, RRNFront } = useApplicantForm();
+  const { onFieldChange, handleNextStep, errors, handleUploadStateChange } =
+    useApplicantForm();
   const form = useFormValueStore();
 
   const frontRef = useRef<HTMLInputElement>(null);
@@ -67,7 +68,10 @@ const ApplicantInformationContent = () => {
     <>
       <Row width="100%" justifyContent="space-between">
         <Column gap={40} alignItems="center">
-          <ProfileUploader />
+          <ProfileUploader
+            isError={!!errors.profile?.length}
+            onUploadStateChange={handleUploadStateChange}
+          />
         </Column>
         <Column gap={30} width={492}>
           <Input

@@ -32,7 +32,7 @@ const ResultFinal = () => {
             MAIN: (
               <ResultMainBox
                 date={formatScheduleDate([SCHEDULE.최종_합격_발표], 'FORM')}
-                capacity="일반전형 36명, 특별전형 28명, 정원 외 전형 3명"
+                capacity="일반전형 36명, 사회 다양성 전형 28명, 정원 외 전형 3명"
                 setResultStep={setFinalResultStep}
               />
             ),
