@@ -1,5 +1,16 @@
-import { SCORE_TABLE, SUBJECT_WEIGHT } from '@/constants/form/constants';
+import { SCORE, SUBJECT_RATIO, SEMESTER_RATIO } from '@/constants/form/constants';
 import { useFormValueStore } from '@/stores';
+import { getAchivementLevel } from '@/utils';
+
+enum AchievementScore {
+  '-' = 0,
+  '미이수' = 0,
+  'A' = 40,
+  'B' = 32,
+  'C' = 24,
+  'D' = 16,
+  'E' = 8,
+}
 
 type AchievementLevelKey =
   | 'achievementLevel21'
@@ -7,85 +18,115 @@ type AchievementLevelKey =
   | 'achievementLevel31'
   | 'achievementLevel32';
 
-type AttenedanceKey =
+type AttendanceKey =
   | 'absenceCount'
   | 'latenessCount'
   | 'earlyLeaveCount'
   | 'classAbsenceCount';
 
+const CORE_SUBJECTS = ['국어', '영어', '수학'];
+
 const useGradeCalculation = () => {
   const form = useFormValueStore();
-  const calculateRegularScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return 0;
-    }
 
-    const semesterKeys: AchievementLevelKey[] = [
-      'achievementLevel21',
-      'achievementLevel22',
-      'achievementLevel31',
-      'achievementLevel32',
-    ];
+  const calculateSubjectScore = () => {
+    if (!form.grade.subjectList) return 0;
 
-    const SEMESTER_WEIGHT = [0.2, 0.2, 0.3, 0.3];
+    let totalScore = 0;
 
-    let total = 0;
+    form.grade.subjectList.forEach((subject) => {
+      const subjectName = subject.subjectName;
+      const subjectRatio = SUBJECT_RATIO[subjectName as keyof typeof SUBJECT_RATIO] || 0;
 
-    form.grade.subjectList?.forEach((subject) => {
-      const subjectWeight =
-        SUBJECT_WEIGHT[subject.subjectName as keyof typeof SUBJECT_WEIGHT];
-      if (!subjectWeight) return;
+      const semesters: { key: AchievementLevelKey; ratio: number }[] = [
+        { key: 'achievementLevel21', ratio: SEMESTER_RATIO['2-1'] },
+        { key: 'achievementLevel22', ratio: SEMESTER_RATIO['2-2'] },
+        { key: 'achievementLevel31', ratio: SEMESTER_RATIO['3-1'] },
+        { key: 'achievementLevel32', ratio: SEMESTER_RATIO['3-2'] },
+      ];
 
-      semesterKeys.forEach((key, i) => {
-        const level = subject[key as keyof typeof subject];
-        if (!level || level === '-') return;
+      semesters.forEach(({ key, ratio }) => {
+        let achievementLevel = subject[key];
+        if (CORE_SUBJECTS.includes(subjectName) && achievementLevel === '미이수') {
+          achievementLevel = 'C';
+        }
+        if (
+          !CORE_SUBJECTS.includes(subjectName) &&
+          (achievementLevel === null || achievementLevel === '-')
+        ) {
+          return;
+        }
 
-        const score = SCORE_TABLE[level as keyof typeof SCORE_TABLE];
-        const semesterRate = SEMESTER_WEIGHT[i];
-        const subjectRate = subjectWeight[i];
-
-        total += score * semesterRate * subjectRate * 3.5;
+        const score =
+          AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;
+        totalScore += score * ratio * subjectRatio * 3.5;
       });
     });
 
-    return Number(total.toFixed(3));
+    return Number(totalScore.toFixed(2));
+  };
+
+  const calculateRegularScore = () => {
+    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
+      let regularTotal = 0;
+
+      form.grade.subjectList?.forEach((subject) => {
+        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
+        const score =
+          AchievementScore[achievementLevel as keyof typeof AchievementScore] ||
+          AchievementScore.E;
+        if (subject.subjectName === '수학') {
+          regularTotal += score * 2;
+        } else {
+          regularTotal += score;
+        }
+      });
+      return Number(regularTotal.toFixed(3));
+    }
+
+    const subjectScore = calculateSubjectScore();
+
+    return Number(subjectScore.toFixed(3));
   };
 
   const calculateSpecialScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       return 0;
     }
+    const specialScore = calculateSubjectScore();
 
-    return calculateRegularScore();
+    return Number(specialScore.toFixed(3));
   };
 
   const calculateAttendanceScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return 0;
+      return SCORE.ATTENDANCE;
     }
 
-    const getCount = (type: AttenedanceKey) =>
-      form.grade.attendance1[type] +
-      form.grade.attendance2[type] +
-      form.grade.attendance3[type];
+    const getAttendanceCount = (type: AttendanceKey) => {
+      return (
+        (form.grade.attendance1?.[type] || 0) +
+        (form.grade.attendance2?.[type] || 0) +
+        (form.grade.attendance3?.[type] || 0)
+      );
+    };
 
-    const absence = getCount('absenceCount');
-    const extra = Math.floor(
-      (getCount('latenessCount') +
-        getCount('earlyLeaveCount') +
-        getCount('classAbsenceCount')) /
-        3
-    );
+    const totalAbsence = getAttendanceCount('absenceCount');
+    const totalLateEarly =
+      getAttendanceCount('latenessCount') +
+      getAttendanceCount('earlyLeaveCount') +
+      getAttendanceCount('classAbsenceCount');
 
-    const totalDays = absence + extra;
-    if (totalDays === 0) return 0;
+    const convertedAbsence = Math.floor(totalLateEarly / 3);
+    const totalAbsenceCount = totalAbsence + convertedAbsence;
 
-    return -totalDays;
+    const attendanceScore = 0 - totalAbsenceCount;
+
+    return attendanceScore;
   };
 
   const regularScore = calculateRegularScore();
-  const specialScore =
-    form.type === 'SPECIAL_ADMISSION' ? calculateRegularScore() : calculateSpecialScore();
+  const specialScore = calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
 
   const regularTotalScore = (regularScore + attendanceScore).toFixed(3);
@@ -95,8 +136,9 @@ const useGradeCalculation = () => {
     regularScore,
     specialScore,
     attendanceScore,
-    regularTotalScore,
-    specialTotalScore,
+    regularTotalScore: Number(regularTotalScore),
+    specialTotalScore: Number(specialTotalScore),
+    subjectScore: calculateSubjectScore(),
   };
 };
 

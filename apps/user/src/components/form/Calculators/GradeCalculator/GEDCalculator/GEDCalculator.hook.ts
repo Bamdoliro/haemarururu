@@ -14,10 +14,10 @@ export const useAddNewGEDSubject = () => {
     const newSubject: Subject = {
       id: newGEDSubjectIdRef.current++,
       subjectName: '',
-      achievementLevel21: null,
-      achievementLevel22: null,
-      achievementLevel31: null,
-      achievementLevel32: null,
+      achievementLevel21: '-',
+      achievementLevel22: '-',
+      achievementLevel31: '-',
+      achievementLevel32: '-',
       score: null,
     };
     setNewGEDSubjectList((prev) => [...prev, newSubject]);
