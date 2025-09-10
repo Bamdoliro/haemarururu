@@ -15,11 +15,9 @@ export const SCHEDULE = {
 };
 
 export const SCORE = {
-  REGULAR_TYPE: 80,
-  SPECIAL_TYPE: 48,
-  ATTENDANCE: 14,
-  MIN_ATTENDANCE: 0,
-  MAX_ATTENDANCE: 18,
+  REGULAR_TYPE: 0,
+  SPECIAL_TYPE: 0,
+  ATTENDANCE: 0,
 };
 
 export const ATTENDANCE_TYPE = [
