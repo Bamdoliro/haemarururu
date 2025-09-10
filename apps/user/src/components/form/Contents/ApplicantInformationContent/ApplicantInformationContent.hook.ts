@@ -6,17 +6,13 @@ import { useFormStep, formatBirthday } from '@/utils';
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
-import { useEffect, useState } from 'react';
-import { useFormStore } from '@/stores';
-import { useFormProfileValueStore } from '@/stores/form/formProfile';
+
+const digits = (v: string) => v.replace(/\D/g, '');
 
 export const useApplicantForm = () => {
-  const [form, setForm] = useFormStore();
-  const profileUrl = useFormProfileValueStore();
-  const [errors, setErrors] = useState<Record<string, string[]>>({});
-  const { run: FormStep } = useFormStep();
+  const form = useFormValueStore();
+  const setForm = useSetFormStore();
   const { userData } = useUser();
-  const [hasUploadedImage, setHasUploadedImage] = useState(false);
   const { data: saveFormQuery } = useSaveFormQuery();
 
   const [errors, setErrors] = useState<Record<string, string[]>>({});
@@ -45,10 +41,13 @@ export const useApplicantForm = () => {
       ...prev,
       applicant: {
         ...prev.applicant,
-        name: saveFormQuery?.applicant.name ?? userData.name,
-        phoneNumber: saveFormQuery?.applicant.phoneNumber ?? userData.phoneNumber,
-        gender: 'MALE',
-        profile: saveFormQuery?.applicant.profile || prev.applicant.profile,
+        name,
+        phoneNumber: phone,
+        gender: prev.applicant.gender ?? 'MALE',
+        registrationNumber:
+          front || back
+            ? `${front}${back ? '-' + back : ''}`
+            : prev.applicant.registrationNumber ?? '',
       },
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,22 +55,13 @@ export const useApplicantForm = () => {
     saveFormQuery?.applicant?.name,
     saveFormQuery?.applicant?.phoneNumber,
     saveFormQuery?.applicant?.registrationNumber,
-    saveFormQuery?.applicant.profile,
-    setForm,
     userData.name,
     userData.phoneNumber,
   ]);
-  useEffect(() => {
-    if (profileUrl?.downloadUrl && profileUrl.downloadUrl !== form.applicant.profile) {
-      setForm((prev) => ({
-        ...prev,
-        applicant: {
-          ...prev.applicant,
-          profile: profileUrl.downloadUrl,
-        },
-      }));
-    }
-  }, [profileUrl?.downloadUrl, form.applicant.profile, setForm]);
+
+  const formatter: Record<string, (value: string) => string> = {
+    phoneNumber: (value) => digits(value),
+  };
 
   type OnArg = string | ChangeEvent<HTMLInputElement>;
 
@@ -153,31 +143,14 @@ export const useApplicantForm = () => {
   };
 
   const handleNextStep = () => {
-    const hasValidProfile =
-      hasUploadedImage && (profileUrl?.downloadUrl || profileUrl?.uploadUrl);
-    const profileValue = hasValidProfile
-      ? profileUrl?.downloadUrl || profileUrl?.uploadUrl || 'uploaded'
-      : '';
-
-    const currentApplicantData = {
-      ...form.applicant,
-      profile: profileValue,
-    };
-
-    if (hasValidProfile && form.applicant.profile !== profileValue) {
-      setForm((prev) => ({
-        ...prev,
-        applicant: {
-          ...prev.applicant,
-          profile: profileValue,
-        },
-      }));
-    }
     try {
-      ApplicantSchema.parse(currentApplicantData);
       FormStep({
         schema: ApplicantSchema,
-        formData: currentApplicantData,
+        formData: {
+          ...form.applicant,
+          registrationNumberFront: RRNFront,
+          registrationNumberBack: RRNBack,
+        },
         nextStep: '보호자정보',
         setErrors,
       });
@@ -191,14 +164,5 @@ export const useApplicantForm = () => {
       }
     }
   };
-  const handleUploadStateChange = (hasImage: boolean) => {
-    setHasUploadedImage(hasImage);
-  };
-
-  return {
-    onFieldChange,
-    handleNextStep,
-    errors,
-    handleUploadStateChange,
-  };
+  return { onFieldChange, handleNextStep, errors, RRNBack, RRNFront };
 };
