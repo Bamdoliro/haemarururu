@@ -6,12 +6,14 @@ import { useFormStep, formatBirthday } from '@/utils';
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
+import { useFormProfileValueStore } from '@/stores/form/formProfile';
 
 const digits = (v: string) => v.replace(/\D/g, '');
 
 export const useApplicantForm = () => {
   const form = useFormValueStore();
   const setForm = useSetFormStore();
+  const profileUrl = useFormProfileValueStore();
   const { userData } = useUser();
   const { data: saveFormQuery } = useSaveFormQuery();
 
@@ -21,29 +23,43 @@ export const useApplicantForm = () => {
   const { run: FormStep } = useFormStep();
 
   const isInitialized = useRef(false);
-
+  useEffect(() => {
+    const url = profileUrl?.downloadUrl || '';
+    if (!url) return;
+    setForm((prev) => ({
+      ...prev,
+      applicant: { ...prev.applicant, profile: url },
+    }));
+    setErrors((prevErr) =>
+      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
+    );
+  }, [profileUrl?.downloadUrl, setForm]);
   useEffect(() => {
     const saved = saveFormQuery?.applicant;
+
     if (
       isInitialized.current &&
       !saveFormQuery?.applicant &&
       !userData.name &&
       !userData.phoneNumber &&
-      !saveFormQuery?.applicant.profile
+      !saveFormQuery?.applicant?.profile
     ) {
       return;
     }
+
     const name =
       saved?.name ||
       (form.applicant?.name && form.applicant.name.trim()) ||
       userData.name ||
       '';
+
     const phone = digits(
       saved?.phoneNumber ||
         (form.applicant?.phoneNumber && form.applicant.phoneNumber.trim()) ||
         userData.phoneNumber ||
         ''
     );
+
     const initialReg =
       saved?.registrationNumber ?? form.applicant.registrationNumber ?? '';
     const d = digits(initialReg);
@@ -55,11 +71,8 @@ export const useApplicantForm = () => {
       RRNBack !== back ||
       form.applicant?.name !== name ||
       form.applicant?.phoneNumber !== phone;
+
     if (needsUpdate) {
-
-      setRRNFront(front);
-      setRRNBack(back);
-
       setRRNFront(front);
       setRRNBack(back);
       setForm((prev) => ({
@@ -73,10 +86,9 @@ export const useApplicantForm = () => {
             front || back
               ? `${front}${back ? '-' + back : ''}`
               : prev.applicant?.registrationNumber ?? '',
-          profile: prev.applicant?.profile ?? '',
+          profile: saved?.profile ?? prev.applicant?.profile ?? '',
         },
       }));
-
       isInitialized.current = true;
     }
   }, [
@@ -86,6 +98,12 @@ export const useApplicantForm = () => {
     saveFormQuery?.applicant?.profile,
     userData.name,
     userData.phoneNumber,
+    form.applicant?.name,
+    form.applicant?.phoneNumber,
+    form.applicant?.registrationNumber,
+    RRNFront,
+    RRNBack,
+    setForm,
   ]);
 
   const formatter: Record<string, (value: string) => string> = {
@@ -114,19 +132,17 @@ export const useApplicantForm = () => {
 
     const raw = typeof arg === 'string' ? arg : arg.target.value;
     if (!name) return;
+
     if (name === 'registrationNumberFront') {
       const front = digits(raw).slice(0, 6);
       setRRNFront(front);
-
       setForm((prev) => ({
         ...prev,
         applicant: {
           ...prev.applicant,
-          [name]: raw,
           registrationNumber: `${front}${RRNBack ? '-' + RRNBack : ''}`,
         },
       }));
-
       clearFieldErrors(['registrationNumberFront', 'registrationNumber']);
       return;
     }
@@ -134,7 +150,6 @@ export const useApplicantForm = () => {
     if (name === 'registrationNumberBack') {
       const back = digits(raw).slice(0, 7);
       setRRNBack(back);
-
       setForm((prev) => ({
         ...prev,
         applicant: {
@@ -142,7 +157,6 @@ export const useApplicantForm = () => {
           registrationNumber: `${RRNFront}${back ? '-' + back : ''}`,
         },
       }));
-
       clearFieldErrors(['registrationNumberBack', 'registrationNumber']);
       return;
     }
@@ -193,5 +207,6 @@ export const useApplicantForm = () => {
       }
     }
   };
+
   return { onFieldChange, handleNextStep, errors, RRNBack, RRNFront };
 };

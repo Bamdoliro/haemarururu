@@ -5,6 +5,9 @@ import { styled } from 'styled-components';
 
 interface ProfileUploadLoaderProps {
   isOpen: boolean;
+  isError?: boolean;
+  onChange?: () => void;
+  onSuccess?: (url: string) => void;
 }
 
 const ProfileUploadLoader = ({ isOpen }: ProfileUploadLoaderProps) => {
