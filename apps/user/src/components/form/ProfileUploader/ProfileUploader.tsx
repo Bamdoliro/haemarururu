@@ -19,12 +19,16 @@ const MAX_SIZE = 2 * 1024 * 1024;
 
 interface ProfileUploaderProps {
   isError?: boolean;
+  name?: string;
   onUploadStateChange?: (hasImage: boolean) => void;
+  onChange?: () => void;
 }
 
 const ProfileUploader = ({
   isError = false,
   onUploadStateChange,
+  name,
+  onChange,
 }: ProfileUploaderProps) => {
   const [profile, setProfile] = useProfileStore();
   const profileUrl = useFormProfileValueStore();

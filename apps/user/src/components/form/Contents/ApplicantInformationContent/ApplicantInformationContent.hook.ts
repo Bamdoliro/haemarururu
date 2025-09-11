@@ -3,7 +3,7 @@ import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
 import { useFormValueStore, useSetFormStore } from '@/stores';
 import { useFormStep, formatBirthday } from '@/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
 
@@ -20,41 +20,70 @@ export const useApplicantForm = () => {
   const [RRNBack, setRRNBack] = useState('');
   const { run: FormStep } = useFormStep();
 
+  const isInitialized = useRef(false);
+
   useEffect(() => {
     const saved = saveFormQuery?.applicant;
-
-    const name = saved?.name ?? form.applicant.name ?? userData.name ?? '';
+    if (
+      isInitialized.current &&
+      !saveFormQuery?.applicant &&
+      !userData.name &&
+      !userData.phoneNumber &&
+      !saveFormQuery?.applicant.profile
+    ) {
+      return;
+    }
+    const name =
+      saved?.name ||
+      (form.applicant?.name && form.applicant.name.trim()) ||
+      userData.name ||
+      '';
     const phone = digits(
-      saved?.phoneNumber ?? form.applicant.phoneNumber ?? userData.phoneNumber ?? ''
+      saved?.phoneNumber ||
+        (form.applicant?.phoneNumber && form.applicant.phoneNumber.trim()) ||
+        userData.phoneNumber ||
+        ''
     );
-
     const initialReg =
       saved?.registrationNumber ?? form.applicant.registrationNumber ?? '';
     const d = digits(initialReg);
     const front = d.slice(0, 6);
     const back = d.slice(6, 13);
 
-    setRRNFront(front);
-    setRRNBack(back);
+    const needsUpdate =
+      RRNFront !== front ||
+      RRNBack !== back ||
+      form.applicant?.name !== name ||
+      form.applicant?.phoneNumber !== phone;
+    if (needsUpdate) {
 
-    setForm((prev) => ({
-      ...prev,
-      applicant: {
-        ...prev.applicant,
-        name,
-        phoneNumber: phone,
-        gender: prev.applicant.gender ?? 'MALE',
-        registrationNumber:
-          front || back
-            ? `${front}${back ? '-' + back : ''}`
-            : prev.applicant.registrationNumber ?? '',
-      },
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      setRRNFront(front);
+      setRRNBack(back);
+
+      setRRNFront(front);
+      setRRNBack(back);
+      setForm((prev) => ({
+        ...prev,
+        applicant: {
+          ...(prev.applicant || {}),
+          name,
+          phoneNumber: phone,
+          gender: prev.applicant?.gender ?? 'MALE',
+          registrationNumber:
+            front || back
+              ? `${front}${back ? '-' + back : ''}`
+              : prev.applicant?.registrationNumber ?? '',
+          profile: prev.applicant?.profile ?? '',
+        },
+      }));
+
+      isInitialized.current = true;
+    }
   }, [
     saveFormQuery?.applicant?.name,
     saveFormQuery?.applicant?.phoneNumber,
     saveFormQuery?.applicant?.registrationNumber,
+    saveFormQuery?.applicant?.profile,
     userData.name,
     userData.phoneNumber,
   ]);
@@ -85,7 +114,6 @@ export const useApplicantForm = () => {
 
     const raw = typeof arg === 'string' ? arg : arg.target.value;
     if (!name) return;
-
     if (name === 'registrationNumberFront') {
       const front = digits(raw).slice(0, 6);
       setRRNFront(front);
@@ -94,6 +122,7 @@ export const useApplicantForm = () => {
         ...prev,
         applicant: {
           ...prev.applicant,
+          [name]: raw,
           registrationNumber: `${front}${RRNBack ? '-' + RRNBack : ''}`,
         },
       }));
