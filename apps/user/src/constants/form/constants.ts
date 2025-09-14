@@ -18,6 +18,7 @@ export const SCORE = {
   REGULAR_TYPE: 0,
   SPECIAL_TYPE: 0,
   ATTENDANCE: 0,
+  MAX_SCORE: 140,
 };
 
 export const ATTENDANCE_TYPE = [

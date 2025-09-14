@@ -129,8 +129,15 @@ const useGradeCalculation = () => {
   const specialScore = calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
 
-  const regularTotalScore = (regularScore + attendanceScore).toFixed(3);
-  const specialTotalScore = (specialScore + attendanceScore).toFixed(3);
+  const regularTotalScore = Math.min(
+    Number((regularScore + attendanceScore).toFixed(3)),
+    SCORE.MAX_SCORE
+  );
+  const specialTotalScore = Math.min(
+    Number((specialScore + attendanceScore).toFixed(3)),
+    SCORE.MAX_SCORE
+  );
+
 
   return {
     regularScore,
