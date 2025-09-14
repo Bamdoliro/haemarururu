@@ -138,7 +138,6 @@ const useGradeCalculation = () => {
     SCORE.MAX_SCORE
   );
 
-
   return {
     regularScore,
     specialScore,
