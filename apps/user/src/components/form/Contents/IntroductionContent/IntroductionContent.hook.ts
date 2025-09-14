@@ -49,7 +49,11 @@ export const useIntoductionForm = () => {
       IntroductionSchema.parse(form.document);
       setErrors({});
       setFormStep('성적입력');
-      setFormGradeStep('출결상황');
+      if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
+        setFormGradeStep('교과성적');
+      } else {
+        setFormGradeStep('출결상황');
+      }
       saveFormMutate(form);
     } catch (err) {
       if (err instanceof z.ZodError) {
