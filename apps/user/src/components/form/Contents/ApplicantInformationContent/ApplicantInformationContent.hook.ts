@@ -22,96 +22,6 @@ export const useApplicantForm = () => {
   const [RRNBack, setRRNBack] = useState('');
   const { run: FormStep } = useFormStep();
 
-  const isInitialized = useRef(false);
-  useEffect(() => {
-    const url = profileUrl?.downloadUrl || '';
-    if (!url) return;
-    setForm((prev) => ({
-      ...prev,
-      applicant: { ...prev.applicant, profile: url },
-    }));
-    setErrors((prevErr) =>
-      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
-    );
-  }, [profileUrl?.downloadUrl, setForm]);
-  useEffect(() => {
-    const saved = saveFormQuery?.applicant;
-
-    if (
-      isInitialized.current &&
-      !saveFormQuery?.applicant &&
-      !userData.name &&
-      !userData.phoneNumber &&
-      !saveFormQuery?.applicant?.profile
-    ) {
-      return;
-    }
-
-    const name =
-      saved?.name ||
-      (form.applicant?.name && form.applicant.name.trim()) ||
-      userData.name ||
-      '';
-
-    const phone = digits(
-      saved?.phoneNumber ||
-        (form.applicant?.phoneNumber && form.applicant.phoneNumber.trim()) ||
-        userData.phoneNumber ||
-        ''
-    );
-
-    const initialReg =
-      saved?.registrationNumber ?? form.applicant.registrationNumber ?? '';
-    const d = digits(initialReg);
-    const front = d.slice(0, 6);
-    const back = d.slice(6, 13);
-
-    const needsUpdate =
-      RRNFront !== front ||
-      RRNBack !== back ||
-      form.applicant?.name !== name ||
-      form.applicant?.phoneNumber !== phone;
-
-    if (needsUpdate) {
-      setRRNFront(front);
-      setRRNBack(back);
-      setForm((prev) => ({
-        ...prev,
-        applicant: {
-          ...(prev.applicant || {}),
-          name,
-          phoneNumber: phone,
-          gender: prev.applicant?.gender ?? 'MALE',
-          registrationNumber:
-            front || back
-              ? `${front}${back ? '-' + back : ''}`
-              : prev.applicant?.registrationNumber ?? '',
-          profile: saved?.profile ?? prev.applicant?.profile ?? '',
-        },
-      }));
-      isInitialized.current = true;
-    }
-  }, [
-    saveFormQuery?.applicant?.name,
-    saveFormQuery?.applicant?.phoneNumber,
-    saveFormQuery?.applicant?.registrationNumber,
-    saveFormQuery?.applicant?.profile,
-    userData.name,
-    userData.phoneNumber,
-    form.applicant?.name,
-    form.applicant?.phoneNumber,
-    form.applicant?.registrationNumber,
-    RRNFront,
-    RRNBack,
-    setForm,
-  ]);
-
-  const formatter: Record<string, (value: string) => string> = {
-    phoneNumber: (value) => digits(value),
-  };
-
-  type OnArg = string | ChangeEvent<HTMLInputElement>;
-
   const clearFieldErrors = (names: string[]) => {
     let changed = false;
     const next = { ...errors };
@@ -123,6 +33,59 @@ export const useApplicantForm = () => {
     }
     if (changed) setErrors(next);
   };
+
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    const url = profileUrl?.downloadUrl || '';
+    if (!url) return;
+    setForm((prev) => ({
+      ...prev,
+      applicant: { ...prev.applicant, profile: url },
+    }));
+    setErrors((prevErr) =>
+      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
+    );
+  }, [profileUrl?.downloadUrl, setForm]);
+
+  useEffect(() => {
+    if (isInitialized.current) return;
+
+    const saved = saveFormQuery?.applicant;
+    const d = digits(
+      saved?.registrationNumber ?? form.applicant.registrationNumber ?? ''
+    );
+    const front = d.slice(0, 6);
+    const back = d.slice(6, 13);
+
+    const name = saved?.name || form.applicant?.name || userData.name || '';
+    const phone = digits(
+      saved?.phoneNumber || form.applicant?.phoneNumber || userData.phoneNumber || ''
+    );
+
+    setRRNFront(front);
+    setRRNBack(back);
+
+    setForm((prev) => ({
+      ...prev,
+      applicant: {
+        ...(prev.applicant || {}),
+        name,
+        phoneNumber: phone,
+        gender: prev.applicant?.gender ?? 'MALE',
+        registrationNumber: front && back ? `${front}-${back}` : '',
+        profile: saved?.profile ?? prev.applicant?.profile ?? '',
+      },
+    }));
+
+    isInitialized.current = true;
+  }, [saveFormQuery, setForm, userData, form.applicant]);
+
+  const formatter: Record<string, (value: string) => string> = {
+    phoneNumber: (value) => digits(value),
+  };
+
+  type OnArg = string | ChangeEvent<HTMLInputElement>;
 
   const onFieldChange = (arg: OnArg) => {
     const name =
