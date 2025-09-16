@@ -24,10 +24,21 @@ type AttendanceKey =
   | 'earlyLeaveCount'
   | 'classAbsenceCount';
 
-const CORE_SUBJECTS = ['국어', '영어', '수학'];
-
 const useGradeCalculation = () => {
   const form = useFormValueStore();
+
+  const getFallbackLevel = (subject: any, key: AchievementLevelKey): string => {
+    const fallbackMap: Record<AchievementLevelKey, AchievementLevelKey> = {
+      achievementLevel21: 'achievementLevel31',
+      achievementLevel22: 'achievementLevel32',
+      achievementLevel31: 'achievementLevel21',
+      achievementLevel32: 'achievementLevel22',
+    };
+
+    const fallbackKey = fallbackMap[key];
+    const fallback = subject[fallbackKey];
+    return fallback && fallback !== '-' && fallback !== '미이수' ? fallback : '-';
+  };
 
   const calculateSubjectScore = () => {
     if (!form.grade.subjectList) return 0;
@@ -46,16 +57,15 @@ const useGradeCalculation = () => {
       ];
 
       semesters.forEach(({ key, ratio }) => {
-        let achievementLevel = subject[key];
-        if (CORE_SUBJECTS.includes(subjectName) && achievementLevel === '미이수') {
-          achievementLevel = 'C';
+        type AchievementLevel = keyof typeof AchievementScore;
+
+        let achievementLevel = subject[key] as AchievementLevel;
+
+        if (!achievementLevel || achievementLevel === '미이수') {
+          achievementLevel = getFallbackLevel(subject, key) as AchievementLevel;
         }
-        if (
-          !CORE_SUBJECTS.includes(subjectName) &&
-          (achievementLevel === null || achievementLevel === '-')
-        ) {
-          return;
-        }
+
+        if (achievementLevel === '-' || achievementLevel === '미이수') return;
 
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;
