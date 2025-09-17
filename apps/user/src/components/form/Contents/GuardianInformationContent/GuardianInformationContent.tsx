@@ -9,7 +9,6 @@ const GuardianInformationContent = () => {
   const overlay = useOverlay();
   const form = useFormValueStore();
   const { onFieldChange, handleNextStep, handlePreviousStep, errors } = useGuardianForm();
-
   const openFindAddressModal = () => {
     overlay.open(({ isOpen, close }) => (
       <FindAddressModal isOpen={isOpen} onClose={close} />
