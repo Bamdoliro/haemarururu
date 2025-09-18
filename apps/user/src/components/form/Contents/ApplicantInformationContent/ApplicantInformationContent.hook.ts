@@ -142,7 +142,6 @@ export const useApplicantForm = () => {
       applicant: {
         ...prev.applicant,
         [name]: raw,
-        birthday: formatBirthday(form.applicant.registrationNumber),
       },
     }));
     clearFieldErrors([name]);
@@ -150,16 +149,26 @@ export const useApplicantForm = () => {
 
   const handleNextStep = () => {
     try {
+      const formDataWithRRN = {
+        ...form.applicant,
+        registrationNumberFront: RRNFront,
+        registrationNumberBack: RRNBack,
+      };
+
       FormStep({
         schema: ApplicantSchema,
-        formData: {
-          ...form.applicant,
-          registrationNumberFront: RRNFront,
-          registrationNumberBack: RRNBack,
-        },
+        formData: formDataWithRRN,
         nextStep: '보호자정보',
         setErrors,
       });
+      setForm((prev) => ({
+        ...prev,
+        applicant: {
+          ...prev.applicant,
+          birthday: formatBirthday(prev.applicant.registrationNumber),
+        },
+      }));
+
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
