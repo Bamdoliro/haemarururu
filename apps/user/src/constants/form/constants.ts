@@ -15,11 +15,10 @@ export const SCHEDULE = {
 };
 
 export const SCORE = {
-  REGULAR_TYPE: 80,
-  SPECIAL_TYPE: 48,
-  ATTENDANCE: 14,
-  MIN_ATTENDANCE: 0,
-  MAX_ATTENDANCE: 18,
+  REGULAR_TYPE: 0,
+  SPECIAL_TYPE: 0,
+  ATTENDANCE: 0,
+  MAX_SCORE: 140,
 };
 
 export const ATTENDANCE_TYPE = [
@@ -30,6 +29,21 @@ export const ATTENDANCE_TYPE = [
 ];
 
 export const ATTENDANCE_GRADE = ['attendance1', 'attendance2', 'attendance3'];
+
+export const SUBJECT_RATIO = {
+  국어: 0.24,
+  수학: 0.28,
+  영어: 0.28,
+  사회: 0.1,
+  과학: 0.1,
+};
+
+export const SEMESTER_RATIO = {
+  '2-1': 0.2,
+  '2-2': 0.2,
+  '3-1': 0.3,
+  '3-2': 0.3,
+};
 
 export const SCORE_TABLE = {
   A: 40,

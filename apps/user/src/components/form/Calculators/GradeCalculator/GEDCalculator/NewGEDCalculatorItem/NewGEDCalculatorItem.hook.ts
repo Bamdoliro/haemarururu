@@ -1,49 +1,74 @@
 import { useSetNewGEDSubjectListStore } from '@/stores';
 import type { ChangeEventHandler } from 'react';
 
-export const useInput = (newGEDSubjectIndex: number) => {
+export const useInput = (subjectIndex: number) => {
   const setNewGEDSubjectList = useSetNewGEDSubjectListStore();
-
-  const handleNewGEDSubjectChange = (value: string) => {
+  const handleNewGEDSubjectChange = (subjectName: string) => {
     setNewGEDSubjectList((prev) => {
-      const updatedData = [...prev];
-      updatedData[newGEDSubjectIndex] = {
-        ...updatedData[newGEDSubjectIndex],
-        subjectName: value,
+      const updatedList = [...prev];
+      updatedList[subjectIndex] = {
+        ...updatedList[subjectIndex],
+        subjectName,
       };
-      return updatedData;
+      return updatedList;
     });
   };
-
   const handleScoreChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const { name, value } = e.target;
-    const trimmedValue = value.replace(/^0+/, '');
+    const inputValue = e.target.value;
+    const numericString = inputValue.replace(/\D/g, '');
 
-    const processValue =
-      Number(value) === 100
-        ? 100
-        : value.length > 2
-        ? Number(trimmedValue.slice(1))
-        : Number(trimmedValue);
+    if (numericString === '') {
+      setNewGEDSubjectList((prev) => {
+        const updatedList = [...prev];
+        updatedList[subjectIndex] = {
+          ...updatedList[subjectIndex],
+          score: null,
+          achievementLevel21: '-',
+          achievementLevel22: '-',
+          achievementLevel31: '-',
+          achievementLevel32: '-',
+        };
+        return updatedList;
+      });
+      return;
+    }
+
+    const normalizedString = numericString.replace(/^0+/, '') || '0';
+    let normalizedScore = Number(normalizedString);
+    if (normalizedScore > 100) normalizedScore = 100;
+
+    const achievementLevel =
+      normalizedScore >= 99
+        ? 'A'
+        : normalizedScore >= 97
+        ? 'B'
+        : normalizedScore >= 93
+        ? 'C'
+        : normalizedScore >= 89
+        ? 'D'
+        : 'E';
 
     setNewGEDSubjectList((prev) => {
-      const updatedData = [...prev];
-      updatedData[newGEDSubjectIndex] = {
-        ...updatedData[newGEDSubjectIndex],
-        [name]: processValue,
+      const updatedList = [...prev];
+      updatedList[subjectIndex] = {
+        ...updatedList[subjectIndex],
+        score: normalizedScore,
+        achievementLevel21: achievementLevel,
+        achievementLevel22: achievementLevel,
+        achievementLevel31: achievementLevel,
+        achievementLevel32: achievementLevel,
       };
-      return updatedData;
+      return updatedList;
     });
   };
 
   return { handleNewGEDSubjectChange, handleScoreChange };
 };
-
 export const useDeleteNewGEDSubject = () => {
   const setNewGEDSubjectList = useSetNewGEDSubjectListStore();
 
-  const handleDeleteNewGEDSubject = (id: number) => {
-    setNewGEDSubjectList((prev) => prev.filter((item) => item.id !== id));
+  const handleDeleteNewGEDSubject = (targetId: number) => {
+    setNewGEDSubjectList((prev) => prev.filter((item) => item.id !== targetId));
   };
 
   return { handleDeleteNewGEDSubject };

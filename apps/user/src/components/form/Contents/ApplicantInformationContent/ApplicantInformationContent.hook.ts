@@ -3,15 +3,17 @@ import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
 import { useFormValueStore, useSetFormStore } from '@/stores';
 import { useFormStep, formatBirthday } from '@/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
+import { useFormProfileValueStore } from '@/stores/form/formProfile';
 
 const digits = (v: string) => v.replace(/\D/g, '');
 
 export const useApplicantForm = () => {
   const form = useFormValueStore();
   const setForm = useSetFormStore();
+  const profileUrl = useFormProfileValueStore();
   const { userData } = useUser();
   const { data: saveFormQuery } = useSaveFormQuery();
 
@@ -19,51 +21,6 @@ export const useApplicantForm = () => {
   const [RRNFront, setRRNFront] = useState('');
   const [RRNBack, setRRNBack] = useState('');
   const { run: FormStep } = useFormStep();
-
-  useEffect(() => {
-    const saved = saveFormQuery?.applicant;
-
-    const name = saved?.name ?? form.applicant.name ?? userData.name ?? '';
-    const phone = digits(
-      saved?.phoneNumber ?? form.applicant.phoneNumber ?? userData.phoneNumber ?? ''
-    );
-
-    const initialReg =
-      saved?.registrationNumber ?? form.applicant.registrationNumber ?? '';
-    const d = digits(initialReg);
-    const front = d.slice(0, 6);
-    const back = d.slice(6, 13);
-
-    setRRNFront(front);
-    setRRNBack(back);
-
-    setForm((prev) => ({
-      ...prev,
-      applicant: {
-        ...prev.applicant,
-        name,
-        phoneNumber: phone,
-        gender: prev.applicant.gender ?? 'MALE',
-        registrationNumber:
-          front || back
-            ? `${front}${back ? '-' + back : ''}`
-            : prev.applicant.registrationNumber ?? '',
-      },
-    }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    saveFormQuery?.applicant?.name,
-    saveFormQuery?.applicant?.phoneNumber,
-    saveFormQuery?.applicant?.registrationNumber,
-    userData.name,
-    userData.phoneNumber,
-  ]);
-
-  const formatter: Record<string, (value: string) => string> = {
-    phoneNumber: (value) => digits(value),
-  };
-
-  type OnArg = string | ChangeEvent<HTMLInputElement>;
 
   const clearFieldErrors = (names: string[]) => {
     let changed = false;
@@ -77,6 +34,59 @@ export const useApplicantForm = () => {
     if (changed) setErrors(next);
   };
 
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    const url = profileUrl?.downloadUrl || '';
+    if (!url) return;
+    setForm((prev) => ({
+      ...prev,
+      applicant: { ...prev.applicant, profile: url },
+    }));
+    setErrors((prevErr) =>
+      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
+    );
+  }, [profileUrl?.downloadUrl, setForm]);
+
+  useEffect(() => {
+    if (isInitialized.current) return;
+
+    const saved = saveFormQuery?.applicant;
+    const d = digits(
+      saved?.registrationNumber ?? form.applicant.registrationNumber ?? ''
+    );
+    const front = d.slice(0, 6);
+    const back = d.slice(6, 13);
+
+    const name = saved?.name || form.applicant?.name || userData.name || '';
+    const phone = digits(
+      saved?.phoneNumber || form.applicant?.phoneNumber || userData.phoneNumber || ''
+    );
+
+    setRRNFront(front);
+    setRRNBack(back);
+
+    setForm((prev) => ({
+      ...prev,
+      applicant: {
+        ...(prev.applicant || {}),
+        name,
+        phoneNumber: phone,
+        gender: prev.applicant?.gender ?? 'MALE',
+        registrationNumber: front && back ? `${front}-${back}` : '',
+        profile: saved?.profile ?? prev.applicant?.profile ?? '',
+      },
+    }));
+
+    isInitialized.current = true;
+  }, [saveFormQuery, setForm, userData, form.applicant]);
+
+  const formatter: Record<string, (value: string) => string> = {
+    phoneNumber: (value) => digits(value),
+  };
+
+  type OnArg = string | ChangeEvent<HTMLInputElement>;
+
   const onFieldChange = (arg: OnArg) => {
     const name =
       typeof arg === 'string'
@@ -89,7 +99,6 @@ export const useApplicantForm = () => {
     if (name === 'registrationNumberFront') {
       const front = digits(raw).slice(0, 6);
       setRRNFront(front);
-
       setForm((prev) => ({
         ...prev,
         applicant: {
@@ -97,7 +106,6 @@ export const useApplicantForm = () => {
           registrationNumber: `${front}${RRNBack ? '-' + RRNBack : ''}`,
         },
       }));
-
       clearFieldErrors(['registrationNumberFront', 'registrationNumber']);
       return;
     }
@@ -105,7 +113,6 @@ export const useApplicantForm = () => {
     if (name === 'registrationNumberBack') {
       const back = digits(raw).slice(0, 7);
       setRRNBack(back);
-
       setForm((prev) => ({
         ...prev,
         applicant: {
@@ -113,7 +120,6 @@ export const useApplicantForm = () => {
           registrationNumber: `${RRNFront}${back ? '-' + back : ''}`,
         },
       }));
-
       clearFieldErrors(['registrationNumberBack', 'registrationNumber']);
       return;
     }
@@ -136,7 +142,6 @@ export const useApplicantForm = () => {
       applicant: {
         ...prev.applicant,
         [name]: raw,
-        birthday: formatBirthday(form.applicant.registrationNumber),
       },
     }));
     clearFieldErrors([name]);
@@ -144,16 +149,26 @@ export const useApplicantForm = () => {
 
   const handleNextStep = () => {
     try {
+      const formDataWithRRN = {
+        ...form.applicant,
+        registrationNumberFront: RRNFront,
+        registrationNumberBack: RRNBack,
+      };
+
       FormStep({
         schema: ApplicantSchema,
-        formData: {
-          ...form.applicant,
-          registrationNumberFront: RRNFront,
-          registrationNumberBack: RRNBack,
-        },
+        formData: formDataWithRRN,
         nextStep: '보호자정보',
         setErrors,
       });
+      setForm((prev) => ({
+        ...prev,
+        applicant: {
+          ...prev.applicant,
+          birthday: formatBirthday(prev.applicant.registrationNumber),
+        },
+      }));
+
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
@@ -164,5 +179,6 @@ export const useApplicantForm = () => {
       }
     }
   };
+
   return { onFieldChange, handleNextStep, errors, RRNBack, RRNFront };
 };
