@@ -10,7 +10,7 @@ export const IntroductionSchema = z.object({
     .string()
     .trim()
     .min(1, '성취감을 느꼈던 학습 경험을 입력해주세요.')
-    .max(1000, '성취감을 느꼈던 학습 경험은 1000자 이내로 작성해주세요.')
+    .max(700, '성취감을 느꼈던 학습 경험은 1000자 이내로 작성해주세요.')
     .refine(forbidWords, { message: '금지어를 포함할 수 없습니다.' }),
 
   statementOfPurpose: z
