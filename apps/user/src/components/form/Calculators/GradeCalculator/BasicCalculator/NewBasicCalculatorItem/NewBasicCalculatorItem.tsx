@@ -46,7 +46,10 @@ const NewBasicCalculatorItem = ({
     (listSubject) =>
       listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
   );
-
+  const getDisplayValue = (value: string) => {
+    if (value === 'F') return '미이수';
+    return value;
+  };
   return (
     <StyledNewBasicCalculatorItem>
       <Td styleType="SECONDARY" width="15.3%" height={64}>
@@ -61,7 +64,7 @@ const NewBasicCalculatorItem = ({
       {ACHIEVEMENT_KEYS.map((key) => (
         <Td key={key} width="24%" height={64}>
           <Dropdown
-            value={subject[key]}
+            value={getDisplayValue(subject[key])}
             size="SMALL"
             data={achievementLevels}
             width={80}
