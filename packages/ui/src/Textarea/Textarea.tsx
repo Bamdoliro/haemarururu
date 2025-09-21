@@ -5,28 +5,33 @@ import styled, { css } from 'styled-components';
 import ConditionalMessage from './ConditionalMessage';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  limit: number;
+  limit?: number;
   label: string | React.ReactNode;
   isError?: boolean;
   errorMessage?: string;
   message?: string;
+  placeholder?: string;
   width?: CSSProperties['width'];
   excludeSpace?: boolean;
 }
 
 const Textarea = ({
   width,
-  limit,
+  limit = 10000,
   label,
   name,
   value,
   onChange,
   isError = false,
   errorMessage,
+  placeholder,
   message,
   excludeSpace = false,
 }: TextareaProps) => {
   const textValue = value as string;
+  const placeholderValue =
+    placeholder ??
+    `${excludeSpace ? '띄어쓰기 제외 ' : ''}${limit}자 이내로 작성해주세요.`;
   const length = excludeSpace ? textValue.replace(/\s/g, '').length : textValue.length;
   return (
     <div style={{ position: 'relative', width }}>
@@ -36,7 +41,7 @@ const Textarea = ({
           value={textValue}
           name={name}
           onChange={onChange}
-          placeholder={`${limit}자 이내로 작성해주세요.`}
+          placeholder={placeholderValue}
           maxLength={limit}
           $isError={isError}
         />

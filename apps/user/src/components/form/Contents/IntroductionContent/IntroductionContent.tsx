@@ -47,7 +47,6 @@ const IntroductionContent = () => {
         <Column gap={64}>
           <Textarea
             name="learningExperience"
-            limit={700}
             label="1. 중학교 재학 중 자기주도적으로 수행한 활동 중 가장 큰 성취감을 느꼈던 학습 경험에 대하여 기술하십시오."
             placeholder="띄어쓰기 제외 700자 이내로 작성하십시오."
             value={form.document.learningExperience}
@@ -58,7 +57,6 @@ const IntroductionContent = () => {
           />
           <Textarea
             name="statementOfPurpose"
-            limit={300}
             label={
               <Column gap={8}>
                 <Text fontType="context" color={color.gray900}>
@@ -82,7 +80,6 @@ const IntroductionContent = () => {
           />
           <Textarea
             name="personality"
-            limit={500}
             label={
               <Column gap={8}>
                 <Text fontType="context" color={color.gray900}>
