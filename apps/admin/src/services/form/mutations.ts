@@ -2,6 +2,7 @@ import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getFormUrl,
+  patchFinalStatus,
   patchSecondRoundResult,
   patchSecondRoundResultAuto,
   patchSecondScoreFormat,
@@ -127,4 +128,21 @@ export const usePrintFormUrlMutation = () => {
   });
 
   return { printFormUrl, ...restMutation };
+};
+
+export const useChangeFinalStatusMutation = (
+  id: number,
+  status: string,
+  closeModal: () => void
+) => {
+  const { handleError } = useApiError();
+  const { mutate: changeFinalStatus, ...restMutation } = useMutation({
+    mutationFn: () => patchFinalStatus(id, status),
+    onSuccess: () => {
+      toast('최종 접수 상태가 변경되었습니다.', { type: 'success' });
+      closeModal();
+    },
+    onError: handleError,
+  });
+  return { changeFinalStatus, ...restMutation };
 };
