@@ -4,7 +4,7 @@ import { getAchivementLevel } from '@/utils';
 
 enum AchievementScore {
   '-' = 0,
-  '미이수' = 0,
+  'F' = 0,
   'A' = 40,
   'B' = 32,
   'C' = 24,
@@ -61,11 +61,11 @@ const useGradeCalculation = () => {
 
         let achievementLevel = subject[key] as AchievementLevel;
 
-        if (!achievementLevel || achievementLevel === '미이수') {
+        if (!achievementLevel || achievementLevel === 'F') {
           achievementLevel = getFallbackLevel(subject, key) as AchievementLevel;
         }
 
-        if (achievementLevel === '-' || achievementLevel === '미이수') return;
+        if (achievementLevel === '-' || achievementLevel === 'F') return;
 
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;

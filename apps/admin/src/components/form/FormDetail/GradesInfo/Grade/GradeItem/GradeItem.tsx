@@ -6,6 +6,7 @@ interface GradeItemProps {
   achievementLevel21: AchievementLevel;
   achievementLevel22: AchievementLevel;
   achievementLevel31: AchievementLevel;
+  achievementLevel32: AchievementLevel;
 }
 
 const GradeItem = ({
@@ -13,20 +14,28 @@ const GradeItem = ({
   achievementLevel21,
   achievementLevel22,
   achievementLevel31,
+  achievementLevel32,
 }: GradeItemProps) => {
+  const getDisplayValue = (value: AchievementLevel) => {
+    if (value === 'F') return '미이수';
+    return value;
+  };
   return (
     <Row height={64}>
       <Td styleType="SECONDARY" width={123} height="100%">
         {subjectName}
       </Td>
       <Td width={140} height="100%">
-        <CellInput type="text" value={achievementLevel21 || '미이수'} readOnly />
+        <CellInput type="text" value={getDisplayValue(achievementLevel21)} readOnly />
       </Td>
       <Td width={140} height="100%">
-        <CellInput type="text" value={achievementLevel22 || '미이수'} readOnly />
+        <CellInput type="text" value={getDisplayValue(achievementLevel22)} readOnly />
       </Td>
       <Td width={140} height="100%">
-        <CellInput type="text" value={achievementLevel31 || '미이수'} readOnly />
+        <CellInput type="text" value={getDisplayValue(achievementLevel31)} readOnly />
+      </Td>
+      <Td width={140} height="100%">
+        <CellInput type="text" value={getDisplayValue(achievementLevel32)} readOnly />
       </Td>
     </Row>
   );
