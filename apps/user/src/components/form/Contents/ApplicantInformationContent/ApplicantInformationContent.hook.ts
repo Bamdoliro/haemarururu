@@ -168,7 +168,6 @@ export const useApplicantForm = () => {
           birthday: formatBirthday(prev.applicant.registrationNumber),
         },
       }));
-
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
