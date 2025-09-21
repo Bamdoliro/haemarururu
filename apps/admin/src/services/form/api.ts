@@ -111,3 +111,11 @@ export const patchSecondRoundResultAuto = async () => {
 
   return data;
 };
+
+export const patchFinalStatus = async (id: number, status: string) => {
+  const endpoint =
+    status === '승인' ? 'approve' : status === '반려' ? 'reject' : 'receive';
+
+  const { data } = await maru.patch(`/forms/${id}/${endpoint}`, {}, authorization());
+  return data;
+};
