@@ -99,15 +99,6 @@ const useGradeCalculation = () => {
     return Number(subjectScore.toFixed(3));
   };
 
-  const calculateSpecialScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return 0;
-    }
-    const specialScore = calculateSubjectScore();
-
-    return Number(specialScore.toFixed(3));
-  };
-
   const calculateAttendanceScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       return SCORE.ATTENDANCE;
@@ -130,27 +121,22 @@ const useGradeCalculation = () => {
     const convertedAbsence = Math.floor(totalLateEarly / 3);
     const totalAbsenceCount = totalAbsence + convertedAbsence;
 
-    const attendanceScore = 0 - totalAbsenceCount;
+    const attendanceScore = -totalAbsenceCount;
 
     return attendanceScore;
   };
 
   const regularScore = calculateRegularScore();
-  const specialScore = calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
 
   const regularTotalScore = Math.min(
     Number((regularScore + attendanceScore).toFixed(3)),
     SCORE.MAX_SCORE
   );
-  const specialTotalScore = Math.min(
-    Number((specialScore + attendanceScore).toFixed(3)),
-    SCORE.MAX_SCORE
-  );
+  const specialTotalScore = Math.min(SCORE.MAX_SCORE);
 
   return {
     regularScore,
-    specialScore,
     attendanceScore,
     regularTotalScore: Number(regularTotalScore),
     specialTotalScore: Number(specialTotalScore),
