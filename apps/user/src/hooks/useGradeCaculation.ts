@@ -79,24 +79,34 @@ const useGradeCalculation = () => {
   const calculateRegularScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       let regularTotal = 0;
-
       form.grade.subjectList?.forEach((subject) => {
-        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
+        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'F';
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] ||
-          AchievementScore.E;
-        if (subject.subjectName === '수학') {
-          regularTotal += score * 2;
+          AchievementScore.F;
+        if (subject.subjectName === '수학' || subject.subjectName === '영어') {
+          regularTotal += score * 0.28;
+        } else if (subject.subjectName === '국어') {
+          regularTotal += score * 0.24;
         } else {
-          regularTotal += score;
+          regularTotal += score * 0.1;
         }
       });
-      return Number(regularTotal.toFixed(3));
+      return Math.min(((regularTotal * 3.5).toFixed(3), 140));
     }
 
     const subjectScore = calculateSubjectScore();
 
     return Number(subjectScore.toFixed(3));
+  };
+
+  const calculateSpecialScore = () => {
+    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
+      return 0;
+    }
+    const specialScore = calculateSubjectScore();
+
+    return Number(specialScore.toFixed(3));
   };
 
   const calculateAttendanceScore = () => {
@@ -121,22 +131,27 @@ const useGradeCalculation = () => {
     const convertedAbsence = Math.floor(totalLateEarly / 3);
     const totalAbsenceCount = totalAbsence + convertedAbsence;
 
-    const attendanceScore = -totalAbsenceCount;
+    const attendanceScore = 0 - totalAbsenceCount;
 
     return attendanceScore;
   };
 
   const regularScore = calculateRegularScore();
+  const specialScore = calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
 
   const regularTotalScore = Math.min(
     Number((regularScore + attendanceScore).toFixed(3)),
     SCORE.MAX_SCORE
   );
-  const specialTotalScore = Math.min(SCORE.MAX_SCORE);
+  const specialTotalScore = Math.min(
+    Number((specialScore + attendanceScore).toFixed(3)),
+    SCORE.MAX_SCORE
+  );
 
   return {
     regularScore,
+    specialScore,
     attendanceScore,
     regularTotalScore: Number(regularTotalScore),
     specialTotalScore: Number(specialTotalScore),
