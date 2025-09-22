@@ -19,10 +19,10 @@ const ManagerTable = () => {
           개인정보 보호책임자
         </Td>
         <Td width="33.3%" height={56}>
-          교장
+          입학담당관
         </Td>
         <Td width="33.3%" height={56}>
-          051-970-1701
+          070-4006-8261,070-4006-8282
         </Td>
       </Row>
       <Row>
@@ -30,10 +30,10 @@ const ManagerTable = () => {
           개인정보 보호담당자
         </Td>
         <Td width="33.3%" height={56}>
-          교사
+          교무실
         </Td>
         <Td borderBottomRightRadius={12} width="33.3%" height={56}>
-          051-970-1744
+          051-742-0313
         </Td>
       </Row>
     </Column>
