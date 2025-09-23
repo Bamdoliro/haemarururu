@@ -21,7 +21,7 @@ const DetailTable = ({ formList }: DetailTableProps) => {
               <Text fontType="D2">{regularRatio} %</Text>
             </Column>
             <Column>
-              <Text fontType="btn2">사회 다양성 전형 지원 비율</Text>
+              <Text fontType="btn2">사회 통합 전형 지원 비율</Text>
               <Text fontType="D2">{specialAdmissionRatio} %</Text>
             </Column>
           </Column>
