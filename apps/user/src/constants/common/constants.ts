@@ -16,7 +16,7 @@ export const ROUTES = {
   PASSWORD: '/password',
   SIGNUP: '/signup',
   WITHDRAWAL: '/withdrawal',
-  SCHOOL: 'https://school.busanedu.net/bssm-h',
+  SCHOOL: 'https://school.busanedu.net/haeundae-h',
 };
 
 export const TOKEN = {
