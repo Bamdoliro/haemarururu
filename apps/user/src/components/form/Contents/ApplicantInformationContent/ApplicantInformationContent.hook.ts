@@ -148,13 +148,14 @@ export const useApplicantForm = () => {
   };
 
   const handleNextStep = () => {
+    const currentProfile = profileUrl?.downloadUrl || form.applicant.profile || '';
     try {
       const formDataWithRRN = {
         ...form.applicant,
+        profile: currentProfile,
         registrationNumberFront: RRNFront,
         registrationNumberBack: RRNBack,
       };
-
       FormStep({
         schema: ApplicantSchema,
         formData: formDataWithRRN,
@@ -165,6 +166,7 @@ export const useApplicantForm = () => {
         ...prev,
         applicant: {
           ...prev.applicant,
+          profile: currentProfile,
           birthday: formatBirthday(prev.applicant.registrationNumber),
         },
       }));

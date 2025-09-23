@@ -22,13 +22,13 @@ interface ProfileUploaderProps {
   name?: string;
   onUploadStateChange?: (hasImage: boolean) => void;
   onChange?: () => void;
+  onUploadComplete?: (url: string) => void;
 }
 
 const ProfileUploader = ({
   isError = false,
   onUploadStateChange,
-  name,
-  onChange,
+  onUploadComplete,
 }: ProfileUploaderProps) => {
   const [profile, setProfile] = useProfileStore();
   const profileUrl = useFormProfileValueStore();
@@ -73,7 +73,14 @@ const ProfileUploader = ({
     if (onUploadStateChange) {
       onUploadStateChange(hasImage);
     }
-  }, [previewUrl, profileUrl?.downloadUrl, onUploadStateChange]);
+    if (previewUrl && onUploadComplete) {
+      onUploadComplete(previewUrl);
+    }
+
+    if (profileUrl?.downloadUrl && onUploadComplete) {
+      onUploadComplete(profileUrl.downloadUrl);
+    }
+  }, [previewUrl, profileUrl?.downloadUrl, onUploadStateChange, onUploadComplete]);
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -172,6 +179,7 @@ const ProfileUploader = ({
             Storage.setItem('upload', 'true');
 
             uploadProfileMutate();
+            refreshProfileMutate();
           }, 'image/jpeg');
         };
 
