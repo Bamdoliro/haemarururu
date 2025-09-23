@@ -62,7 +62,6 @@ export type FormTypeMainCategory = 'REGULAR' | 'SPECIAL' | 'SUPERNUMERARY';
 
 export type GenderRatioCategory =
   | 'REGULAR'
-  | 'MEISTER_TALENT'
   | 'SOCIAL_INTEGRATION'
   | 'SPECIAL_ADMISSION'
   | 'NATIONAL_VETERANS_EDUCATION';

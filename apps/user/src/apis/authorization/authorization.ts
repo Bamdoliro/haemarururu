@@ -9,7 +9,7 @@ const authorization = () => {
   };
 };
 
-authorization.ForData = () => {
+authorization.FormData = () => {
   return {
     headers: {
       Authorization: `Bearer ${Storage.getItem(TOKEN.ACCESS)}`,

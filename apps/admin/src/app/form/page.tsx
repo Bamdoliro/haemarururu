@@ -114,7 +114,7 @@ const FormPage = () => {
                   data={[
                     { value: 'RESET', label: '정렬 초기화' },
                     { value: 'REGULAR', label: '일반전형' },
-                    { value: 'MEISTER_TALENT', label: '마이스터인재전형' },
+                    { value: 'SOCIAL_INTEGRATION', label: '사회통합전형' },
                     { value: 'NATIONAL_BASIC_LIVING', label: '국가기초생활수급권자' },
                     {
                       value: 'NATIONAL_VETERANS_EDUCATION',
