@@ -102,7 +102,7 @@ const NewSubjectInput = styled.input<{ error: boolean }>`
   background-color: ${color.gray50};
   width: 74px;
   text-align: center;
-  &:-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     color: ${color.gray500};
   }
 `;
