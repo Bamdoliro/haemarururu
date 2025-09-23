@@ -3,7 +3,7 @@ export type RecipientType =
   | 'RECEIVED'
   | 'REJECTED'
   | 'FIRST_PASSED'
-  | 'MEISTER_TALENT'
+  | 'SOCIAL_INTEGRATION'
   | 'REGULAR'
   | 'PASSED';
 
