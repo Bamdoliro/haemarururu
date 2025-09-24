@@ -33,6 +33,15 @@ import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/Sec
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
 import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
 
+const FORM_TYPE_OPTIONS = [
+  { value: 'RESET', label: '정렬 초기화' },
+  ...Object.entries(FORM_TYPE_CATEGORY).map(([value, label]) => ({
+    value,
+    label,
+  })),
+];
+
+
 const FormPage = () => {
   const {
     formListType,
@@ -78,7 +87,6 @@ const FormPage = () => {
       <AutoSecondRoundResultModal isOpen={isOpen} onClose={close} />
     ));
   };
-
   return (
     <AppLayout>
       <StyledFormPage>
@@ -111,25 +119,7 @@ const FormPage = () => {
                   doubled={5}
                 />
                 <Dropdown
-                  data={[
-                    { value: 'RESET', label: '정렬 초기화' },
-                    { value: 'REGULAR', label: '일반전형' },
-                    { value: 'SOCIAL_INTEGRATION', label: '사회통합전형' },
-                    { value: 'NATIONAL_BASIC_LIVING', label: '국가기초생활수급권자' },
-                    {
-                      value: 'NATIONAL_VETERANS_EDUCATION',
-                      label: '국가보훈대상자 중 교육지원대상자녀',
-                    },
-                    { value: 'NEAR_POVERTY', label: '차상위계층' },
-                    { value: 'NATIONAL_VETERANS', label: '국가보훈자녀' },
-                    { value: 'ONE_PARENT', label: '한부모가정' },
-                    { value: 'FROM_NORTH_KOREA', label: '북한이탈주민' },
-                    { value: 'MULTICULTURAL', label: '다문화가정' },
-                    { value: 'TEEN_HOUSEHOLDER', label: '소년소녀가장' },
-                    { value: 'MULTI_CHILDREN', label: '다자녀가정자녀' },
-                    { value: 'FARMING_AND_FISHING', label: '농어촌지역출신자' },
-                    { value: 'SPECIAL_ADMISSION', label: '특례입학대상자' },
-                  ]}
+                  data={FORM_TYPE_OPTIONS}
                   size="SMALL"
                   width={160}
                   placeholder="전형 별"

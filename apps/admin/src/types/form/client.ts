@@ -150,6 +150,11 @@ export interface Attendance {
   classAbsenceCount: number;
 }
 
+score: {
+  firstRoundScore: number;
+  totalScore: number;
+}
+
 export type FormDetailField =
   | '지원자 정보'
   | '보호자 정보'
@@ -157,3 +162,5 @@ export type FormDetailField =
   | '전형'
   | '성적'
   | '자기소개서';
+
+export type ReceiveStatusValue = 'approve' | 'reject' | 'receive';

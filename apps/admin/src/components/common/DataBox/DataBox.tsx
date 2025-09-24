@@ -5,20 +5,17 @@ import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
 
-type LengthType = 'SHORT' | 'LONG';
 type ViewType = 'NORMAL' | 'TOGGLE';
 
 interface DataBoxProps {
   label: string;
   data: string | number;
-  lengthType?: LengthType;
   viewType?: ViewType;
 }
 
 const DataBox = ({
   label,
   data,
-  lengthType = 'SHORT',
   viewType = 'NORMAL',
 }: DataBoxProps) => {
   const [isOpen, setIsOpen] = useState(viewType === 'NORMAL');
@@ -30,7 +27,7 @@ const DataBox = ({
   };
 
   return (
-    <StyledDataBox viewType={viewType} lengthType={lengthType} onClick={handleToggle}>
+    <StyledDataBox viewType={viewType}  onClick={handleToggle}>
       <Row width="100%" justifyContent="space-between" alignItems="center">
         <TextWrapper style={{ marginRight: viewType === 'TOGGLE' ? '50px' : '0' }}>
           <Text fontType="H4" color={color.gray900} whiteSpace="pre-wrap">
@@ -45,7 +42,7 @@ const DataBox = ({
       </Row>
 
       {isOpen && (
-        <DataUnderlineBox lengthType={lengthType}>
+        <DataUnderlineBox>
           <TextWrapper>
             <Text fontType="p2" color={color.gray900} whiteSpace="pre-wrap">
               {data}
@@ -59,54 +56,28 @@ const DataBox = ({
 
 export default DataBox;
 
-const StyledDataBox = styled.div<{ lengthType: LengthType; viewType: ViewType }>`
+const StyledDataBox = styled.div<{ viewType: ViewType }>`
   ${flex({ flexDirection: 'column', alignItems: 'flex-start' })}
   width: 100%;
-  max-width: ${(props) => (props.lengthType === 'LONG' ? '1000px' : '400px')};
-  min-width: 0;
+  max-width: 1000px;
+  min-width: 100%;
   padding: 24px;
   gap: 16px;
-
   border-radius: 12px;
   border: 1px solid ${color.gray200};
   background: ${color.white};
-  cursor: ${(props) => (props.viewType === 'TOGGLE' ? 'pointer' : 'default')};
-
-  ${(props) =>
-    props.lengthType === 'LONG' &&
-    `
-      @media (max-width: 1919px) {
-        max-width: 800px;
-      }
-
-      @media (max-width: 1439px) {
-        max-width: 600px;
-      }
-
-      @media (max-width: 1279px) {
-        max-width: 500px;
-      }
-
-      @media (max-width: 1023px) {
-        max-width: 600px;
-      }
-
-      @media (max-width: 767px) {
-        max-width: 400px;
-      }
-    `}
+  cursor: ${(p) => (p.viewType === 'TOGGLE' ? 'pointer' : 'default')};
 `;
 
-const DataUnderlineBox = styled.div<{ lengthType: LengthType }>`
+const DataUnderlineBox = styled.div`
   ${flex({ alignItems: 'flex-start' })}
   width: 100%;
-  max-width: ${(props) => (props.lengthType === 'SHORT' ? '60%' : '100%')};
   padding-bottom: 4px;
   border-bottom: 1px solid ${color.gray200};
 `;
 
 const ArrowWrapper = styled.div<{ isOpen: boolean }>`
-  visibility: ${(props) => (props.isOpen ? 'hidden' : 'visible')};
+  visibility: ${(p) => (p.isOpen ? 'hidden' : 'visible')};
   width: 24px;
   min-width: 24px;
   display: flex;

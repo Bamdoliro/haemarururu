@@ -37,7 +37,6 @@ const DocumentInfo = ({ id }: DocumentInfoProps) => {
           key={index}
           label={item.label}
           data={item.data}
-          lengthType="LONG"
           viewType="TOGGLE"
         />
       ))}
