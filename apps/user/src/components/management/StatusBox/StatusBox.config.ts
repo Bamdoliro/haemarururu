@@ -60,7 +60,7 @@ export const getStatusConfig = (status?: string, name?: string) => {
     },
     ENTERED: {
       text: '입학',
-      script: `부산소프트웨어마이스터고 입학을<br />진심으로 축하드립니다!`,
+      script: `해운대고 입학을<br />진심으로 축하드립니다!`,
     },
     DEFAULT: {
       text: '제출전',

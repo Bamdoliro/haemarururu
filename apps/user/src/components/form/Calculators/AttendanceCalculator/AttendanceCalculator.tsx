@@ -28,8 +28,7 @@ const AttendanceCalculator = () => {
             grade={form.grade}
             onChange={handleAttendanceInfoChange}
             isReadOnly={isReadOnly}
-            isFirstRow={index === 0}
-            isLastRow={index === 2}
+            border={index === 2}
           />
         ))}
       </Column>

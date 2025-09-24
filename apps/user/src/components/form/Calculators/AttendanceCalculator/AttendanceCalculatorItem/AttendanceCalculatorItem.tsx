@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ATTENDANCE_TYPE } from '@/constants/form/constants';
 import { CellInput, Row, Td } from '@maru/ui';
 
@@ -7,8 +6,7 @@ interface AttendanceCalculatorItemProps {
   grade: any;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isReadOnly: boolean;
-  isFirstRow: boolean;
-  isLastRow: boolean;
+  border: boolean;
 }
 
 const AttendanceCalculatorItem = ({
@@ -16,16 +14,14 @@ const AttendanceCalculatorItem = ({
   grade,
   onChange,
   isReadOnly,
-  isFirstRow,
-  isLastRow,
+  border,
 }: AttendanceCalculatorItemProps) => (
   <Row>
     <Td
       width="20%"
       height={56}
       styleType="SECONDARY"
-      borderBottomLeftRadius={isFirstRow ? 12 : 0}
-      borderBottomRightRadius={isLastRow ? 12 : 0}
+      borderBottomLeftRadius={border ? 12 : 0}
     >
       {attendanceName === 'attendance1'
         ? '1학년'
@@ -33,8 +29,15 @@ const AttendanceCalculatorItem = ({
         ? '2학년'
         : '3학년'}
     </Td>
-    {ATTENDANCE_TYPE.map((countName) => (
-      <Td key={countName} width="20%" height={56}>
+    {ATTENDANCE_TYPE.map((countName, colIndex) => (
+      <Td
+        key={countName}
+        width="20%"
+        height={56}
+        borderBottomRightRadius={
+          border && colIndex === ATTENDANCE_TYPE.length - 1 ? 12 : 0
+        }
+      >
         <CellInput
           name={JSON.stringify({ attendanceName, countName })}
           onChange={onChange}

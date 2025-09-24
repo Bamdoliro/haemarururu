@@ -27,10 +27,7 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
   const downloadPdf = useCallback(() => {
     if (!pdfBlobUrl) return;
 
-    downloadFile(
-      pdfBlobUrl,
-      `${userData.name} 부산소프트웨어마이스터고등학교 원서접수.pdf`
-    );
+    downloadFile(pdfBlobUrl, `${userData.name} 해운대고등학교 원서접수.pdf`);
     setPdfBlobUrl('');
     setHasDownloaded(true);
   }, [pdfBlobUrl, userData.name]);

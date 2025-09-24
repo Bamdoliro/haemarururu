@@ -34,6 +34,7 @@ export type FormType =
   | 'PUBLIC_SERVANT'
   | 'STREET_CLEANER'
   | 'DEPLOYED_SOLDIER'
+  | 'POSTMAN'
   | 'INTANGIBLE_CULTURAL_HERITAGE'
   | 'SAILOR'
   | 'SPECIAL_ADMISSION'
@@ -86,10 +87,6 @@ export interface FormDetail {
     attendance1: Attendance;
     attendance2: Attendance;
     attendance3: Attendance;
-    volunteerTime1: number;
-    volunteerTime2: number;
-    volunteerTime3: number;
-    certificateList: string[];
   };
   document: {
     learningExperience: string;
@@ -130,7 +127,7 @@ export interface EducationInfo {
   teacherMobilePhoneNumber: string;
 }
 
-export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-';
+export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-' | 'F';
 
 export interface AchievementLevelsGroup {
   subjectName: string;

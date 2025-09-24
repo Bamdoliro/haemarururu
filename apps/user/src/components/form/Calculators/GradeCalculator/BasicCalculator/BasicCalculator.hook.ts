@@ -18,6 +18,5 @@ export const useAddNewSubject = () => {
     };
     setNewSubjectList((prev) => [...prev, newSubject]);
   };
-
   return { handleAddNewSubject };
 };

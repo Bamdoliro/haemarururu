@@ -16,6 +16,6 @@ export const ANALYSIS_PASS_STEP = [
 
 export const ANALYSIS_RATIO_TYPE = [
   '일반 전형 성비',
-  '특별 전형 성비',
+  '사회 통합 전형 성비',
   '정원 외 전형',
 ] as const;

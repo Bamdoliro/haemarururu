@@ -7,7 +7,7 @@ export interface PostSendMessageByStatusRequest {
 export interface PostSendMessageByTypeRequest {
   title: string;
   text: string;
-  formType: 'MEISTER_TALENT' | 'REGULAR';
+  formType: 'SOCIAL_INTEGRATION' | 'REGULAR';
   isChangeToRegular: boolean;
 }
 

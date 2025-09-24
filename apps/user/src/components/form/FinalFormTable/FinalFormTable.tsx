@@ -5,6 +5,9 @@ import { SwitchCase } from '@toss/react';
 import { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import CommonTable from './CommonTable/CommonTable';
+import EqualTable from './EqualTable/EqualTable';
+import ManifoldTable from './ManifoldTable/ManifoldTable';
+import OutsideTable from './OutsideTable/OutsideTable';
 
 const additionalMessages = {
   MANIFOLD: [
@@ -24,7 +27,7 @@ const FinalFormTable = () => {
           items={[
             { name: '공통 제출', value: 'COMMON' },
             { name: '기회 균등', value: 'EQUAL' },
-            { name: '사회 다양성', value: 'MANIFOLD' },
+            { name: '사회 통합', value: 'MANIFOLD' },
             { name: '정원 외', value: 'OUTSIDE' },
           ]}
           value={final}
@@ -46,11 +49,11 @@ const FinalFormTable = () => {
         value={final}
         caseBy={{
           COMMON: <CommonTable />,
-          EQUAL: <></>,
-          MANIFOLD: <></>,
-          OUTSIDE: <></>,
+          EQUAL: <EqualTable />,
+          MANIFOLD: <ManifoldTable />,
+          OUTSIDE: <OutsideTable />,
         }}
-        defaultComponent={<></>}
+        defaultComponent={<CommonTable />}
       />
     </StyledFinalFormTable>
   );

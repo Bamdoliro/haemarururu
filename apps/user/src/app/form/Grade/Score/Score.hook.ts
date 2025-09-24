@@ -7,12 +7,13 @@ import {
   useSubjectListValueStore,
 } from '@/stores';
 import { useState } from 'react';
+import { useFormStep } from '@/utils';
 
 export const useCTAButton = () => {
   const form = useFormValueStore();
   const subjectList = useSubjectListValueStore();
   const newSubjectList = useNewSubjectListValueStore();
-
+  const { run: FormStep } = useFormStep();
   const setFormStep = useSetFormStepStore();
   const setFormGradeStep = useSetFormGradeStepStore();
 
@@ -32,14 +33,16 @@ export const useCTAButton = () => {
       (subject) =>
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
-        subject.achievementLevel31 === '-'
+        subject.achievementLevel31 === '-' ||
+        subject.achievementLevel32 === '-'
     );
 
     const newSubjectErrors = newSubjectList.map(
       (subject) =>
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
-        subject.achievementLevel31 === '-'
+        subject.achievementLevel31 === '-' ||
+        subject.achievementLevel32 === '-'
     );
 
     setSubjectError(subjectErrors);
@@ -54,11 +57,16 @@ export const useCTAButton = () => {
 
     return !hasError;
   };
-
   const handleNextStep = () => {
-    if (validateSubjects()) {
-      setFormGradeStep('출결상황');
-      saveFormMutate(form);
+    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
+      FormStep({
+        nextStep: '자기소개서',
+      });
+    } else {
+      if (validateSubjects()) {
+        setFormGradeStep('출결상황');
+        saveFormMutate(form);
+      }
     }
   };
 

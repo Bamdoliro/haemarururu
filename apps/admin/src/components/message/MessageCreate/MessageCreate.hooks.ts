@@ -30,11 +30,11 @@ export const useMessage = () => {
         text: content,
         status: recipient,
       });
-    } else if (recipient === 'MEISTER_TALENT') {
+    } else if (recipient === 'SOCIAL_INTEGRATION') {
       postMessageByTypeMutate({
         title,
         text: content,
-        formType: 'MEISTER_TALENT',
+        formType: 'SOCIAL_INTEGRATION',
         isChangeToRegular: false,
       } as PostSendMessageByTypeRequest);
     } else if (recipient === 'REGULAR') {

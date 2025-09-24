@@ -10,7 +10,7 @@ interface FirstResultItemProps {
 }
 
 const FirstResultItem = ({ type, isPassed, changedToRegular }: FirstResultItemProps) => {
-  const passedType = changedToRegular ? '특별 전형 → 일반 전형' : type;
+  const passedType = changedToRegular ? '사회 통합 전형 → 일반 전형' : type;
 
   return (
     <StyledFirstResultItem>

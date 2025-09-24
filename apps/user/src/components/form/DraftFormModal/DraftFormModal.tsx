@@ -27,7 +27,7 @@ const DraftFormModal = ({ isOpen, onClose, onConfirm }: DraftFormModalProps) => 
         <Column gap={28}>
           <Column gap={20}>
             <Text fontType="p2" color={color.red}>
-              원서 초안 제출 시 부산소프트웨어마이스터고등학교 입학전형에 응시한 것으로
+              원서 초안 제출 시 해운대고등학교 입학전형에 응시한 것으로
               <br />
               처리되며 더 이상 입학원서 수정이 불가능합니다.
             </Text>
@@ -52,7 +52,7 @@ const DraftFormModal = ({ isOpen, onClose, onConfirm }: DraftFormModalProps) => 
         </Column>
       }
       onClose={onClose}
-      onConfirm={isInputValid ? onConfirm : () => {}}
+      onConfirm={onConfirm}
       confirmButtonText="제출"
       confirmButtonStyle={{
         backgroundColor: isInputValid ? color.haeMaruDefault : color.gray500,

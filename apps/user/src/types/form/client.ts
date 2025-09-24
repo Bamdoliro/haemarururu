@@ -21,6 +21,7 @@ export type FormType =
   | 'PUBLIC_SERVANT'
   | 'STREET_CLEANER'
   | 'DEPLOYED_SOLDIER'
+  | 'POSTMAN'
   | 'INTANGIBLE_CULTURAL_HERITAGE'
   | 'SAILOR'
   | 'SPECIAL_ADMISSION'
@@ -53,10 +54,6 @@ export interface Form {
     attendance1: Attendance;
     attendance2: Attendance;
     attendance3: Attendance;
-    volunteerTime1: number;
-    volunteerTime2: number;
-    volunteerTime3: number;
-    certificateList: Certificate[];
   };
   document: {
     learningExperience: string;
@@ -70,7 +67,8 @@ export interface User {
   name: string;
   phoneNumber: string;
   registrationNumber: string;
-  gender: 'FEMALE' | 'MALE';
+  gender: 'MALE';
+  profile: string;
 }
 
 export interface Parent {
@@ -99,10 +97,6 @@ export interface Grade {
   attendance1: Attendance;
   attendance2: Attendance;
   attendance3: Attendance;
-  volunteerTime1: number;
-  volunteerTime2: number;
-  volunteerTime3: number;
-  certificateList: Certificate[];
 }
 
 export type GraduationType = 'QUALIFICATION_EXAMINATION' | 'EXPECTED' | 'GRADUATED';
@@ -112,14 +106,14 @@ export type SubjectList = Omit<Subject, 'id'>;
 export interface Subject {
   id: number;
   subjectName: string;
-  achievementLevel21: AchievementLevel | null;
-  achievementLevel22: AchievementLevel | null;
-  achievementLevel31: AchievementLevel | null;
-  achievementLevel32: AchievementLevel | null;
+  achievementLevel21: AchievementLevel;
+  achievementLevel22: AchievementLevel;
+  achievementLevel31: AchievementLevel;
+  achievementLevel32: AchievementLevel;
   score: number | null;
 }
 
-export type AchievementLevel = '-' | 'A' | 'B' | 'C' | 'D' | 'E';
+export type AchievementLevel = '-' | '미이수' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 
 export interface Attendance {
   absenceCount: number;
@@ -127,14 +121,6 @@ export interface Attendance {
   earlyLeaveCount: number;
   classAbsenceCount: number;
 }
-
-export type Certificate =
-  | 'COMPUTER_SPECIALIST_LEVEL_3'
-  | 'COMPUTER_SPECIALIST_LEVEL_2'
-  | 'COMPUTER_SPECIALIST_LEVEL_1'
-  | 'CRAFTSMAN_INFORMATION_PROCESSING'
-  | 'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION'
-  | 'CRAFTSMAN_COMPUTER';
 
 export interface Incomplete {
   [subjectName: string]: {
@@ -159,7 +145,7 @@ export type FormStep =
   | '최종제출'
   | '최종제출완료';
 
-export type GradeStep = '교과성적' | '출결상황' | '봉사시간' | '자격증';
+export type GradeStep = '교과성적' | '출결상황';
 
 export type SaveSubject = Omit<Subject, 'id'>;
 

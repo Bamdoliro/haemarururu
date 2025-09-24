@@ -17,7 +17,19 @@ const MIN_WIDTH = 113.4;
 const MIN_HEIGHT = 151.2;
 const MAX_SIZE = 2 * 1024 * 1024;
 
-const ProfileUploader = () => {
+interface ProfileUploaderProps {
+  isError?: boolean;
+  name?: string;
+  onUploadStateChange?: (hasImage: boolean) => void;
+  onChange?: () => void;
+  onUploadComplete?: (url: string) => void;
+}
+
+const ProfileUploader = ({
+  isError = false,
+  onUploadStateChange,
+  onUploadComplete,
+}: ProfileUploaderProps) => {
   const [profile, setProfile] = useProfileStore();
   const profileUrl = useFormProfileValueStore();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -26,8 +38,6 @@ const ProfileUploader = () => {
   const fileName = Storage.getItem('fileName');
   const mediaType = Storage.getItem('mediaType');
   const fileSize = Storage.getItem('fileSize');
-
-  const imgSrc = previewUrl ?? profileUrl?.downloadUrl ?? null;
 
   const { refreshProfileMutate } = useRefreshProfileMutation({
     fileName: fileName ?? '',
@@ -57,6 +67,20 @@ const ProfileUploader = () => {
 
     return;
   }, [refreshProfileMutate]);
+
+  useEffect(() => {
+    const hasImage = !!(previewUrl || profileUrl?.downloadUrl);
+    if (onUploadStateChange) {
+      onUploadStateChange(hasImage);
+    }
+    if (previewUrl && onUploadComplete) {
+      onUploadComplete(previewUrl);
+    }
+
+    if (profileUrl?.downloadUrl && onUploadComplete) {
+      onUploadComplete(profileUrl.downloadUrl);
+    }
+  }, [previewUrl, profileUrl?.downloadUrl, onUploadStateChange, onUploadComplete]);
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -155,6 +179,7 @@ const ProfileUploader = () => {
             Storage.setItem('upload', 'true');
 
             uploadProfileMutate();
+            refreshProfileMutate();
           }, 'image/jpeg');
         };
 
@@ -182,12 +207,13 @@ const ProfileUploader = () => {
     },
     [handleFile]
   );
+
   return (
     <StyledProfileUploader>
       <Text fontType="context" color={color.gray700}>
         증명사진
       </Text>
-      {imgSrc ? (
+      {previewUrl ? (
         <ImagePreview src={previewUrl} alt="preview-image" />
       ) : profileUrl?.downloadUrl ? (
         <ImagePreview src={profileUrl.downloadUrl} alt="profile-image" />
@@ -198,6 +224,7 @@ const ProfileUploader = () => {
           onDragOver={onDragOver}
           onDrop={onDrop}
           $isDragging={isDragging}
+          $isError={isError}
         >
           <Column gap={12} alignItems="center">
             <Button size="SMALL" onClick={openFileUploader}>
@@ -209,7 +236,7 @@ const ProfileUploader = () => {
           </Column>
         </UploadImageBox>
       )}
-      {imgSrc && (
+      {(previewUrl || profileUrl?.downloadUrl) && (
         <Button size="SMALL" onClick={openFileUploader}>
           재업로드
         </Button>
@@ -244,11 +271,7 @@ const UploadImageBox = styled.div<{ $isDragging: boolean; $isError?: boolean }>`
   border-radius: 6px;
   border: 1px dashed
     ${(props) =>
-      props.$isDragging
-        ? color.haeMaruDefault
-        : props.$isError
-        ? color.red
-        : color.gray400};
+      props.$isDragging ? color.maruDefault : props.$isError ? color.red : color.gray400};
   background-color: ${color.gray50};
   ${(props) =>
     props.$isError &&

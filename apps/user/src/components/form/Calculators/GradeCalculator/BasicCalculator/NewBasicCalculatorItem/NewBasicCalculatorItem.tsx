@@ -14,11 +14,12 @@ interface NewBasicCalculatorItemProps {
   isError?: boolean[];
 }
 
-const ACHIEVEMENT_KEYS: (keyof Subject)[] = [
+const ACHIEVEMENT_KEYS = [
   'achievementLevel21',
   'achievementLevel22',
   'achievementLevel31',
-];
+  'achievementLevel32',
+] as const;
 
 const NewBasicCalculatorItem = ({
   id,
@@ -45,7 +46,10 @@ const NewBasicCalculatorItem = ({
     (listSubject) =>
       listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
   );
-
+  const getDisplayValue = (value: string) => {
+    if (value === 'F') return '미이수';
+    return value;
+  };
   return (
     <StyledNewBasicCalculatorItem>
       <Td styleType="SECONDARY" width="15.3%" height={64}>
@@ -60,7 +64,7 @@ const NewBasicCalculatorItem = ({
       {ACHIEVEMENT_KEYS.map((key) => (
         <Td key={key} width="24%" height={64}>
           <Dropdown
-            value={String(subject[key] ?? '미이수')}
+            value={getDisplayValue(subject[key])}
             size="SMALL"
             data={achievementLevels}
             width={80}
@@ -98,7 +102,7 @@ const NewSubjectInput = styled.input<{ error: boolean }>`
   background-color: ${color.gray50};
   width: 74px;
   text-align: center;
-  &:-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     color: ${color.gray500};
   }
 `;

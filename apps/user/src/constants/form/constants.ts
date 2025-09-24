@@ -1,4 +1,3 @@
-import type { Certificate } from '@/types/form/client';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
@@ -16,60 +15,11 @@ export const SCHEDULE = {
 };
 
 export const SCORE = {
-  REGULAR_TYPE: 80,
-  SPECIAL_TYPE: 48,
-  ATTENDANCE: 14,
-  VOLUNTEER: 14,
-  MIN_ATTENDANCE: 0,
-  MAX_ATTENDANCE: 18,
-  MIN_VOLUNTEER: 0,
-  MAX_VOLUNTEER: 18,
+  REGULAR_TYPE: 0,
+  SPECIAL_TYPE: 0,
+  ATTENDANCE: 0,
+  MAX_SCORE: 140,
 };
-
-export const COUNT = {
-  MAX_ABSENCE: 18,
-  MIN_VOLUNTEER: 15,
-  MAX_VOLUNTEER: 30,
-};
-
-export const WEIGHT = {
-  REGULAR_21_22: 4.8,
-  REGULAR_31: 7.2 * 2,
-  SPECIAL_21_22: 2.88,
-  SPECIAL_31: 4.32 * 2,
-};
-
-export const CERTIFICATE_LIST: {
-  name: string;
-  organization: string;
-  score: string;
-  value: Certificate;
-}[] = [
-  {
-    name: '정보처리기능사',
-    organization: '한국산업인력공단',
-    score: '4점',
-    value: 'CRAFTSMAN_INFORMATION_PROCESSING',
-  },
-  {
-    name: '정보기기운용기능사',
-    organization: '한국산업인력공단',
-    score: '4점',
-    value: 'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION',
-  },
-  {
-    name: '전자계산기기능사',
-    organization: '한국산업인력공단',
-    score: '4점',
-    value: 'CRAFTSMAN_COMPUTER',
-  },
-];
-
-export const LEVEL_LIST: { name: string; value: Certificate }[] = [
-  { name: '1급(3점)', value: 'COMPUTER_SPECIALIST_LEVEL_1' },
-  { name: '2급(2점)', value: 'COMPUTER_SPECIALIST_LEVEL_2' },
-  { name: '3급(1점)', value: 'COMPUTER_SPECIALIST_LEVEL_3' },
-];
 
 export const ATTENDANCE_TYPE = [
   'absenceCount',
@@ -79,6 +29,21 @@ export const ATTENDANCE_TYPE = [
 ];
 
 export const ATTENDANCE_GRADE = ['attendance1', 'attendance2', 'attendance3'];
+
+export const SUBJECT_RATIO = {
+  국어: 0.24,
+  수학: 0.28,
+  영어: 0.28,
+  사회: 0.1,
+  과학: 0.1,
+};
+
+export const SEMESTER_RATIO = {
+  '2-1': 0.2,
+  '2-2': 0.2,
+  '3-1': 0.3,
+  '3-2': 0.3,
+};
 
 export const SCORE_TABLE = {
   A: 40,
@@ -95,3 +60,60 @@ export const SUBJECT_WEIGHT = {
   사회: [0.1, 0.1, 0.1, 0.1],
   과학: [0.1, 0.1, 0.1, 0.1],
 };
+
+export const FORBIDDEN_WORDS = [
+  'TOEFL',
+  'TOEIC',
+  'TEPS',
+  'TESL',
+  'TOSEL',
+  'PELT',
+  'HSK',
+  'JLPT',
+  '성적',
+  '등급',
+  '석차',
+  '교과우수상',
+  '수상',
+  '입상',
+  '금상',
+  '은상',
+  '동상',
+  '최우수상',
+  '우수상',
+  '장려상',
+  '올림피아드',
+  '자격증',
+  '영재교',
+  '수료',
+  '부모님',
+  '아버지',
+  '어머니',
+  '직업',
+  '직장',
+  '직위',
+  '소득',
+  '기업',
+  '변호사',
+  '의사',
+  '교수',
+  '회장',
+  '사장',
+  '원장',
+  '학원',
+  '과외',
+  '이름',
+  '성명',
+  '출신',
+  '중학교',
+  '졸업',
+  '재학',
+  '학년',
+  '반',
+  '번호',
+  '주소',
+  '010',
+  '전화번호',
+  '토익',
+  '토플',
+];

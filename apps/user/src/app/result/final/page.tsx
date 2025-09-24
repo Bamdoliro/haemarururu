@@ -4,7 +4,7 @@ import { FinalResultBox, ResultMainBox } from '@/components/result';
 import { SCHEDULE } from '@/constants/form/constants';
 import { AppLayout } from '@/layouts';
 import type { ResultStep } from '@/types/result/client';
-import { formatFormYear } from '@/utils';
+import { formatFormYear, formatScheduleDate } from '@/utils';
 import { color } from '@maru/design-system';
 import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
@@ -31,8 +31,8 @@ const ResultFinal = () => {
           caseBy={{
             MAIN: (
               <ResultMainBox
-                date="2024년 10월 23일 (월) 15:00"
-                capacity="일반전형 36명, 특별전형 28명, 정원 외 전형 3명"
+                date={formatScheduleDate([SCHEDULE.최종_합격_발표], 'FORM')}
+                capacity="일반전형 144명, 사회 다양성 전형 36명, 정원 외 전형 8명"
                 setResultStep={setFinalResultStep}
               />
             ),

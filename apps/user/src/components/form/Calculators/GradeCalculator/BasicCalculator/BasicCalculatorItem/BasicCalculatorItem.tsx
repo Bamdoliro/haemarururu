@@ -1,9 +1,8 @@
 import { Dropdown, Td } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
-import { useSubjectIncompleteValueStore, useSubjectListValueStore } from '@/stores';
+import { useSubjectListValueStore } from '@/stores';
 import { useInput } from './BasicCalculatorItem.hook';
-import type { Subject } from '@/types/form/client';
 
 interface Props {
   id: number;
@@ -12,25 +11,21 @@ interface Props {
   isLast: boolean;
 }
 
-const ACHIEVEMENT_KEYS: (keyof Subject)[] = [
+const ACHIEVEMENT_KEYS = [
   'achievementLevel21',
   'achievementLevel22',
   'achievementLevel31',
   'achievementLevel32',
-];
+] as const;
 
 const BasicCalculatorItem = ({ id, achievementLevels, isError = [], isLast }: Props) => {
   const subjectList = useSubjectListValueStore();
-  const subjectIncomplete = useSubjectIncompleteValueStore();
   const { handleSubjectChange } = useInput(id);
-
   const subject = subjectList[id];
-
-  const getDisplayValue = (value: string | number | null, incomplete: boolean | null) => {
-    if (value === null || (incomplete && value === 'C')) return '미이수';
-    return value as string;
+  const getDisplayValue = (value: string) => {
+    if (value === 'F') return '미이수';
+    return value;
   };
-
   return (
     <StyledBasicCalculatorItem>
       <Td
@@ -41,13 +36,17 @@ const BasicCalculatorItem = ({ id, achievementLevels, isError = [], isLast }: Pr
       >
         {subject.subjectName}
       </Td>
-      {ACHIEVEMENT_KEYS.map((key) => (
-        <Td key={key} width="22%" height={64}>
+      {ACHIEVEMENT_KEYS.map((key, colIndex) => (
+        <Td
+          key={key}
+          width="22%"
+          height={64}
+          borderBottomRightRadius={
+            isLast && colIndex === ACHIEVEMENT_KEYS.length - 1 ? '12px' : '0px'
+          }
+        >
           <Dropdown
-            value={getDisplayValue(
-              subject[key],
-              subjectIncomplete[subject.subjectName]?.isIncomplete21
-            )}
+            value={getDisplayValue(subject[key])}
             size="SMALL"
             data={achievementLevels}
             width={80}

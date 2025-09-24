@@ -61,7 +61,7 @@ const GradePreview = ({ location }: GradePreviewProps) => {
           width="calc(100% / 2.5)"
           height={56}
         >
-          특별전형
+          사회 다양성 전형
         </Td>
         <Td
           width="calc(100% / 2.5)"

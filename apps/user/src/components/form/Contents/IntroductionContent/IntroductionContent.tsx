@@ -46,14 +46,16 @@ const IntroductionContent = () => {
         </Column>
         <Column gap={64}>
           <Textarea
-            name="coverLetter"
+            name="learningExperience"
+            label="1. 중학교 재학 중 자기주도적으로 수행한 활동 중 가장 큰 성취감을 느꼈던 학습 경험에 대하여 기술하십시오."
+            placeholder="띄어쓰기 제외 700자 이내로 작성하십시오."
             limit={700}
-            label="1. 중학교 재학 중 자기주도적으로 수행한 활동 중 가장 큰 성취감을 느꼈던 학습 경험에 대하여 기술해주세요."
-            placeholder="띄어쓰기 제외 700자 이내로 작성해주세요."
             value={form.document.learningExperience}
             onChange={onFieldChange}
-            isError={!!errors.coverLetter?.length}
-            errorMessage={errors.coverLetter ? errors.coverLetter[0] : ''}
+            isError={!!errors.learningExperience?.length}
+            errorMessage={errors.learningExperience ? errors.learningExperience[0] : ''}
+            excludeSpace
+            manualLimit
           />
           <Textarea
             name="statementOfPurpose"
@@ -64,7 +66,7 @@ const IntroductionContent = () => {
                   2. 본교 건학이념과 연계해 본교에 관심을 갖게 된 동기와 고등학교 입학 후
                   본인의 꿈과 끼를 살리기 위한 활동계획, 그리고 고등학교
                   <br />
-                  졸업 후 진로계획에 관하여 구체적으로 기술해주세요.
+                  졸업 후 진로계획에 관하여 구체적으로 기술하십시오.
                 </Text>
                 <Text fontType="p3" color={color.haeMaruDefault}>
                   * 해운대고등학교 건학이념 : 국가와 인류사회의 번영에 공헌하는 창의융합형
@@ -72,14 +74,16 @@ const IntroductionContent = () => {
                 </Text>
               </Column>
             }
-            placeholder="띄어쓰기 제외 300자 이내로 작성해주세요."
+            placeholder="띄어쓰기 제외 300자 이내로 작성하십시오."
             value={form.document.statementOfPurpose}
             onChange={onFieldChange}
             isError={!!errors.statementOfPurpose?.length}
             errorMessage={errors.statementOfPurpose ? errors.statementOfPurpose[0] : ''}
+            excludeSpace
+            manualLimit
           />
           <Textarea
-            name="statementOfPurpose"
+            name="personality"
             limit={500}
             label={
               <Column gap={8}>
@@ -87,18 +91,20 @@ const IntroductionContent = () => {
                   3. 본인의 인성(배려, 나눔, 협력, 타인 존중, 규칙준수 등)을 나타낼 수
                   있는 개인적 경험 및 이를 통해 배우고 느낀 점을 구체적으로
                   <br />
-                  기술해주세요.
+                  기술하십시오.
                 </Text>
                 <Text fontType="p3" color={color.haeMaruDefault}>
                   (반드시 생활기록부에 기재된 활동 중에 선택하여 자세히 서술하십시오.)
                 </Text>
               </Column>
             }
-            placeholder="띄어쓰기 제외 500자 이내로 작성해주세요."
+            placeholder="띄어쓰기 제외 500자 이내로 작성하십시오."
             value={form.document.personality}
             onChange={onFieldChange}
-            isError={!!errors.statementOfPurpose?.length}
-            errorMessage={errors.statementOfPurpose ? errors.statementOfPurpose[0] : ''}
+            isError={!!errors.personality?.length}
+            errorMessage={errors.personality ? errors.personality[0] : ''}
+            excludeSpace
+            manualLimit
           />
         </Column>
       </Column>
