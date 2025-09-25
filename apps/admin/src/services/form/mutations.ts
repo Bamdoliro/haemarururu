@@ -13,7 +13,7 @@ import type { PatchSecondRoundResultReq } from '@/types/form/remote';
 import { useSetIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSetSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import { isPopupBlocked } from '@/utils';
-import { ReceiveStatusValue } from '@/types/form/client';
+import type { ReceiveStatusValue } from '@/types/form/client';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
