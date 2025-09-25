@@ -41,7 +41,6 @@ const FORM_TYPE_OPTIONS = [
   })),
 ];
 
-
 const FormPage = () => {
   const {
     formListType,

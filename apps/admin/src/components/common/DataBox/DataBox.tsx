@@ -13,11 +13,7 @@ interface DataBoxProps {
   viewType?: ViewType;
 }
 
-const DataBox = ({
-  label,
-  data,
-  viewType = 'NORMAL',
-}: DataBoxProps) => {
+const DataBox = ({ label, data, viewType = 'NORMAL' }: DataBoxProps) => {
   const [isOpen, setIsOpen] = useState(viewType === 'NORMAL');
 
   const handleToggle = () => {
@@ -27,7 +23,7 @@ const DataBox = ({
   };
 
   return (
-    <StyledDataBox viewType={viewType}  onClick={handleToggle}>
+    <StyledDataBox viewType={viewType} onClick={handleToggle}>
       <Row width="100%" justifyContent="space-between" alignItems="center">
         <TextWrapper style={{ marginRight: viewType === 'TOGGLE' ? '50px' : '0' }}>
           <Text fontType="H4" color={color.gray900} whiteSpace="pre-wrap">
