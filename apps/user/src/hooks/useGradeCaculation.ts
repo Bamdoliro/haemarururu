@@ -92,7 +92,7 @@ const useGradeCalculation = () => {
           regularTotal += score * 0.1;
         }
       });
-      return Math.min(((regularTotal * 3.5).toFixed(3), 140));
+      return Number((regularTotal * 3.5).toFixed(3));
     }
 
     const subjectScore = calculateSubjectScore();

@@ -29,7 +29,7 @@ const FormDetail = ({ id }: FormDetailProps) => {
         <Profile id={id} />
         <StatusManager id={id} />
       </Column>
-      <Column width='100%'>
+      <Column width="100%">
         <NavigationBar>
           {FORM_DETAIL_FIELDS.map((formDetailField) => (
             <UnderlineButton
