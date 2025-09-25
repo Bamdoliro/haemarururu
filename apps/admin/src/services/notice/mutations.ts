@@ -51,30 +51,28 @@ export const usePutNoticeMutation = (id: number) => {
 export const useNoticeFileUrlMutation = () => {
   const { handleError } = useApiError();
 
-  const { mutate: noticeFileUrlMutate, ...restMutation } = useMutation({
+  const { mutateAsync: noticeFileUrlMutateAsync, ...restMutation } = useMutation({
     mutationFn: async (files: File[]) => {
-      if (files?.length) {
-        const fileDataList = files.map(({ name, type, size }) => ({
-          fileName: name,
-          mediaType: type,
-          fileSize: size,
-        }));
+      if (!files?.length) return [];
 
-        const responseList = await postNoticeFile(fileDataList);
-        const data = await putNoticeFileUrl(files, responseList);
+      const fileDataList = files.map(({ name, type, size }) => ({
+        fileName: name,
+        mediaType: type,
+        fileSize: size,
+      }));
 
-        return data;
-      }
+      const responseList = await postNoticeFile(fileDataList);
+      const uploadedFiles = await putNoticeFileUrl(files, responseList);
+
+      return uploadedFiles;
     },
     onSuccess: () => {
-      toast('파일이 업로드되었습니다.', {
-        type: 'success',
-      });
+      toast('파일이 업로드되었습니다.', { type: 'success' });
     },
     onError: handleError,
   });
 
-  return { noticeFileUrlMutate, ...restMutation };
+  return { noticeFileUrlMutateAsync, ...restMutation };
 };
 
 export const useDeleteNoticeMutation = (id: number) => {

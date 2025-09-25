@@ -49,17 +49,22 @@ export const putNotice = async (id: number, params: PutNoticeReq) => {
 export const putNoticeFileUrl = async (files: File[], fileDatas: NoticeFileData[]) => {
   const uploadPromises = files.map((file, index) => {
     const { url } = fileDatas[index];
-
-    return axios.put(url.uploadUrl, file, {
-      headers: {
-        'Content-Type': file.type,
-      },
-    });
+    return axios
+      .put(url.uploadUrl, file, {
+        headers: {
+          'Content-Type': file.type,
+        },
+      })
+      .then(() => ({
+        fileName: file.name,
+        downloadUrl: url.downloadUrl,
+        type: file.type,
+      }));
   });
 
-  const data = await Promise.all(uploadPromises);
+  const uploadedFiles = await Promise.all(uploadPromises);
 
-  return data;
+  return uploadedFiles;
 };
 
 export const deleteNotice = async (id: number) => {
