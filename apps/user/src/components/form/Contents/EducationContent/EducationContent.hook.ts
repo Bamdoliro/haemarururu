@@ -16,7 +16,7 @@ export const useEducationForm = () => {
 
   const numberFiled = [
     'graduationYear',
-    'teacherPhoneNumber',
+    'schoolPhoneNumber',
     'teacherMobilePhoneNumber',
   ];
 
