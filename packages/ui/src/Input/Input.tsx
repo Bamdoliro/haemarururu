@@ -11,6 +11,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       width = 320,
       height,
       label,
+      maxLength,
       placeholder,
       type = 'text',
       name,
@@ -35,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             type={type}
             name={name}
+            maxLength={maxLength}
             value={value}
             readOnly={readOnly}
             style={{ textAlign }}

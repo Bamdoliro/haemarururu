@@ -21,6 +21,7 @@ const ButtonInput = ({
   type = 'text',
   onChange,
   buttonText,
+  maxLength,
   onClick,
   enabled = false,
   readOnly,
@@ -38,6 +39,7 @@ const ButtonInput = ({
           type={type}
           onChange={onChange}
           placeholder={placeholder}
+          maxLength={maxLength}
           readOnly={readOnly}
           isError={isError}
           errorMessage={errorMessage}
