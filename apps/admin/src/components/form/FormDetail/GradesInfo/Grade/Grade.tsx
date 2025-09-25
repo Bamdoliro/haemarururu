@@ -20,6 +20,7 @@ const Grade = ({ subjectList }: GradeProps) => {
           achievementLevel21={item.achievementLevels[0]}
           achievementLevel22={item.achievementLevels[1]}
           achievementLevel31={item.achievementLevels[2]}
+          achievementLevel32={item.achievementLevels[3]}
         />
       ))}
     </Column>

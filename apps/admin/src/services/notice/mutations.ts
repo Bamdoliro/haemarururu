@@ -51,7 +51,7 @@ export const usePutNoticeMutation = (id: number) => {
 export const useNoticeFileUrlMutation = () => {
   const { handleError } = useApiError();
 
-  const { mutateAsync: noticeFileUrlMutateAsync, ...restMutation } = useMutation({
+  const { mutateAsync: noticeFileUrlMutate, ...restMutation } = useMutation({
     mutationFn: async (files: File[]) => {
       if (!files?.length) return [];
 
@@ -72,7 +72,7 @@ export const useNoticeFileUrlMutation = () => {
     onError: handleError,
   });
 
-  return { noticeFileUrlMutateAsync, ...restMutation };
+  return { noticeFileUrlMutate, ...restMutation };
 };
 
 export const useDeleteNoticeMutation = (id: number) => {

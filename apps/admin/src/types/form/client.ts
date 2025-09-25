@@ -82,6 +82,10 @@ export interface FormDetail {
   applicant: UserInfo;
   parent: ParentInfo;
   education: EducationInfo;
+  score: {
+    firstRoundScore: Score;
+    totalScore: Score;
+  };
   grade: {
     subjectList: Subject[];
     attendance1: Attendance;
@@ -149,11 +153,7 @@ export interface Attendance {
   earlyLeaveCount: number;
   classAbsenceCount: number;
 }
-
-score: {
-  firstRoundScore: number;
-  totalScore: number;
-}
+export type Score = number;
 
 export type FormDetailField =
   | '지원자 정보'

@@ -155,7 +155,6 @@ const DetailContent = ({ formList }: DetailTableProps) => {
               EMPTY_VALUE,
               EMPTY_VALUE,
               EMPTY_VALUE,
-              EMPTY_VALUE,
             ].map((ratio, i) => (
               <Td key={i} width="100%" height={56}>
                 {ratio}
