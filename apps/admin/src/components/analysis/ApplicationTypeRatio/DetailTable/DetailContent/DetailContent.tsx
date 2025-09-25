@@ -4,6 +4,7 @@ import { Column, Row, Td } from '@maru/ui';
 import styled from 'styled-components';
 import useApplicantRatios from './DetailContent.hooks';
 import DetailHeader from '../DetailHeader/DetailHeader';
+import { EMPTY_VALUE } from '@/constants/common/constant';
 
 type DetailTableProps = { formList: ApplicantCountType[] | undefined };
 
@@ -50,7 +51,7 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             일반 전형
           </Td>
           <Td width="30%" height={56}>
-            {'\u00A0'}
+            {EMPTY_VALUE}
           </Td>
           <Td width="10%" height={56}>
             {regularApplicant}
