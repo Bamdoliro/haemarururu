@@ -10,8 +10,17 @@ import { useOpenFileUploader } from '@/hooks';
 import { useFormStatusQuery } from '@/services/form/queries';
 import { useEntrollmentDocumentStore } from '@/stores/entrollment/entrollmentDocument';
 import { useUploadDocumentMutation } from '@/services/enrollment/mutations';
+import usePageAccessGuard from '@/hooks/usePageAccessGuard';
+import { SCHEDULE } from '@/constants/form/constants';
 
 const Enrollment = () => {
+  usePageAccessGuard({
+    period: { start: SCHEDULE.입학_등록, end: SCHEDULE.입학_등록_마감 },
+    title: '입학 등록 기간이 아닙니다',
+    content:
+      '입학 등록 기간에만 접속이 가능합니다.\n입학 등록 기간까지 조금만 기다려 주세요.',
+  });
+
   const { openFileUploader: openPdfFileUploader, ref: pdfFileUploaderRef } =
     useOpenFileUploader();
 

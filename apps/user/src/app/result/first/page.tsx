@@ -2,6 +2,7 @@
 
 import { FirstResultBox, ResultMainBox } from '@/components/result';
 import { SCHEDULE } from '@/constants/form/constants';
+import usePageAccessGuard from '@/hooks/usePageAccessGuard';
 import { AppLayout } from '@/layouts';
 import type { ResultStep } from '@/types/result/client';
 import { formatFormYear, formatScheduleDate } from '@/utils';
@@ -13,6 +14,13 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 
 const ResultFirst = () => {
+  usePageAccessGuard({
+    period: { start: SCHEDULE.일차_합격_발표, end: SCHEDULE.이차_면접 },
+    title: '1차 합격 발표 기간이 아닙니다',
+    content:
+      '1차 합격 발표 기간에만 확인이 가능합니다.\n1차 합격 발표 기간까지 조금만 기다려 주세요.',
+  });
+
   const [firstResultStep, setFirstResultStep] = useState<ResultStep>('MAIN');
 
   return (
