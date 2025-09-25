@@ -14,11 +14,7 @@ export const useEducationForm = () => {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();
 
-  const numberFiled = [
-    'graduationYear',
-    'schoolPhoneNumber',
-    'teacherMobilePhoneNumber',
-  ];
+  const numberFiled = ['graduationYear', 'schoolPhoneNumber', 'teacherMobilePhoneNumber'];
 
   const handleNextStep = () => {
     try {

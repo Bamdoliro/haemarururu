@@ -2,6 +2,7 @@
 
 import { FinalResultBox, ResultMainBox } from '@/components/result';
 import { SCHEDULE } from '@/constants/form/constants';
+import usePageAccessGuard from '@/hooks/usePageAccessGuard';
 import { AppLayout } from '@/layouts';
 import type { ResultStep } from '@/types/result/client';
 import { formatFormYear, formatScheduleDate } from '@/utils';
@@ -13,6 +14,13 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 
 const ResultFinal = () => {
+  usePageAccessGuard({
+    period: { start: SCHEDULE.최종_합격_발표, end: SCHEDULE.입학_등록 },
+    title: '최종 합격 발표 기간이 아닙니다',
+    content:
+      '최종 합격 발표 기간에만 확인이 가능합니다.\n최종 합격 발표 기간까지 조금만 기다려 주세요.',
+  });
+
   const [finalResultStep, setFinalResultStep] = useState<ResultStep>('MAIN');
 
   return (
