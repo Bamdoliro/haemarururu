@@ -4,7 +4,6 @@ import { Column, Row, Td } from '@maru/ui';
 import styled from 'styled-components';
 import useApplicantRatios from './DetailContent.hooks';
 import DetailHeader from '../DetailHeader/DetailHeader';
-import { EMPTY_VALUE } from '@/constants/common/constant';
 
 type DetailTableProps = { formList: ApplicantCountType[] | undefined };
 
@@ -27,6 +26,16 @@ const DetailContent = ({ formList }: DetailTableProps) => {
     disabledParentApplicant,
     fallenHeroApplicant,
     multiChildrenApplicant,
+    nonstatutoryoneparentApplicant,
+    welfarefacilityworkerApplicant,
+    publicservantApplicant,
+    streetcleanerApplicant,
+    deployedsoldierApplicant,
+    postmanApplicant,
+    intangibleculturalheritageApplicant,
+    sailorApplicant,
+    specialadmissionApplicant,
+    nationalveteranseducationApplicant,
   } = useApplicantRatios(formList);
 
   return (
@@ -41,21 +50,21 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             일반 전형
           </Td>
           <Td width="30%" height={56}>
-            {regularApplicant}
+            {'\u00A0'}
           </Td>
           <Td width="10%" height={56}>
             {regularApplicant}
           </Td>
         </Row>
         <Row>
-          <Td width="30%" height={1288}>
+          <Td width="30%" height={1344}>
             사회 통합 전형
           </Td>
           <Column width="30%">
             <Td width="100%" height={392}>
               기회균등 전형
             </Td>
-            <Td width="100%" height={896}>
+            <Td width="100%" height={952}>
               사회 다양성 전형
             </Td>
           </Column>
@@ -124,6 +133,9 @@ const DetailContent = ({ formList }: DetailTableProps) => {
               해외파병군인 자녀
             </Td>
             <Td width="100%" height={56}>
+              우편집배원 자녀
+            </Td>
+            <Td width="100%" height={56}>
               무형문화재 보유자 자녀
             </Td>
             <Td width="100%" height={56}>
@@ -148,13 +160,14 @@ const DetailContent = ({ formList }: DetailTableProps) => {
               disabledParentApplicant,
               fallenHeroApplicant,
               multiChildrenApplicant,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
-              EMPTY_VALUE,
+              nonstatutoryoneparentApplicant,
+              welfarefacilityworkerApplicant,
+              publicservantApplicant,
+              streetcleanerApplicant,
+              deployedsoldierApplicant,
+              postmanApplicant,
+              intangibleculturalheritageApplicant,
+              sailorApplicant,
             ].map((ratio, i) => (
               <Td key={i} width="100%" height={56}>
                 {ratio}
@@ -183,12 +196,13 @@ const DetailContent = ({ formList }: DetailTableProps) => {
             </Td>
           </Column>
           <Column width="10%">
-            <Td width="100%" height={56}>
-              {EMPTY_VALUE}
-            </Td>
-            <Td width="100%" height={56} borderBottomRightRadius={12}>
-              {EMPTY_VALUE}
-            </Td>
+            {[specialadmissionApplicant, nationalveteranseducationApplicant].map(
+              (ratio, i) => (
+                <Td key={i} width="100%" height={56}>
+                  {ratio}
+                </Td>
+              )
+            )}
           </Column>
         </Row>
       </Column>
