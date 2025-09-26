@@ -20,12 +20,17 @@ const GradeHeader = () => {
         </Row>
       </Column>
       <Column>
-        <Th width={140} height={50} borderTopRightRadius={12}>
+        <Th width={279} height={50} borderTopRightRadius={12}>
           3학년
         </Th>
-        <Th styleType="SECONDARY" width="100%" height={50}>
-          1학기
-        </Th>
+        <Row>
+          <Th styleType="SECONDARY" width="100%" height={50}>
+            1학기
+          </Th>
+          <Th styleType="SECONDARY" width="100%" height={50}>
+            2학기
+          </Th>
+        </Row>
       </Column>
     </Row>
   );

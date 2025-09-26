@@ -14,6 +14,7 @@ const getAchievementLevelsGroupList = (
       '2-1': 0,
       '2-2': 1,
       '3-1': 2,
+      '3-2': 3,
     };
 
     const index = indexMap[`${cur.grade}-${cur.semester}`];
