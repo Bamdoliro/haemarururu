@@ -29,7 +29,7 @@ const ScoreTable = ({ formList }: ScoreTableProps) => {
             일반 전형
           </Th>
           <Th width={80} height={44} borderTopRightRadius={12}>
-            사회 다양성 전형
+            사회 통합 전형
           </Th>
         </Row>
         <Row>
