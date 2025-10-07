@@ -41,3 +41,4 @@ export { default as IconLoader } from './src/IconLoader';
 export { default as IconIngCircle } from './src/IconIngCircle';
 export { default as IconGrayIngCircle } from './src/IconGrayIngCircle';
 export { default as IconAdmission } from './src/IconAdmission';
+export { default as IconArticlePerson } from './src/IconArticlePerson';

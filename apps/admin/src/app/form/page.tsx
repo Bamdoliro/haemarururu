@@ -10,6 +10,7 @@ import {
 import AppLayout from '@/layouts/AppLayout';
 import {
   IconAdmission,
+  IconArticlePerson,
   IconCheckDocument,
   IconClose,
   IconEditAllDocument,
@@ -234,6 +235,12 @@ const FormPage = () => {
                     {
                       icon: <IconAdmission width={24} height={24} />,
                       label: '수험표 전체 발급하기',
+                      value: 'export_all_exam_tickets',
+                      onClick: handleExportAllAdmissionTicketButtonClick,
+                    },
+                    {
+                      icon: <IconArticlePerson width={24} height={24} />,
+                      label: '자기소개서 전체 발급하기',
                       value: 'export_all_exam_tickets',
                       onClick: handleExportAllAdmissionTicketButtonClick,
                     },
