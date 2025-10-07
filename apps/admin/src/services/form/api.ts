@@ -79,6 +79,15 @@ export const getAllAdmissionTicket = async () => {
   return data;
 };
 
+export const getFormExportAllPersonalStatement = async () => {
+  const { data } = await maru.get('/forms/documents/export', {
+    ...authorization(),
+    responseType: 'blob',
+  });
+
+  return data;
+};
+
 export const getFormDetail = async (id: number) => {
   const { data } = await maru.get<GetFormDetail>(`/forms/${id}`, authorization());
 

@@ -3,6 +3,7 @@ import {
   getAllAdmissionTicket,
   getExportExcel,
   getFormDetail,
+  getFormExportAllPersonalStatement,
   getFormList,
   getSecondScoreFormat,
 } from './api';
@@ -49,6 +50,14 @@ export const useExportAllAddmissionTicket = () => {
     queryFn: getAllAdmissionTicket,
   });
 
+  return { data, ...restQuery };
+};
+
+export const useExportAllPersonalStatement = () => {
+  const { data, ...restQuery } = useQuery({
+    queryKey: [KEY.FORM_EXPORT_ALL_PERSONAL_STATEMENT],
+    queryFn: getFormExportAllPersonalStatement,
+  });
   return { data, ...restQuery };
 };
 

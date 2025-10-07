@@ -25,6 +25,7 @@ import { styled } from 'styled-components';
 import {
   useEditSecondRoundResultActions,
   useExportAllAddmissionTicketAction,
+  useExportAllPersonalStatementAction,
   useFormPageState,
   usePrintFormURLActions,
 } from './form.hooks';
@@ -67,6 +68,8 @@ const FormPage = () => {
 
   const { handleExportAllAdmissionTicketButtonClick } =
     useExportAllAddmissionTicketAction();
+  const { handleExportAllPersonalStatementButtonClick } =
+    useExportAllPersonalStatementAction();
 
   const overlay = useOverlay();
 
@@ -242,7 +245,7 @@ const FormPage = () => {
                       icon: <IconArticlePerson width={24} height={24} />,
                       label: '자기소개서 전체 발급하기',
                       value: 'export_all_exam_tickets',
-                      onClick: handleExportAllAdmissionTicketButtonClick,
+                      onClick: handleExportAllPersonalStatementButtonClick,
                     },
                   ]}
                 />

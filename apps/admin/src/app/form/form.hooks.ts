@@ -2,7 +2,10 @@ import {
   useEditSecondRoundResultMutation,
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
-import { useExportAllAddmissionTicket } from '@/services/form/queries';
+import {
+  useExportAllAddmissionTicket,
+  useExportAllPersonalStatement,
+} from '@/services/form/queries';
 import {
   useFormToPrintValueStore,
   useSetFormToPrintStore,
@@ -130,4 +133,25 @@ export const useExportAllAddmissionTicketAction = () => {
   };
 
   return { handleExportAllAdmissionTicketButtonClick };
+};
+
+export const useExportAllPersonalStatementAction = () => {
+  const { data: exportPersonalStatementData } = useExportAllPersonalStatement();
+
+  const handleExportAllPersonalStatementButtonClick = () => {
+    if (!exportPersonalStatementData) return;
+    const statementURL = window.URL.createObjectURL(
+      new Blob([exportPersonalStatementData])
+    );
+
+    const link = document.createElement('a');
+    link.href = statementURL;
+    link.download = '전체 자기소개서.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(statementURL);
+  };
+
+  return { handleExportAllPersonalStatementButtonClick };
 };
