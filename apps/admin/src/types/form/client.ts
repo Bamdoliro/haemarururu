@@ -60,6 +60,7 @@ export interface Form {
   status: FormStatus;
   type: FormType;
   isChangedToRegular: boolean;
+  paid: boolean | null;
   totalScore: number | null;
   hasDocument: boolean | null;
   firstRoundPassed: boolean | null;

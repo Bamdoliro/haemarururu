@@ -250,7 +250,7 @@ const FormPage = () => {
                     },
                     {
                       icon: <IconPaid width={24} height={24} />,
-                      label: '진행료 엑셀로 내보내기',
+                      label: '진행료 상태 변경하기',
                       value: 'export_unpaid_list',
                       onClick: openExportExcelModal,
                     },

@@ -22,6 +22,7 @@ const FormTableItem = ({
   school,
   status,
   type,
+  paid,
   totalScore,
   firstRoundPassed,
   secondRoundPassed,
@@ -97,6 +98,9 @@ const FormTableItem = ({
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end">
+          <Text fontType="p2" width={convertToResponsive(40, 60)}>
+            {status ? '제출' : '미제출'}
+          </Text>
           <Text fontType="p2" width={convertToResponsive(40, 60)}>
             {status === 'SUBMITTED' ? '초안 제출' : '최종 제출'}
           </Text>
