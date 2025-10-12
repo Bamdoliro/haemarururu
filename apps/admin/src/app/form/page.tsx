@@ -244,7 +244,7 @@ const FormPage = () => {
                     {
                       icon: <IconArticlePerson width={24} height={24} />,
                       label: '자기소개서 전체 발급하기',
-                      value: 'export_all_exam_tickets',
+                      value: 'export_all_personal_statements',
                       onClick: handleExportAllPersonalStatementButtonClick,
                     },
                   ]}
