@@ -15,9 +15,8 @@ const StatusManager = ({ id }: StatusManagerProps) => {
   const { data: formDetailData } = useFormDetailQuery(id);
   const overlay = useOverlay();
 
-  const { submissionStatus, firstRoundStatus, secondRoundStatus } = useStatusFormatter(
-    formDetailData?.status || 'SUBMITTED'
-  );
+  const { paidAdmissionStatus, submissionStatus, firstRoundStatus, secondRoundStatus } =
+    useStatusFormatter(formDetailData?.status || 'SUBMITTED');
 
   if (!formDetailData) return <Loader />;
 
@@ -36,6 +35,14 @@ const StatusManager = ({ id }: StatusManagerProps) => {
   return (
     <Column gap={16}>
       <StyledStatusList>
+        <StyledStatusItem>
+          <Text fontType="p2" width={60}>
+            진행료
+          </Text>
+          <Text fontType="p2" width={60} color={paidAdmissionStatus?.color}>
+            {paidAdmissionStatus.text}
+          </Text>
+        </StyledStatusItem>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
             제출 서류

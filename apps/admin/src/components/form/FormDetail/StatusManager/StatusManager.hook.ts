@@ -7,6 +7,11 @@ interface StatusInfo {
 }
 
 export const useStatusFormatter = (status: FormStatus) => {
+  const getPaidAdmissionStatus = (): StatusInfo => {
+    if (status === 'SUBMITTED') return { text: '제출', color: color.maruDefault };
+    if (status === 'PASSED') return { text: '미제출', color: color.red };
+    return { text: '미제출', color: color.gray600 };
+  }
   const getSubmissionDocumentStatus = (): StatusInfo => {
     const approvedStatus = [
       'APPROVED',
@@ -45,12 +50,13 @@ export const useStatusFormatter = (status: FormStatus) => {
       return { text: '합격', color: color.maruDefault };
     return { text: '미정', color: color.gray600 };
   };
-
+  const paidAdmissionStatus = getPaidAdmissionStatus();
   const submissionStatus = getSubmissionDocumentStatus();
   const firstRoundStatus = getFirstRoundStatus();
   const secondRoundStatus = getSecondRoundStatus();
 
   return {
+    paidAdmissionStatus,
     submissionStatus,
     firstRoundStatus,
     secondRoundStatus,
