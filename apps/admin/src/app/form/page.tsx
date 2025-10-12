@@ -16,6 +16,7 @@ import {
   IconEditAllDocument,
   IconEditDocument,
   IconFilter,
+  IconPaid,
   IconPrint,
   IconUpload,
 } from '@maru/icon';
@@ -246,6 +247,12 @@ const FormPage = () => {
                       label: '자기소개서 전체 발급하기',
                       value: 'export_all_personal_statements',
                       onClick: handleExportAllPersonalStatementButtonClick,
+                    },
+                    {
+                      icon: <IconPaid width={24} height={24} />,
+                      label: '진행료 엑셀로 내보내기',
+                      value: 'export_unpaid_list',
+                      onClick: openExportExcelModal,
                     },
                   ]}
                 />
