@@ -62,8 +62,7 @@ const FormTableItem = ({
     return roundPassed === null ? '미정' : roundPassed ? '합격' : '불합격';
   };
   const getPaymentResult = (payment: boolean | null) => {
-    if (payment) return '제출';
-    return status ? color.haeMaruDefault : color.gray600;
+    return payment ? '제출' : '미제출';
   };
 
   const isFormToPrintSelecting = useIsFormToPrintSelectingValueStore();
@@ -74,7 +73,8 @@ const FormTableItem = ({
     setFormToPrint((prev) => ({ ...prev, [id]: checked }));
   };
 
-  const isDisabled = isSecondRoundResultEditing || isFormToPrintSelecting;
+  const isDisabled =
+    isSecondRoundResultEditing || isFormToPrintSelecting || isPaymentResultEditing;
   const handleMoveFormDetailPage = () => {
     if (isDisabled) return;
     router.push(`${ROUTES.FORM}/${id}`);
@@ -111,26 +111,24 @@ const FormTableItem = ({
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end">
-          <Text fontType="p2" width={convertToResponsive(40, 60)}>
-            {isPaymentResultEditing ? (
-              <Dropdown
-                name="payment"
-                size="SMALL"
-                width={100}
-                value={paymentResult[id] || getPaymentResult(payment)}
-                data={['제출', '미제출']}
-                onChange={handlePaymentDropdownChange}
-              />
-            ) : (
-              <Text
-                fontType="p2"
-                width={convertToResponsive(40, 60)}
-                color={getStatusColor(payment)}
-              >
-                {getPaymentResult(payment)}
-              </Text>
-            )}
-          </Text>
+          {isPaymentResultEditing ? (
+            <Dropdown
+              name="payment"
+              size="SMALL"
+              width={100}
+              value={paymentResult[id] || getPaymentResult(payment)}
+              data={['제출', '미제출']}
+              onChange={handlePaymentDropdownChange}
+            />
+          ) : (
+            <Text
+              fontType="p2"
+              width={convertToResponsive(40, 60)}
+              color={getStatusColor(payment)}
+            >
+              {getPaymentResult(payment)}
+            </Text>
+          )}
           <Text fontType="p2" width={convertToResponsive(40, 60)}>
             {status === 'SUBMITTED' ? '초안 제출' : '최종 제출'}
           </Text>
