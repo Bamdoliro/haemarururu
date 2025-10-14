@@ -46,14 +46,14 @@ const TypeContent = () => {
         </Td>
       </Row>
       <Row>
-        <Td width="30%" height={1288} isBottom={true} isLeft={true}>
+        <Td width="30%" height={1344} isBottom={true} isLeft={true}>
           사회 통합 전형
         </Td>
         <Column width="30%">
           <Td width="100%" height={392} isBottom={true}>
             기회균등 전형
           </Td>
-          <Td width="100%" height={896} isBottom={true}>
+          <Td width="100%" height={952} isBottom={true}>
             사회 다양성 전형
           </Td>
         </Column>
@@ -123,6 +123,9 @@ const TypeContent = () => {
           </Td>
           <Td width="100%" height={56} isBottom={true}>
             무형문화재 보유자 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            우편집배원 자녀
           </Td>
           <Td width="100%" height={56} isBottom={true}>
             선원 자녀
@@ -303,6 +306,14 @@ const TypeContent = () => {
               value="INTANGIBLE_CULTURAL_HERITAGE"
               onChange={handleFormTypeChange}
               checked={form.type === 'INTANGIBLE_CULTURAL_HERITAGE'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="SAILOR"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'POSTMAN'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>
