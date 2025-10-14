@@ -5,23 +5,11 @@ import TypeHeader from './TypeHeader/TypeHeader';
 import FormController from '../../FormController/FormController';
 import { useCTAButton, useRadio } from './TypeContent.hook';
 import { useFormStore } from '@/stores';
-import { useEffect } from 'react';
 
 const TypeContent = () => {
-  const [form, setForm] = useFormStore();
+  const [form] = useFormStore();
   const { handleNextStep, handlePreviousStep } = useCTAButton();
   const { handleFormTypeChange } = useRadio();
-
-  useEffect(() => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      if (!(form.type === 'REGULAR')) {
-        alert(
-          '서류상으로 검정고시 합격자는 사회통합전형 지원이 불가능해요. 일반전형으로 지원해주세요!'
-        );
-        setForm((prev) => ({ ...prev, type: 'REGULAR' }));
-      }
-    }
-  }, [form.education.graduationType, form.type, setForm]);
 
   return (
     <StyledTypeContent>
