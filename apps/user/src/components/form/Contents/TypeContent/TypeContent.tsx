@@ -299,7 +299,7 @@ const TypeContent = () => {
           <Td width="100%" height={56} isBottom={true} isRight={true}>
             <Radio
               name="type"
-              value="SAILOR"
+              value="POSTMAN"
               onChange={handleFormTypeChange}
               checked={form.type === 'POSTMAN'}
             />
