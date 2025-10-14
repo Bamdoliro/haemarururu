@@ -24,6 +24,7 @@ import { Button, Column, Dropdown, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import {
+  useEditPaymentResultActions,
   useEditSecondRoundResultActions,
   useExportAllAddmissionTicketAction,
   useExportAllPersonalStatementAction,
@@ -59,6 +60,12 @@ const FormPage = () => {
     setIsSecondRoundResultEditingFalse,
     handleSecondRoundResultEditCompleteButtonClick,
   } = useEditSecondRoundResultActions();
+  const {
+    isPaymentResultEditing,
+    setIsPaymentResultEditingTrue,
+    setIsPaymentResultEditingFalse,
+    handlePaymentResultEditCompleteButtonClick,
+  } = useEditPaymentResultActions();
 
   const {
     isFormToPrintSelecting,
@@ -66,7 +73,6 @@ const FormPage = () => {
     setIsFormToPrintSelectingFalse,
     handlePrintFormUrlButtonClick,
   } = usePrintFormURLActions();
-
   const { handleExportAllAdmissionTicketButtonClick } =
     useExportAllAddmissionTicketAction();
   const { handleExportAllPersonalStatementButtonClick } =
@@ -112,6 +118,7 @@ const FormPage = () => {
                     { value: 'FIRST_PASSED', label: '1차 합격' },
                     { value: 'PASSED', label: '최종 합격' },
                     { value: 'REJECTED', label: '반려' },
+                    { value: 'ENTERED', label: '입학' },
                     { value: 'ENTERED', label: '입학' },
                   ]}
                   size="SMALL"
@@ -197,6 +204,22 @@ const FormPage = () => {
                     출력하기
                   </Button>
                 </Row>
+              ) : isPaymentResultEditing ? (
+                <Row gap={16}>
+                  <Button
+                    styleType="SECONDARY"
+                    size="SMALL"
+                    onClick={setIsPaymentResultEditingFalse}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handlePaymentResultEditCompleteButtonClick}
+                  >
+                    완료
+                  </Button>
+                </Row>
               ) : (
                 <FunctionDropdown
                   data={[
@@ -251,8 +274,8 @@ const FormPage = () => {
                     {
                       icon: <IconPaid width={24} height={24} />,
                       label: '진행료 상태 변경하기',
-                      value: 'export_unpaid_list',
-                      onClick: openExportExcelModal,
+                      value: 'update_payment_result',
+                      onClick: setIsPaymentResultEditingTrue,
                     },
                   ]}
                 />

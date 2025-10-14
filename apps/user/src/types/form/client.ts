@@ -41,7 +41,8 @@ export interface FormStatus {
     | 'FIRST_PASSED'
     | 'PASSED'
     | 'REJECTED'
-    | 'ENTERED';
+    | 'ENTERED'
+    | 't';
   type: FormType;
 }
 

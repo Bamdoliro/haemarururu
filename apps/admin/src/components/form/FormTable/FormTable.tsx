@@ -22,7 +22,7 @@ const FormTable = () => {
             status={item.status}
             hasDocument={item.hasDocument}
             type={item.type}
-            paid={item.paid}
+            payment={item.payment}
             isChangedToRegular={item.isChangedToRegular}
             totalScore={item.totalScore}
             firstRoundPassed={item.firstRoundPassed}

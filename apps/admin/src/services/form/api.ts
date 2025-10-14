@@ -11,6 +11,7 @@ import type {
   GetFormDetail,
   GetFormListRes,
   GetFormURLRes,
+  PatchPaymentResultReq,
   PatchSecondRoundResultReq,
 } from '@/types/form/remote';
 
@@ -131,5 +132,15 @@ export const patchReceiveStatus = async (
     {},
     authorization()
   );
+  return data;
+};
+
+export const patchPaymentResult = async (paymentResultData: PatchPaymentResultReq) => {
+  const { data } = await maru.patch(
+    '/forms/admission-fees/payment-status',
+    paymentResultData,
+    authorization()
+  );
+
   return data;
 };
