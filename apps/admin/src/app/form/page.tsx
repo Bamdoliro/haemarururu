@@ -112,6 +112,7 @@ const FormPage = () => {
                     { value: 'PASSED', label: '최종 합격' },
                     { value: 'REJECTED', label: '반려' },
                     { value: 'ENTERED', label: '입학' },
+                    { value: 'ALL', label: '전체' },
                   ]}
                   size="SMALL"
                   width={160}
