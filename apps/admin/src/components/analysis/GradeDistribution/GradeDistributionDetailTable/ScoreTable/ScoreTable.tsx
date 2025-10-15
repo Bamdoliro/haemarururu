@@ -65,6 +65,17 @@ const ScoreTable = ({ formList }: ScoreTableProps) => {
             {SpecialAdmissionRoundAvg}
           </Td>
         </Row>
+        <Row>
+          <Td width={88} height={44} borderBottomLeftRadius={12}>
+            성적70%
+          </Td>
+          <Td width={80} height={44}>
+            {regularRoundAvg}
+          </Td>
+          <Td width={80} height={44} borderBottomRightRadius={12}>
+            {SpecialAdmissionRoundAvg}
+          </Td>
+        </Row>
       </Column>
     </Column>
   );
