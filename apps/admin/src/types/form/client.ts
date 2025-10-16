@@ -12,8 +12,14 @@ export type FormStatus =
   | 'ENTERED'
   | 'ALL';
 
+export type FormMainType =
+  | 'REGULAR'
+  | '';
+
+
 export type FormType =
   | 'REGULAR'
+  | 'SOCIAL_INTEGRATION'
   | 'NATIONAL_VETERANS'
   | 'NATIONAL_BASIC_LIVING'
   | 'ONE_PARENT'
@@ -60,6 +66,7 @@ export interface Form {
   school: string;
   status: FormStatus;
   type: FormType;
+  subType: FormType;
   isChangedToRegular: boolean;
   totalScore: number | null;
   hasDocument: boolean | null;
@@ -100,6 +107,7 @@ export interface FormDetail {
   };
   formUrl: string;
   type: FormType;
+  subType: FormType;
   status: FormStatus;
   changedToRegular: boolean;
 }

@@ -22,6 +22,7 @@ const FormTableItem = ({
   school,
   status,
   type,
+  subType,
   totalScore,
   firstRoundPassed,
   secondRoundPassed,
@@ -93,7 +94,9 @@ const FormTableItem = ({
             {graduationType === 'QUALIFICATION_EXAMINATION' ? '검정고시' : school}
           </Text>
           <Text fontType="p2" width={convertToResponsive(180, 240)}>
-            {FORM_TYPE_CATEGORY[type]}
+            {type === 'REGULAR'
+              ? '일반전형'
+              : `${'사회 다양성 전형'} - ${FORM_TYPE_CATEGORY[subType]}`}
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end">

@@ -25,6 +25,7 @@ export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
 
 export const FORM_TYPE_CATEGORY: Record<FormType, string> = {
   REGULAR: '일반전형',
+  SOCIAL_INTEGRATION: '사회통합전형',
   NATIONAL_VETERANS: '국가보훈대상자',
   NATIONAL_BASIC_LIVING: '국민기초생활수급권자',
   ONE_PARENT: '한부모가족 보호대상자',
