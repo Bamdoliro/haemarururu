@@ -16,6 +16,7 @@ export const useStatusFormatter = (status: FormStatus) => {
       'FIRST_PASSED',
       'PASSED',
       'ENTERED',
+      't',
     ];
 
     if (status === 'REJECTED') return { text: '반려', color: color.red };
@@ -46,11 +47,17 @@ export const useStatusFormatter = (status: FormStatus) => {
     return { text: '미정', color: color.gray600 };
   };
 
+  const getPaymentAdmissionStatus = (): StatusInfo => {
+    if (status) return { text: '제출', color: color.maruDefault };
+    else return { text: '미제출', color: color.maruDefault };
+  };
+  const paymentAdmissionStatus = getPaymentAdmissionStatus();
   const submissionStatus = getSubmissionDocumentStatus();
   const firstRoundStatus = getFirstRoundStatus();
   const secondRoundStatus = getSecondRoundStatus();
 
   return {
+    paymentAdmissionStatus,
     submissionStatus,
     firstRoundStatus,
     secondRoundStatus,

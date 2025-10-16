@@ -44,6 +44,8 @@ export type GraduationType = 'EXPECTED' | 'GRADUATED' | 'QUALIFICATION_EXAMINATI
 
 export type PassStatusType = '합격' | '불합격' | '미정';
 
+export type PaymentStatusType = '제출' | '미제출';
+
 export type ExportExcelType =
   | '전체 내보내기'
   | '1차 전형 결과'
@@ -60,6 +62,7 @@ export interface Form {
   status: FormStatus;
   type: FormType;
   isChangedToRegular: boolean;
+  payment: boolean | null;
   totalScore: number | null;
   hasDocument: boolean | null;
   firstRoundPassed: boolean | null;

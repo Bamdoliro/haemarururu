@@ -1,4 +1,5 @@
 import {
+  useEditPaymentResultMutation,
   useEditSecondRoundResultMutation,
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
@@ -15,6 +16,8 @@ import { useIsFormToPrintSelectingStore } from '@/store/form/isFormToPrintSelect
 import { useIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSecondRoundResultValueStore } from '@/store/form/secondRoundResult';
 import type { FormListSortingType } from '@/types/form/client';
+import { usePaymentResultValueStore } from '@/store/form/paymentResult';
+import { useIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
 
 export const useFormPageState = () => {
   const [formListType, setFormListType] = useFormListTypeStore();
@@ -154,4 +157,36 @@ export const useExportAllPersonalStatementAction = () => {
   };
 
   return { handleExportAllPersonalStatementButtonClick };
+};
+
+export const useEditPaymentResultActions = () => {
+  const [isPaymentResultEditing, setIsPaymentResultEditing] =
+    useIsPaymentResultEditingStore();
+
+  const setIsPaymentResultEditingTrue = () => setIsPaymentResultEditing(true);
+  const setIsPaymentResultEditingFalse = () => {
+    setIsPaymentResultEditing(false);
+  };
+
+  const paymentResult = usePaymentResultValueStore();
+  const paymentResultData = {
+    formList: Object.entries(paymentResult).map(([formId, paidStatus]) => {
+      return {
+        formId: Number(formId),
+        payment: paidStatus === '미제출' ? null : paidStatus === '제출',
+      };
+    }),
+  };
+  const { editPaymentResult } = useEditPaymentResultMutation(paymentResultData);
+
+  const handlePaymentResultEditCompleteButtonClick = () => {
+    editPaymentResult();
+  };
+
+  return {
+    isPaymentResultEditing,
+    setIsPaymentResultEditingTrue,
+    setIsPaymentResultEditingFalse,
+    handlePaymentResultEditCompleteButtonClick,
+  };
 };
