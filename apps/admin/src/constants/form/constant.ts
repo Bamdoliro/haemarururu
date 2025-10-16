@@ -20,7 +20,6 @@ export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
   PASSED: '최종 합격',
   REJECTED: '반려',
   ENTERED: '입학',
-  ALL: '전체',
 } as const;
 
 export const FORM_TYPE_CATEGORY: Record<FormType, string> = {

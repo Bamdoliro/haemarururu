@@ -22,7 +22,6 @@ const FormTableItem = ({
   school,
   status,
   type,
-  subType,
   totalScore,
   firstRoundPassed,
   secondRoundPassed,
@@ -60,6 +59,9 @@ const FormTableItem = ({
     const { checked } = e.target;
     setFormToPrint((prev) => ({ ...prev, [id]: checked }));
   };
+  const middleType = type === 'REGULAR' ? '일반전형' : '사회 다양성 전형';
+  const detailedType = FORM_TYPE_CATEGORY[type];
+  const fullType = `${middleType} - ${detailedType}`;
 
   const isDisabled = isSecondRoundResultEditing || isFormToPrintSelecting;
   const handleMoveFormDetailPage = () => {
@@ -94,9 +96,7 @@ const FormTableItem = ({
             {graduationType === 'QUALIFICATION_EXAMINATION' ? '검정고시' : school}
           </Text>
           <Text fontType="p2" width={convertToResponsive(180, 240)}>
-            {type === 'REGULAR'
-              ? '일반전형'
-              : `${'사회 다양성 전형'} - ${FORM_TYPE_CATEGORY[subType]}`}
+            {fullType}
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end">

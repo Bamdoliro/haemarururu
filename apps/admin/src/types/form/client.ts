@@ -9,13 +9,7 @@ export type FormStatus =
   | 'FIRST_PASSED'
   | 'PASSED'
   | 'REJECTED'
-  | 'ENTERED'
-  | 'ALL';
-
-export type FormMainType =
-  | 'REGULAR'
-  | '';
-
+  | 'ENTERED';
 
 export type FormType =
   | 'REGULAR'
@@ -66,7 +60,6 @@ export interface Form {
   school: string;
   status: FormStatus;
   type: FormType;
-  subType: FormType;
   isChangedToRegular: boolean;
   totalScore: number | null;
   hasDocument: boolean | null;
@@ -107,7 +100,6 @@ export interface FormDetail {
   };
   formUrl: string;
   type: FormType;
-  subType: FormType;
   status: FormStatus;
   changedToRegular: boolean;
 }
