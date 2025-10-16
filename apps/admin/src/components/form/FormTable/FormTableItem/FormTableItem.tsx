@@ -59,7 +59,7 @@ const FormTableItem = ({
     const { checked } = e.target;
     setFormToPrint((prev) => ({ ...prev, [id]: checked }));
   };
-  const middleType = type === 'REGULAR' ? '일반전형' : '사회 다양성 전형';
+  const middleType = type === 'REGULAR' ? '일반전형' : '사회 통합 전형';
   const detailedType = FORM_TYPE_CATEGORY[type];
   const fullType = `${middleType} - ${detailedType}`;
 
