@@ -55,13 +55,13 @@ const ScoreTable = ({ formList }: ScoreTableProps) => {
           </Td>
         </Row>
         <Row>
-          <Td width={88} height={44} borderBottomLeftRadius={12}>
+          <Td width={88} height={44}>
             평균
           </Td>
           <Td width={80} height={44}>
             {regularRoundAvg}
           </Td>
-          <Td width={80} height={44} borderBottomRightRadius={12}>
+          <Td width={80} height={44}>
             {SpecialAdmissionRoundAvg}
           </Td>
         </Row>
