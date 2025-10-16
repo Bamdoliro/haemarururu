@@ -47,6 +47,9 @@ const FormTableHeader = ({ id }: FormTableHeaderProps) => {
       </Row>
       <Row gap={48} justifyContent="flex-end">
         <Text fontType="p2" width={convertToResponsive(40, 60)}>
+          진행료
+        </Text>
+        <Text fontType="p2" width={convertToResponsive(40, 60)}>
           제출상태
         </Text>
         <Text fontType="p2" width={convertToResponsive(40, 60)}>
