@@ -24,6 +24,7 @@ const FormTableItem = ({
   school,
   status,
   type,
+  hasDocument,
   payment,
   totalScore,
   firstRoundPassed,
@@ -63,6 +64,17 @@ const FormTableItem = ({
   };
   const getPaymentResult = (payment: boolean | null) => {
     return payment ? '제출' : '미제출';
+  };
+  const getDocumentStatus = (documentStatus: boolean | null, FormStatus?: string) => {
+    if (FormStatus === 'REJECTED') return '반려';
+    else if (FormStatus === 'APPROVED') return '승인';
+    else if (documentStatus) return '학교도착';
+    return '미도착';
+  };
+  const getDocumentColor = (documentStatus: boolean | null, FormStatus?: string) => {
+    if (FormStatus === 'REJECTED') return color.red;
+    else if (FormStatus === 'APPROVED') return color.maruDefault;
+    return color.gray600;
   };
 
   const isFormToPrintSelecting = useIsFormToPrintSelectingValueStore();
@@ -132,8 +144,12 @@ const FormTableItem = ({
           <Text fontType="p2" width={convertToResponsive(40, 60)}>
             {status === 'SUBMITTED' ? '초안 제출' : '최종 제출'}
           </Text>
-          <Text fontType="p2" width={convertToResponsive(40, 60)}>
-            승인
+          <Text
+            fontType="p2"
+            width={convertToResponsive(40, 60)}
+            color={getDocumentColor(hasDocument, status)}
+          >
+            {getDocumentStatus(hasDocument, status)}
           </Text>
           <Text
             fontType="p2"
