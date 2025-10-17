@@ -1,6 +1,7 @@
 import type { GradeDistributionType } from '@/types/analysis/client';
 
 const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
+  console.log('formList', formList);
   const regularRoundMax = formList
     ? Math.max(
         ...formList
@@ -69,7 +70,6 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     totalRoundAvg !== 0
       ? (totalRoundAvg / SpecialAdmissionData.length).toFixed(3)
       : '0.000';
-
   return {
     regularRoundMax,
     SpecialAdmissionRoundMax,
