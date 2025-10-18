@@ -13,6 +13,7 @@ export type FormStatus =
 
 export type FormType =
   | 'REGULAR'
+  | 'SOCIAL_INTEGRATION'
   | 'NATIONAL_VETERANS'
   | 'NATIONAL_BASIC_LIVING'
   | 'ONE_PARENT'

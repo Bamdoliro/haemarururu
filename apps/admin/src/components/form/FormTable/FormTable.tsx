@@ -20,8 +20,8 @@ const FormTable = () => {
             graduationType={item.graduationType}
             school={item.school}
             status={item.status}
-            hasDocument={item.hasDocument}
             type={item.type}
+            hasDocument={item.hasDocument}
             payment={item.payment}
             isChangedToRegular={item.isChangedToRegular}
             totalScore={item.totalScore}
