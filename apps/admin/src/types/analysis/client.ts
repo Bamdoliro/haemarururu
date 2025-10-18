@@ -77,7 +77,7 @@ export interface GradeDistributionType {
   firstRoundMax: number;
   firstRoundMin: number;
   firstRoundAvg: number;
-  firstRoundSeventy: number;
+  firstRoundSeventyPercentile: number;
   totalMax: number;
   totalMin: number;
   totalAvg: number;
