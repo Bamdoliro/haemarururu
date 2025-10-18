@@ -57,7 +57,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
         </StyledStatusItem>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
-            1차 결과
+            면접 대상자
           </Text>
           <Text fontType="p2" width={60} color={firstRoundStatus.color}>
             {firstRoundStatus.text}
@@ -77,7 +77,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
         </StyledStatusItem>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
-            2차 결과
+            면접 전형
           </Text>
           <Text fontType="p2" width={60} color={secondRoundStatus.color}>
             {secondRoundStatus.text}
