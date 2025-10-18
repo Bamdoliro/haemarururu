@@ -5,23 +5,11 @@ import TypeHeader from './TypeHeader/TypeHeader';
 import FormController from '../../FormController/FormController';
 import { useCTAButton, useRadio } from './TypeContent.hook';
 import { useFormStore } from '@/stores';
-import { useEffect } from 'react';
 
 const TypeContent = () => {
-  const [form, setForm] = useFormStore();
+  const [form] = useFormStore();
   const { handleNextStep, handlePreviousStep } = useCTAButton();
   const { handleFormTypeChange } = useRadio();
-
-  useEffect(() => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      if (!(form.type === 'REGULAR')) {
-        alert(
-          '서류상으로 검정고시 합격자는 사회통합전형 지원이 불가능해요. 일반전형으로 지원해주세요!'
-        );
-        setForm((prev) => ({ ...prev, type: 'REGULAR' }));
-      }
-    }
-  }, [form.education.graduationType, form.type, setForm]);
 
   return (
     <StyledTypeContent>
@@ -46,14 +34,14 @@ const TypeContent = () => {
         </Td>
       </Row>
       <Row>
-        <Td width="30%" height={1288} isBottom={true} isLeft={true}>
+        <Td width="30%" height={1344} isBottom={true} isLeft={true}>
           사회 통합 전형
         </Td>
         <Column width="30%">
           <Td width="100%" height={392} isBottom={true}>
             기회균등 전형
           </Td>
-          <Td width="100%" height={896} isBottom={true}>
+          <Td width="100%" height={952} isBottom={true}>
             사회 다양성 전형
           </Td>
         </Column>
@@ -123,6 +111,9 @@ const TypeContent = () => {
           </Td>
           <Td width="100%" height={56} isBottom={true}>
             무형문화재 보유자 자녀
+          </Td>
+          <Td width="100%" height={56} isBottom={true}>
+            우편집배원 자녀
           </Td>
           <Td width="100%" height={56} isBottom={true}>
             선원 자녀
@@ -303,6 +294,14 @@ const TypeContent = () => {
               value="INTANGIBLE_CULTURAL_HERITAGE"
               onChange={handleFormTypeChange}
               checked={form.type === 'INTANGIBLE_CULTURAL_HERITAGE'}
+            />
+          </Td>
+          <Td width="100%" height={56} isBottom={true} isRight={true}>
+            <Radio
+              name="type"
+              value="POSTMAN"
+              onChange={handleFormTypeChange}
+              checked={form.type === 'POSTMAN'}
             />
           </Td>
           <Td width="100%" height={56} isBottom={true} isRight={true}>

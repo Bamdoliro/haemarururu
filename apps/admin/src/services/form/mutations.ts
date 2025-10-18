@@ -2,6 +2,7 @@ import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getFormUrl,
+  patchPaymentResult,
   patchReceiveStatus,
   patchSecondRoundResult,
   patchSecondRoundResultAuto,
@@ -9,11 +10,16 @@ import {
 } from './api';
 import { toast } from 'react-toastify';
 import { KEY } from '@/constants/common/constant';
-import type { PatchSecondRoundResultReq } from '@/types/form/remote';
+import type {
+  PatchPaymentResultReq,
+  PatchSecondRoundResultReq,
+} from '@/types/form/remote';
 import { useSetIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSetSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import { isPopupBlocked } from '@/utils';
 import type { ReceiveStatusValue } from '@/types/form/client';
+import { useSetIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
+import { useSetPaymentResultStore } from '@/store/form/paymentResult';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
@@ -147,4 +153,29 @@ export const useReceiveStatusChangeMutation = (formId: number, onClose: () => vo
   });
 
   return { changeReceiveStatus, ...restMutation };
+};
+
+export const useEditPaymentResultMutation = (
+  paymentResultData: PatchPaymentResultReq
+) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const setIsPaymentResultEditing = useSetIsPaymentResultEditingStore();
+  const setPaymentResult = useSetPaymentResultStore();
+
+  const { mutate: editPaymentResult, ...restMutation } = useMutation({
+    mutationFn: () => patchPaymentResult(paymentResultData),
+    onSuccess: () => {
+      toast('진행료 변경 여부가 반영되었습니다.', {
+        type: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
+      setIsPaymentResultEditing(false);
+      setPaymentResult({});
+    },
+    onError: handleError,
+  });
+
+  return { editPaymentResult, ...restMutation };
 };
