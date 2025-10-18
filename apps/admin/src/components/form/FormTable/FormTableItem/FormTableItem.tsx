@@ -5,7 +5,7 @@ import { useFormToPrintStore } from '@/store/form/formToPrint';
 import { useIsFormToPrintSelectingValueStore } from '@/store/form/isFormToPrintSelecting';
 import { useIsSecondRoundResultEditingValueStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSecondRoundResultStore } from '@/store/form/secondRoundResult';
-import type { Form, PassStatusType } from '@/types/form/client';
+import type { Form, PassStatusType, PaymentStatusType } from '@/types/form/client';
 import { convertToResponsive, maskName } from '@/utils';
 import { color } from '@maru/design-system';
 import { CheckBox, Dropdown, Row, Text } from '@maru/ui';
@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import { usePaymentResultStore } from '@/store/form/paymentResult';
+import { useIsPaymentResultEditingValueStore } from '@/store/form/isPaymentResultEditing';
 
 const FormTableItem = ({
   id,
@@ -22,6 +24,8 @@ const FormTableItem = ({
   school,
   status,
   type,
+  hasDocument,
+  payment,
   totalScore,
   firstRoundPassed,
   secondRoundPassed,
@@ -29,14 +33,21 @@ const FormTableItem = ({
   const router = useRouter();
 
   const isSecondRoundResultEditing = useIsSecondRoundResultEditingValueStore();
+  const isPaymentResultEditing = useIsPaymentResultEditingValueStore();
   const [secondRoundResult, setSecondRoundResult] = useSecondRoundResultStore();
-
+  const [paymentResult, setPaymentResult] = usePaymentResultStore();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleSecondPassResultDropdownChange = (value: string) => {
     setSecondRoundResult((prev) => ({
       ...prev,
       [id]: value as PassStatusType,
+    }));
+  };
+  const handlePaymentDropdownChange = (value: string) => {
+    setPaymentResult((prev) => ({
+      ...prev,
+      [id]: value as PaymentStatusType,
     }));
   };
 
@@ -51,6 +62,20 @@ const FormTableItem = ({
     }
     return roundPassed === null ? '미정' : roundPassed ? '합격' : '불합격';
   };
+  const getPaymentResult = (payment: boolean | null) => {
+    return payment ? '제출' : '미제출';
+  };
+  const getDocumentStatus = (documentStatus: boolean | null, FormStatus?: string) => {
+    if (FormStatus === 'REJECTED') return '반려';
+    else if (FormStatus === 'APPROVED') return '승인';
+    else if (documentStatus) return '학교도착';
+    return '미도착';
+  };
+  const getDocumentColor = (documentStatus: boolean | null, FormStatus?: string) => {
+    if (FormStatus === 'REJECTED') return color.red;
+    else if (FormStatus === 'APPROVED') return color.maruDefault;
+    return color.gray600;
+  };
 
   const isFormToPrintSelecting = useIsFormToPrintSelectingValueStore();
   const [formToPrint, setFormToPrint] = useFormToPrintStore();
@@ -59,8 +84,12 @@ const FormTableItem = ({
     const { checked } = e.target;
     setFormToPrint((prev) => ({ ...prev, [id]: checked }));
   };
+  const middleType = type === 'REGULAR' ? '일반전형' : '사회 통합 전형';
+  const detailedType = FORM_TYPE_CATEGORY[type];
+  const fullType = `${middleType} - ${detailedType}`;
 
-  const isDisabled = isSecondRoundResultEditing || isFormToPrintSelecting;
+  const isDisabled =
+    isSecondRoundResultEditing || isFormToPrintSelecting || isPaymentResultEditing;
   const handleMoveFormDetailPage = () => {
     if (isDisabled) return;
     router.push(`${ROUTES.FORM}/${id}`);
@@ -93,15 +122,37 @@ const FormTableItem = ({
             {graduationType === 'QUALIFICATION_EXAMINATION' ? '검정고시' : school}
           </Text>
           <Text fontType="p2" width={convertToResponsive(180, 240)}>
-            {FORM_TYPE_CATEGORY[type]}
+            {fullType}
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end">
+          {isPaymentResultEditing ? (
+            <Dropdown
+              name="payment"
+              size="SMALL"
+              width={100}
+              value={paymentResult[id] || getPaymentResult(payment)}
+              data={['제출', '미제출']}
+              onChange={handlePaymentDropdownChange}
+            />
+          ) : (
+            <Text
+              fontType="p2"
+              width={convertToResponsive(40, 60)}
+              color={getStatusColor(payment)}
+            >
+              {getPaymentResult(payment)}
+            </Text>
+          )}
           <Text fontType="p2" width={convertToResponsive(40, 60)}>
             {status === 'SUBMITTED' ? '초안 제출' : '최종 제출'}
           </Text>
-          <Text fontType="p2" width={convertToResponsive(40, 60)}>
-            승인
+          <Text
+            fontType="p2"
+            width={convertToResponsive(40, 60)}
+            color={getDocumentColor(hasDocument, status)}
+          >
+            {getDocumentStatus(hasDocument, status)}
           </Text>
           <Text
             fontType="p2"

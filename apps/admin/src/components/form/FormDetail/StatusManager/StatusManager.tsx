@@ -15,9 +15,12 @@ const StatusManager = ({ id }: StatusManagerProps) => {
   const { data: formDetailData } = useFormDetailQuery(id);
   const overlay = useOverlay();
 
-  const { submissionStatus, firstRoundStatus, secondRoundStatus } = useStatusFormatter(
-    formDetailData?.status || 'SUBMITTED'
-  );
+  const {
+    paymentAdmissionStatus,
+    submissionStatus,
+    firstRoundStatus,
+    secondRoundStatus,
+  } = useStatusFormatter(formDetailData?.status || 'SUBMITTED');
 
   if (!formDetailData) return <Loader />;
 
@@ -38,6 +41,14 @@ const StatusManager = ({ id }: StatusManagerProps) => {
       <StyledStatusList>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
+            진행료
+          </Text>
+          <Text fontType="p2" width={60} color={paymentAdmissionStatus?.color}>
+            {paymentAdmissionStatus.text}
+          </Text>
+        </StyledStatusItem>
+        <StyledStatusItem>
+          <Text fontType="p2" width={60}>
             제출 서류
           </Text>
           <Text fontType="p2" width={60} color={submissionStatus?.color}>
@@ -46,7 +57,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
         </StyledStatusItem>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
-            1차 결과
+            면접 대상자
           </Text>
           <Text fontType="p2" width={60} color={firstRoundStatus.color}>
             {firstRoundStatus.text}
@@ -66,7 +77,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
         </StyledStatusItem>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
-            2차 결과
+            면접 전형
           </Text>
           <Text fontType="p2" width={60} color={secondRoundStatus.color}>
             {secondRoundStatus.text}

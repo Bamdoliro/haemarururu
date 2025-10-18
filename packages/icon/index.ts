@@ -34,6 +34,7 @@ export { default as IconSignUpCheckTrue } from './src/IconSignUpCheckTrue';
 export { default as IconCalendar } from './src/IconCalender';
 export { default as IconGrayCircle } from './src/IconGrayCircle';
 export { default as IconPhone } from './src/IconPhone';
+export { default as IconPaid } from './src/IconPaid';
 export { default as IconClip } from './src/IconClip';
 export { default as IconRoundBamdoliro } from './src/IconRoundBamdoliro';
 export { default as IconRoundInstagram } from './src/IconRoundInstagram';
