@@ -23,8 +23,8 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
           원서 초안 작성이 완료되었습니다.
         </Text>
         <Text fontType="H4" color={color.red}>
-          작성한 원서 초안을 출력하여 학교장 직인 날인 후 <br />
-          추가 서류와 인터넷 탑재해야만 원서 접수가 완료됩니다.
+          작성한 원서를 출력하여 학교장 직인 날인 후 <br />
+          추가 서류와 함께 본교에 제출해야만 원서 접수가 완료됩니다.
         </Text>
       </Column>
       <Column gap={24}>
