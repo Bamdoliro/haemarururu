@@ -34,7 +34,6 @@ export const useIntoductionForm = () => {
       });
     } catch (err) {
       if (err instanceof z.ZodError) {
-        toast('금지어가 포함되어 있습니다.', 'ERROR');
         const fieldErrors = err.flatten().fieldErrors;
         const normalizedErrors = Object.fromEntries(
           Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []])
