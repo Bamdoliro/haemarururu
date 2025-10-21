@@ -1,8 +1,3 @@
-import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
-
-dayjs.locale('ko');
-
 export const SCORE = {
   REGULAR_TYPE: 0,
   SPECIAL_TYPE: 0,
