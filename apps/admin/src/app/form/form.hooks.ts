@@ -190,3 +190,7 @@ export const useEditPaymentResultActions = () => {
     handlePaymentResultEditCompleteButtonClick,
   };
 };
+
+export const useEditInterviewNumberActions = () => {
+
+};

@@ -231,6 +231,12 @@ const FormPage = () => {
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
+                      label: '면접번호 입력하기',
+                      value: 'input_interview_numbers',
+                      onClick: handleFormListTypeReview,
+                    },
+                    {
+                      icon: <IconEditDocument width={24} height={24} />,
                       label: '2차 전형 점수 입력하기',
                       value: 'input_second_round_scores',
                       onClick: openSecondScoreUploadModal,
