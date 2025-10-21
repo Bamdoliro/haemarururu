@@ -23,7 +23,7 @@ const ManagerTable = () => {
           입학담당관
         </Td>
         <Td width="33.3%" height={56}>
-          {PHONE_NUMBER.입학담당관_일}, {PHONE_NUMBER.입학담당관_이}
+          {PHONE_NUMBER.ADMISSION_OFFICER_ONE}, {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
         </Td>
       </Row>
       <Row>
@@ -34,7 +34,7 @@ const ManagerTable = () => {
           행정실
         </Td>
         <Td borderBottomRightRadius={12} width="33.3%" height={56}>
-          {PHONE_NUMBER.행정실_전화번호}
+          {PHONE_NUMBER.TEACHER_OFFICE_PHONE_NUMBER}
         </Td>
       </Row>
     </Column>

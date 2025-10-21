@@ -23,10 +23,12 @@ const Footer = () => {
                 주소: 부산광역시 해운대구 우동3로 11번길 43 (46708)
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                입학문의: {PHONE_NUMBER.입학담당관_일}, {PHONE_NUMBER.입학담당관_이}
+                입학문의: {PHONE_NUMBER.ADMISSION_OFFICER_ONE},{' '}
+                {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                행정실: {PHONE_NUMBER.행정실_전화번호}, Fax:{PHONE_NUMBER.행정실_팩스번호}
+                행정실: {PHONE_NUMBER.TEACHER_OFFICE_PHONE_NUMBER}, Fax:
+                {PHONE_NUMBER.TEACHER_OFFICE_FAX}
               </Text>
             </InfoBox>
             <Text fontType="p3" color={color.gray600}>
