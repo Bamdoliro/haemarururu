@@ -12,6 +12,7 @@ export const SCHEDULE = {
   최종_합격_발표: dayjs(process.env.NEXT_PUBLIC_FINAL_RESULT),
   입학_등록: dayjs(process.env.NEXT_PUBLIC_REGISTRATION_START),
   입학_등록_마감: dayjs(process.env.NEXT_PUBLIC_REGISTRATION_END),
+  출결_기준일: dayjs(process.env.NEXT_PUBLIC_ATTENDANCE_STANDARD_DATE),
 };
 
 export const SCORE = {
