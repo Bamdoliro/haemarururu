@@ -8,8 +8,29 @@ import styled from 'styled-components';
 const GuidelineBox = () => {
   const router = useRouter();
 
-  const handleMoveGuidelinePdf = () => {
-    router.push(process.env.NEXT_PUBLIC_ADMISSION_GUIDELINES ?? '');
+  const handleMoveGuidelinePdf = async () => {
+    const downloadUrl = process.env.NEXT_PUBLIC_ADMISSION_GUIDELINES_DOWNLOAD_URL;
+
+    if (!downloadUrl) return;
+
+    try {
+      const response = await fetch(downloadUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'admission_guidelines.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
+    } catch (error) {
+      console.error('다운로드 실패:', error);
+      // fallback: 그냥 새 탭에서 열기
+      window.open(downloadUrl, '_blank');
+    }
   };
 
   return (
