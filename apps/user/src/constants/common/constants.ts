@@ -57,6 +57,6 @@ export const SCHEDULE = {
 export const PHONE_NUMBER = {
   입학담당관_일: process.env.NEXT_PUBLIC_ADMISSION_OFFICER_ONE,
   입학담당관_이: process.env.NEXT_PUBLIC_ADMISSION_OFFICER_TWO,
-  행정실_전화번호: process.env.NEXT_PUBLIC_SCHOOL_OFFICE_PHONE,
-  행정실_팩스번호: process.env.NEXT_PUBLIC_SCHOOL_OFFICE_FAX,
+  행정실_전화번호: process.env.NEXT_PUBLIC_TEACHER_OFFICE_PHONE_NUMBER,
+  행정실_팩스번호: process.env.NEXT_PUBLIC_TEACHER_OFFICE_PHONE_FAX,
 } as const;

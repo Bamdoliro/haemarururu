@@ -26,7 +26,7 @@ const Footer = () => {
                 입학문의: {PHONE_NUMBER.입학담당관_일}, {PHONE_NUMBER.입학담당관_이}
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                행정실: {PHONE_NUMBER.행정실_전화번호}, Fax: {PHONE_NUMBER.행정실_팩스번호}
+                행정실: {PHONE_NUMBER.행정실_전화번호}, Fax:{PHONE_NUMBER.행정실_팩스번호}
               </Text>
             </InfoBox>
             <Text fontType="p3" color={color.gray600}>
