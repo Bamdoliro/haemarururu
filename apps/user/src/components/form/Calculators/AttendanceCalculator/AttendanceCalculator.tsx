@@ -17,8 +17,8 @@ const AttendanceCalculator = () => {
   return (
     <StyledAttendanceCalculator>
       <Text fontType="p3" color={color.red}>
-        {formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD')}까지의 출결상황을
-        기재해주세요. 졸업생은 졸업일 기준으로 기재해주세요.
+        {formatScheduleDate([SCHEDULE.출결_기준일])}까지의 출결상황을 기재해주세요.
+        졸업생은 졸업일 기준으로 기재해주세요.
       </Text>
       <Column>
         <AttendanceCalculatorHeader />
