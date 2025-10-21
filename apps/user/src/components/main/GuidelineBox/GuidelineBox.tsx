@@ -10,23 +10,19 @@ const GuidelineBox = () => {
 
     if (!downloadUrl) return;
 
-    try {
-      const response = await fetch(downloadUrl);
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
+    const response = await fetch(downloadUrl);
+    const blob = await response.blob();
+    const blobUrl = window.URL.createObjectURL(blob);
 
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = 'admission_guidelines.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = 'admission_guidelines.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-      setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
-    } catch (error) {
-      console.error('다운로드 실패:', error);
-      window.open(downloadUrl, '_blank');
-    }
+    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
+    window.open(downloadUrl, '_blank');
   };
 
   return (
