@@ -3,8 +3,8 @@ import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import type { CSSProperties } from 'styled-components';
 import styled from 'styled-components';
-import { SCHEDULE } from '@/constants/form/constants';
 import { formatScheduleDate } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const CommonTable = () => {
   return (

@@ -2,12 +2,9 @@ import { color } from '@maru/design-system';
 import { IconArrowOutward } from '@maru/icon';
 import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 const GuidelineBox = () => {
-  const router = useRouter();
-
   const handleMoveGuidelinePdf = async () => {
     const downloadUrl = process.env.NEXT_PUBLIC_ADMISSION_GUIDELINES_DOWNLOAD_URL;
 
@@ -28,7 +25,6 @@ const GuidelineBox = () => {
       setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
     } catch (error) {
       console.error('다운로드 실패:', error);
-      // fallback: 그냥 새 탭에서 열기
       window.open(downloadUrl, '_blank');
     }
   };
