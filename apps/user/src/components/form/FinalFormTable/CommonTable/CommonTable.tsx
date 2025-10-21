@@ -66,7 +66,7 @@ const CommonTable = () => {
                 <li>
                   출결 기준일
                   <Text color={color.red} fontType="p2">
-                    {formatScheduleDate([SCHEDULE.출결_기준일])}
+                    {formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD')}
                   </Text>
                   까지 출결 사항이 반영되도록 마감하여 출력 (특기사항란에 기준일 기재)
                 </li>
