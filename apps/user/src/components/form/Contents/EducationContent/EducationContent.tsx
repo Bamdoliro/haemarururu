@@ -105,7 +105,7 @@ const EudcationContent = () => {
             <Input
               name="schoolPhoneNumber"
               label="학교 대표 연락처"
-              placeholder="학교의 교무실 연락처를 입력해주세요."
+              placeholder="교무실 연락처를 ‘-’ 없이 지역번호와 입력해주세요."
               width="100%"
               value={form.education.schoolPhoneNumber ?? ''}
               onChange={onFieldChange}
