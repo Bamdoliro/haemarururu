@@ -13,6 +13,7 @@ const CellInput = ({
   textAlign = 'center',
   onChange,
   placeholder,
+  maxLength,
   value = 0,
   isError = false,
   readOnly,
@@ -30,6 +31,9 @@ const CellInput = ({
     let newValue = e.target.value;
 
     if (!isNaN(Number(newValue)) && Number(newValue) >= 0) {
+      if (maxLength && newValue.length > maxLength) {
+        newValue = newValue.slice(0, maxLength);
+      }
       newValue = newValue.replace(/^0+/, '') || '0';
       if (onChange) {
         e.target.value = newValue;

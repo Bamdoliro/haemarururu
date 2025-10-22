@@ -8,7 +8,7 @@ import { useSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import type { Form, PassStatusType, PaymentStatusType } from '@/types/form/client';
 import { convertToResponsive, maskName } from '@/utils';
 import { color } from '@maru/design-system';
-import { CheckBox, Dropdown, Input, Row, Text } from '@maru/ui';
+import { CellInput, CheckBox, Dropdown, Row, Text } from '@maru/ui';
 import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
@@ -141,7 +141,7 @@ const FormTableItem = ({
             {fullType}
           </Text>
         </Row>
-        <Row gap={48} justify-content="flex-end">
+        <Row gap={48} justify-content="flex-end" alignItems="center">
           {isPaymentResultEditing ? (
             <Dropdown
               name="payment"
@@ -178,11 +178,11 @@ const FormTableItem = ({
             {getRoundResult(firstRoundPassed)}
           </Text>
           {isInterviewNumberEditing ? (
-            <Input
+            <CellInput
+              width={80}
               name="interviewNumber"
-              type="number"
+              maxLength={5}
               value={interviewNumberResult[id] ?? interviewNumber ?? ''}
-              width={convertToResponsive(40, 60)}
               onChange={handleInterviewNumberChange}
             />
           ) : (
