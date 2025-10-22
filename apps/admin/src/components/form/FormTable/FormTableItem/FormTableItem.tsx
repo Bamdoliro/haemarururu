@@ -8,13 +8,15 @@ import { useSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import type { Form, PassStatusType, PaymentStatusType } from '@/types/form/client';
 import { convertToResponsive, maskName } from '@/utils';
 import { color } from '@maru/design-system';
-import { CheckBox, Dropdown, Row, Text } from '@maru/ui';
+import { CheckBox, Dropdown, Input, Row, Text } from '@maru/ui';
 import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import { styled } from 'styled-components';
 import { usePaymentResultStore } from '@/store/form/paymentResult';
 import { useIsPaymentResultEditingValueStore } from '@/store/form/isPaymentResultEditing';
+import { useIsInterviewNumberEditingValueStore } from '@/store/form/isInterviewNumberEditing';
+import { useInterviewNumberStore } from '@/store/form/interviewNumber';
 
 const FormTableItem = ({
   id,
@@ -28,14 +30,18 @@ const FormTableItem = ({
   payment,
   totalScore,
   firstRoundPassed,
+  interviewNumber,
   secondRoundPassed,
 }: Form) => {
   const router = useRouter();
 
   const isSecondRoundResultEditing = useIsSecondRoundResultEditingValueStore();
+  const isInterviewNumberEditing = useIsInterviewNumberEditingValueStore();
   const isPaymentResultEditing = useIsPaymentResultEditingValueStore();
   const [secondRoundResult, setSecondRoundResult] = useSecondRoundResultStore();
   const [paymentResult, setPaymentResult] = usePaymentResultStore();
+  paymentResult;
+  const [interviewNumberResult, setInterviewNumberResult] = useInterviewNumberStore();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleSecondPassResultDropdownChange = (value: string) => {
@@ -51,6 +57,13 @@ const FormTableItem = ({
     }));
   };
 
+  const handleInterviewNumberChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    setInterviewNumberResult((prev) => ({
+      ...prev,
+      [id]: value ? Number(value) : null,
+    }));
+  };
   const getStatusColor = (status: boolean | null) => {
     if (status === null) return color.gray600;
     return status ? color.haeMaruDefault : color.red;
@@ -89,7 +102,10 @@ const FormTableItem = ({
   const fullType = `${middleType} - ${detailedType}`;
 
   const isDisabled =
-    isSecondRoundResultEditing || isFormToPrintSelecting || isPaymentResultEditing;
+    isSecondRoundResultEditing ||
+    isFormToPrintSelecting ||
+    isPaymentResultEditing ||
+    isInterviewNumberEditing;
   const handleMoveFormDetailPage = () => {
     if (isDisabled) return;
     router.push(`${ROUTES.FORM}/${id}`);
@@ -161,6 +177,19 @@ const FormTableItem = ({
           >
             {getRoundResult(firstRoundPassed)}
           </Text>
+          {isInterviewNumberEditing ? (
+            <Input
+              name="interviewNumber"
+              type="number"
+              value={interviewNumberResult[id] ?? interviewNumber ?? ''}
+              width={convertToResponsive(40, 60)}
+              onChange={handleInterviewNumberChange}
+            />
+          ) : (
+            <Text fontType="p2" width={convertToResponsive(40, 60)}>
+              {interviewNumber ?? '-'}
+            </Text>
+          )}
           <Text
             fontType="p2"
             width={convertToResponsive(40, 60)}

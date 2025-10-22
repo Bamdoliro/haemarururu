@@ -64,6 +64,7 @@ export interface Form {
   type: FormType;
   isChangedToRegular: boolean;
   payment: boolean | null;
+  interviewNumber: number | null;
   totalScore: number | null;
   hasDocument: boolean | null;
   firstRoundPassed: boolean | null;

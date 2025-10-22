@@ -26,6 +26,7 @@ const FormTable = () => {
             isChangedToRegular={item.isChangedToRegular}
             totalScore={item.totalScore}
             firstRoundPassed={item.firstRoundPassed}
+            interviewNumber={item.interviewNumber}
             secondRoundPassed={item.secondRoundPassed}
           />
         ))}

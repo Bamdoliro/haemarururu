@@ -80,10 +80,10 @@ const FormPage = () => {
     useExportAllPersonalStatementAction();
 
   const {
-    isInterviewNumberEditing,
-    setIsInterviewNumberEditingTrue,
-    setIsInterviewNumberEditingFalse,
-    handleInterviewNumberEditCompleteButtonClick,
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
   } = useEditInterviewNumberActions();
 
   const overlay = useOverlay();
@@ -212,18 +212,18 @@ const FormPage = () => {
                     출력하기
                   </Button>
                 </Row>
-              ) : isInterviewNumberEditing ? (
+              ) : isInterviewNumberResultEditing ? (
                 <Row gap={16}>
                   <Button
                     styleType="SECONDARY"
                     size="SMALL"
-                    onClick={setIsInterviewNumberEditingFalse}
+                    onClick={setIsInterviewNumberResultEditingFalse}
                   >
                     취소
                   </Button>
                   <Button
                     size="SMALL"
-                    onClick={handleInterviewNumberEditCompleteButtonClick}
+                    onClick={handleInterviewNumberResultEditCompleteButtonClick}
                   >
                     완료
                   </Button>
@@ -257,7 +257,7 @@ const FormPage = () => {
                       icon: <IconEditDocument width={24} height={24} />,
                       label: '면접번호 입력하기',
                       value: 'input_interview_numbers',
-                      onClick: setIsInterviewNumberEditingTrue,
+                      onClick: setIsInterviewNumberResultEditingTrue,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,

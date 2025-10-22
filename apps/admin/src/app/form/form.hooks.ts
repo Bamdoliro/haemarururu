@@ -195,17 +195,18 @@ export const useEditPaymentResultActions = () => {
 };
 
 export const useEditInterviewNumberActions = () => {
-  const [isInterviewNumberEditing, setIsInterviewNumberEditing] =
+  const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] =
     useIsInterviewNumberEditingStore();
 
-  const setIsInterviewNumberEditingTrue = () => setIsInterviewNumberEditing(true);
-  const setIsInterviewNumberEditingFalse = () => {
-    setIsInterviewNumberEditing(false);
+  const setIsInterviewNumberResultEditingTrue = () =>
+    setIsInterviewNumberResultEditing(true);
+  const setIsInterviewNumberResultEditingFalse = () => {
+    setIsInterviewNumberResultEditing(false);
   };
 
-  const interviewNumber = useInterviewNumberValueStore();
+  const interviewNumberResult = useInterviewNumberValueStore();
   const interviewNumberData = {
-    formList: Object.entries(interviewNumber).map(([formId, interviewNumber]) => {
+    formList: Object.entries(interviewNumberResult).map(([formId, interviewNumber]) => {
       return {
         formId: Number(formId),
         interviewNumber: interviewNumber ? Number(interviewNumber) : null,
@@ -214,14 +215,14 @@ export const useEditInterviewNumberActions = () => {
   };
   const { editInterviewNumber } = useEditInterviewNumberMutation(interviewNumberData);
 
-  const handleInterviewNumberEditCompleteButtonClick = () => {
+  const handleInterviewNumberResultEditCompleteButtonClick = () => {
     editInterviewNumber();
   };
 
   return {
-    isInterviewNumberEditing,
-    setIsInterviewNumberEditingTrue,
-    setIsInterviewNumberEditingFalse,
-    handleInterviewNumberEditCompleteButtonClick,
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
   };
 };

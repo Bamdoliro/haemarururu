@@ -1,6 +1,6 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-const interviewNumberAtomState = atom<Record<number, number>>({
+const interviewNumberAtomState = atom<Record<number, number | null>>({
   key: 'interview-number',
   default: {},
 });
