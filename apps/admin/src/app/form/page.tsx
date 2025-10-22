@@ -127,7 +127,7 @@ const FormPage = () => {
                     { value: 'PASSED', label: '최종 합격' },
                     { value: 'REJECTED', label: '반려' },
                     { value: 'ENTERED', label: '입학' },
-                    { value: 'ENTERED', label: '입학' },
+                    { value: 'ALL', label: '원서 미제출' },
                   ]}
                   size="SMALL"
                   width={160}

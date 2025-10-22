@@ -9,7 +9,8 @@ export type FormStatus =
   | 'FIRST_PASSED'
   | 'PASSED'
   | 'REJECTED'
-  | 'ENTERED';
+  | 'ENTERED'
+  | 'ALL';
 
 export type FormType =
   | 'REGULAR'
