@@ -71,7 +71,11 @@ export interface Form {
   secondRoundPassed: boolean | null;
 }
 
-export type FormListType = '모두 보기' | '검토해야 하는 원서 모아보기' | '정렬';
+export type FormListType =
+  | '모두 보기'
+  | '검토해야 하는 원서 모아보기'
+  | '정렬'
+  | '전체 조회';
 
 export type FormSort = 'total-score-asc' | 'total-score-desc' | 'form-id';
 
