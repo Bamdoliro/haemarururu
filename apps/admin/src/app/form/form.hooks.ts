@@ -1,4 +1,5 @@
 import {
+  useEditInterviewNumberMutation,
   useEditPaymentResultMutation,
   useEditSecondRoundResultMutation,
   usePrintFormUrlMutation,
@@ -18,6 +19,8 @@ import { useSecondRoundResultValueStore } from '@/store/form/secondRoundResult';
 import type { FormListSortingType } from '@/types/form/client';
 import { usePaymentResultValueStore } from '@/store/form/paymentResult';
 import { useIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
+import { useIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
+import { useInterviewNumberValueStore } from '@/store/form/interviewNumber';
 
 export const useFormPageState = () => {
   const [formListType, setFormListType] = useFormListTypeStore();
@@ -188,5 +191,38 @@ export const useEditPaymentResultActions = () => {
     setIsPaymentResultEditingTrue,
     setIsPaymentResultEditingFalse,
     handlePaymentResultEditCompleteButtonClick,
+  };
+};
+
+export const useEditInterviewNumberActions = () => {
+  const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] =
+    useIsInterviewNumberEditingStore();
+
+  const setIsInterviewNumberResultEditingTrue = () =>
+    setIsInterviewNumberResultEditing(true);
+  const setIsInterviewNumberResultEditingFalse = () => {
+    setIsInterviewNumberResultEditing(false);
+  };
+
+  const interviewNumberResult = useInterviewNumberValueStore();
+  const interviewNumberData = {
+    formList: Object.entries(interviewNumberResult).map(([formId, interviewNumber]) => {
+      return {
+        formId: Number(formId),
+        interviewNumber: interviewNumber ? Number(interviewNumber) : null,
+      };
+    }),
+  };
+  const { editInterviewNumber } = useEditInterviewNumberMutation(interviewNumberData);
+
+  const handleInterviewNumberResultEditCompleteButtonClick = () => {
+    editInterviewNumber();
+  };
+
+  return {
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
   };
 };

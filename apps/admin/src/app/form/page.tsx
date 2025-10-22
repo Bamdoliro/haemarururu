@@ -24,6 +24,7 @@ import { Button, Column, Dropdown, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import {
+  useEditInterviewNumberActions,
   useEditPaymentResultActions,
   useEditSecondRoundResultActions,
   useExportAllAddmissionTicketAction,
@@ -77,6 +78,13 @@ const FormPage = () => {
     useExportAllAddmissionTicketAction();
   const { handleExportAllPersonalStatementButtonClick } =
     useExportAllPersonalStatementAction();
+
+  const {
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
+  } = useEditInterviewNumberActions();
 
   const overlay = useOverlay();
 
@@ -204,6 +212,22 @@ const FormPage = () => {
                     출력하기
                   </Button>
                 </Row>
+              ) : isInterviewNumberResultEditing ? (
+                <Row gap={16}>
+                  <Button
+                    styleType="SECONDARY"
+                    size="SMALL"
+                    onClick={setIsInterviewNumberResultEditingFalse}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handleInterviewNumberResultEditCompleteButtonClick}
+                  >
+                    완료
+                  </Button>
+                </Row>
               ) : isPaymentResultEditing ? (
                 <Row gap={16}>
                   <Button
@@ -228,6 +252,12 @@ const FormPage = () => {
                       label: '검토해야하는 원서 모아보기',
                       value: 'review_applications',
                       onClick: handleFormListTypeReview,
+                    },
+                    {
+                      icon: <IconEditDocument width={24} height={24} />,
+                      label: '면접번호 입력하기',
+                      value: 'input_interview_numbers',
+                      onClick: setIsInterviewNumberResultEditingTrue,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,

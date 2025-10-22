@@ -59,6 +59,9 @@ const FormTableHeader = ({ id }: FormTableHeaderProps) => {
           면접 대상자
         </Text>
         <Text fontType="p2" width={convertToResponsive(40, 60)}>
+          면접 번호
+        </Text>
+        <Text fontType="p2" width={convertToResponsive(40, 60)}>
           최종 점수
         </Text>
       </Row>
