@@ -23,3 +23,7 @@ export interface PatchPaymentResultReq {
 export interface GetFormDetail {
   data: FormDetail;
 }
+
+export interface PatchInterviewNumberReq {
+  formList: { formId: number; interviewNumber: number | null }[];
+}

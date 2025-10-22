@@ -24,6 +24,7 @@ import { Button, Column, Dropdown, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import {
+  useEditInterviewNumberActions,
   useEditPaymentResultActions,
   useEditSecondRoundResultActions,
   useExportAllAddmissionTicketAction,
@@ -77,6 +78,13 @@ const FormPage = () => {
     useExportAllAddmissionTicketAction();
   const { handleExportAllPersonalStatementButtonClick } =
     useExportAllPersonalStatementAction();
+
+  const {
+    isInterviewNumberEditing,
+    setIsInterviewNumberEditingTrue,
+    setIsInterviewNumberEditingFalse,
+    handleInterviewNumberEditCompleteButtonClick,
+  } = useEditInterviewNumberActions();
 
   const overlay = useOverlay();
 
@@ -204,6 +212,22 @@ const FormPage = () => {
                     출력하기
                   </Button>
                 </Row>
+              ) : isInterviewNumberEditing ? (
+                <Row gap={16}>
+                  <Button
+                    styleType="SECONDARY"
+                    size="SMALL"
+                    onClick={setIsInterviewNumberEditingFalse}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handleInterviewNumberEditCompleteButtonClick}
+                  >
+                    완료
+                  </Button>
+                </Row>
               ) : isPaymentResultEditing ? (
                 <Row gap={16}>
                   <Button
@@ -233,7 +257,7 @@ const FormPage = () => {
                       icon: <IconEditDocument width={24} height={24} />,
                       label: '면접번호 입력하기',
                       value: 'input_interview_numbers',
-                      onClick: handleFormListTypeReview,
+                      onClick: setIsInterviewNumberEditingTrue,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
