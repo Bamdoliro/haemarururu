@@ -1,6 +1,6 @@
 import { DataBox } from '@/components/common';
 import { useFormDetailQuery } from '@/services/form/queries';
-import { formatDate, formatPhoneNumber } from '@/utils';
+import { formatPhoneNumber } from '@/utils';
 import { Loader } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
