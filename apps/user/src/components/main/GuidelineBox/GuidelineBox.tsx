@@ -4,11 +4,14 @@ import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+import { useGetAdmissionGuidelineFileMutation } from '@/services/notice/mutations';
 
 const GuidelineBox = () => {
   const router = useRouter();
+  const { getAdmissionGuidelineFileMutate } = useGetAdmissionGuidelineFileMutation();
 
   const handleMoveGuidelinePdf = () => {
+    getAdmissionGuidelineFileMutate();
     router.push(process.env.NEXT_PUBLIC_ADMISSION_GUIDELINES ?? '');
   };
 
