@@ -136,12 +136,22 @@ export interface EducationInfo {
   teacherMobilePhoneNumber: string;
 }
 
-export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-' | 'F';
+export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-';
+
+export interface QualificationExaminationSubject {
+  subjectName: string;
+  achievementLevel: AchievementLevel;
+}
 
 export interface AchievementLevelsGroup {
   subjectName: string;
   grades: number[];
   semesters: number[];
+  achievementLevels: AchievementLevel[];
+}
+
+export interface QualificationExaminationAchievementLevelsGroup {
+  subjectName: string;
   achievementLevels: AchievementLevel[];
 }
 
