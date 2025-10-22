@@ -47,7 +47,6 @@ const NewBasicCalculatorItem = ({
       listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
   );
   const getDisplayValue = (value: string) => {
-    if (value === 'F') return '미이수';
     return value;
   };
   return (
