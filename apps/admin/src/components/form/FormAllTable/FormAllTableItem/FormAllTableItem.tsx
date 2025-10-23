@@ -19,7 +19,7 @@ const FormAllTableItem = ({ name, phoneNumber, hasSubmittedForm }: Form) => {
         <Text
           fontType="p2"
           width={convertToResponsive(40, 60)}
-          color={hasSubmittedForm ? color.gray600 : color.black}
+          color={hasSubmittedForm ? color.maruDefault : color.gray600}
         >
           {hasSubmittedForm ? '원서 제출' : '미제출'}
         </Text>
