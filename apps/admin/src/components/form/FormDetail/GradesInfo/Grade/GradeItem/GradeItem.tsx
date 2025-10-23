@@ -17,7 +17,6 @@ const GradeItem = ({
   achievementLevel32,
 }: GradeItemProps) => {
   const getDisplayValue = (value: AchievementLevel) => {
-    if (value === 'F') return '미이수';
     return value;
   };
   return (

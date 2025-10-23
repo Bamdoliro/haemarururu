@@ -1,7 +1,6 @@
 import type { GradeDistributionType } from '@/types/analysis/client';
 
 const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
-  console.log('formList', formList);
   const regularRoundMax = formList
     ? Math.max(
         ...formList
@@ -70,6 +69,29 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     totalRoundAvg !== 0
       ? (totalRoundAvg / SpecialAdmissionData.length).toFixed(3)
       : '0.000';
+
+  const regularRoundSeventy = formList
+    ?.filter((item) => ['REGULAR'].includes(item.type))
+    .map((item) => item.firstRoundSeventyPercentile.toFixed(3));
+
+  const specialAdmissionSeventyData = formList
+    ?.filter(
+      (item) =>
+        !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(
+          item.type
+        )
+    )
+    .filter((item) => item.firstRoundSeventyPercentile !== 0);
+
+  const specialAdmissionSeventy =
+    specialAdmissionSeventyData && specialAdmissionSeventyData.length > 0
+      ? (
+          specialAdmissionSeventyData.reduce(
+            (sum, item) => sum + item.firstRoundSeventyPercentile,
+            0
+          ) / specialAdmissionSeventyData.length
+        ).toFixed(3)
+      : '0.000';
   return {
     regularRoundMax,
     SpecialAdmissionRoundMax,
@@ -77,6 +99,8 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     specialAdmissionRoundMin,
     regularRoundAvg,
     SpecialAdmissionRoundAvg,
+    regularRoundSeventy,
+    specialAdmissionSeventy,
   };
 };
 

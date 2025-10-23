@@ -2,6 +2,7 @@ import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getFormUrl,
+  patchInterviewNumber,
   patchPaymentResult,
   patchReceiveStatus,
   patchSecondRoundResult,
@@ -11,6 +12,7 @@ import {
 import { toast } from 'react-toastify';
 import { KEY } from '@/constants/common/constant';
 import type {
+  PatchInterviewNumberReq,
   PatchPaymentResultReq,
   PatchSecondRoundResultReq,
 } from '@/types/form/remote';
@@ -20,6 +22,8 @@ import { isPopupBlocked } from '@/utils';
 import type { ReceiveStatusValue } from '@/types/form/client';
 import { useSetIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
 import { useSetPaymentResultStore } from '@/store/form/paymentResult';
+import { useSetIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
+import { useSetInterviewNumberStore } from '@/store/form/interviewNumber';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
@@ -178,4 +182,29 @@ export const useEditPaymentResultMutation = (
   });
 
   return { editPaymentResult, ...restMutation };
+};
+
+export const useEditInterviewNumberMutation = (
+  InterviewNumberData: PatchInterviewNumberReq
+) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const setIsInterviewNumberEditing = useSetIsInterviewNumberEditingStore();
+  const setInterviewNumber = useSetInterviewNumberStore();
+
+  const { mutate: editInterviewNumber, ...restMutation } = useMutation({
+    mutationFn: () => patchInterviewNumber(InterviewNumberData),
+    onSuccess: () => {
+      toast('면접번호 변경여부가 반영되었습니다.', {
+        type: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
+      setIsInterviewNumberEditing(false);
+      setInterviewNumber({});
+    },
+    onError: handleError,
+  });
+
+  return { editInterviewNumber, ...restMutation };
 };

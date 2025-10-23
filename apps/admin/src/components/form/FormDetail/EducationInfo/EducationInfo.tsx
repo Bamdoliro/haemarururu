@@ -15,14 +15,14 @@ const EducationInfo = ({ id }: EducationInfoProps) => {
   if (!formDetailData) return <Loader />;
   const educationDetails =
     formDetailData.education.graduationType === 'QUALIFICATION_EXAMINATION'
-      ? [{ label: '합격년도', data: formDetailData.education.graduationYear }]
+      ? [{ label: '합격 일자', data: formDetailData.education.graduationDate }]
       : [
           {
             label: '졸업 구분',
             data: GRADUATION_TYPE_VALUE[formDetailData.education.graduationType],
           },
           { label: '출신 학교명', data: formDetailData.education.schoolName },
-          { label: '졸업년도', data: formDetailData.education.graduationYear },
+          { label: '졸업(예정) 일자', data: formDetailData.education.graduationDate },
           { label: '학교 지역', data: formDetailData.education.schoolLocation },
           { label: '표준학교코드', data: formDetailData.education.schoolCode },
           {

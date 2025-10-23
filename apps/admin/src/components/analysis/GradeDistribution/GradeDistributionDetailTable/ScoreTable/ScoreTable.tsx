@@ -15,6 +15,8 @@ const ScoreTable = ({ formList }: ScoreTableProps) => {
     specialAdmissionRoundMin,
     regularRoundAvg,
     SpecialAdmissionRoundAvg,
+    regularRoundSeventy,
+    specialAdmissionSeventy,
   } = useScoreStatus(formList);
 
   return (
@@ -55,14 +57,25 @@ const ScoreTable = ({ formList }: ScoreTableProps) => {
           </Td>
         </Row>
         <Row>
-          <Td width={88} height={44} borderBottomLeftRadius={12}>
+          <Td width={88} height={44}>
             평균
           </Td>
           <Td width={80} height={44}>
             {regularRoundAvg}
           </Td>
-          <Td width={80} height={44} borderBottomRightRadius={12}>
+          <Td width={80} height={44}>
             {SpecialAdmissionRoundAvg}
+          </Td>
+        </Row>
+        <Row>
+          <Td width={88} height={44} borderBottomLeftRadius={12}>
+            성적70%
+          </Td>
+          <Td width={80} height={44}>
+            {regularRoundSeventy}
+          </Td>
+          <Td width={80} height={44} borderBottomRightRadius={12}>
+            {specialAdmissionSeventy}
           </Td>
         </Row>
       </Column>
