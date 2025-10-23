@@ -83,7 +83,7 @@ export interface Parent {
 
 export interface Education {
   graduationType: GraduationType;
-  graduationYear: string;
+  graduationDate: string;
   schoolName: string | null;
   schoolLocation: string | null;
   schoolAddress: string | null;
