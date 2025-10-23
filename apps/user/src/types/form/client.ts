@@ -83,7 +83,7 @@ export interface Parent {
 
 export interface Education {
   graduationType: GraduationType;
-  graduationYear: string;
+  graduationDate: string;
   schoolName: string | null;
   schoolLocation: string | null;
   schoolAddress: string | null;
@@ -114,7 +114,7 @@ export interface Subject {
   score: number | null;
 }
 
-export type AchievementLevel = '-' | '미이수' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type AchievementLevel = '-' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 
 export interface Attendance {
   absenceCount: number;

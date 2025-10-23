@@ -37,7 +37,7 @@ const useGradeCalculation = () => {
 
     const fallbackKey = fallbackMap[key];
     const fallback = subject[fallbackKey];
-    return fallback && fallback !== '-' && fallback !== '미이수' ? fallback : '-';
+    return fallback && fallback !== '-';
   };
 
   const calculateSubjectScore = () => {

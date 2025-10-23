@@ -14,7 +14,7 @@ import DraftSubmissionCompleted from './DraftSubmissionCompleted/DraftSubmission
 import FinalSubmission from './FinalSubmission/FinalSubmission';
 import FinalSubmissionCompleted from './FinalSubmissionCompleted/FinalSubmissionCompleted';
 import usePageAccessGuard from '@/hooks/usePageAccessGuard';
-import { SCHEDULE } from '@/constants/form/constants';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const Form = () => {
   usePageAccessGuard({

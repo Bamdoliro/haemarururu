@@ -1,4 +1,4 @@
-import { ROUTES } from '@/constants/common/constants';
+import { PHONE_NUMBER, ROUTES } from '@/constants/common/constants';
 import { color, font } from '@maru/design-system';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
@@ -23,13 +23,12 @@ const Footer = () => {
                 주소: 부산광역시 해운대구 우동3로 11번길 43 (46708)
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                교무실: 051-742-0313, Fax: 051-731-9838
+                입학문의: {PHONE_NUMBER.ADMISSION_OFFICER_ONE},{' '}
+                {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
               </Text>
               <Text fontType="p2" color={color.gray600}>
-                입학문의: 070-4006-8261,070-4006-8282
-              </Text>
-              <Text fontType="p2" color={color.gray600}>
-                행정실: 051-742-0312, Fax: 051-742-0321
+                행정실: {PHONE_NUMBER.TEACHER_OFFICE_PHONE_NUMBER}, Fax:
+                {PHONE_NUMBER.TEACHER_OFFICE_FAX}
               </Text>
             </InfoBox>
             <Text fontType="p3" color={color.gray600}>

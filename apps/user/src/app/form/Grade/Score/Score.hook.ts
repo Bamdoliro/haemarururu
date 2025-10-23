@@ -52,7 +52,7 @@ export const useCTAButton = () => {
       subjectErrors.some((error) => error) || newSubjectErrors.some((error) => error);
 
     if (hasError) {
-      alert('‘-‘을 미이수 또는 자신의 성취수준으로 입력해주세요');
+      alert('‘-‘를 자신의 성취수준으로 입력해주세요');
     }
 
     return !hasError;

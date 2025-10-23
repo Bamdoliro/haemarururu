@@ -1,4 +1,3 @@
-import { SCHEDULE } from '@/constants/form/constants';
 import { color } from '@maru/design-system';
 import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
@@ -6,6 +5,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ScheduleItem from './ScheduleItem/ScheduleItem';
 import { formatFormYear, formatScheduleDate } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const ScheduleList = () => {
   const SCHEDULE_LIST = [
