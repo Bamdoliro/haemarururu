@@ -3,6 +3,8 @@ import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import type { CSSProperties } from 'styled-components';
 import styled from 'styled-components';
+import { formatScheduleDate } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const CommonTable = () => {
   return (
@@ -62,9 +64,9 @@ const CommonTable = () => {
                 <li>교과학습발달상황(5번) 내 중학교 3학년의 세부능력 및 특기사항 제외</li>
                 <li>행동특성 및 종합의견(8번) 내 중학교 3학년 내용 제외</li>
                 <li>
-                  출결 기준일{' '}
+                  출결 기준일
                   <Text color={color.red} fontType="p2">
-                    2025.11.12.(수)
+                    {formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD')}
                   </Text>
                   까지 출결 사항이 반영되도록 마감하여 출력 (특기사항란에 기준일 기재)
                 </li>

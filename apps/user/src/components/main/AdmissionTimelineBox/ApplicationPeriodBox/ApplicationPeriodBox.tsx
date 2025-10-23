@@ -3,8 +3,8 @@ import { useSchoolRecruitDate } from './ApplicationPeriodBox.hook';
 import { color } from '@maru/design-system';
 import styled from 'styled-components';
 import { flex } from '@maru/utils';
-import { SCHEDULE } from '@/constants/form/constants';
 import { formatFormYear } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const ApplicationPeriodBox = () => {
   const { applicationStart, applicationEnd, handleMoveFormPage } = useSchoolRecruitDate();

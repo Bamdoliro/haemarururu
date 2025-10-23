@@ -32,7 +32,7 @@ const BasicCalculator = ({ subjectError }: BasicCalculatorProps) => {
           <BasicCalculatorItem
             id={id}
             key={`subject ${id}`}
-            achievementLevels={['미이수', 'A', 'B', 'C', 'D', 'E']}
+            achievementLevels={['A', 'B', 'C', 'D', 'E']}
             isError={subjectError}
             isLast={isLast}
           />

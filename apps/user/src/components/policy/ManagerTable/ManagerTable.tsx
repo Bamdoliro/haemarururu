@@ -1,4 +1,5 @@
 import { Column, Row, Td, Th } from '@maru/ui';
+import { PHONE_NUMBER } from '@/constants/common/constants';
 
 const ManagerTable = () => {
   return (
@@ -22,7 +23,7 @@ const ManagerTable = () => {
           입학담당관
         </Td>
         <Td width="33.3%" height={56}>
-          070-4006-8261,070-4006-8282
+          {PHONE_NUMBER.ADMISSION_OFFICER_ONE}, {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
         </Td>
       </Row>
       <Row>
@@ -30,10 +31,10 @@ const ManagerTable = () => {
           개인정보 보호담당자
         </Td>
         <Td width="33.3%" height={56}>
-          교무실
+          행정실
         </Td>
         <Td borderBottomRightRadius={12} width="33.3%" height={56}>
-          051-742-0313
+          {PHONE_NUMBER.TEACHER_OFFICE_PHONE_NUMBER}
         </Td>
       </Row>
     </Column>
