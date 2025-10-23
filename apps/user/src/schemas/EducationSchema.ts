@@ -5,7 +5,7 @@ const qualificationSchema = z.object({
   graduationDate: z
     .string()
     .trim()
-    .nonempty('합격 연도를 입력해주세요.')
+    .nonempty('합격 일자를 입력해주세요.')
     .regex(/^\d{8}$/, '합격 일자를 입력해주세요.'),
 });
 
@@ -21,7 +21,7 @@ const schoolGraduateSchema = z.object({
     .string()
     .trim()
     .nonempty('졸업(예정) 일자를 입력해주세요.')
-    .regex(/^\d{8}$/, '졸업(예정) 일자를 입력해주세요.'),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, '졸업(예정) 일자를 입력해주세요.'),
   schoolPhoneNumber: z
     .string()
     .trim()
