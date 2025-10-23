@@ -32,7 +32,7 @@ export const useFormPageState = () => {
       setFormListSortingType((prev) => ({ ...prev, [key]: null }));
     } else if (value === 'ALL') {
       setFormListType('전체 조회');
-      setFormListSortingType({ status: null, type: null, sort: null });
+      setFormListSortingType((prev) => ({ ...prev, [key]: null }));
     } else {
       setFormListType('정렬');
       setFormListSortingType((prev) => ({ ...prev, [key]: value }));
