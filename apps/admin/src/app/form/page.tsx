@@ -37,6 +37,7 @@ import { useOverlay } from '@toss/use-overlay';
 import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/SecondScoreUploadModal';
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
 import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
+import FormAllTable from '@/components/form/FormAllTable/FormAllTable';
 
 const FORM_TYPE_OPTIONS = [
   { value: 'RESET', label: '정렬 초기화' },
@@ -312,7 +313,7 @@ const FormPage = () => {
               )}
             </Row>
           </Row>
-          <FormTable />
+          {formListType === '전체 조회' ? <FormAllTable /> : <FormTable />}
         </Column>
       </StyledFormPage>
     </AppLayout>
