@@ -37,6 +37,7 @@ import { useOverlay } from '@toss/use-overlay';
 import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/SecondScoreUploadModal';
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
 import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
+import FormAllTable from '@/components/form/FormAllTable/FormAllTable';
 
 const FORM_TYPE_OPTIONS = [
   { value: 'RESET', label: '정렬 초기화' },
@@ -117,6 +118,7 @@ const FormPage = () => {
                   data={[
                     { value: 'RESET', label: '정렬 초기화' },
                     { value: 'APPROVED', label: '접수' },
+                    { value: 'ALL', label: '전체 조회' },
                     { value: 'FIRST_FAILED', label: '1차 불합격' },
                     { value: 'FAILED', label: '불합격' },
                     { value: 'FINAL_SUBMITTED', label: '최종 제출' },
@@ -126,7 +128,6 @@ const FormPage = () => {
                     { value: 'FIRST_PASSED', label: '1차 합격' },
                     { value: 'PASSED', label: '최종 합격' },
                     { value: 'REJECTED', label: '반려' },
-                    { value: 'ENTERED', label: '입학' },
                     { value: 'ENTERED', label: '입학' },
                   ]}
                   size="SMALL"
@@ -312,7 +313,7 @@ const FormPage = () => {
               )}
             </Row>
           </Row>
-          <FormTable />
+          {formListType === '전체 조회' ? <FormAllTable /> : <FormTable />}
         </Column>
       </StyledFormPage>
     </AppLayout>

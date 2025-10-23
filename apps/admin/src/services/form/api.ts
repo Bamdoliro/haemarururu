@@ -24,17 +24,16 @@ export const getFormList = async (
 
   if (formListType === '검토해야 하는 원서 모아보기') {
     url = '/forms/review';
-  }
-  if (formListSortingType) {
-    if (formListType !== '검토해야 하는 원서 모아보기') {
-      const params = new URLSearchParams();
-      if (formListSortingType.status) params.append('status', formListSortingType.status);
-      if (formListSortingType.type) params.append('type', formListSortingType.type);
-      if (formListSortingType.sort) params.append('sort', formListSortingType.sort);
+  } else if (formListType === '전체 조회') {
+    url = '/users/all';
+  } else if (formListSortingType) {
+    const params = new URLSearchParams();
+    if (formListSortingType.status) params.append('status', formListSortingType.status);
+    if (formListSortingType.type) params.append('type', formListSortingType.type);
+    if (formListSortingType.sort) params.append('sort', formListSortingType.sort);
 
-      const queryString = params.toString();
-      if (queryString) url += `?${queryString}`;
-    }
+    const queryString = params.toString();
+    if (queryString) url += `?${queryString}`;
   }
 
   const { data } = await maru.get<GetFormListRes>(url, authorization());
