@@ -57,6 +57,8 @@ export interface Form {
   id: number;
   examinationNumber: number | null;
   name: string;
+  phoneNumber: string;
+  hasSubmittedForm: boolean;
   birthday: string;
   graduationType: GraduationType;
   school: string;
@@ -84,8 +86,6 @@ export interface FormListSortingType {
   type: FormType | null;
   sort: FormSort | null;
 }
-
-export type FormAll = 'name' | 'phoneNumber' | 'hasSubmittedForm';
 
 export interface FormDetail {
   id: number;

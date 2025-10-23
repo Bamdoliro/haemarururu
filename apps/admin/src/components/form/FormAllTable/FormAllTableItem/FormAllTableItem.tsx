@@ -1,10 +1,10 @@
 import { TableItem } from '@/components/common';
-import type { FormAll } from '@/types/form/client';
 import { convertToResponsive } from '@/utils';
 import { color } from '@maru/design-system';
 import { Row, Text } from '@maru/ui';
+import type { Form } from '@/types/form/client';
 
-const FormAllTableItem = ({ name, phoneNumber, hasSubmittedForm }: FormAll) => {
+const FormAllTableItem = ({ name, phoneNumber, hasSubmittedForm }: Form) => {
   return (
     <TableItem>
       <Row gap={48}>

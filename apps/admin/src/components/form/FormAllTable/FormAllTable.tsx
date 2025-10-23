@@ -9,15 +9,7 @@ const FormAllTable = () => {
   return (
     <Column gap={12}>
       <FormAllTableHeader />
-      {formList &&
-        formList.map((item) => (
-          <FormAllTableItem
-            key={item.id}
-            name={item.name}
-            phoneNumber={item.phoneNumber}
-            hasSubmittedForm={item.hasSubmittedForm}
-          />
-        ))}
+      {formList && formList.map((item) => <FormAllTableItem {...item} />)}
     </Column>
   );
 };

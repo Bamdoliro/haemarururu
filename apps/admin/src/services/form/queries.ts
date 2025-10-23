@@ -74,7 +74,7 @@ export const useFormAllListQuery = () => {
   const formListSortingType = useFormListSortingTypeValueStore();
 
   const { data, ...restQuery } = useQuery({
-    queryKey: [KEY.FORM_ALL_LIST, '전체 조회', formListSortingType],
+    queryKey: ['전체 조회', formListSortingType],
     queryFn: () => getFormList('전체 조회', formListSortingType),
   });
 
