@@ -85,6 +85,8 @@ export interface FormListSortingType {
   sort: FormSort | null;
 }
 
+export type FormAll = 'name' | 'phoneNumber' | 'hasSubmittedForm';
+
 export interface FormDetail {
   id: number;
   examinationNumber: number;
