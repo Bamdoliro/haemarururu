@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 const formatScheduleDate = (
   dates: (string | Dayjs)[],
-  type?: 'FORM' | 'INTERVIEW' | 'REGISTRATION'
+  type?: 'FORM' | 'INTERVIEW' | 'REGISTRATION' | 'STANDARD'
 ): string => {
   const formatDate = (date: Dayjs, withTime = true) => {
     const y = date.year();
@@ -17,7 +17,11 @@ const formatScheduleDate = (
   const toDayjs = (d: string | Dayjs) => (typeof d === 'string' ? dayjs(d) : d);
 
   if (dates.length === 1) {
-    return formatDate(toDayjs(dates[0]), true);
+    const date = toDayjs(dates[0]);
+    if (type === 'STANDARD') {
+      return formatDate(date, false);
+    }
+    return formatDate(date, true);
   }
 
   if (dates.length === 2) {

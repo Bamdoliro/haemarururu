@@ -3,6 +3,7 @@ import { IconPhone } from '@maru/icon';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
+import { PHONE_NUMBER } from '@/constants/common/constants';
 
 interface SchoolNumberBoxProps {
   size: 'big' | 'small';
@@ -25,11 +26,11 @@ const SchoolNumberBox = ({ size }: SchoolNumberBoxProps) => {
       <Column alignItems="flex-start" gap={4}>
         {size === 'big' && (
           <Text fontType="H4" color={color.gray600}>
-            교무실
+            입학담당관
           </Text>
         )}
         <Text fontType={size === 'big' ? 'H1' : 'H4'} color={color.gray900}>
-          051-742-0313
+          {PHONE_NUMBER.ADMISSION_OFFICER_ONE}, {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
         </Text>
       </Column>
     </StyledSchoolNumberBox>

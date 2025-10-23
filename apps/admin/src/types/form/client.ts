@@ -130,7 +130,7 @@ export interface ParentInfo {
 
 export interface EducationInfo {
   graduationType: GraduationType;
-  graduationYear: string;
+  graduationDate: string;
   schoolName: string;
   schoolLocation: string;
   schoolCode: string;

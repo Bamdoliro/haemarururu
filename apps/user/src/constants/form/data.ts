@@ -20,7 +20,7 @@ export const FORM: Form = {
   },
   education: {
     graduationType: 'EXPECTED',
-    graduationYear: '',
+    graduationDate: '',
     schoolName: null,
     schoolLocation: null,
     schoolAddress: null,
