@@ -60,22 +60,22 @@ const EudcationContent = () => {
         </Row>
         <Row gap={48} alignItems="center">
           <Input
-            name="graduationYear"
+            name="graduationDate"
             label={
               form.education.graduationType === 'QUALIFICATION_EXAMINATION'
-                ? '합격연도'
-                : '졸업(예정)연도'
+                ? '합격 일자'
+                : '졸업(예정) 일자'
             }
-            placeholder="예) 2024"
+            placeholder="예) 20240910"
             width={
               form.education.graduationType === 'QUALIFICATION_EXAMINATION'
                 ? '50%'
                 : '100%'
             }
             onChange={onFieldChange}
-            value={form.education.graduationYear ?? ''}
-            isError={!!errors.graduationYear?.length}
-            errorMessage={errors.graduationYear ? errors.graduationYear[0] : ''}
+            value={form.education.graduationDate ?? ''}
+            isError={!!errors.graduationDate?.length}
+            errorMessage={errors.graduationDate ? errors.graduationDate[0] : ''}
           />
           {form.education.graduationType !== 'QUALIFICATION_EXAMINATION' && (
             <Input
