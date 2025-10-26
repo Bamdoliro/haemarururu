@@ -180,7 +180,7 @@ export const useEditPaymentResultActions = () => {
     formList: Object.entries(paymentResult).map(([formId, paidStatus]) => {
       return {
         formId: Number(formId),
-        payment: paidStatus === '미제출' ? null : paidStatus === '제출',
+        paid: paidStatus === '미제출' ? null : paidStatus === '제출',
       };
     }),
   };
