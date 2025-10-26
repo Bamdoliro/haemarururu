@@ -34,7 +34,7 @@ const Confirm = ({
   closeButtonText = '취소',
   height = 449,
   confirmButtonStyle,
-                   isConfirmDisabled,
+  isConfirmDisabled,
 }: ConfirmProps) => {
   return (
     <BlurBackground $isOpen={isOpen}>

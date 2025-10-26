@@ -15,12 +15,11 @@ const StatusManager = ({ id }: StatusManagerProps) => {
   const { data: formDetailData } = useFormDetailQuery(id);
   const overlay = useOverlay();
 
-  const {
-    paymentAdmissionStatus,
-    submissionStatus,
-    firstRoundStatus,
-    secondRoundStatus,
-  } = useStatusFormatter(formDetailData?.status || 'SUBMITTED');
+  const { submissionStatus, firstRoundStatus, secondRoundStatus } = useStatusFormatter(
+    formDetailData?.status || 'SUBMITTED'
+  );
+
+  const paymentAdmissionStatus = formDetailData?.payment;
 
   if (!formDetailData) return <Loader />;
 
@@ -43,8 +42,12 @@ const StatusManager = ({ id }: StatusManagerProps) => {
           <Text fontType="p2" width={60}>
             전형료
           </Text>
-          <Text fontType="p2" width={60} color={paymentAdmissionStatus?.color}>
-            {paymentAdmissionStatus.text}
+          <Text
+            fontType="p2"
+            width={60}
+            color={paymentAdmissionStatus ? color.black : color.gray600}
+          >
+            {paymentAdmissionStatus ? '제출' : '미제출'}
           </Text>
         </StyledStatusItem>
         <StyledStatusItem>

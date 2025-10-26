@@ -111,6 +111,7 @@ export interface FormDetail {
   formUrl: string;
   type: FormType;
   status: FormStatus;
+  payment: boolean;
   changedToRegular: boolean;
 }
 
