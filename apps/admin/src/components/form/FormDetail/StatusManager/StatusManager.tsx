@@ -41,7 +41,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
       <StyledStatusList>
         <StyledStatusItem>
           <Text fontType="p2" width={60}>
-            전행료
+            전형료
           </Text>
           <Text fontType="p2" width={60} color={paymentAdmissionStatus?.color}>
             {paymentAdmissionStatus.text}

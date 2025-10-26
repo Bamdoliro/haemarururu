@@ -171,7 +171,7 @@ export const useEditPaymentResultMutation = (
   const { mutate: editPaymentResult, ...restMutation } = useMutation({
     mutationFn: () => patchPaymentResult(paymentResultData),
     onSuccess: () => {
-      toast('전행료 변경 여부가 반영되었습니다.', {
+      toast('전형료 변경 여부가 반영되었습니다.', {
         type: 'success',
       });
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });

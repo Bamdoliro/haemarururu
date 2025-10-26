@@ -304,7 +304,7 @@ const FormPage = () => {
                     },
                     {
                       icon: <IconPaid width={24} height={24} />,
-                      label: '전행료 상태 변경하기',
+                      label: '전형료 상태 변경하기',
                       value: 'update_payment_result',
                       onClick: setIsPaymentResultEditingTrue,
                     },

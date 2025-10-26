@@ -47,7 +47,7 @@ const FormTableHeader = ({ id }: FormTableHeaderProps) => {
       </Row>
       <Row gap={48} justifyContent="flex-end">
         <Text fontType="p2" width={convertToResponsive(40, 60)}>
-          전행료
+          전형료
         </Text>
         <Text fontType="p2" width={convertToResponsive(40, 60)}>
           제출상태
