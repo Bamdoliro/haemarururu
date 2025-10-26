@@ -45,7 +45,7 @@ const StatusManager = ({ id }: StatusManagerProps) => {
           <Text
             fontType="p2"
             width={60}
-            color={paymentAdmissionStatus ? color.black : color.gray600}
+            color={paymentAdmissionStatus ? color.maruDefault : color.red}
           >
             {paymentAdmissionStatus ? '제출' : '미제출'}
           </Text>
