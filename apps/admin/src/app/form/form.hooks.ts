@@ -27,10 +27,14 @@ export const useFormPageState = () => {
   const [formListSortingType, setFormListSortingType] = useFormListSortingTypeStore();
 
   const handleCriteriaChange = (value: string, key: string) => {
-    setFormListType('정렬');
     if (value === 'RESET') {
+      setFormListType('모두 보기');
+      setFormListSortingType((prev) => ({ ...prev, [key]: null }));
+    } else if (value === 'ALL') {
+      setFormListType('전체 조회');
       setFormListSortingType((prev) => ({ ...prev, [key]: null }));
     } else {
+      setFormListType('정렬');
       setFormListSortingType((prev) => ({ ...prev, [key]: value }));
     }
   };
@@ -176,7 +180,7 @@ export const useEditPaymentResultActions = () => {
     formList: Object.entries(paymentResult).map(([formId, paidStatus]) => {
       return {
         formId: Number(formId),
-        payment: paidStatus === '미제출' ? null : paidStatus === '제출',
+        paid: paidStatus === '미제출' ? null : paidStatus === '제출',
       };
     }),
   };

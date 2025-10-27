@@ -69,3 +69,14 @@ export const useFormDetailQuery = (id: number) => {
 
   return { data: data?.data, ...restQuery };
 };
+
+export const useFormAllListQuery = () => {
+  const formListSortingType = useFormListSortingTypeValueStore();
+
+  const { data, ...restQuery } = useQuery({
+    queryKey: ['전체 조회', formListSortingType],
+    queryFn: () => getFormList('전체 조회', formListSortingType),
+  });
+
+  return { data: data?.dataList, ...restQuery };
+};

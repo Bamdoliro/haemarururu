@@ -4,11 +4,21 @@ type MaxMin = { max: string; min: string };
 
 const useMaxMinByType = (formList: GradeDistributionType[] | undefined) => {
   const get = (type: FormType): MaxMin => {
-    const entries = formList?.filter((v) => v.type === type) ?? [];
-    if (entries.length === 0) return { max: '0', min: '0' };
-    const maxNum = Math.max(...entries.map((v) => v.totalMax));
-    const minNum = Math.min(...entries.map((v) => v.totalMin));
-    return { max: String(maxNum), min: String(minNum) };
+    const filtered = formList?.filter((item) => item.type === type);
+    if (!filtered?.length) return { max: '0', min: '0' };
+    const isValid = (v: number | null | undefined): v is number =>
+      typeof v === 'number' && !Number.isNaN(v);
+    const maxNum = filtered
+      .flatMap((item) => [item.totalMax, item.firstRoundMax])
+      .filter(isValid);
+    const minNum = filtered
+      .flatMap((item) => [item.totalMin, item.firstRoundMin])
+      .filter(isValid);
+    if (!maxNum.length && !minNum.length) return { max: '0', min: '0' };
+    return {
+      max: maxNum.length ? Math.max(...maxNum).toFixed(2) : '0',
+      min: minNum.length ? Math.min(...minNum).toFixed(2) : '0',
+    };
   };
 
   return {

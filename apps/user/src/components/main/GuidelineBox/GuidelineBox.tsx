@@ -3,26 +3,13 @@ import { IconArrowOutward } from '@maru/icon';
 import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
+import { useGetAdmissionGuidelineFileMutation } from '@/services/notice/mutation';
 
 const GuidelineBox = () => {
-  const handleMoveGuidelinePdf = async () => {
-    const downloadUrl = process.env.NEXT_PUBLIC_ADMISSION_GUIDELINES_DOWNLOAD_URL;
+  const { getAdmissionGuidelineFileMutate } = useGetAdmissionGuidelineFileMutation();
 
-    if (!downloadUrl) return;
-
-    const response = await fetch(downloadUrl);
-    const blob = await response.blob();
-    const blobUrl = window.URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = blobUrl;
-    link.download = 'admission_guidelines.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
-    window.open(downloadUrl, '_blank');
+  const handleMoveGuidelinePdf = () => {
+    getAdmissionGuidelineFileMutate();
   };
 
   return (

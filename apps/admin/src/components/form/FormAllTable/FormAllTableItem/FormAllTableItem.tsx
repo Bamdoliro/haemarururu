@@ -1,0 +1,31 @@
+import { TableItem } from '@/components/common';
+import { convertToResponsive } from '@/utils';
+import { color } from '@maru/design-system';
+import { Row, Text } from '@maru/ui';
+import type { Form } from '@/types/form/client';
+
+const FormAllTableItem = ({ name, phoneNumber, hasSubmittedForm }: Form) => {
+  return (
+    <TableItem>
+      <Row gap={48}>
+        <Text fontType="p2" width={convertToResponsive(40, 60)}>
+          {name}
+        </Text>
+        <Text fontType="p2" width={convertToResponsive(120, 160)}>
+          {phoneNumber}
+        </Text>
+      </Row>
+      <Row gap={48} justifyContent="flex-end" alignItems="center">
+        <Text
+          fontType="p2"
+          width={convertToResponsive(40, 60)}
+          color={hasSubmittedForm ? color.maruDefault : color.gray600}
+        >
+          {hasSubmittedForm ? '원서 제출' : '미제출'}
+        </Text>
+      </Row>
+    </TableItem>
+  );
+};
+
+export default FormAllTableItem;
