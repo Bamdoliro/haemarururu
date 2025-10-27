@@ -16,8 +16,8 @@ const useMaxMinByType = (formList: GradeDistributionType[] | undefined) => {
       .filter(isValid);
     if (!maxNum.length && !minNum.length) return { max: '0', min: '0' };
     return {
-      max: maxNum.length ? Math.max(...maxNum).toFixed(3) : '0',
-      min: minNum.length ? Math.min(...minNum).toFixed(3) : '0',
+      max: maxNum.length ? Math.max(...maxNum).toFixed(2) : '0',
+      min: minNum.length ? Math.min(...minNum).toFixed(2) : '0',
     };
   };
 
