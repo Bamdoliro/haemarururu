@@ -17,7 +17,8 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
     useInput();
   const { handleSendFairApplication } = useCTAButton(id, application);
   const { agree, handleAgreeChange, handleButtonClick } = useAgree(
-    handleSendFairApplication
+    handleSendFairApplication,
+    application
   );
 
   const handleClick = () => {
@@ -59,22 +60,43 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
             errorMessage="성함을 입력해주세요."
             isError={isSubmitted && application.name === ''}
           />
-          <CellInput
-            name="headcount"
-            count="명"
-            label={
-              <>
-                참석 인원{' '}
-                <Text fontType="context" color={color.red}>
-                  *
+          <Column gap={8} alignItems="flex-start">
+            <CellInput
+              name="headcount"
+              count="명"
+              label={
+                <>
+                  참석 인원{' '}
+                  <Text fontType="context" color={color.red}>
+                    *
+                  </Text>
+                </>
+              }
+              onChange={handleApplicationChange}
+              value={application.headcount ?? 0}
+              errorMessage="참석 인원을 입력해주세요."
+              isError={
+                (isSubmitted &&
+                  (application.headcount === null ||
+                    application.headcount === 0 ||
+                    application.headcount === undefined)) ||
+                Number(application.headcount ?? 0) > 3
+              }
+            />
+            {(application.headcount ?? 0) > 3 && (
+              <Text fontType="caption" color={color.red}>
+                참석 인원은 최대 3명까지만 가능합니다.
+              </Text>
+            )}
+            {isSubmitted &&
+              (application.headcount === null ||
+                application.headcount === 0 ||
+                application.headcount === undefined) && (
+                <Text fontType="caption" color={color.red}>
+                  참여 인원을 입력해주세요.
                 </Text>
-              </>
-            }
-            onChange={handleApplicationChange}
-            value={application.headcount ?? 0}
-            errorMessage="참석 인원을 입력해주세요."
-            isError={isSubmitted && application.headcount === null}
-          />
+              )}
+          </Column>
           <RadioGroup
             name="type"
             label={
