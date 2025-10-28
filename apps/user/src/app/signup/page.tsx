@@ -5,22 +5,33 @@ import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
+import { useState } from 'react';
+import BlockedSignUpModal from '@/components/signup/BlockedSignUpModal/BlockedSignUpModal';
 
 const SignUp = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <AppLayout backgroundColor={color.gray100}>
-      <StyledSignUp>
-        <img
-          src="/svg/maruLogo.svg"
-          style={{ margin: '0 auto' }}
-          loading="lazy"
-          width={480}
-          height={139}
-          alt="logo"
-        />
-        <SignUpContent />
-      </StyledSignUp>
-    </AppLayout>
+    <>
+      <BlockedSignUpModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AppLayout backgroundColor={color.gray100}>
+        <StyledSignUp>
+          <img
+            src="/svg/maruLogo.svg"
+            style={{ margin: '0 auto' }}
+            loading="lazy"
+            width={480}
+            height={139}
+            alt="logo"
+          />
+          <SignUpContent />
+        </StyledSignUp>
+      </AppLayout>
+    </>
   );
 };
 
