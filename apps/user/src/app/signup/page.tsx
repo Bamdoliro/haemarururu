@@ -5,12 +5,18 @@ import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import BlockedSignUpModal from '@/components/signup/BlockedSignUpModal/BlockedSignUpModal';
+import { SCHEDULE } from '@/constants/common/constants';
+import dayjs from 'dayjs';
 
 const SignUp = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const isBeforeSignUpPeriod = useMemo(() => {
+    const now = dayjs();
+    return now.isBefore(SCHEDULE.원서_접수);
+  }, []);
 
+  const [isModalOpen, setIsModalOpen] = useState(isBeforeSignUpPeriod);
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
