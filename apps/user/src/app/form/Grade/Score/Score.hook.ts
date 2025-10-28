@@ -23,6 +23,7 @@ export const useCTAButton = () => {
 
   const [subjectError, setSubjectError] = useState<boolean[]>([]);
   const [newSubjectError, setNewSubjectError] = useState<boolean[]>([]);
+  const [newGEDSubjectError, setNewGEDSubjectError] = useState<boolean[]>([]);
 
   const validateSubjects = () => {
     const type = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
@@ -35,6 +36,8 @@ export const useCTAButton = () => {
           subject.subjectName === '' ||
           !SUBJECT_OPTIONS.includes(subject.subjectName)
       );
+
+      setNewGEDSubjectError(newGEDErrors);
 
       const hasGEDError = newGEDErrors.some((error) => error);
       if (hasGEDError) {
@@ -94,5 +97,11 @@ export const useCTAButton = () => {
     }
   };
 
-  return { handleNextStep, handlePreviousStep, subjectError, newSubjectError };
+  return {
+    handleNextStep,
+    handlePreviousStep,
+    subjectError,
+    newSubjectError,
+    newGEDSubjectError,
+  };
 };

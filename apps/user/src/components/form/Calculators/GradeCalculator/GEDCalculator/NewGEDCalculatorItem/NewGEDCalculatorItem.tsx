@@ -7,11 +7,12 @@ import { useDeleteNewGEDSubject, useInput } from './NewGEDCalculatorItem.hook';
 interface Props {
   id: number;
   score: number | null;
+  isError?: boolean;
 }
 
 const SUBJECT_OPTIONS = ['도덕', '기술가정', '음악', '체육', '미술'];
 
-const NewGEDCalculatorItem = ({ id, score }: Props) => {
+const NewGEDCalculatorItem = ({ id, score, isError = false }: Props) => {
   const newGEDSubjectList = useNewGEDSubjectListValueStore();
   const newGEDSubjectIndex = newGEDSubjectList.findIndex((item) => item.id === id);
 
@@ -32,6 +33,7 @@ const NewGEDCalculatorItem = ({ id, score }: Props) => {
           width={80}
           name="subjectName"
           placeholder="-"
+          isError={isError}
         />
       </Td>
       <Td width={570} height="100%">

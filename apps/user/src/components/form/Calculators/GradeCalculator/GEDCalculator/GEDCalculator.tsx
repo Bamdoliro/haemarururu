@@ -13,7 +13,11 @@ import { flex } from '@maru/utils';
 import { color } from '@maru/design-system';
 import NewGEDCalculatorItem from './NewGEDCalculatorItem/NewGEDCalculatorItem';
 
-const GEDCalculator = () => {
+interface GEDCalculatorProps {
+  newGEDSubjectError?: boolean[];
+}
+
+const GEDCalculator = ({ newGEDSubjectError = [] }: GEDCalculatorProps) => {
   const newGEDSubjectList = useNewGEDSubjectListValueStore();
   const GEDSubjectList = useGEDSubjectListValueStore();
   const setForm = useSetFormStore();
@@ -35,8 +39,12 @@ const GEDCalculator = () => {
       {GEDSubjectList.map(({ id, subjectName, score }) => (
         <GEDCalculatorItem id={id} subject={subjectName} score={score} />
       ))}
-      {newGEDSubjectList.map(({ id, score }) => (
-        <NewGEDCalculatorItem id={id} score={score} />
+      {newGEDSubjectList.map(({ id, score }, index) => (
+        <NewGEDCalculatorItem
+          id={id}
+          score={score}
+          isError={newGEDSubjectError[index] || false}
+        />
       ))}
       <GEDCalculatorFooter>
         <Button onClick={handleAddNewGEDSubject} icon="ADD_ICON" size="SMALL">
@@ -59,7 +67,7 @@ const GEDCalculatorFooter = styled.div`
   width: 100%;
   height: 64px;
   background-color: ${color.gray100};
-  border-radius: 0px 0px 12px 12px;
+  border-radius: 0 0 12px 12px;
   border: 1px dashed ${color.gray300};
   border-top: none;
 `;
