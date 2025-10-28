@@ -40,9 +40,20 @@ const FormTableItem = ({
   const isPaymentResultEditing = useIsPaymentResultEditingValueStore();
   const [secondRoundResult, setSecondRoundResult] = useSecondRoundResultStore();
   const [paymentResult, setPaymentResult] = usePaymentResultStore();
-  paymentResult;
   const [interviewNumberResult, setInterviewNumberResult] = useInterviewNumberStore();
   const [isHovered, setIsHovered] = useState(false);
+
+  const getDocumentType = (type: string): string => {
+    if (type === 'REGULAR') {
+      return '일반전형';
+    }
+    if (type === 'SPECIAL_ADMISSION' || type === 'NATIONAL_VETERANS_EDUCATION') {
+      return `특례입학대상자전형 \n ${
+        FORM_TYPE_CATEGORY[type as keyof typeof FORM_TYPE_CATEGORY]
+      }`;
+    }
+    return `사회통합전형\n${FORM_TYPE_CATEGORY[type as keyof typeof FORM_TYPE_CATEGORY]}`;
+  };
 
   const handleSecondPassResultDropdownChange = (value: string) => {
     setSecondRoundResult((prev) => ({
@@ -97,9 +108,6 @@ const FormTableItem = ({
     const { checked } = e.target;
     setFormToPrint((prev) => ({ ...prev, [id]: checked }));
   };
-  const middleType = type === 'REGULAR' ? '일반전형' : '사회 통합 전형';
-  const detailedType = FORM_TYPE_CATEGORY[type];
-  const fullType = `${middleType} - ${detailedType}`;
 
   const isDisabled =
     isSecondRoundResultEditing ||
@@ -121,7 +129,7 @@ const FormTableItem = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <TableItem key={id}>
-        <Row gap={48}>
+        <Row gap={48} alignItems="center">
           {isFormToPrintSelecting ? (
             <CheckBox
               checked={formToPrint[id]}
@@ -137,8 +145,8 @@ const FormTableItem = ({
           <Text fontType="p2" width={convertToResponsive(120, 160)}>
             {graduationType === 'QUALIFICATION_EXAMINATION' ? '검정고시' : school}
           </Text>
-          <Text fontType="p2" width={convertToResponsive(180, 240)}>
-            {fullType}
+          <Text fontType="p2" width={convertToResponsive(180, 240)} whiteSpace="pre-line">
+            {getDocumentType(type)}
           </Text>
         </Row>
         <Row gap={48} justify-content="flex-end" alignItems="center">
