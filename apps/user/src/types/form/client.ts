@@ -114,7 +114,7 @@ export interface Subject {
   score: number | null;
 }
 
-export type AchievementLevel = '-' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type AchievementLevel = '-' | 'A' | 'B' | 'C' | 'D' | 'E';
 
 export interface Attendance {
   absenceCount: number;

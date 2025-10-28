@@ -4,7 +4,6 @@ import { getAchivementLevel } from '@/utils';
 
 enum AchievementScore {
   '-' = 0,
-  'F' = 0,
   'A' = 40,
   'B' = 32,
   'C' = 24,
@@ -61,11 +60,11 @@ const useGradeCalculation = () => {
 
         let achievementLevel = subject[key] as AchievementLevel;
 
-        if (!achievementLevel || achievementLevel === 'F') {
+        if (!achievementLevel || achievementLevel === 'E') {
           achievementLevel = getFallbackLevel(subject, key) as AchievementLevel;
         }
 
-        if (achievementLevel === '-' || achievementLevel === 'F') return;
+        if (achievementLevel === '-' || achievementLevel === 'E') return;
 
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;
@@ -80,10 +79,10 @@ const useGradeCalculation = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       let regularTotal = 0;
       form.grade.subjectList?.forEach((subject) => {
-        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'F';
+        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] ||
-          AchievementScore.F;
+          AchievementScore.E;
         if (subject.subjectName === '수학' || subject.subjectName === '영어') {
           regularTotal += score * 0.28;
         } else if (subject.subjectName === '국어') {

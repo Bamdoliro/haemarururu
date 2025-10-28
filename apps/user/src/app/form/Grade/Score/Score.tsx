@@ -5,7 +5,8 @@ import { useCTAButton } from './Score.hook';
 import { color } from '@maru/design-system';
 
 const Score = () => {
-  const { handleNextStep, handlePreviousStep, subjectError } = useCTAButton();
+  const { handleNextStep, handlePreviousStep, subjectError, newGEDSubjectError } =
+    useCTAButton();
 
   return (
     <>
@@ -19,7 +20,11 @@ const Score = () => {
           <br />
           *학기에 사회 점수가 없을 경우 역사의 점수로 표시바랍니다.
         </Text>
-        <GradeCalculator option="FORM" subjectError={subjectError} />
+        <GradeCalculator
+          option="FORM"
+          subjectError={subjectError}
+          newGEDSubjectError={newGEDSubjectError}
+        />
       </Column>
       <FormController
         onNext={handleNextStep}
