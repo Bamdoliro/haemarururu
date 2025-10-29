@@ -7,13 +7,12 @@ import { flex } from '@maru/utils';
 import styled from 'styled-components';
 import { useState, useMemo } from 'react';
 import BlockedSignUpModal from '@/components/signup/BlockedSignUpModal/BlockedSignUpModal';
-import { SCHEDULE } from '@/constants/common/constants';
 import dayjs from 'dayjs';
 
 const SignUp = () => {
   const isBeforeSignUpPeriod = useMemo(() => {
     const now = dayjs();
-    return now.isBefore(SCHEDULE.원서_접수);
+    return now.isBefore(`2025-12-06T00:00:00+09:00`);
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(isBeforeSignUpPeriod);
