@@ -185,11 +185,11 @@ const FormTableItem = ({
           >
             {getRoundResult(firstRoundPassed)}
           </Text>
-          {isInterviewNumberEditing ? (
+          {isInterviewNumberEditing && secondRoundPassed ? (
             <CellInput
               width={80}
               name="interviewNumber"
-              maxLength={5}
+              maxLength={6}
               value={interviewNumberResult[id] ?? interviewNumber ?? ''}
               onChange={handleInterviewNumberChange}
             />
