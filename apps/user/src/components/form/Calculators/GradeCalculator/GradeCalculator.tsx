@@ -10,15 +10,10 @@ import BasicCalculator from './BasicCalculator/BasicCalculator';
 
 interface GradeCalculatorProps {
   subjectError?: boolean[];
-  newGEDSubjectError?: boolean[];
   option: 'SIMULATION' | 'FORM';
 }
 
-const GradeCalculator = ({
-  subjectError,
-  newGEDSubjectError,
-  option,
-}: GradeCalculatorProps) => {
+const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
   const [form, setForm] = useFormStore();
 
   const handleChangeGraduationType = (value: string) => {
@@ -56,9 +51,7 @@ const GradeCalculator = ({
       <SwitchCase
         value={form.education.graduationType}
         caseBy={{
-          QUALIFICATION_EXAMINATION: (
-            <GEDCalculator newGEDSubjectError={newGEDSubjectError} />
-          ),
+          QUALIFICATION_EXAMINATION: <GEDCalculator />,
         }}
         defaultComponent={<BasicCalculator subjectError={subjectError} />}
       />
