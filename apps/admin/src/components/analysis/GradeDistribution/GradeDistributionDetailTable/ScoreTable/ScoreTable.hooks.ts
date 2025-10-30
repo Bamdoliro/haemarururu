@@ -5,21 +5,21 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     typeof v === 'number' && !Number.isNaN(v);
 
   const getMaxValue = (filter: (item: GradeDistributionType) => boolean) => {
-    if (!formList) return '0.00';
+    if (!formList) return '0.000';
     const values = formList
       .filter(filter)
       .map((item) => item.firstRoundMax)
       .filter(isValid);
-    return values.length ? Math.max(...values).toFixed(2) : '0.00';
+    return values.length ? Math.max(...values).toFixed(3) : '0.000';
   };
 
   const getMinValue = (filter: (item: GradeDistributionType) => boolean) => {
-    if (!formList) return '0.00';
+    if (!formList) return '0.000';
     const values = formList
       .filter(filter)
       .map((item) => item.firstRoundMin)
       .filter(isValid);
-    return values.length ? Math.min(...values).toFixed(2) : '0.00';
+    return values.length ? Math.min(...values).toFixed(3) : '0.000';
   };
 
   const isSpecialAdmission = (item: GradeDistributionType) =>
@@ -34,7 +34,7 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     ?.filter((item) => item.type === 'REGULAR')
     .map((item) => item.firstRoundAvg)
     .filter(isValid)
-    .map((v) => v.toFixed(2)) || ['0.00'];
+    .map((v) => v.toFixed(3)) || ['0.000'];
 
   const SpecialAdmissionData =
     formList?.filter(isSpecialAdmission).filter((item) => isValid(item.firstRoundAvg)) ||
@@ -44,14 +44,14 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     ? (
         SpecialAdmissionData.reduce((sum, item) => sum + item.firstRoundAvg, 0) /
         SpecialAdmissionData.length
-      ).toFixed(2)
-    : '0.00';
+      ).toFixed(3)
+    : '0.000';
 
   const regularRoundSeventy = formList
     ?.filter((item) => item.type === 'REGULAR')
     .map((item) => item.firstRoundSeventyPercentile)
     .filter(isValid)
-    .map((v) => v.toFixed(2)) || ['0.00'];
+    .map((v) => v.toFixed(3)) || ['0.000'];
 
   const specialAdmissionSeventyData =
     formList
@@ -64,8 +64,8 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
           (sum, item) => sum + item.firstRoundSeventyPercentile,
           0
         ) / specialAdmissionSeventyData.length
-      ).toFixed(2)
-    : '0.00';
+      ).toFixed(3)
+    : '0.030';
 
   return {
     regularRoundMax,

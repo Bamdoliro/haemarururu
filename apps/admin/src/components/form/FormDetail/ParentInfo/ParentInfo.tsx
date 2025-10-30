@@ -20,6 +20,7 @@ const ParentInfo = ({ id }: ParentInfoProps) => {
     { label: '주소', data: formDetailData.parent.address },
     { label: '상세 주소', data: formDetailData.parent.detailAddress },
     { label: '우편 번호', data: formDetailData.parent.zoneCode },
+    { label: '환불계좌', data: formDetailData.parent.account },
   ];
 
   return (

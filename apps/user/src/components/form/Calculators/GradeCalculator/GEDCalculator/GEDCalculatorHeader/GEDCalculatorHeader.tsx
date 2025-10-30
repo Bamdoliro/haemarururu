@@ -12,7 +12,7 @@ const GEDCalculatorHeader = () => {
         성적
       </Th>
       <Th borderTopRightRadius={12} width="15.1%" height={64}>
-        삭제
+        성취도
       </Th>
     </StyledGEDCalculatorHeader>
   );

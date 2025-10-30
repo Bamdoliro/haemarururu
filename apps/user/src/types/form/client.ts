@@ -79,6 +79,7 @@ export interface Parent {
   zoneCode: string;
   address: string;
   detailAddress: string;
+  account: string;
 }
 
 export interface Education {
