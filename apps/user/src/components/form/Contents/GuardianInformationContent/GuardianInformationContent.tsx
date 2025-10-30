@@ -40,16 +40,28 @@ const GuardianInformationContent = () => {
             errorMessage={errors.phoneNumber ? errors.phoneNumber[0] : ''}
           />
         </Row>
-        <Input
-          label="학생과의 관계"
-          name="relation"
-          placeholder="예) 부, 모"
-          width="calc(50% - 24px)"
-          value={form.parent.relation}
-          onChange={onFieldChange}
-          isError={!!errors.relation?.length}
-          errorMessage={errors.relation ? errors.relation[0] : ''}
-        />
+        <Row gap={48}>
+          <Input
+            label="학생과의 관계"
+            name="relation"
+            placeholder="예) 부, 모"
+            width="100%"
+            value={form.parent.relation}
+            onChange={onFieldChange}
+            isError={!!errors.relation?.length}
+            errorMessage={errors.relation ? errors.relation[0] : ''}
+          />
+          <Input
+            label="환불계좌"
+            name="account"
+            placeholder="환불계좌를 입력해주세요."
+            width="100%"
+            value={form.parent.account}
+            onChange={onFieldChange}
+            isError={!!errors.account?.length}
+            errorMessage={errors.account ? errors.account[0] : ''}
+          />
+        </Row>
         <ButtonInput
           label="주소"
           buttonText="검색"
