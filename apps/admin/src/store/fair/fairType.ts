@@ -5,7 +5,7 @@ const fairFormState = atom<Fair>({
   key: 'FairFormAtom',
   default: {
     start: '',
-    capacity: 120,
+    capacity: 200,
     place: '',
     type: 'STUDENT_AND_PARENT',
     applicationStartDate: null,
