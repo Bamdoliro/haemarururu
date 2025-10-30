@@ -23,5 +23,12 @@ export const GuardianSchema = z.object({
     .trim()
     .nonempty('알맞은 상세 주소를 입력해 주세요.')
     .max(100, '알맞은 상세 주소를 입력해 주세요.'),
-  account: z.string().trim().nonempty('환불계좌를 입력해주세요.'),
+  account: z
+    .string()
+    .trim()
+    .nonempty('환불계좌를 입력해주세요.')
+    .min(10, '환불계좌는 최소 10자 이상이어야 합니다.')
+    .max(15, '환불계좌는 최대 15자 이하여야 합니다.')
+    .refine((value) => /^\d+$/.test(value), '숫자만 입력 가능합니다.')
+    .default(''),
 });
