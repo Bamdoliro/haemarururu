@@ -1,11 +1,11 @@
-import { atom, useRecoilState } from 'recoil';
-import type { Fair } from '@/types/fair/client';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import type { FairFormInput } from '@/types/fair/client';
 
-const fairFormState = atom<Fair>({
+const fairFormState = atom<FairFormInput>({
   key: 'FairFormAtom',
   default: {
     start: '',
-    capacity: 200,
+    capacity: '',
     place: '',
     type: 'STUDENT_AND_PARENT',
     applicationStartDate: null,
@@ -14,3 +14,4 @@ const fairFormState = atom<Fair>({
 });
 
 export const useFairFormStore = () => useRecoilState(fairFormState);
+export const useFairFormValueStore = () => useRecoilValue(fairFormState);

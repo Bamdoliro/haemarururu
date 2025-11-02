@@ -1,17 +1,8 @@
 import { useFairFormStore } from '@/store/fair/fairType';
 import { useCreateFairMutation } from '@/services/fair/mutations';
-import type { FairType } from '@/types/fair/client';
 import convertToApiDateFormat from '@/utils/functions/convertToApiDateFormat';
 import convertToApiDateTimeFormat from '@/utils/functions/convertToApiDateTimeFormat';
-
-export interface FairFormInput {
-  start: string;
-  place: string;
-  capacity: number;
-  type: FairType;
-  applicationStartDate: string | null;
-  applicationEndDate: string | null;
-}
+import type { FairFormInput } from '@/types/fair/client';
 
 export const useFairForm = () => {
   const createFairMutation = useCreateFairMutation();
@@ -28,6 +19,16 @@ export const useFairForm = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (name === 'capacity') {
+      const numericValue = value.replace(/\D/g, '');
+      handleChange(
+        name as keyof FairFormInput,
+        numericValue as FairFormInput[keyof FairFormInput]
+      );
+      return;
+    }
+
     handleChange(name as keyof FairFormInput, value);
   };
 

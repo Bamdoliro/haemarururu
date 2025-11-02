@@ -9,4 +9,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   textAlign?: CSSProperties['textAlign'];
   isError?: boolean;
   count?: string;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }

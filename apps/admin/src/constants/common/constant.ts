@@ -33,6 +33,7 @@ export const ROUTES = {
   ANALYSIS: '/analysis',
   FAIR: '/fair',
   FAIR_CREATE: '/fair/create',
+  FAIR_EDIT: '/fair/edit',
   REGISTRATION: '/registration',
 } as const;
 

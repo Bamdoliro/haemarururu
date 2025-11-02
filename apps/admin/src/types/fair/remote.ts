@@ -1,4 +1,4 @@
-import type { FairData, FairDetailData } from './client';
+import type { Fair, FairData, FairDetailData } from './client';
 
 export interface GetFairListRes {
   dataList: FairData[];
@@ -7,3 +7,5 @@ export interface GetFairListRes {
 export interface GetFairDetailRes {
   data: FairDetailData;
 }
+
+export type PutFairReq = Fair;

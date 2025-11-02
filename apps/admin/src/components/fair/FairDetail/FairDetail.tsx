@@ -4,12 +4,14 @@ import { color } from '@maru/design-system';
 import { styled } from 'styled-components';
 import { Column, Row, Text } from '@maru/ui';
 import { FunctionDropdown } from '@/components/common';
-import { IconUpload } from '@maru/icon';
+import { IconEditDocument, IconUpload } from '@maru/icon';
 import FairTable from '../FairTable/FairTable';
 import { useFairDetailQuery } from '@/services/fair/queries';
 import { formatDate } from '@/utils';
 import { FAIR_ITEM_STATUS, FAIR_STATUS } from '@/constants/fair/constant';
 import { useExportExcelAction } from './fairDetail.hooks';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/common/constant';
 
 interface FairDetailProps {
   id: number;
@@ -19,12 +21,17 @@ const FairDetail = ({ id }: FairDetailProps) => {
   const { data: FairDetailData } = useFairDetailQuery(id);
 
   const { handleExportExcelButtonClick } = useExportExcelAction(id);
+  const router = useRouter();
 
   const statusType: StatusType =
     FAIR_ITEM_STATUS[FairDetailData?.status as FairStatus] ?? 'open';
 
   const Fairtitle = formatDate.toDayAndDateTime(FairDetailData?.start || '');
   const FairAttendeeList = FairDetailData?.attendeeList;
+
+  const handleFairEditButtonClick = () => {
+    router.push(`${ROUTES.FAIR_EDIT}/${id}`);
+  };
 
   return FairDetailData ? (
     <StyledFairDetail>
@@ -44,10 +51,16 @@ const FairDetail = ({ id }: FairDetailProps) => {
             {
               icon: <IconUpload color="gray600" width={24} height={24} />,
               label: '명단 엑셀로 내보내기',
-              value: 'execl',
+              value: 'excel',
               onClick: () => {
                 handleExportExcelButtonClick(Fairtitle);
               },
+            },
+            {
+              icon: <IconEditDocument width={24} height={24} />,
+              label: '입학설명회 수정하기',
+              value: 'fair_edit',
+              onClick: handleFairEditButtonClick,
             },
           ]}
         />

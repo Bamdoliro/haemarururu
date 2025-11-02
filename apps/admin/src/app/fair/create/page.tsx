@@ -11,7 +11,7 @@ const FairCreatePage = () => {
     <AppLayout>
       <StyledFairCreate>
         <StyledFairText>
-          <Text fontType="H1">입학 전형 설명회 생성</Text>
+          <Text fontType="H1">입학전형 설명회 생성</Text>
         </StyledFairText>
         <FairForm />
       </StyledFairCreate>
@@ -27,7 +27,7 @@ const StyledFairCreate = styled.div`
   padding: 64px 0 60px 60px;
   position: relative;
   ${flex({ flexDirection: 'column', alignItems: 'center' })}
-  gap: 65px;
+  gap: 24px;
 `;
 
 const StyledFairText = styled.div`
