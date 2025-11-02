@@ -46,6 +46,8 @@ const FairTeacherApplication = ({ params: { id } }: FairTeacherApplicationProps)
                 *
               </Text>
               는 필수항목입니다.
+              <br />
+              참석인원은 3명 이내로 입력해주세요.
             </Text>
           </Column>
         </Column>

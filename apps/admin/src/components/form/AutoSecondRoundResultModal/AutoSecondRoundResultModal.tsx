@@ -31,7 +31,7 @@ const AutoSecondRoundResultModal = ({
         <Column width="100%" gap={20} alignItems="flex-start">
           <Row width="100%" justifyContent="space-between">
             <Text fontType="H2" color={color.gray900}>
-              2차 합격자 자동 선발
+              면접 합격자 자동 선발
             </Text>
             <IconClose
               width={36}
@@ -43,7 +43,7 @@ const AutoSecondRoundResultModal = ({
           </Row>
           <Line />
           <Text fontType="p2" color={color.gray900}>
-            2차 합격자 자동 선발을 진행하시겠습니까?
+            면접 합격자 자동 선발을 진행하시겠습니까?
           </Text>
         </Column>
         <Row justifyContent="flex-end" alignItems="flex-start" gap="16px">

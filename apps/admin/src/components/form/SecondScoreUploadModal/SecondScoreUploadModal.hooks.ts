@@ -10,7 +10,7 @@ export const useExportExcelAction = () => {
 
     const link = document.createElement('a');
     link.href = excelUrl;
-    link.download = '2차 전형 점수 양식.xlsx';
+    link.download = '면접 전형 점수 양식.xlsx';
     document.body.appendChild(link);
     link.click();
     link.remove();

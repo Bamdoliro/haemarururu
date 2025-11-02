@@ -49,8 +49,8 @@ export type PaymentStatusType = '제출' | '미제출';
 
 export type ExportExcelType =
   | '전체 내보내기'
-  | '1차 전형 결과'
-  | '2차 전형 결과'
+  | '서류 전형 결과'
+  | '면접 전형 결과'
   | '최종 합격자';
 
 export interface Form {
@@ -129,6 +129,7 @@ export interface ParentInfo {
   zoneCode: string;
   address: string;
   detailAddress: string;
+  account: string;
 }
 
 export interface EducationInfo {

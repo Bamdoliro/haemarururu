@@ -17,6 +17,7 @@ export const FORM: Form = {
     address: '',
     detailAddress: '',
     relation: '',
+    account: '',
   },
   education: {
     graduationType: 'EXPECTED',
