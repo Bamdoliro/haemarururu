@@ -9,8 +9,8 @@ const useGraduatedSchool = () => {
 
   const stepMap: Record<string, AnalysisApplicantType[]> = {
     '전체 조회': ['RECEIVED', 'FIRST_PASSED', 'FIRST_FAILED', 'FAILED', 'PASSED'],
-    '1차 합격자': ['FIRST_PASSED', 'FAILED', 'PASSED'],
-    '2차 전형자': ['FAILED', 'PASSED'],
+    '서류 합격자': ['FIRST_PASSED', 'FAILED', 'PASSED'],
+    '면접 전형자': ['FAILED', 'PASSED'],
     '최종 합격자': ['PASSED'],
   };
 

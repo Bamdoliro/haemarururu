@@ -67,8 +67,8 @@ const GraduatedSchool = () => {
         value={currentAnalysisPassStep}
         caseBy={{
           '전체 조회': <GraduatedAreaTable formList={formList} />,
-          '1차 합격자': <GraduatedAreaTable formList={formList} />,
-          '2차 전형자': <GraduatedAreaTable formList={formList} />,
+          '서류 합격자': <GraduatedAreaTable formList={formList} />,
+          '면접 전형자': <GraduatedAreaTable formList={formList} />,
           '최종 합격자': <GraduatedAreaTable formList={formList} />,
         }}
       />

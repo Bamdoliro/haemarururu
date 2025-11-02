@@ -15,9 +15,9 @@ dayjs.locale('ko');
 
 const SCHEDULE_STATUS = new Map([
   [SCHEDULE.원서_접수.toString(), '원서 접수 시작까지'],
-  [SCHEDULE.이차_면접.toString(), '2차 전형 시작까지'],
+  [SCHEDULE.이차_면접.toString(), '면접 전형 시작까지'],
   [SCHEDULE.최종_합격_발표.toString(), '최종합격자 발표'],
-  [SCHEDULE.일차_합격_발표.toString(), '1차 합격자 발표'],
+  [SCHEDULE.일차_합격_발표.toString(), '서류 합격자 발표'],
   [SCHEDULE.입학_등록.toString(), '입학 등록 기간'],
 ]);
 
