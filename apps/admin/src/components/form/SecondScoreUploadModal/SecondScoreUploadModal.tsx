@@ -49,7 +49,7 @@ const SecondScoreUploadModal = ({ isOpen, onClose }: SecondScoreUploadModalProps
         <Row justifyContent="space-between">
           <Column gap={8}>
             <Text fontType="H2" color={color.gray900}>
-              2차 전형 점수 입력
+              면접 전형 점수 입력
             </Text>
             <Text fontType="p3" color={color.gray600}>
               .xlsx 형식의 파일을 업로드해주세요.

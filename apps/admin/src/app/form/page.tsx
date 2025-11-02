@@ -262,19 +262,19 @@ const FormPage = () => {
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
-                      label: '2차 전형 점수 입력하기',
+                      label: '면접 전형 점수 입력하기',
                       value: 'input_second_round_scores',
                       onClick: openSecondScoreUploadModal,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
-                      label: '2차 합격 여부 변경하기',
+                      label: '면접 합격 여부 변경하기',
                       value: 'update_second_round_result',
                       onClick: setIsSecondRoundResultEditingTrue,
                     },
                     {
                       icon: <IconEditAllDocument width={24} height={24} />,
-                      label: '2차 합격자 자동 선발',
+                      label: '면접 합격자 자동 선발',
                       value: 'auto_select_second_round',
                       onClick: openAutoSecondRoundResultModal,
                     },
