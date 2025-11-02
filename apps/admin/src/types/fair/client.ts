@@ -18,6 +18,10 @@ export interface Fair {
   applicationEndDate: string | null;
 }
 
+export type FairFormInput = Omit<Fair, 'capacity'> & {
+  capacity: string;
+};
+
 export interface FairData {
   id: number;
   start: string;
@@ -39,6 +43,8 @@ export interface AttendeeData {
 export interface FairDetailData {
   start: string;
   place: string;
+  capacity: number;
+  type: FairType;
   applicationStartDate: string;
   applicationEndDate: string;
   status: FairStatus;
