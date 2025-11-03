@@ -9,27 +9,27 @@ import { useMemo, useEffect } from 'react';
 import BlockedSignUpModal from '@/components/signup/BlockedSignUpModal/BlockedSignUpModal';
 import dayjs from 'dayjs';
 import { useOverlay } from '@toss/use-overlay';
-import { Storage } from '@/apis/storage/storage';
-import { TOKEN } from '@/constants/common/constants';
+import useTokenValidation from '@/hooks/useTokenValidation';
 
 const SignUp = () => {
   const overlay = useOverlay();
+  const { token, isValid, isExpired } = useTokenValidation();
 
-  const { shouldShowModal, token } = useMemo(() => {
+  const shouldShowModal = useMemo(() => {
     const now = dayjs();
-    const token = Storage.getItem(TOKEN.ACCESS);
     const isBeforePeriod = now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
-    return {
-      shouldShowModal: (isBeforePeriod && !token) || !!token,
-      token,
-    };
-  }, []);
+    if (isExpired) return true;
+    if (isValid) return false;
+    return isBeforePeriod;
+  }, [isValid, isExpired]);
 
   useEffect(() => {
     if (shouldShowModal) {
-      overlay.open(({ close }) => <BlockedSignUpModal close={close} token={token} />);
+      overlay.open(({ close }) => (
+        <BlockedSignUpModal close={close} token={token} isExpired={isExpired} />
+      ));
     }
-  }, [shouldShowModal, token, overlay]);
+  }, [shouldShowModal, token, isExpired, overlay]);
 
   return (
     <AppLayout backgroundColor={color.gray100}>
