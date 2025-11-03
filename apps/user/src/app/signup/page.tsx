@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 const SignUp = () => {
   const isBeforeSignUpPeriod = useMemo(() => {
     const now = dayjs();
-    return now.isBefore(`2025-12-06T00:00:00+09:00`);
+    return now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(isBeforeSignUpPeriod);
@@ -21,22 +21,20 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <AppLayout backgroundColor={color.gray100}>
       <BlockedSignUpModal isOpen={isModalOpen} onClose={handleCloseModal} />
-      <AppLayout backgroundColor={color.gray100}>
-        <StyledSignUp>
-          <img
-            src="/svg/maruLogo.svg"
-            style={{ margin: '0 auto' }}
-            loading="lazy"
-            width={480}
-            height={139}
-            alt="logo"
-          />
-          <SignUpContent />
-        </StyledSignUp>
-      </AppLayout>
-    </>
+      <StyledSignUp>
+        <img
+          src="/svg/maruLogo.svg"
+          style={{ margin: '0 auto' }}
+          loading="lazy"
+          width={480}
+          height={139}
+          alt="logo"
+        />
+        <SignUpContent />
+      </StyledSignUp>
+    </AppLayout>
   );
 };
 

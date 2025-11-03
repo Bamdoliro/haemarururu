@@ -81,18 +81,21 @@ export const useButtonStatus = () => {
   const router = useRouter();
 
   const token = localStorage.getItem('access-token');
-  const isSubmitPeriod = dayjs().isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감);
-  const canSubmitWithToken = isSubmitPeriod || !!token;
+  const isSubmitPeriod = dayjs().isBetween(
+    dayjs('2025-12-06T00:00:00+09:00'),
+    SCHEDULE.원서_접수_마감
+  );
+  const isLogin = !!token;
 
   const isPeriodOfViewing =
     (-2 < remainDays && remainDays <= 0) ||
     dayjs().isBetween(SCHEDULE.입학_등록, SCHEDULE.입학_등록_마감);
 
   const buttonStyleType: ButtonStyleType =
-    canSubmitWithToken || isPeriodOfViewing ? 'PRIMARY' : 'DISABLED';
+    isLogin || isPeriodOfViewing ? 'PRIMARY' : 'DISABLED';
 
   const handleMovePage = () => {
-    if (canSubmitWithToken && dayjs().isBefore(SCHEDULE.원서_접수_마감)) {
+    if (isLogin && dayjs().isBefore(SCHEDULE.원서_접수_마감)) {
       router.push(ROUTES.SIGNUP);
     } else if (isPeriodOfViewing) {
       if (currentTime.isSame(SCHEDULE.일차_합격_발표)) {
@@ -113,7 +116,7 @@ export const useButtonStatus = () => {
 
   return {
     buttonStyleType,
-    isSubmitPeriod: canSubmitWithToken,
+    isSubmitPeriod,
     handleMovePage,
     buttonText,
   };
