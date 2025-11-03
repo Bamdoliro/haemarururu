@@ -32,11 +32,7 @@ const BlockedSignUpModal = ({ close }: BlockedSignUpModalProps) => {
             />
           </Row>
           <Underline />
-          <QuestionText>
-            아직 원서 접수 기간이 아닙니다.
-            <br />
-            원서 접수 기간에 다시 시도해 주세요.
-          </QuestionText>
+          <QuestionText>회원가입은 원서 접수 기간부터 가능합니다.</QuestionText>
         </Column>
         <Row justifyContent="flex-end">
           <Button size="SMALL" styleType="SECONDARY" width={60} onClick={handleClose}>
