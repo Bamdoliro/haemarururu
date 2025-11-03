@@ -5,24 +5,30 @@ import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
-import { useState, useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import BlockedSignUpModal from '@/components/signup/BlockedSignUpModal/BlockedSignUpModal';
 import dayjs from 'dayjs';
+import { useOverlay } from '@toss/use-overlay';
+import { Storage } from '@/apis/storage/storage';
+import { TOKEN } from '@/constants/common/constants';
 
 const SignUp = () => {
+  const overlay = useOverlay();
+
   const isBeforeSignUpPeriod = useMemo(() => {
     const now = dayjs();
-    return now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
+    const token = Storage.getItem(TOKEN.ACCESS);
+    return now.isBefore(dayjs('2025-12-06T00:00:00+09:00')) && !token;
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(isBeforeSignUpPeriod);
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  useEffect(() => {
+    if (isBeforeSignUpPeriod) {
+      overlay.open(({ close }) => <BlockedSignUpModal close={close} />);
+    }
+  }, [isBeforeSignUpPeriod, overlay]);
 
   return (
     <AppLayout backgroundColor={color.gray100}>
-      <BlockedSignUpModal isOpen={isModalOpen} onClose={handleCloseModal} />
       <StyledSignUp>
         <img
           src="/svg/maruLogo.svg"

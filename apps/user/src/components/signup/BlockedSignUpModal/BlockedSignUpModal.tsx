@@ -6,20 +6,19 @@ import { styled } from 'styled-components';
 import { useRouter } from 'next/navigation';
 
 interface BlockedSignUpModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  close: () => void;
 }
 
-const BlockedSignUpModal = ({ isOpen, onClose }: BlockedSignUpModalProps) => {
+const BlockedSignUpModal = ({ close }: BlockedSignUpModalProps) => {
   const router = useRouter();
 
   const handleClose = () => {
-    onClose();
+    close();
     router.push('/');
   };
 
   return (
-    <BlurBackground isOpen={isOpen}>
+    <BlurBackground>
       <StyledFairQuestionModal>
         <Column gap={20}>
           <Row justifyContent="space-between">
@@ -51,11 +50,11 @@ const BlockedSignUpModal = ({ isOpen, onClose }: BlockedSignUpModalProps) => {
 
 export default BlockedSignUpModal;
 
-const BlurBackground = styled.div<{ isOpen: boolean }>`
+const BlurBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
