@@ -63,8 +63,7 @@ const BlurBackground = styled.div`
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  ${flex({ alignItems: 'center', justifyContent: 'center' })}
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
