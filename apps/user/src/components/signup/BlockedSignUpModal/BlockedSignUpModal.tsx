@@ -7,9 +7,10 @@ import { useRouter } from 'next/navigation';
 
 interface BlockedSignUpModalProps {
   close: () => void;
+  token: string | null;
 }
 
-const BlockedSignUpModal = ({ close }: BlockedSignUpModalProps) => {
+const BlockedSignUpModal = ({ close, token }: BlockedSignUpModalProps) => {
   const router = useRouter();
 
   const handleClose = () => {
@@ -22,7 +23,11 @@ const BlockedSignUpModal = ({ close }: BlockedSignUpModalProps) => {
       <StyledFairQuestionModal>
         <Column gap={20}>
           <Row justifyContent="space-between">
-            <Text fontType="H2">원서 접수 기간이 아닙니다.</Text>
+            {token ? (
+              <Text fontType="H2">이미 로그인된 상태입니다.</Text>
+            ) : (
+              <Text fontType="H2">원서 접수 기간이 아닙니다.</Text>
+            )}
             <IconClose
               width={36}
               height={36}
@@ -32,7 +37,15 @@ const BlockedSignUpModal = ({ close }: BlockedSignUpModalProps) => {
             />
           </Row>
           <Underline />
-          <QuestionText>회원가입은 원서 접수 기간부터 가능합니다.</QuestionText>
+          {token ? (
+            <QuestionText>로그인 상태에서 회원가입 할 수 없습니다.</QuestionText>
+          ) : (
+            <QuestionText>
+              아직 원서 접수 기간이 아닙니다.
+              <br />
+              원서 접수 기간에 다시 시도해 주세요.
+            </QuestionText>
+          )}
         </Column>
         <Row justifyContent="flex-end">
           <Button size="SMALL" styleType="SECONDARY" width={60} onClick={handleClose}>
@@ -67,7 +80,6 @@ const StyledFairQuestionModal = styled.div`
   width: 600px;
   padding: 36px;
   min-height: 350px;
-
   border-radius: 16px;
   background: ${color.white};
 `;

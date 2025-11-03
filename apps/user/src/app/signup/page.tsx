@@ -15,17 +15,21 @@ import { TOKEN } from '@/constants/common/constants';
 const SignUp = () => {
   const overlay = useOverlay();
 
-  const isBeforeSignUpPeriod = useMemo(() => {
+  const { shouldShowModal, token } = useMemo(() => {
     const now = dayjs();
     const token = Storage.getItem(TOKEN.ACCESS);
-    return now.isBefore(dayjs('2025-12-06T00:00:00+09:00')) && !token;
+    const isBeforePeriod = now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
+    return {
+      shouldShowModal: (isBeforePeriod && !token) || !!token,
+      token,
+    };
   }, []);
 
   useEffect(() => {
-    if (isBeforeSignUpPeriod) {
-      overlay.open(({ close }) => <BlockedSignUpModal close={close} />);
+    if (shouldShowModal) {
+      overlay.open(({ close }) => <BlockedSignUpModal close={close} token={token} />);
     }
-  }, [isBeforeSignUpPeriod, overlay]);
+  }, [shouldShowModal, token, overlay]);
 
   return (
     <AppLayout backgroundColor={color.gray100}>
