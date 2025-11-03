@@ -31,7 +31,7 @@ const BlockedSignUpModal = ({ close, token, isExpired }: BlockedSignUpModalProps
 
   return (
     <BlurBackground>
-      <StyledFairQuestionModal>
+      <StyledBlockedSignUpModal>
         <Column gap={20}>
           <Row justifyContent="space-between">
             <Text fontType="H2">{getTitle()}</Text>
@@ -44,14 +44,14 @@ const BlockedSignUpModal = ({ close, token, isExpired }: BlockedSignUpModalProps
             />
           </Row>
           <Underline />
-          <QuestionText>{getMessage()}</QuestionText>
+          <ContentText>{getMessage()}</ContentText>
         </Column>
         <Row justifyContent="flex-end">
           <Button size="SMALL" styleType="SECONDARY" width={60} onClick={handleClose}>
             닫기
           </Button>
         </Row>
-      </StyledFairQuestionModal>
+      </StyledBlockedSignUpModal>
     </BlurBackground>
   );
 };
@@ -71,7 +71,7 @@ const BlurBackground = styled.div`
   z-index: 1;
 `;
 
-const StyledFairQuestionModal = styled.div`
+const StyledBlockedSignUpModal = styled.div`
   ${flex({
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -89,7 +89,7 @@ const Underline = styled.div`
   border-bottom: 1px solid ${color.gray200};
 `;
 
-const QuestionText = styled.div`
+const ContentText = styled.div`
   width: 100%;
   max-height: 200px;
   white-space: pre-wrap;
