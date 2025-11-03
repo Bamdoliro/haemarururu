@@ -13,15 +13,13 @@ dayjs.extend(utc);
 interface ScheduleItemProps {
   title: string;
   date: string;
-  startTime: string | Dayjs;
-  endTime: string | Dayjs;
+  startTime: Dayjs;
+  endTime: Dayjs;
 }
 
 const ScheduleItem = ({ title, date, startTime, endTime }: ScheduleItemProps) => {
   const now = dayjs();
-  const start = dayjs.isDayjs(startTime) ? startTime : dayjs(startTime);
-  const end = dayjs.isDayjs(endTime) ? endTime : dayjs(endTime);
-  const active = now.isBetween(start, end);
+  const active = now.isBetween(startTime, endTime);
 
   return (
     <StyledScheduleItem isActive={active}>
