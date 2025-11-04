@@ -1,6 +1,7 @@
 import { ROUTES, SCHEDULE } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 export const useSchoolRecruitDate = () => {
   const router = useRouter();
@@ -8,7 +9,9 @@ export const useSchoolRecruitDate = () => {
   const [applicationEnd, setApplicationEnd] = useState('');
 
   useEffect(() => {
-    setApplicationStart(SCHEDULE.원서_접수.format('YYYY년 MM월 DD일 (ddd) HH:mm'));
+    setApplicationStart(
+      dayjs('2025-12-06T00:00:00+09:00').format('YYYY년 MM월 DD일 (ddd) HH:mm')
+    );
     setApplicationEnd(SCHEDULE.원서_접수_마감.format('YYYY년 MM월 DD일 (ddd) HH:mm'));
   }, []);
 

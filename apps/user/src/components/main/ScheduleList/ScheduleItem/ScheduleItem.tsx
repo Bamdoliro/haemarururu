@@ -13,8 +13,8 @@ dayjs.extend(utc);
 interface ScheduleItemProps {
   title: string;
   date: string;
-  startTime: string | Dayjs;
-  endTime: string | Dayjs;
+  startTime: Dayjs;
+  endTime: Dayjs;
 }
 
 const ScheduleItem = ({ title, date, startTime, endTime }: ScheduleItemProps) => {

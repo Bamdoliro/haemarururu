@@ -13,10 +13,10 @@ const ScheduleList = () => {
       id: 1,
       title: '인터넷 원서접수',
       date: formatScheduleDate(
-        ['2025-12-06T00:00:00+09:00', SCHEDULE.원서_접수_마감],
+        [dayjs('2025-12-06T00:00:00+09:00'), SCHEDULE.원서_접수_마감],
         'FORM'
       ),
-      startTime: '2025-12-06T00:00:00+09:00',
+      startTime: dayjs('2025-12-06T00:00:00+09:00'),
       endTime: SCHEDULE.원서_접수_마감,
     },
     {

@@ -6,24 +6,35 @@ import { styled } from 'styled-components';
 import { useRouter } from 'next/navigation';
 
 interface BlockedSignUpModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  close: () => void;
+  token: string | null;
+  isExpired?: boolean;
 }
 
-const BlockedSignUpModal = ({ isOpen, onClose }: BlockedSignUpModalProps) => {
+const BlockedSignUpModal = ({ close, token, isExpired }: BlockedSignUpModalProps) => {
   const router = useRouter();
 
   const handleClose = () => {
-    onClose();
+    close();
     router.push('/');
   };
 
+  const getTitle = () => {
+    if (isExpired || token) return '다시 로그인 해주세요.';
+    return '원서 접수 기간이 아닙니다.';
+  };
+
+  const getMessage = () => {
+    if (isExpired || token) return '로그인상태에서 회원가입 할 수 없습니다.';
+    return '아직 원서 접수 기간이 아닙니다.\n원서 접수 기간에 다시 시도해 주세요.';
+  };
+
   return (
-    <BlurBackground isOpen={isOpen}>
-      <StyledFairQuestionModal>
+    <BlurBackground>
+      <StyledBlockedSignUpModal>
         <Column gap={20}>
           <Row justifyContent="space-between">
-            <Text fontType="H2">원서 접수 기간이 아닙니다.</Text>
+            <Text fontType="H2">{getTitle()}</Text>
             <IconClose
               width={36}
               height={36}
@@ -33,38 +44,33 @@ const BlockedSignUpModal = ({ isOpen, onClose }: BlockedSignUpModalProps) => {
             />
           </Row>
           <Underline />
-          <QuestionText>
-            아직 원서 접수 기간이 아닙니다.
-            <br />
-            원서 접수 기간에 다시 시도해 주세요.
-          </QuestionText>
+          <ContentText>{getMessage()}</ContentText>
         </Column>
         <Row justifyContent="flex-end">
           <Button size="SMALL" styleType="SECONDARY" width={60} onClick={handleClose}>
             닫기
           </Button>
         </Row>
-      </StyledFairQuestionModal>
+      </StyledBlockedSignUpModal>
     </BlurBackground>
   );
 };
 
 export default BlockedSignUpModal;
 
-const BlurBackground = styled.div<{ isOpen: boolean }>`
+const BlurBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  ${flex({ alignItems: 'center', justifyContent: 'center' })}
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 `;
 
-const StyledFairQuestionModal = styled.div`
+const StyledBlockedSignUpModal = styled.div`
   ${flex({
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -72,7 +78,6 @@ const StyledFairQuestionModal = styled.div`
   width: 600px;
   padding: 36px;
   min-height: 350px;
-
   border-radius: 16px;
   background: ${color.white};
 `;
@@ -83,7 +88,7 @@ const Underline = styled.div`
   border-bottom: 1px solid ${color.gray200};
 `;
 
-const QuestionText = styled.div`
+const ContentText = styled.div`
   width: 100%;
   max-height: 200px;
   white-space: pre-wrap;
