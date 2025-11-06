@@ -5,17 +5,17 @@ import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
-import { useMemo } from 'react';
+/*import { useMemo } from 'react';
 import dayjs from 'dayjs';
 import { Storage } from '@/apis/storage/storage';
 import { TOKEN } from '@/constants/common/constants';
-import { jwtDecode } from 'jwt-decode';
-import useBlockedSignUp from '@/hooks/useBlockedSignUp';
+import { jwtDecode } from 'jwt-decode';*/
+//import useBlockedSignUp from '@/hooks/useBlockedSignUp';
 
 const SignUp = () => {
-  const token = Storage.getItem(TOKEN.ACCESS) || undefined;
+  //const token = Storage.getItem(TOKEN.ACCESS) || undefined;
 
-  const { isValid, isExpired, isBeforePeriod } = useMemo(() => {
+/*  const { isValid, isExpired, isBeforePeriod } = useMemo(() => {
     const now = dayjs();
     const isBeforePeriod = now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
 
@@ -50,7 +50,7 @@ const SignUp = () => {
     content: isExpired
       ? '로그인이 만료되었습니다.\n다시 로그인해 주세요.'
       : '아직 원서 접수 기간이 아닙니다.\n원서 접수 기간에 다시 시도해 주세요.',
-  });
+  });*/
 
   return (
     <AppLayout backgroundColor={color.gray100}>

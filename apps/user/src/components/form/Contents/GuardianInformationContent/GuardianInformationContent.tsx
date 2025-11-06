@@ -45,21 +45,11 @@ const GuardianInformationContent = () => {
             label="학생과의 관계"
             name="relation"
             placeholder="예) 부, 모"
-            width="100%"
+            width="50%"
             value={form.parent.relation}
             onChange={onFieldChange}
             isError={!!errors.relation?.length}
             errorMessage={errors.relation ? errors.relation[0] : ''}
-          />
-          <Input
-            label="환불계좌"
-            name="account"
-            placeholder="환불계좌를 입력해주세요."
-            width="100%"
-            value={form.parent.account}
-            onChange={onFieldChange}
-            isError={!!errors.account?.length}
-            errorMessage={errors.account ? errors.account[0] : ''}
           />
         </Row>
         <ButtonInput
@@ -93,6 +83,40 @@ const GuardianInformationContent = () => {
             readOnly
             value={form.parent.zoneCode}
             onChange={onFieldChange}
+          />
+        </Row>
+        <Row gap={48}>
+          <Input
+            label="환불계좌"
+            name="account"
+            placeholder="환불계좌를 입력해주세요."
+            width="100%"
+            value={form.parent.account}
+            onChange={onFieldChange}
+            isError={!!errors.account?.length}
+            errorMessage={errors.account ? errors.account[0] : ''}
+          />
+        </Row>
+        <Row gap={48}>
+          <Input
+            name="bank"
+            label="은행"
+            placeholder="은행을 입력해주세요"
+            width="100%"
+            value={form.parent.bank}
+            onChange={onFieldChange}
+            isError={!!errors.bank?.length}
+            errorMessage={errors.bank ? errors.bank[0] : ''}
+          />
+          <Input
+            name="owner"
+            label="예금주명"
+            placeholder="예금주명을 입력해주세요."
+            width="100%"
+            value={form.parent.owner}
+            onChange={onFieldChange}
+            isError={!!errors.owner?.length}
+            errorMessage={errors.owner ? errors.owner[0] : ''}
           />
         </Row>
       </Column>
