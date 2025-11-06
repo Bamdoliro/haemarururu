@@ -80,6 +80,8 @@ export interface Parent {
   address: string;
   detailAddress: string;
   account: string;
+  bank: string;
+  owner: string;
 }
 
 export interface Education {
