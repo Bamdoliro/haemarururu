@@ -14,6 +14,7 @@ import { WithdrawalModal } from '@/components/withdrawal';
 import useLoginGuard from '@/hooks/useLoginGuard';
 
 const Withdrawal = () => {
+  useLoginGuard();
 
   const overlay = useOverlay();
   const { handleMoveMain } = useCTAButton();
