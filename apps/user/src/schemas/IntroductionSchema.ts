@@ -48,6 +48,6 @@ export const IntroductionSchema = z.object({
       message: '본인의 인성관련 개인적 경험은 500자 이내(공백 제외)로 작성해주세요.',
     })
     .refine(forbidWords, (value) => ({
-      message: `'${getForbiddenWord(value)}'를 포함할 수 없습니다.11`,
+      message: `'${getForbiddenWord(value)}'를 포함할 수 없습니다.`,
     })),
 });
