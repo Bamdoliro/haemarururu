@@ -8,11 +8,11 @@ interface FairTableProps {
 }
 
 const FairTable = ({ dataList }: FairTableProps) => {
-  const attendeeIds = dataList?.map(({ id }) => id) ?? [];
+  const attendeeId = dataList?.map(({ id }) => id) ?? [];
 
   return (
     <Column gap={12}>
-      <FairTableHeader attendeeIds={attendeeIds} />
+      <FairTableHeader attendeeId={attendeeId} />
       {dataList?.map(
         ({ id, schoolName, name, type, phoneNumber, headcount, question }) => (
           <FairTableItem
