@@ -7,11 +7,12 @@ import { color } from '@maru/design-system';
 interface Props {
   id: number;
   subject: string;
+  isError?: boolean[];
   score: number | null;
   isLast: boolean;
 }
 
-const GEDCalculatorItem = ({ id, subject, score, isLast }: Props) => {
+const GEDCalculatorItem = ({ id, subject, score, isError = [], isLast }: Props) => {
   const { handleGEDSubjectChange } = useInput(id);
 
   return (
@@ -29,6 +30,7 @@ const GEDCalculatorItem = ({ id, subject, score, isLast }: Props) => {
           value={score ?? ''}
           name="score"
           onChange={handleGEDSubjectChange}
+          isError={score === null && isError[id]}
           placeholder="0"
         />
       </Td>

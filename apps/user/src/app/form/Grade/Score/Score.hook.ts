@@ -6,6 +6,7 @@ import {
   useSetFormStepStore,
   useSubjectListValueStore,
   useNewGEDSubjectListValueStore,
+  useGEDSubjectListValueStore,
 } from '@/stores';
 import { useState } from 'react';
 import { useFormStep } from '@/utils';
@@ -15,6 +16,7 @@ export const useCTAButton = () => {
   const subjectList = useSubjectListValueStore();
   const newSubjectList = useNewSubjectListValueStore();
   const newGEDSubjectList = useNewGEDSubjectListValueStore();
+  const GEDSubjectList = useGEDSubjectListValueStore();
   const SUBJECT_OPTIONS = ['도덕', '기술가정', '음악', '체육', '미술'];
   const { run: FormStep } = useFormStep();
   const setFormStep = useSetFormStepStore();
@@ -29,6 +31,8 @@ export const useCTAButton = () => {
     const type = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
 
     if (type) {
+      const GEDErrors = GEDSubjectList.map((subject) => subject.score === null);
+
       const newGEDErrors = newGEDSubjectList.map(
         (subject) =>
           !subject.subjectName ||
@@ -37,11 +41,17 @@ export const useCTAButton = () => {
           !SUBJECT_OPTIONS.includes(subject.subjectName)
       );
 
+      setSubjectError(GEDErrors);
       setNewGEDSubjectError(newGEDErrors);
 
-      const hasGEDError = newGEDErrors.some((error) => error);
+      const hasGEDError =
+        GEDErrors.some((error) => error) || newGEDErrors.some((error) => error);
       if (hasGEDError) {
-        alert('올바른 과목을 선택해주세요.');
+        if (GEDErrors.some((error) => error)) {
+          alert('점수를 입력해주세요.');
+        } else {
+          alert('올바른 과목을 선택해주세요.');
+        }
         return false;
       }
       return true;
