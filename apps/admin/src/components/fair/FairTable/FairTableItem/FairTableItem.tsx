@@ -42,22 +42,25 @@ const FairTableItem = ({
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
-    setDeleteFairAttendee((prev) => {
-      const newState = { ...prev };
-      if (checked) {
-        newState[id] = true;
-      } else {
+    if (checked) {
+      setDeleteFairAttendee((prev) => ({ ...prev, [id]: true }));
+    } else {
+      setDeleteFairAttendee((prev) => {
+        const newState = { ...prev };
         delete newState[id];
-      }
-      return newState;
-    });
+        return newState;
+      });
+    }
   };
 
   return (
     <TableItem>
       <Row gap={48}>
         {isDeleteFairAttendeeEditing && (
-          <CheckBox checked={!!deleteFairAttendee[id]} onChange={handleCheckboxChange} />
+          <CheckBox
+            checked={deleteFairAttendee[id] || false}
+            onChange={handleCheckboxChange}
+          />
         )}
         <Text fontType="p2" width={60}>
           {name}
