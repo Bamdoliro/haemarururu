@@ -8,4 +8,8 @@ export interface GetFairDetailRes {
   data: FairDetailData;
 }
 
+export interface PatchFairAttendeeResultReq {
+  attendeeList: { attendeeId: number }[];
+}
+
 export type PutFairReq = Fair;
