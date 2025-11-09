@@ -1,10 +1,42 @@
 import TableHeader from '@/components/common/TableHeader/TableHeader';
-import { Row, Text } from '@maru/ui';
+import { CheckBox, Row, Text } from '@maru/ui';
+import { useDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
+import { useIsDeleteFairAttendeeEditingValueStore } from '@/store/fair/isDeleteFairParticipantEditing';
 
-const FairTableHeader = () => {
+interface FairTableHeaderProps {
+  attendeeIds: number[];
+}
+
+const FairTableHeader = ({ attendeeIds }: FairTableHeaderProps) => {
+  const isDeleteFairAttendeeEditing = useIsDeleteFairAttendeeEditingValueStore();
+  const [deleteFairAttendee, setDeleteFairAttendee] = useDeleteFairAttendeeStore();
+
+  const allSelected =
+    attendeeIds.length > 0 && attendeeIds.every((id) => deleteFairAttendee[id]);
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setDeleteFairAttendee((prev) => {
+      const newState = { ...prev };
+      if (checked) {
+        attendeeIds.forEach((id) => {
+          newState[id] = true;
+        });
+      } else {
+        attendeeIds.forEach((id) => {
+          delete newState[id];
+        });
+      }
+      return newState;
+    });
+  };
+
   return (
     <TableHeader>
       <Row gap={48}>
+        {isDeleteFairAttendeeEditing && (
+          <CheckBox checked={allSelected} onChange={handleCheckboxChange} />
+        )}
         <Text fontType="p2" width={60}>
           이름
         </Text>
