@@ -36,6 +36,7 @@ export { default as IconGrayCircle } from './src/IconGrayCircle';
 export { default as IconPhone } from './src/IconPhone';
 export { default as IconPaid } from './src/IconPaid';
 export { default as IconClip } from './src/IconClip';
+export { default as IconDelete } from './src/IconDelete';
 export { default as IconRoundBamdoliro } from './src/IconRoundBamdoliro';
 export { default as IconRoundInstagram } from './src/IconRoundInstagram';
 export { default as IconLoader } from './src/IconLoader';

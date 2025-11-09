@@ -2,14 +2,14 @@ import type { FairStatus, StatusType } from '@/types/fair/client';
 import { flex } from '@maru/utils';
 import { color } from '@maru/design-system';
 import { styled } from 'styled-components';
-import { Column, Row, Text } from '@maru/ui';
+import { Column, Row, Text, Button } from '@maru/ui';
 import { FunctionDropdown } from '@/components/common';
-import { IconEditDocument, IconUpload } from '@maru/icon';
+import { IconDelete, IconEditDocument, IconUpload } from '@maru/icon';
 import FairTable from '../FairTable/FairTable';
 import { useFairDetailQuery } from '@/services/fair/queries';
 import { formatDate } from '@/utils';
 import { FAIR_ITEM_STATUS, FAIR_STATUS } from '@/constants/fair/constant';
-import { useExportExcelAction } from './fairDetail.hooks';
+import { useDeleteFairAttendeeActions, useExportExcelAction } from './fairDetail.hooks';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/common/constant';
 
@@ -21,6 +21,12 @@ const FairDetail = ({ id }: FairDetailProps) => {
   const { data: FairDetailData } = useFairDetailQuery(id);
 
   const { handleExportExcelButtonClick } = useExportExcelAction(id);
+  const {
+    isDeleteFairAttendeeEditing,
+    setIsDeleteFairAttendeeEditingTrue,
+    setIsDeleteFairAttendeeEditingFalse,
+    handleDeleteFairAttendeeEditCompleteButtonClick,
+  } = useDeleteFairAttendeeActions(id);
   const router = useRouter();
 
   const statusType: StatusType =
@@ -46,24 +52,44 @@ const FairDetail = ({ id }: FairDetailProps) => {
             입학전형 설명회 조회
           </Text>
         </Column>
-        <FunctionDropdown
-          data={[
-            {
-              icon: <IconUpload color="gray600" width={24} height={24} />,
-              label: '명단 엑셀로 내보내기',
-              value: 'excel',
-              onClick: () => {
-                handleExportExcelButtonClick(Fairtitle);
+        {isDeleteFairAttendeeEditing ? (
+          <Row gap={12}>
+            <Button styleType="SECONDARY" onClick={setIsDeleteFairAttendeeEditingFalse}>
+              취소
+            </Button>
+            <Button
+              styleType="PRIMARY"
+              onClick={handleDeleteFairAttendeeEditCompleteButtonClick}
+            >
+              완료
+            </Button>
+          </Row>
+        ) : (
+          <FunctionDropdown
+            data={[
+              {
+                icon: <IconUpload color="gray600" width={24} height={24} />,
+                label: '명단 엑셀로 내보내기',
+                value: 'excel',
+                onClick: () => {
+                  handleExportExcelButtonClick(Fairtitle);
+                },
               },
-            },
-            {
-              icon: <IconEditDocument width={24} height={24} />,
-              label: '입학설명회 수정하기',
-              value: 'fair_edit',
-              onClick: handleFairEditButtonClick,
-            },
-          ]}
-        />
+              {
+                icon: <IconEditDocument width={24} height={24} />,
+                label: '입학설명회 수정하기',
+                value: 'fair_edit',
+                onClick: handleFairEditButtonClick,
+              },
+              {
+                icon: <IconDelete width={24} height={24} />,
+                label: '인원 삭제하기',
+                value: 'fair_delete',
+                onClick: setIsDeleteFairAttendeeEditingTrue,
+              },
+            ]}
+          />
+        )}
       </Row>
       <FairTable dataList={FairAttendeeList ?? []} />
     </StyledFairDetail>

@@ -1,4 +1,11 @@
 import { useFairExportExcelQuery } from '@/services/fair/queries';
+import { useIsDeleteFairAttendeeEditingStore } from '@/store/fair/isDeleteFairParticipantEditing';
+import {
+  useDeleteFairAttendeeValueStore,
+  useSetDeleteFairAttendeeStore,
+} from '@/store/fair/deleteFairAttendee';
+import { useDeleteFairAttendeeMutation } from '@/services/fair/mutations';
+import { toast } from 'react-toastify';
 
 export const useExportExcelAction = (id: number) => {
   const { data: exportExcelData } = useFairExportExcelQuery(id);
@@ -18,4 +25,41 @@ export const useExportExcelAction = (id: number) => {
   };
 
   return { handleExportExcelButtonClick };
+};
+
+export const useDeleteFairAttendeeActions = (fairId: number) => {
+  const [isDeleteFairAttendeeEditing, setIsDeleteFairAttendeeEditing] =
+    useIsDeleteFairAttendeeEditingStore();
+  const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
+  const fairAttendeeResult = useDeleteFairAttendeeValueStore();
+
+  const setIsDeleteFairAttendeeEditingTrue = () => setIsDeleteFairAttendeeEditing(true);
+  const setIsDeleteFairAttendeeEditingFalse = () => {
+    setIsDeleteFairAttendeeEditing(false);
+    setDeleteFairAttendee({});
+  };
+
+  const { deleteFairAttendeeResult } = useDeleteFairAttendeeMutation(fairId);
+
+  const handleDeleteFairAttendeeEditCompleteButtonClick = () => {
+    const attendeeList = Object.entries(fairAttendeeResult)
+      .filter(([, isSelected]) => isSelected)
+      .map(([attendeeId]) => ({
+        attendeeId: Number(attendeeId),
+      }));
+
+    if (attendeeList.length === 0) {
+      toast.error('삭제할 인원을 선택해주세요.');
+      return;
+    }
+
+    deleteFairAttendeeResult({ attendeeList });
+  };
+
+  return {
+    isDeleteFairAttendeeEditing,
+    setIsDeleteFairAttendeeEditingTrue,
+    setIsDeleteFairAttendeeEditingFalse,
+    handleDeleteFairAttendeeEditCompleteButtonClick,
+  };
 };
