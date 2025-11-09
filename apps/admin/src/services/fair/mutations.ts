@@ -1,11 +1,18 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { FairApiRequestBody } from '@/components/fair/FairForm/fair.hooks';
-import { deleteFair, postFairReq, putFair } from '@/services/fair/api';
+import {
+  deleteFair,
+  deleteFairAttendee,
+  postFairReq,
+  putFair,
+} from '@/services/fair/api';
 import { useApiError } from '@/hooks';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constants/common/constant';
-import type { PutFairReq } from '@/types/fair/remote';
+import { KEY, ROUTES } from '@/constants/common/constant';
+import type { PatchFairAttendeeResultReq, PutFairReq } from '@/types/fair/remote';
+import { useSetIsDeleteFairAttendeeEditingStore } from '@/store/fair/isDeleteFairParticipantEditing';
+import { useSetDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
 
 export const useCreateFairMutation = () => {
   const { handleError } = useApiError();
@@ -57,4 +64,28 @@ export const useDeleteFairMutation = (fairId: number) => {
   });
 
   return { deleteFairMutate, ...restMutation };
+};
+
+export const useDeleteFairAttendeeMutation = (fairId: number) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const setIsDeleteFairAttendeeEditing = useSetIsDeleteFairAttendeeEditingStore();
+  const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
+
+  const { mutate: deleteFairAttendeeResult, ...restMutation } = useMutation({
+    mutationFn: (data: PatchFairAttendeeResultReq) =>
+      deleteFairAttendee(fairId, data.attendeeList),
+    onSuccess: () => {
+      toast('참석인원이 삭제되었습니다.', {
+        type: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: [KEY.FAIR_DETAIL, fairId] });
+      setIsDeleteFairAttendeeEditing(false);
+      setDeleteFairAttendee({});
+    },
+    onError: handleError,
+  });
+
+  return { deleteFairAttendeeResult, ...restMutation };
 };

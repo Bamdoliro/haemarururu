@@ -32,6 +32,7 @@ export interface FairData {
 }
 
 export interface AttendeeData {
+  id: number;
   schoolName: string;
   name: string;
   type: string;
