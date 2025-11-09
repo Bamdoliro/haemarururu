@@ -30,6 +30,14 @@ const CellInput = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newValue = e.target.value;
 
+    if (newValue === '') {
+      if (onChange) {
+        e.target.value = '';
+        onChange(e);
+      }
+      return;
+    }
+
     if (!isNaN(Number(newValue)) && Number(newValue) >= 0) {
       if (maxLength && newValue.length > maxLength) {
         newValue = newValue.slice(0, maxLength);
