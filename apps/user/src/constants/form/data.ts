@@ -9,6 +9,7 @@ export const FORM: Form = {
     registrationNumber: '',
     gender: 'MALE',
     profile: '',
+    email: '',
   },
   parent: {
     name: '',

@@ -69,6 +69,7 @@ export interface User {
   phoneNumber: string;
   registrationNumber: string;
   gender: 'MALE';
+  email: string;
   profile: string;
 }
 
