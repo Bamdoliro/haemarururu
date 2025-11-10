@@ -27,7 +27,7 @@ const FinalFormTable = () => {
           items={[
             { name: '공통 제출', value: 'COMMON' },
             { name: '기회 균등', value: 'EQUAL' },
-            { name: '사회 통합', value: 'MANIFOLD' },
+            { name: '사회 다양성', value: 'MANIFOLD' },
             { name: '정원 외', value: 'OUTSIDE' },
           ]}
           value={final}

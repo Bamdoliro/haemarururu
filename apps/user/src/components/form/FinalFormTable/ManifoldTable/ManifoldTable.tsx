@@ -33,7 +33,7 @@ const ManifoldTable = () => {
             }}
           >
             <Text fontType="p2" color={color.haeMaruDefault}>
-              <li>사회통합전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
+              <li>사회다양성전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
             </Text>
           </Td>
         </Tr>
@@ -447,4 +447,8 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   background-color: ${color.white};
   color: ${color.gray900};
   ${font.p2}
+
+  li {
+    margin: 0 16px;
+  }
 `;
