@@ -2,6 +2,7 @@ import TableHeader from '@/components/common/TableHeader/TableHeader';
 import { CheckBox, Row, Text } from '@maru/ui';
 import { useDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
 import { useIsDeleteFairAttendeeEditingValueStore } from '@/store/fair/isDeleteFairParticipantEditing';
+import { useMemo } from 'react';
 
 interface FairTableHeaderProps {
   attendeeId: number[];
@@ -11,24 +12,34 @@ const FairTableHeader = ({ attendeeId }: FairTableHeaderProps) => {
   const isDeleteFairAttendeeEditing = useIsDeleteFairAttendeeEditingValueStore();
   const [deleteFairAttendee, setDeleteFairAttendee] = useDeleteFairAttendeeStore();
 
-  const allSelected =
-    attendeeId.length > 0 && attendeeId.every((id) => deleteFairAttendee[id]);
+  const selectedCount = useMemo(
+    () => attendeeId.filter((id) => deleteFairAttendee[id]).length,
+    [attendeeId, deleteFairAttendee]
+  );
+
+  const allSelected = attendeeId.length > 0 && selectedCount === attendeeId.length;
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const checked = e.target.checked;
-    setDeleteFairAttendee((prev) => {
-      const newState = { ...prev };
-      if (checked) {
+
+    if (checked) {
+      setDeleteFairAttendee((prev) => {
+        const newState = { ...prev };
         attendeeId.forEach((id) => {
           newState[id] = true;
         });
-      } else {
+        return newState;
+      });
+    } else {
+      setDeleteFairAttendee((prev) => {
+        const newState = { ...prev };
         attendeeId.forEach((id) => {
           delete newState[id];
         });
-      }
-      return newState;
-    });
+        return newState;
+      });
+    }
   };
 
   return (

@@ -41,6 +41,7 @@ const FairTableItem = ({
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const checked = e.target.checked;
     if (checked) {
       setDeleteFairAttendee((prev) => ({ ...prev, [id]: true }));
@@ -58,7 +59,7 @@ const FairTableItem = ({
       <Row gap={48}>
         {isDeleteFairAttendeeEditing && (
           <CheckBox
-            checked={deleteFairAttendee[id] || false}
+            checked={!!deleteFairAttendee[id]}
             onChange={handleCheckboxChange}
           />
         )}
