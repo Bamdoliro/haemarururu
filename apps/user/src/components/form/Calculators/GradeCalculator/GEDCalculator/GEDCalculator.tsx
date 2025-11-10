@@ -8,7 +8,11 @@ import {
 } from '@/stores';
 import GEDCalculatorItem from './GEDCalculatorItem/GEDCalculatorItem';
 
-const GEDCalculator = () => {
+interface GEDCalculatorProps {
+  subjectError?: boolean[];
+}
+
+const GEDCalculator = ({ subjectError }: GEDCalculatorProps) => {
   const newGEDSubjectList = useNewGEDSubjectListValueStore();
   const GEDSubjectList = useGEDSubjectListValueStore();
   const setForm = useSetFormStore();
@@ -34,6 +38,7 @@ const GEDCalculator = () => {
             id={id}
             subject={subjectName}
             score={score}
+            isError={subjectError}
             isLast={isLast}
           />
         );
