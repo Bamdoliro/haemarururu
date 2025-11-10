@@ -48,8 +48,7 @@ const OutsideTable = () => {
             <li>출입국 사실 증명서(학생, 부, 모 모두) 1부</li>
             <li>전 가족이 등재된 주민등록등본 1부</li>
             <br />
-            군사분계선 이북지역에서 9년 이상이 학교교육을 이수한 자
-            <li>심사원서 1부</li>
+            군사분계선 이북지역에서 9년 이상이 학교교육을 이수한 자<li>심사원서 1부</li>
             <li>북한이탈주민 등록확인서 1부</li>
             <li>학력확인서 1부</li>
             <li>교육지원대상자 증명서 1부</li>
@@ -94,7 +93,7 @@ const OutsideTable = () => {
           </Td>
         </Tr>
         <Tr>
-          <Td width={120}  height={340}>
+          <Td width={120} height={340}>
             <Text fontType="p2" color={color.gray900} textAlign="center">
               초•중등
               <br />

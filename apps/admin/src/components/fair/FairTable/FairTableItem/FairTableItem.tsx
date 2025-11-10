@@ -58,10 +58,7 @@ const FairTableItem = ({
     <TableItem>
       <Row gap={48}>
         {isDeleteFairAttendeeEditing && (
-          <CheckBox
-            checked={!!deleteFairAttendee[id]}
-            onChange={handleCheckboxChange}
-          />
+          <CheckBox checked={!!deleteFairAttendee[id]} onChange={handleCheckboxChange} />
         )}
         <Text fontType="p2" width={60}>
           {name}

@@ -31,5 +31,5 @@ export const ApplicantSchema = z.object({
     .string({ message: '이메일을 입력해주세요.' })
     .trim()
     .nonempty('이메일을 입력해주세요.')
-    .email('올바른 이메일을 입력해주세요.')
+    .email('올바른 이메일을 입력해주세요.'),
 });
