@@ -118,6 +118,7 @@ export interface FormDetail {
 export interface UserInfo {
   identificationPictureUri: string;
   name: string;
+  email: string;
   phoneNumber: string;
   registrationNumber: string;
 }

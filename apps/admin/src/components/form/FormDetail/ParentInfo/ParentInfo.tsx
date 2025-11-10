@@ -24,7 +24,7 @@ const ParentInfo = ({ id }: ParentInfoProps) => {
       label: '환불계좌',
       data: formatAccount(
         formDetailData.parent.account,
-        formDetailData.parent.bank,
+        formDetailData.parent.owner,
         formDetailData.parent.bank
       ),
     },

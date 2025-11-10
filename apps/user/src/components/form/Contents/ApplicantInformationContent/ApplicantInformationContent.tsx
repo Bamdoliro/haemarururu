@@ -166,6 +166,16 @@ const ApplicantInformationContent = () => {
             isError={!!errors.phoneNumber?.length}
             errorMessage={errors.phoneNumber ? errors.phoneNumber[0] : ''}
           />
+          <Input
+            label="이메일"
+            value={form.applicant.email}
+            onChange={onFieldChange}
+            name="email"
+            placeholder="이메일을 입력해주세요."
+            width="100%"
+            isError={!!errors.email?.length}
+            errorMessage={errors.email ? errors.email[0] : ''}
+          />
         </Column>
       </Row>
       <FormController onNext={handleNextStep} step="지원자정보" />
