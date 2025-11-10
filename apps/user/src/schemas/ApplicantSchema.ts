@@ -18,7 +18,7 @@ export const ApplicantSchema = z.object({
     .nonempty('뒷자리를 입력해 주세요.')
     .regex(/^\d{7}$/, '7자리를 입력해주세요.')
     .refine(
-      (value) => !['2', '4'].includes(value.charAt(0)),
+      (value) => ['1', '3'].includes(value.charAt(0)),
       '주민등록번호를 다시 확인해주세요'
     ),
   phoneNumber: z
