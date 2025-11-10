@@ -1,4 +1,4 @@
-export class Storage {
+ export class Storage {
   static getItem(key: string) {
     return typeof window !== 'undefined' ? localStorage.getItem(key) : null;
   }
