@@ -47,24 +47,38 @@ export const useApplicantForm = () => {
       prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
     );
   }, [profileUrl?.downloadUrl, setForm]);
+  useEffect(() => {
+    const storedRRN = form.applicant?.registrationNumber ?? '';
+    if (!storedRRN) return;
+
+    const d = digits(storedRRN);
+    const front = d.slice(0, 6);
+    const back = d.slice(6);
+
+    if (front && back && (front !== RRNFront || back !== RRNBack)) {
+      setRRNFront(front);
+      setRRNBack(back);
+    }
+  }, [form.applicant?.registrationNumber]);
 
   useEffect(() => {
     if (isInitialized.current) return;
 
     const saved = saveFormQuery?.applicant;
-    const d = digits(
-      saved?.registrationNumber ?? form.applicant.registrationNumber ?? ''
-    );
+    const storedRRN = form.applicant?.registrationNumber ?? '';
+    const d = digits(saved?.registrationNumber ?? storedRRN ?? '');
     const front = d.slice(0, 6);
-    const back = d.slice(6, 13);
+    const back = d.slice(6);
 
     const name = saved?.name || form.applicant?.name || userData.name || '';
     const phone = digits(
       saved?.phoneNumber || form.applicant?.phoneNumber || userData.phoneNumber || ''
     );
 
-    setRRNFront(front);
-    setRRNBack(back);
+    if (front || back) {
+      setRRNFront(front);
+      setRRNBack(back);
+    }
 
     setForm((prev) => ({
       ...prev,
@@ -79,7 +93,7 @@ export const useApplicantForm = () => {
     }));
 
     isInitialized.current = true;
-  }, [saveFormQuery, setForm, userData, form.applicant]);
+  }, [saveFormQuery, setForm, userData]);
 
   const formatter: Record<string, (value: string) => string> = {
     phoneNumber: (value) => digits(value),
