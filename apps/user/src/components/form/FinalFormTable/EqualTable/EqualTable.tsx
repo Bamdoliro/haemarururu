@@ -215,4 +215,7 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   background-color: ${color.white};
   color: ${color.gray900};
   ${font.p2}
+  li {
+    margin: 0 16px;
+  }
 `;

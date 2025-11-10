@@ -19,22 +19,27 @@ const ManifoldTable = () => {
       </thead>
       <tbody>
         <Tr>
-          <Td width={120} height={66}>
+          <Td width={120} height={202}>
             공통
           </Td>
           <Td
             width={696}
-            height={66}
+            height={202}
             style={{
               display: 'flex',
+              gap: '6px',
               flexDirection: 'column',
               alignItems: 'flex-start',
               padding: '20px 8px',
             }}
           >
             <Text fontType="p2" color={color.haeMaruDefault}>
-              <li>사회통합전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
+              <li>사회다양성전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
             </Text>
+            <li>소득 8분위(기준 중위 소득 160%) 이하 증빙서류</li>
+            <li>1) 최근 10개월 간 건강보험료 납부 확인서 또는 영수증 (부,모 모두) 1부</li>
+            <li>2) 건강보험증 사본 또는 건강보험 자격확인서 1부</li>
+            <li>3) 건강보험자격 득실확인서 (부,모 모두) 1부</li>
           </Td>
         </Tr>
         <Tr>
@@ -447,4 +452,8 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   background-color: ${color.white};
   color: ${color.gray900};
   ${font.p2}
+
+  li {
+    margin: 0 16px;
+  }
 `;
