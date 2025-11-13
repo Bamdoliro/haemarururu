@@ -1,4 +1,4 @@
-import { useGradeCaculation } from '@/hooks';
+import { useGradeCalculation } from '@/hooks';
 import type { GradeStep } from '@/types/form/client';
 import { Row, Td, Th } from '@maru/ui';
 import { styled } from 'styled-components';
@@ -8,7 +8,7 @@ interface GradePreviewProps {
 }
 
 const GradePreview = ({ location }: GradePreviewProps) => {
-  const { regularScore, attendanceScore, regularTotalScore } = useGradeCaculation();
+  const { regularScore, attendanceScore, regularTotalScore } = useGradeCalculation();
 
   return (
     <StyledGradePreview>
