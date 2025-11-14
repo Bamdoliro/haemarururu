@@ -2,23 +2,31 @@ import type { FairStatus, StatusType } from '@/types/fair/client';
 import { flex } from '@maru/utils';
 import { color } from '@maru/design-system';
 import { styled } from 'styled-components';
-import { Column, Row, Text, Button } from '@maru/ui';
+import { Column, Row, Text, Button, Dropdown } from '@maru/ui';
 import { FunctionDropdown } from '@/components/common';
 import { IconDelete, IconEditDocument, IconUpload } from '@maru/icon';
 import FairTable from '../FairTable/FairTable';
 import { useFairDetailQuery } from '@/services/fair/queries';
 import { formatDate } from '@/utils';
-import { FAIR_ITEM_STATUS, FAIR_STATUS } from '@/constants/fair/constant';
-import { useDeleteFairAttendeeActions, useExportExcelAction } from './fairDetail.hooks';
+import { FAIR_ITEM_STATUS, FAIR_SORT_TYPE, FAIR_STATUS } from '@/constants/fair/constant';
+import {
+  useDeleteFairAttendeeActions,
+  useExportExcelAction,
+  useFairPageState,
+} from './fairDetail.hooks';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/common/constant';
+import { useFairListSortingTypeValueStore } from '@/store/fair/fairSortType';
 
 interface FairDetailProps {
   id: number;
 }
 
 const FairDetail = ({ id }: FairDetailProps) => {
-  const { data: FairDetailData } = useFairDetailQuery(id);
+  const { handleCriteriaChange, getCriteriaDropdownValue } = useFairPageState();
+  const fairListSortingType = useFairListSortingTypeValueStore();
+
+  const { data: FairDetailData } = useFairDetailQuery(id, fairListSortingType.sort);
 
   const { handleExportExcelButtonClick } = useExportExcelAction(id);
   const {
@@ -41,17 +49,30 @@ const FairDetail = ({ id }: FairDetailProps) => {
 
   return FairDetailData ? (
     <StyledFairDetail>
-      <Row justifyContent="space-between">
-        <Column gap={4}>
-          <ItemStatusBox status={statusType}>
-            {FAIR_STATUS[FairDetailData.status as FairStatus]}
-          </ItemStatusBox>
-          <Text fontType="H1">
-            {Fairtitle}
-            <br />
-            입학전형 설명회 조회
-          </Text>
-        </Column>
+      <Column gap={4}>
+        <ItemStatusBox status={statusType}>
+          {FAIR_STATUS[FairDetailData.status as FairStatus]}
+        </ItemStatusBox>
+        <Text fontType="H1">
+          {Fairtitle}
+          <br />
+          입학전형 설명회 조회
+        </Text>
+      </Column>
+      <Row justifyContent="space-between" width="100%">
+        <Dropdown
+          data={[
+            { label: '초기화', value: 'none' },
+            { label: '이름 오름차순', value: 'name_asc' },
+            { label: '이름 내림차순', value: 'name_desc' },
+          ]}
+          size="SMALL"
+          width={160}
+          placeholder="정렬 기준"
+          value={getCriteriaDropdownValue('sort', FAIR_SORT_TYPE)}
+          onChange={handleCriteriaChange}
+          name="sort"
+        />
         {isDeleteFairAttendeeEditing ? (
           <Row gap={12}>
             <Button styleType="SECONDARY" onClick={setIsDeleteFairAttendeeEditingFalse}>

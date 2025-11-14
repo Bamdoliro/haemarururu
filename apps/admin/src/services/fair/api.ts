@@ -9,8 +9,12 @@ export const getFairList = async () => {
   return data;
 };
 
-export const getFairDetail = async (id: number) => {
-  const { data } = await maru.get<GetFairDetailRes>(`/fairs/${id}`, authorization());
+export const getFairDetail = async (id: number, sort?: string | null) => {
+  const params = sort ? { sort } : {};
+  const { data } = await maru.get<GetFairDetailRes>(`/fairs/${id}`, {
+    ...authorization(),
+    params,
+  });
 
   return data;
 };

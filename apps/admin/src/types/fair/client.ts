@@ -51,3 +51,11 @@ export interface FairDetailData {
   status: FairStatus;
   attendeeList: AttendeeData[];
 }
+
+export type FairListType = '모두 보기' | '이름 내림차순' | '이름 오름차순';
+
+export type FairSort = 'none' | 'name_asc' | 'name_desc';
+
+export interface FairListSortingType {
+  sort: FairSort | null;
+}
