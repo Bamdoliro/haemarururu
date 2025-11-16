@@ -63,3 +63,40 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
     handleDeleteFairAttendeeEditCompleteButtonClick,
   };
 };
+
+import {
+  useFairListSortingTypeStore,
+  useFairListTypeStore,
+} from '@/store/fair/fairSortType';
+
+export const useFairPageState = () => {
+  const [fairListType, setFairListType] = useFairListTypeStore();
+  const [fairListSortingType, setFairListSortingType] = useFairListSortingTypeStore();
+
+  const handleCriteriaChange = (value: string) => {
+    if (value === 'none') {
+      setFairListType('모두 보기');
+      setFairListSortingType({ sort: null });
+    } else if (value === 'name_asc') {
+      setFairListType('이름 오름차순');
+      setFairListSortingType({ sort: 'name_asc' });
+    } else if (value === 'name_desc') {
+      setFairListType('이름 내림차순');
+      setFairListSortingType({ sort: 'name_desc' });
+    }
+  };
+  const getCriteriaDropdownValue = (
+    _key: 'sort',
+    category: Record<string, string>
+  ): string | undefined => {
+    const sortValue = fairListSortingType.sort;
+    if (!sortValue) return undefined;
+    return category[sortValue];
+  };
+
+  return {
+    fairListType,
+    handleCriteriaChange,
+    getCriteriaDropdownValue,
+  };
+};
