@@ -10,17 +10,10 @@ const FormDownload = ({ onClick }: FormDownloadProps) => {
   return (
     <Column gap={36} alignItems="flex-start">
       <Text fontType="H1" color={color.gray900}>
-        원서 최종 제출
+        원서 제출
       </Text>
       <Text fontType="p2" color={color.gray900}>
         (공통,해당자)제출서류들은 스캔해서 하나의 PDF파일로 첨부해주시기 바랍니다.
-        <br />
-        사회통합전형 및 정원 외 전형 대상자 제출서류 중 각 지원 자격 증명서류는 우편으로
-        제출해야 합니다.
-        <br />
-        <Text fontType="p2" color={color.red}>
-          원서를 최종 제출했을 경우 재업로드는 불가능합니다.
-        </Text>
       </Text>
       <ExportFormButton onClick={onClick}>[ 작성한 원서(pdf) 다운로드 ]</ExportFormButton>
     </Column>

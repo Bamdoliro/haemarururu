@@ -112,7 +112,7 @@ const EqualTable = () => {
           >
             <li>
               자활근로자 확인서, 차상위 본인부담경감대상자 증명서,
-              장애인연금•장애수당•장애아 수당 대상자 확인서, 교육급여 수증자 증명서 중 1부
+              장애인연금•장애수당•장애아 수당 대상자 확인서, 교육급여 수급자 증명서 중 1부
             </li>
           </Td>
         </Tr>
@@ -216,6 +216,7 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   color: ${color.gray900};
   ${font.p2}
   li {
+    list-style-type: '- ';
     margin: 0 16px;
   }
 `;

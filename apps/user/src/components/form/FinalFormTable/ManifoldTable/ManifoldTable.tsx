@@ -34,7 +34,7 @@ const ManifoldTable = () => {
             }}
           >
             <Text fontType="p2" color={color.haeMaruDefault}>
-              <li>사회다양성전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
+              <li>사회전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
             </Text>
             <li>소득 8분위(기준 중위 소득 160%) 이하 증빙서류</li>
             <li>1) 최근 10개월 간 건강보험료 납부 확인서 또는 영수증 (부,모 모두) 1부</li>
@@ -164,7 +164,7 @@ const ManifoldTable = () => {
               padding: '20px 8px',
             }}
           >
-            <li>가족관계증명서 도는 제적등본 1부</li>
+            <li>가족관계증명서 또는 제적등본 1부</li>
             <li>주민등록등본 1부</li>
           </Td>
         </Tr>
@@ -455,5 +455,6 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
 
   li {
     margin: 0 16px;
+    list-style-type: '- ';
   }
 `;
