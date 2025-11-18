@@ -43,6 +43,7 @@ const SwitchButton = styled.button<{ $active: boolean }>`
   width: fit-content;
   border-radius: 8px;
   color: ${color.gray600};
+  white-space: nowrap;
 
   ${(props) =>
     props.$active &&
