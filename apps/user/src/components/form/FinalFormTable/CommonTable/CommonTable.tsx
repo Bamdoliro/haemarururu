@@ -66,7 +66,7 @@ const CommonTable = () => {
                 <li>
                   출결 기준일
                   <Text color={color.red} fontType="p2">
-                    {formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD')}
+                    {' (' + formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD') + ') '}
                   </Text>
                   까지 출결 사항이 반영되도록 마감하여 출력 (특기사항란에 기준일 기재)
                 </li>
@@ -75,7 +75,7 @@ const CommonTable = () => {
                 3. 자기소개서(본교 소정양식) 1부*
               </Text>
               <Text color={color.haeMaruDefault} fontType="p2">
-                4. 개인정보 수집 이용 및 제공동의 1부
+                4. 개인정보 수집 이용 및 제공동의서 1부
               </Text>
             </Column>
           </Td>
@@ -193,5 +193,8 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   li {
     list-style-type: '- ';
     margin: 0 16px;
+  }
+  & > div > div > li {
+    list-style-type: disc;
   }
 `;
