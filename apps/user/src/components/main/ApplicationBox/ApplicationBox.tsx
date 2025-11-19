@@ -17,7 +17,7 @@ const ApplicationBox = () => {
   };
 
   const dateList = fairDataList?.map((item) => formatMonthDay(item.start)) ?? [];
-  const nearestPlace = fairDataList?.[0]?.place;
+  const nearPlace = fairDataList?.[0]?.place;
 
   return (
     <StyledApplicationBox onClick={handleMoveFairPage}>
@@ -33,15 +33,11 @@ const ApplicationBox = () => {
           예정된 입학설명회가 없어요
         </Text>
       ) : (
-        <>
-          {nearestPlace && (
-            <Text fontType="p2" color={color.gray500}>
-              날짜: {dateList.join(', ')}
-              <br />
-              장소: {nearestPlace}
-            </Text>
-          )}
-        </>
+        <Text fontType="p2" color={color.gray500}>
+          날짜: {dateList.join(', ')}
+          <br />
+          장소: {nearPlace}
+        </Text>
       )}
     </StyledApplicationBox>
   );
