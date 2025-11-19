@@ -5,15 +5,19 @@ import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+import { useFairDataQuery } from '@/services/main/queries';
+import formatMonthDay from '@/utils/formatMonthDay';
 
 const ApplicationBox = () => {
-  const date = '9월 6일, 11월 29일';
-  const place = '본관 5층 대동관';
+  const { data: fairDataList } = useFairDataQuery();
   const router = useRouter();
 
   const handleMoveFairPage = () => {
     router.push(ROUTES.FAIR);
   };
+
+  const dateList = fairDataList?.map((item) => formatMonthDay(item.start)) ?? [];
+  const nearestPlace = fairDataList?.[0]?.place;
 
   return (
     <StyledApplicationBox onClick={handleMoveFairPage}>
@@ -23,10 +27,22 @@ const ApplicationBox = () => {
         </Text>
         <IconArrowOutward width={36} height={36} color={color.haeMaruDefault} />
       </Row>
-      <Text fontType="p2" color={color.gray500}>
-        일시: {date} <br />
-        장소: {place}
-      </Text>
+
+      {dateList.length === 0 ? (
+        <Text fontType="p2" color={color.gray500}>
+          예정된 입학설명회가 없어요
+        </Text>
+      ) : (
+        <>
+          {nearestPlace && (
+            <Text fontType="p2" color={color.gray500}>
+              날짜: {dateList.join(', ')}
+              <br />
+              장소: {nearestPlace}
+            </Text>
+          )}
+        </>
+      )}
     </StyledApplicationBox>
   );
 };
