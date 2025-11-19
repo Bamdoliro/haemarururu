@@ -82,7 +82,7 @@ export const useButtonStatus = () => {
 
   const token = localStorage.getItem('access-token');
   const isSubmitPeriod = dayjs().isBetween(
-    dayjs('2025-12-06T00:00:00+09:00'),
+    dayjs('2025-12-08T00:00:00+09:00'),
     SCHEDULE.원서_접수_마감
   );
   const isLogin = !!token;

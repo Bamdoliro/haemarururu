@@ -17,7 +17,7 @@ const SignUp = () => {
 
   const { isValid, isExpired, isBeforePeriod } = useMemo(() => {
     const now = dayjs();
-    const isBeforePeriod = now.isBefore(dayjs('2025-12-06T00:00:00+09:00'));
+    const isBeforePeriod = now.isBefore(dayjs('2025-12-08T00:00:00+09:00'));
 
     const isTokenValid = (token?: string) => {
       if (!token) return false;

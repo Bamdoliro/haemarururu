@@ -10,7 +10,7 @@ export const useSchoolRecruitDate = () => {
 
   useEffect(() => {
     setApplicationStart(
-      dayjs('2025-12-06T00:00:00+09:00').format('YYYY년 MM월 DD일 (ddd) HH:mm')
+      dayjs('2025-12-08T00:00:00+09:00').format('YYYY년 MM월 DD일 (ddd) HH:mm')
     );
     setApplicationEnd(SCHEDULE.원서_접수_마감.format('YYYY년 MM월 DD일 (ddd) HH:mm'));
   }, []);
