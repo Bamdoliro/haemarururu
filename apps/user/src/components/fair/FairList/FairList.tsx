@@ -35,7 +35,7 @@ const FairList = ({ fairType, status }: FairListProps) => {
       }
     } else if (
       status.some((status) =>
-        ['APPLICATION_CLOSED', 'APPLICATION_EARLY_CLOSED'].includes(status)
+        ['APPLICATION_EARLY_CLOSED', 'APPLICATION_ENDED'].includes(status)
       )
     ) {
       alert('신청이 마감된 입학 설명회입니다.');

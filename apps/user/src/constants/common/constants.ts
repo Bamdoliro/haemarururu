@@ -42,6 +42,7 @@ export const KEY = {
   EXPORT_RECEIPT: 'useExportReceipt',
   SAVE_FORM: 'useSaveForm',
   SCHOOL_LIST: 'useSchoolList',
+  FAIR_DATA: 'useFairData',
 };
 
 export const SCHEDULE = {
