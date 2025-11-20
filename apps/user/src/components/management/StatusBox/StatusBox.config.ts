@@ -25,8 +25,8 @@ export const getStatusConfig = (status?: string, name?: string) => {
         : `아직 최종 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     FINAL_SUBMITTED: {
-      text: '최종 제출됨',
-      script: `원서가 최종 제출되었습니다.<br />담당 선생님의 원서 승인을 기다려주세요.`,
+      text: '원서 입력 완료',
+      script: `원서의 내용을 확인중이니 원서 승인을 기다려주세요.<br />승인된 원서의 출력물을<br />본교에 제출하지 않으면 원서는 접수되지 않습니다.`,
     },
     SUBMITTED: {
       text: '초안 제출됨',
