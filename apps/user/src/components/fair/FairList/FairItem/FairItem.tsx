@@ -30,9 +30,7 @@ const FairItem = ({
           {formatStartDate(start)}
         </Text>
         <StatusBox status={status}>
-          <Text fontType="code" color={color.haeMaruDefault}>
-            {formatStatus(status)}
-          </Text>
+          <Text fontType="code">{formatStatus(status)}</Text>
         </StatusBox>
       </Row>
       <Text fontType="p2" color={color.gray500}>
@@ -73,6 +71,10 @@ const StatusBox = styled.div<{ status: string }>`
     status === 'APPLICATION_IN_PROGRESS'
       ? 'rgba(28, 66, 146, 0.1)'
       : 'rgba(244, 67, 54, 0.1)'};
+  color: ${({ status }) =>
+    status === 'APPLICATION_IN_PROGRESS' || status === 'APPLICATION_NOT_STARTED'
+      ? color.haeMaruDefault
+      : color.red};
 `;
 
 const EllipsisText = styled(Text)`
