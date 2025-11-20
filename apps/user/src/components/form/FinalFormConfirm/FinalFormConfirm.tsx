@@ -12,7 +12,7 @@ const FinalFormConfirm = ({ isOpen, onClose, onConfirm }: FinalFormConfirmProps)
     <Confirm
       height={350}
       isOpen={isOpen}
-      title="최종 제출하시겠습니까?"
+      title="원서 입력 완료하시겠습니까?"
       content={
         <Column gap={12}>
           <Text color={color.gray900} fontType="p2">
@@ -27,7 +27,7 @@ const FinalFormConfirm = ({ isOpen, onClose, onConfirm }: FinalFormConfirmProps)
       }
       onClose={onClose}
       onConfirm={onConfirm}
-      confirmButtonText="원서 최종 제출하기"
+      confirmButtonText="원서 입력 완료하기"
     />
   );
 };

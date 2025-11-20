@@ -14,6 +14,8 @@ const FormDownload = ({ onClick }: FormDownloadProps) => {
       </Text>
       <Text fontType="p2" color={color.gray900}>
         (공통,해당자)제출서류들은 스캔해서 하나의 PDF파일로 첨부해주시기 바랍니다.
+        <br />
+        제출 서류를 업로드해야 원서 입력 완료가 가능합니다.
       </Text>
       <ExportFormButton onClick={onClick}>[ 작성한 원서(pdf) 다운로드 ]</ExportFormButton>
     </Column>
