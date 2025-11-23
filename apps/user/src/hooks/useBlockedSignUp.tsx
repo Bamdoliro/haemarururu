@@ -1,9 +1,10 @@
 import { AlertStyleModal } from '@/components/common';
-import { ROUTES } from '@/constants/common/constants';
+import { ROUTES, TOKEN } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
 import { useOverlay } from '@toss/use-overlay';
 import { useEffect } from 'react';
 import { Text } from '@maru/ui';
+import { Storage } from '@/apis/storage/storage';
 
 interface BlockedOptions {
   isBlock: boolean;
@@ -17,9 +18,10 @@ const useBlockedSignUp = (options: BlockedOptions) => {
 
   useEffect(() => {
     const { isBlock, title, content } = options;
-
     if (!isBlock) return;
 
+    Storage.removeItem(TOKEN.ACCESS);
+    Storage.removeItem(TOKEN.REFRESH);
     overlay.open(({ close, isOpen }) => (
       <AlertStyleModal
         isOpen={isOpen}
