@@ -1,7 +1,6 @@
 import { ROUTES, SCHEDULE } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
 
 export const useSchoolRecruitDate = () => {
   const router = useRouter();
