@@ -189,7 +189,7 @@ const FormTableItem = ({
             <CellInput
               width={80}
               name="interviewNumber"
-              maxLength={6}
+              maxLength={5}
               value={interviewNumberResult[id] ?? interviewNumber ?? ''}
               onChange={handleInterviewNumberChange}
             />
