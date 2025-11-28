@@ -1,11 +1,14 @@
 import { TableItem } from '@/components/common';
 import { formatPhoneNumber } from '@/utils';
-import { Row, Text, TextButton } from '@maru/ui';
+import { Row, Text, TextButton, CheckBox } from '@maru/ui';
 import FairQuestionModal from '../FairQuestionModal/FairQuestionModal';
 import { useOverlay } from '@toss/use-overlay';
+import { useIsDeleteFairAttendeeEditingValueStore } from '@/store/fair/isDeleteFairParticipantEditing';
+import { useDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
 
 interface FairTableItemProps {
   schoolName: string;
+  id: number;
   name: string;
   type: string;
   phoneNumber: string;
@@ -16,12 +19,15 @@ interface FairTableItemProps {
 const FairTableItem = ({
   schoolName,
   name,
+  id,
   type,
   phoneNumber,
   headcount,
   question,
 }: FairTableItemProps) => {
   const overlay = useOverlay();
+  const isDeleteFairAttendeeEditing = useIsDeleteFairAttendeeEditingValueStore();
+  const [deleteFairAttendee, setDeleteFairAttendee] = useDeleteFairAttendeeStore();
 
   const handleFairQuestionModalButtonClick = () => {
     overlay.open(({ isOpen, close }) => (
@@ -34,9 +40,26 @@ const FairTableItem = ({
     ));
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    const checked = e.target.checked;
+    if (checked) {
+      setDeleteFairAttendee((prev) => ({ ...prev, [id]: true }));
+    } else {
+      setDeleteFairAttendee((prev) => {
+        const newState = { ...prev };
+        delete newState[id];
+        return newState;
+      });
+    }
+  };
+
   return (
     <TableItem>
       <Row gap={48}>
+        {isDeleteFairAttendeeEditing && (
+          <CheckBox checked={!!deleteFairAttendee[id]} onChange={handleCheckboxChange} />
+        )}
         <Text fontType="p2" width={60}>
           {name}
         </Text>

@@ -5,8 +5,8 @@ export const DROPDOWN_DATA = [
     value: 'FIRST_PASSED',
     label: '1차 합격자',
     children: [
-      { value: 'MEISTER_TALENT', label: '마이스터인재전형' },
-      { value: 'REGULAR', label: '마이스터 제외 합격자' },
+      { value: 'SOCIAL_INTEGRATION', label: '사회통합전형' },
+      { value: 'REGULAR', label: '일반전형' },
       { value: 'FIRST_PASSED', label: '전체 1차 합격자' },
     ],
   },

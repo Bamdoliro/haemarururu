@@ -41,7 +41,8 @@ export interface FormStatus {
     | 'FIRST_PASSED'
     | 'PASSED'
     | 'REJECTED'
-    | 'ENTERED';
+    | 'ENTERED'
+    | 't';
   type: FormType;
 }
 
@@ -68,6 +69,7 @@ export interface User {
   phoneNumber: string;
   registrationNumber: string;
   gender: 'MALE';
+  email: string;
   profile: string;
 }
 
@@ -78,17 +80,20 @@ export interface Parent {
   zoneCode: string;
   address: string;
   detailAddress: string;
+  account: string;
+  bank: string;
+  owner: string;
 }
 
 export interface Education {
   graduationType: GraduationType;
-  graduationYear: string;
+  graduationDate: string;
   schoolName: string | null;
   schoolLocation: string | null;
   schoolAddress: string | null;
   schoolCode: string | null;
   teacherName: string | null;
-  teacherPhoneNumber: string | null;
+  schoolPhoneNumber: string | null;
   teacherMobilePhoneNumber: string | null;
 }
 
@@ -113,7 +118,7 @@ export interface Subject {
   score: number | null;
 }
 
-export type AchievementLevel = '-' | '미이수' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+export type AchievementLevel = '-' | 'A' | 'B' | 'C' | 'D' | 'E';
 
 export interface Attendance {
   absenceCount: number;

@@ -10,24 +10,7 @@ const FormTable = () => {
   return (
     <Column gap={12}>
       <FormTableHeader id={formIdList ?? []} />
-      {formList &&
-        formList.map((item) => (
-          <FormTableItem
-            id={item.id}
-            birthday={item.birthday}
-            examinationNumber={item.examinationNumber}
-            name={item.name}
-            graduationType={item.graduationType}
-            school={item.school}
-            status={item.status}
-            hasDocument={item.hasDocument}
-            type={item.type}
-            isChangedToRegular={item.isChangedToRegular}
-            totalScore={item.totalScore}
-            firstRoundPassed={item.firstRoundPassed}
-            secondRoundPassed={item.secondRoundPassed}
-          />
-        ))}
+      {formList && formList.map((item) => <FormTableItem {...item} />)}
     </Column>
   );
 };

@@ -19,7 +19,9 @@ interface ScheduleItemProps {
 
 const ScheduleItem = ({ title, date, startTime, endTime }: ScheduleItemProps) => {
   const now = dayjs();
-  const active = now.isBetween(startTime, endTime);
+  const start = dayjs.isDayjs(startTime) ? startTime : dayjs(startTime);
+  const end = dayjs.isDayjs(endTime) ? endTime : dayjs(endTime);
+  const active = now.isBetween(start, end);
 
   return (
     <StyledScheduleItem isActive={active}>

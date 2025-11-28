@@ -47,7 +47,6 @@ const NewBasicCalculatorItem = ({
       listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
   );
   const getDisplayValue = (value: string) => {
-    if (value === 'F') return '미이수';
     return value;
   };
   return (
@@ -102,7 +101,7 @@ const NewSubjectInput = styled.input<{ error: boolean }>`
   background-color: ${color.gray50};
   width: 74px;
   text-align: center;
-  &:-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     color: ${color.gray500};
   }
 `;

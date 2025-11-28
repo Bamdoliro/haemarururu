@@ -118,13 +118,13 @@ const FairTeacherApplicationBox = ({ id }: FairTeacherApplicationBoxProps) => {
               <br />
               홍보자료 발송 및 입학안내 이외의 용도로 사용되지 않습니다.
               <br />
-              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.maruDefault }}>
+              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.haeMaruDefault }}>
                 [개인정보처리방침]
               </Link>{' '}
               제 1조, 제 2조에 따라 개인정보를 수집, 이용 및 제공하는 것을 동의합니다.
               <br />
               또한 개인정보를 다음과 같이 보관하며, 수집, 이용 및 제공목적이 달성된 경우
-              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.maruDefault }}>
+              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.haeMaruDefault }}>
                 [개인정보처리방침]
               </Link>{' '}
               제 6조에 따라 처리합니다.

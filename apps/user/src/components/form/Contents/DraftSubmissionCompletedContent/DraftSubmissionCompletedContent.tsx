@@ -18,14 +18,12 @@ const DraftSubmissionCompletedContent = () => {
       </Row>
       <Column gap={12}>
         <Text fontType="p1" color={color.gray900}>
-          작성한 원서 초안을 출력하여 학교장 직인을 받은 후, 추가 서류와 함께 인터넷으로
-          접수해 주시기 바랍니다.
-        </Text>
-        <Text fontType="p1" color={color.gray900}>
-          최종 접수한 모든 서류는 우편 또는 방문 접수하여 주시기 바랍니다.
+          작성한 원서 초안을 출력하여 학교장 직인을 받은 후, 추가 서류와 함께
+          해운대고등학교로 접수해 주시기 바랍니다.
         </Text>
         <Text fontType="H4" color={color.red}>
-          원서 초안과 기타 제출서류를 함께 제출해야 최종적으로 원서 제출이 완료됩니다.
+          모든 서류는 우편또는 방문접수를 통하여 본교로 제출해야 최종적으로 원서제출이
+          완료됩니다.
         </Text>
       </Column>
       <Row gap={16}>

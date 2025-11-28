@@ -4,17 +4,19 @@ import type {
   FormStatus,
   FormType,
   GraduationType,
+  ReceiveStatusValue,
 } from '@/types/form/client';
+import { color } from '@maru/design-system';
 
 export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
   APPROVED: '접수',
-  FIRST_FAILED: '1차 불합격',
+  FIRST_FAILED: '면접 불합격',
   FAILED: '불합격',
   FINAL_SUBMITTED: '최종 제출',
   SUBMITTED: '제출',
   RECEIVED: '승인',
   NO_SHOW: '불참',
-  FIRST_PASSED: '1차 합격',
+  FIRST_PASSED: '면접 합격',
   PASSED: '최종 합격',
   REJECTED: '반려',
   ENTERED: '입학',
@@ -22,6 +24,7 @@ export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
 
 export const FORM_TYPE_CATEGORY: Record<FormType, string> = {
   REGULAR: '일반전형',
+  SOCIAL_INTEGRATION: '사회통합전형',
   NATIONAL_VETERANS: '국가보훈대상자',
   NATIONAL_BASIC_LIVING: '국민기초생활수급권자',
   ONE_PARENT: '한부모가족 보호대상자',
@@ -50,6 +53,27 @@ export const FORM_TYPE_CATEGORY: Record<FormType, string> = {
   NATIONAL_VETERANS_EDUCATION: '교육지원대상자 전형',
 } as const;
 
+export const RECEIVED_STATUS_LIST: {
+  name: string;
+  value: ReceiveStatusValue;
+  color: string;
+  backgroundColor: string;
+}[] = [
+  {
+    name: '승인',
+    value: 'approve',
+    color: color.maruDefault,
+    backgroundColor: color.maruLightBlue,
+  },
+  { name: '반려', value: 'reject', color: color.red, backgroundColor: color.lightRed },
+  {
+    name: '확인 중',
+    value: 'receive',
+    color: color.green,
+    backgroundColor: color.lightGreen,
+  },
+];
+
 export const FORM_SORTING_CATEGORY: Record<FormSort, string> = {
   'total-score-desc': '최종 점수 높은 순',
   'total-score-asc': '최종 점수 낮은 순',
@@ -58,15 +82,15 @@ export const FORM_SORTING_CATEGORY: Record<FormSort, string> = {
 
 export const EXPORT_EXCEL_TYPE_VALUE: Record<ExportExcelType, string> = {
   '전체 내보내기': 'result',
-  '1차 전형 결과': 'first-round',
-  '2차 전형 결과': 'second-round',
+  '서류 전형 결과': 'first-round',
+  '면접 전형 결과': 'second-round',
   '최종 합격자': 'final-passed',
 } as const;
 
 export const EXPORT_EXCEL_TYPE = [
   '전체 내보내기',
-  '1차 전형 결과',
-  '2차 전형 결과',
+  '서류 전형 결과',
+  '면접 전형 결과',
   '최종 합격자',
 ] as const;
 
@@ -86,3 +110,5 @@ export const GRADUATION_TYPE_VALUE: Record<GraduationType, string> = {
 } as const;
 
 export const GRADES_FIELDS = ['교과 성적', '출결 상황'] as const;
+
+export const GRADES_QUALIFICATION_EXAMINATION_FIELDS = ['교과 성적'] as const;

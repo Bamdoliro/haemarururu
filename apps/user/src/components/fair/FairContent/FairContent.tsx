@@ -41,7 +41,7 @@ const FairContent = ({ category }: FairContentProps) => {
             </Text>
             <FairList
               fairType="STUDENT_AND_PARENT"
-              status={['APPLICATION_CLOSED', 'APPLICATION_EARLY_CLOSED']}
+              status={['APPLICATION_EARLY_CLOSED', 'APPLICATION_ENDED', 'CLOSED']}
             />
           </Column>
           <Separator />
@@ -51,7 +51,7 @@ const FairContent = ({ category }: FairContentProps) => {
             </Text>
             <FairList
               fairType="TEACHER"
-              status={['APPLICATION_CLOSED', 'APPLICATION_EARLY_CLOSED']}
+              status={['APPLICATION_EARLY_CLOSED', 'APPLICATION_ENDED', 'CLOSED']}
             />
           </Column>
         </>

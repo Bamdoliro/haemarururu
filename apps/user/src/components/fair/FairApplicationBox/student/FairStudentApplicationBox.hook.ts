@@ -23,9 +23,13 @@ export const useInput = () => {
     question: '',
   });
 
-  const handleApplicationChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleApplicationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setApplication({ ...application, [name]: value });
+
+    setApplication((prev) => ({
+      ...prev,
+      [name]: name === 'headcount' ? Number(value) || null : value,
+    }));
   };
 
   const handleApplicationTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = (
@@ -38,7 +42,10 @@ export const useInput = () => {
   return { application, handleApplicationChange, handleApplicationTextAreaChange };
 };
 
-export const useAgree = (handleSendFairApplication: () => void) => {
+export const useAgree = (
+  handleSendFairApplication: () => void,
+  application: FairApplication
+) => {
   const [agree, setAgree] = useState<string | null>(null);
 
   const handleAgreeChange = (value: string) => {
@@ -48,6 +55,23 @@ export const useAgree = (handleSendFairApplication: () => void) => {
   const handleButtonClick = () => {
     if (agree !== 'agree') {
       alert('개인정보 동의서를 동의해 주세요.');
+      return;
+    }
+
+    const missingFields: string[] = [];
+
+    if (!application.schoolName.trim()) missingFields.push('소속학교');
+    if (!application.name.trim()) missingFields.push('성함');
+    if (!application.phoneNumber.trim()) missingFields.push('연락처');
+    if (application.headcount === null || application.headcount === 0) {
+      missingFields.push('참석 인원');
+    } else if ((application.headcount ?? 0) > 3) {
+      alert('참석 인원은 최대 3명까지만 가능합니다.');
+      return;
+    }
+
+    if (missingFields.length > 0) {
+      alert('작성되지 않은 항목이 있습니다.');
       return;
     }
 

@@ -3,6 +3,8 @@ import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import type { CSSProperties } from 'styled-components';
 import styled from 'styled-components';
+import { formatScheduleDate } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const CommonTable = () => {
   return (
@@ -62,9 +64,9 @@ const CommonTable = () => {
                 <li>교과학습발달상황(5번) 내 중학교 3학년의 세부능력 및 특기사항 제외</li>
                 <li>행동특성 및 종합의견(8번) 내 중학교 3학년 내용 제외</li>
                 <li>
-                  출결 기준일{' '}
+                  출결 기준일
                   <Text color={color.red} fontType="p2">
-                    2025.11.12.(수)
+                    {' (' + formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD') + ') '}
                   </Text>
                   까지 출결 사항이 반영되도록 마감하여 출력 (특기사항란에 기준일 기재)
                 </li>
@@ -73,8 +75,7 @@ const CommonTable = () => {
                 3. 자기소개서(본교 소정양식) 1부*
               </Text>
               <Text color={color.haeMaruDefault} fontType="p2">
-                4. 학교생활기록부(||) 사본 2부(단면출력, 원본대조필, 학교장 직인 날인 및
-                간인)
+                4. 개인정보 수집 이용 및 제공동의서 1부
               </Text>
             </Column>
           </Td>
@@ -117,7 +118,6 @@ const CommonTable = () => {
             width={696}
             height={134}
           >
-            <li>중학교 졸업 학력 검정고시 합격증명서 1부</li>
             <li>
               중학교 졸업 학력 검정고시 성적증명서 1부 (발급처: 시교육청, 교육지원청,
               지방자치단체, 정부24)
@@ -189,4 +189,12 @@ const Td = styled.td<{ width: CSSProperties['width']; height: CSSProperties['hei
   background-color: ${color.white};
   color: ${color.gray900};
   ${font.p2}
+
+  li {
+    list-style-type: '- ';
+    margin: 0 16px;
+  }
+  & > div > div > li {
+    list-style-type: disc;
+  }
 `;

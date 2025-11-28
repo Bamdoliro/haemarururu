@@ -1,4 +1,3 @@
-import { SCHEDULE } from '@/constants/form/constants';
 import { color } from '@maru/design-system';
 import {
   IconCancelCircle,
@@ -7,6 +6,7 @@ import {
   IconGrayIngCircle,
 } from '@maru/icon';
 import dayjs from 'dayjs';
+import { SCHEDULE } from '@/constants/common/constants';
 
 interface StatusIconProps {
   status?: string;

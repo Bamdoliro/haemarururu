@@ -1,37 +1,54 @@
 import type { FormType, GradeDistributionType } from '@/types/analysis/client';
 
-const useMaxMinByType = (formList: GradeDistributionType[] | undefined) => {
-  const getMaxMinByType = (type: FormType) => {
-    const entries = formList?.filter((item) => item.type === type);
-    if (!entries || entries.length === 0) {
-      return { max: 0, min: 0 };
-    }
-    const max = Math.max(...entries.map((item) => item.totalMax)).toFixed(3);
-    const min = Math.min(...entries.map((item) => item.totalMin)).toFixed(3);
+type MaxMin = { max: string; min: string };
 
-    return { max, min };
+const useMaxMinByType = (formList: GradeDistributionType[] | undefined) => {
+  const get = (type: FormType): MaxMin => {
+    const filtered = formList?.filter((item) => item.type === type);
+    if (!filtered?.length) return { max: '0', min: '0' };
+    const isValid = (v: number | null | undefined): v is number =>
+      typeof v === 'number' && !Number.isNaN(v);
+    const maxNum = filtered
+      .flatMap((item) => [item.totalMax, item.firstRoundMax])
+      .filter(isValid);
+    const minNum = filtered
+      .flatMap((item) => [item.totalMin, item.firstRoundMin])
+      .filter(isValid);
+    if (!maxNum.length && !minNum.length) return { max: '0', min: '0' };
+    return {
+      max: maxNum.length ? Math.max(...maxNum).toFixed(2) : '0',
+      min: minNum.length ? Math.min(...minNum).toFixed(2) : '0',
+    };
   };
 
   return {
-    regularApplicant: getMaxMinByType('REGULAR'),
-    nationalVeteransApplicant: getMaxMinByType('NATIONAL_VETERANS'),
-    nationalBasicLivingApplicant: getMaxMinByType('NATIONAL_BASIC_LIVING'),
-    oneParentApplicant: getMaxMinByType('ONE_PARENT'),
-    nearPovertyApplicant: getMaxMinByType('NEAR_POVERTY'),
-    lowerMiddleApplicant: getMaxMinByType('LOWER_MIDDLE'),
-    principalRecommendationApplicant: getMaxMinByType('PRINCIPAL_RECOMMENDATION'),
-    superintendentRecommendationApplicant: getMaxMinByType(
-      'SUPERINTENDENT_RECOMMENDATION'
-    ),
-    multiculturalApplicant: getMaxMinByType('MULTICULTURAL'),
-    fromNorthKoreaApplicant: getMaxMinByType('FROM_NORTH_KOREA'),
-    specialEducationStudentApplicant: getMaxMinByType('SPECIAL_EDUCATION_STUDENT'),
-    childWelfareFacilityApplicant: getMaxMinByType('CHILD_WELFARE_FACILITY'),
-    teenHouseholderApplicant: getMaxMinByType('TEEN_HOUSEHOLDER'),
-    grandfamilyApplicant: getMaxMinByType('GRANDFAMILY'),
-    disabledParentApplicant: getMaxMinByType('DISABLED_PARENT'),
-    fallenHeroApplicant: getMaxMinByType('FALLEN_HERO'),
-    multiChildrenApplicant: getMaxMinByType('MULTI_CHILDREN'),
+    regularApplicant: get('REGULAR'),
+    nationalVeteransApplicant: get('NATIONAL_VETERANS'),
+    nationalBasicLivingApplicant: get('NATIONAL_BASIC_LIVING'),
+    oneParentApplicant: get('ONE_PARENT'),
+    nearPovertyApplicant: get('NEAR_POVERTY'),
+    lowerMiddleApplicant: get('LOWER_MIDDLE'),
+    principalRecommendationApplicant: get('PRINCIPAL_RECOMMENDATION'),
+    superintendentRecommendationApplicant: get('SUPERINTENDENT_RECOMMENDATION'),
+    multiculturalApplicant: get('MULTICULTURAL'),
+    fromNorthKoreaApplicant: get('FROM_NORTH_KOREA'),
+    specialEducationStudentApplicant: get('SPECIAL_EDUCATION_STUDENT'),
+    childWelfareFacilityApplicant: get('CHILD_WELFARE_FACILITY'),
+    teenHouseholderApplicant: get('TEEN_HOUSEHOLDER'),
+    grandfamilyApplicant: get('GRANDFAMILY'),
+    disabledParentApplicant: get('DISABLED_PARENT'),
+    fallenHeroApplicant: get('FALLEN_HERO'),
+    multiChildrenApplicant: get('MULTI_CHILDREN'),
+    nonstatutoryoneparentApplicant: get('NON_STATUTORY_ONE_PARENT'),
+    welfarefacilityworkerApplicant: get('WELFARE_FACILITY_WORKER'),
+    publicservantApplicant: get('PUBLIC_SERVANT'),
+    streetcleanerApplicant: get('STREET_CLEANER'),
+    deployedsoldierApplicant: get('DEPLOYED_SOLDIER'),
+    postmanApplicant: get('POSTMAN'),
+    intangibleculturalheritageApplicant: get('INTANGIBLE_CULTURAL_HERITAGE'),
+    sailorApplicant: get('SAILOR'),
+    specialadmissionApplicant: get('SPECIAL_ADMISSION'),
+    nationalveteranseducationApplicant: get('NATIONAL_VETERANS_EDUCATION'),
   };
 };
 

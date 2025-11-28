@@ -5,11 +5,14 @@ import type {
   ExportExcelType,
   FormListSortingType,
   FormListType,
+  ReceiveStatusValue,
 } from '@/types/form/client';
 import type {
   GetFormDetail,
   GetFormListRes,
   GetFormURLRes,
+  PatchInterviewNumberReq,
+  PatchPaymentResultReq,
   PatchSecondRoundResultReq,
 } from '@/types/form/remote';
 
@@ -21,17 +24,16 @@ export const getFormList = async (
 
   if (formListType === '검토해야 하는 원서 모아보기') {
     url = '/forms/review';
-  }
-  if (formListSortingType) {
-    if (formListType !== '검토해야 하는 원서 모아보기') {
-      const params = new URLSearchParams();
-      if (formListSortingType.status) params.append('status', formListSortingType.status);
-      if (formListSortingType.type) params.append('type', formListSortingType.type);
-      if (formListSortingType.sort) params.append('sort', formListSortingType.sort);
+  } else if (formListType === '전체 조회') {
+    url = '/users/all';
+  } else if (formListSortingType) {
+    const params = new URLSearchParams();
+    if (formListSortingType.status) params.append('status', formListSortingType.status);
+    if (formListSortingType.type) params.append('type', formListSortingType.type);
+    if (formListSortingType.sort) params.append('sort', formListSortingType.sort);
 
-      const queryString = params.toString();
-      if (queryString) url += `?${queryString}`;
-    }
+    const queryString = params.toString();
+    if (queryString) url += `?${queryString}`;
   }
 
   const { data } = await maru.get<GetFormListRes>(url, authorization());
@@ -78,6 +80,15 @@ export const getAllAdmissionTicket = async () => {
   return data;
 };
 
+export const getFormExportAllPersonalStatement = async () => {
+  const { data } = await maru.get('/forms/documents/export', {
+    ...authorization(),
+    responseType: 'blob',
+  });
+
+  return data;
+};
+
 export const getFormDetail = async (id: number) => {
   const { data } = await maru.get<GetFormDetail>(`/forms/${id}`, authorization());
 
@@ -86,7 +97,7 @@ export const getFormDetail = async (id: number) => {
 
 export const patchSecondScoreFormat = async (formData: FormData) => {
   const data = await maru.patch('/forms/second-round/score', formData, {
-    ...authorization(),
+    ...authorization.FormData(),
     responseType: 'blob',
     validateStatus: () => true,
   });
@@ -109,5 +120,38 @@ export const patchSecondRoundResult = async (
 export const patchSecondRoundResultAuto = async () => {
   const { data } = await maru.patch('/forms/second-round/select', null, authorization());
 
+  return data;
+};
+
+export const patchReceiveStatus = async (
+  formId: number,
+  receiveStatus: ReceiveStatusValue
+) => {
+  const { data } = await maru.patch(
+    `/forms/${formId}/${receiveStatus}`,
+    {},
+    authorization()
+  );
+  return data;
+};
+
+export const patchPaymentResult = async (paymentResultData: PatchPaymentResultReq) => {
+  const { data } = await maru.patch(
+    '/forms/admission-fees/payment-status',
+    paymentResultData,
+    authorization()
+  );
+
+  return data;
+};
+
+export const patchInterviewNumber = async (
+  interviewNumberData: PatchInterviewNumberReq
+) => {
+  const { data } = await maru.patch(
+    '/forms/interview-number',
+    interviewNumberData,
+    authorization()
+  );
   return data;
 };

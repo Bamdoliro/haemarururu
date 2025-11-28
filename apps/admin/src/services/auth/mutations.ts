@@ -17,6 +17,7 @@ const saveTokens = (accessToken: string, refreshToken: string) => {
 
 const removeTokens = () => {
   Storage.removeItem(TOKEN.ACCESS);
+  Storage.removeItem(TOKEN.REFRESH);
   Cookie.removeItem(TOKEN.REFRESH);
 };
 
@@ -56,9 +57,9 @@ export const useLogoutAdminMutation = () => {
   const { mutate: logoutAdminMutate, ...restMutation } = useMutation({
     mutationFn: deleteLogoutAdmin,
     onSuccess: () => {
+      router.replace(ROUTES.MAIN);
       toast('로그아웃 되었습니다.', { type: 'success' });
       removeTokens();
-      router.replace(ROUTES.MAIN);
     },
     onError: () => {
       toast('잠시후 다시 시도해주세요.', { type: 'error' });

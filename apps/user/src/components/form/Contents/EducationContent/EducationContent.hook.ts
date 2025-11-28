@@ -14,11 +14,7 @@ export const useEducationForm = () => {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();
 
-  const numberFiled = [
-    'graduationYear',
-    'teacherPhoneNumber',
-    'teacherMobilePhoneNumber',
-  ];
+  const numberFiled = ['schoolPhoneNumber', 'teacherMobilePhoneNumber'];
 
   const handleNextStep = () => {
     try {
@@ -62,11 +58,25 @@ export const useEducationForm = () => {
 
     if (numberFiled.includes(name) && /\D/.test(value)) return;
 
+    let newValue = value;
+
+    if (name === 'graduationDate') {
+      const onlyNums = value.replace(/[^0-9]/g, '');
+      if (onlyNums.length === 8) {
+        newValue = `${onlyNums.slice(0, 4)}-${onlyNums.slice(4, 6)}-${onlyNums.slice(
+          6,
+          8
+        )}`;
+      } else {
+        newValue = onlyNums;
+      }
+    }
+
     setForm((prev) => ({
       ...prev,
       education: {
         ...prev.education,
-        [name]: value,
+        [name]: newValue,
       },
     }));
 

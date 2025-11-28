@@ -1,7 +1,7 @@
 'use client';
 
 import { FinalResultBox, ResultMainBox } from '@/components/result';
-import { SCHEDULE } from '@/constants/form/constants';
+import usePageAccessGuard from '@/hooks/usePageAccessGuard';
 import { AppLayout } from '@/layouts';
 import type { ResultStep } from '@/types/result/client';
 import { formatFormYear, formatScheduleDate } from '@/utils';
@@ -11,8 +11,16 @@ import { flex } from '@maru/utils';
 import { SwitchCase } from '@toss/react';
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const ResultFinal = () => {
+  usePageAccessGuard({
+    period: { start: SCHEDULE.최종_합격_발표, end: SCHEDULE.입학_등록 },
+    title: '최종 합격 발표 기간이 아닙니다',
+    content:
+      '최종 합격 발표 기간에만 확인이 가능합니다.\n최종 합격 발표 기간까지 조금만 기다려 주세요.',
+  });
+
   const [finalResultStep, setFinalResultStep] = useState<ResultStep>('MAIN');
 
   return (
@@ -32,7 +40,7 @@ const ResultFinal = () => {
             MAIN: (
               <ResultMainBox
                 date={formatScheduleDate([SCHEDULE.최종_합격_발표], 'FORM')}
-                capacity="일반전형 36명, 사회 다양성 전형 28명, 정원 외 전형 3명"
+                capacity="일반전형 144명, 사회 다양성 전형 36명, 정원 외 전형 8명"
                 setResultStep={setFinalResultStep}
               />
             ),

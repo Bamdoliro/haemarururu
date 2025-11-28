@@ -2,16 +2,28 @@ import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getFormUrl,
+  patchInterviewNumber,
+  patchPaymentResult,
+  patchReceiveStatus,
   patchSecondRoundResult,
   patchSecondRoundResultAuto,
   patchSecondScoreFormat,
 } from './api';
 import { toast } from 'react-toastify';
 import { KEY } from '@/constants/common/constant';
-import type { PatchSecondRoundResultReq } from '@/types/form/remote';
+import type {
+  PatchInterviewNumberReq,
+  PatchPaymentResultReq,
+  PatchSecondRoundResultReq,
+} from '@/types/form/remote';
 import { useSetIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSetSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import { isPopupBlocked } from '@/utils';
+import type { ReceiveStatusValue } from '@/types/form/client';
+import { useSetIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
+import { useSetPaymentResultStore } from '@/store/form/paymentResult';
+import { useSetIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
+import { useSetInterviewNumberStore } from '@/store/form/interviewNumber';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
@@ -76,7 +88,7 @@ export const useEditSecondRoundResultMutation = (
   const { mutate: editSecondRoundResult, ...restMutation } = useMutation({
     mutationFn: () => patchSecondRoundResult(secondRoundResultData),
     onSuccess: () => {
-      toast('2차 합격 여부가 반영되었습니다.', {
+      toast('면접 합격 여부가 반영되었습니다.', {
         type: 'success',
       });
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
@@ -96,7 +108,7 @@ export const useAutoSecondRoundResultMutation = () => {
   const { mutate: autoSecondRoundResult, ...restMutation } = useMutation({
     mutationFn: patchSecondRoundResultAuto,
     onSuccess: () => {
-      toast('2차 합격 여부가 모두 반영되었습니다.', {
+      toast('면접 합격 여부가 모두 반영되었습니다.', {
         type: 'success',
       });
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
@@ -127,4 +139,72 @@ export const usePrintFormUrlMutation = () => {
   });
 
   return { printFormUrl, ...restMutation };
+};
+
+export const useReceiveStatusChangeMutation = (formId: number, onClose: () => void) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const { mutate: changeReceiveStatus, ...restMutation } = useMutation({
+    mutationFn: (status: ReceiveStatusValue) => patchReceiveStatus(formId, status),
+    onSuccess: () => {
+      toast('접수 상태가 변경되었습니다.', { type: 'success' });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_DETAIL, formId] });
+      onClose();
+    },
+    onError: handleError,
+  });
+
+  return { changeReceiveStatus, ...restMutation };
+};
+
+export const useEditPaymentResultMutation = (
+  paymentResultData: PatchPaymentResultReq
+) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const setIsPaymentResultEditing = useSetIsPaymentResultEditingStore();
+  const setPaymentResult = useSetPaymentResultStore();
+
+  const { mutate: editPaymentResult, ...restMutation } = useMutation({
+    mutationFn: () => patchPaymentResult(paymentResultData),
+    onSuccess: () => {
+      toast('전형료 변경 여부가 반영되었습니다.', {
+        type: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
+      setIsPaymentResultEditing(false);
+      setPaymentResult({});
+    },
+    onError: handleError,
+  });
+
+  return { editPaymentResult, ...restMutation };
+};
+
+export const useEditInterviewNumberMutation = (
+  InterviewNumberData: PatchInterviewNumberReq
+) => {
+  const { handleError } = useApiError();
+  const queryClient = useQueryClient();
+
+  const setIsInterviewNumberEditing = useSetIsInterviewNumberEditingStore();
+  const setInterviewNumber = useSetInterviewNumberStore();
+
+  const { mutate: editInterviewNumber, ...restMutation } = useMutation({
+    mutationFn: () => patchInterviewNumber(InterviewNumberData),
+    onSuccess: () => {
+      toast('면접번호 변경여부가 반영되었습니다.', {
+        type: 'success',
+      });
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
+      setIsInterviewNumberEditing(false);
+      setInterviewNumber({});
+    },
+    onError: handleError,
+  });
+
+  return { editInterviewNumber, ...restMutation };
 };

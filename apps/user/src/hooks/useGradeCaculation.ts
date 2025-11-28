@@ -4,7 +4,6 @@ import { getAchivementLevel } from '@/utils';
 
 enum AchievementScore {
   '-' = 0,
-  'F' = 0,
   'A' = 40,
   'B' = 32,
   'C' = 24,
@@ -37,7 +36,7 @@ const useGradeCalculation = () => {
 
     const fallbackKey = fallbackMap[key];
     const fallback = subject[fallbackKey];
-    return fallback && fallback !== '-' && fallback !== '미이수' ? fallback : '-';
+    return fallback && fallback !== '-';
   };
 
   const calculateSubjectScore = () => {
@@ -61,11 +60,11 @@ const useGradeCalculation = () => {
 
         let achievementLevel = subject[key] as AchievementLevel;
 
-        if (!achievementLevel || achievementLevel === 'F') {
+        if (!achievementLevel || achievementLevel === 'E') {
           achievementLevel = getFallbackLevel(subject, key) as AchievementLevel;
         }
 
-        if (achievementLevel === '-' || achievementLevel === 'F') return;
+        if (achievementLevel === '-' || achievementLevel === 'E') return;
 
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;
@@ -79,19 +78,20 @@ const useGradeCalculation = () => {
   const calculateRegularScore = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       let regularTotal = 0;
-
       form.grade.subjectList?.forEach((subject) => {
         const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] ||
           AchievementScore.E;
-        if (subject.subjectName === '수학') {
-          regularTotal += score * 2;
+        if (subject.subjectName === '수학' || subject.subjectName === '영어') {
+          regularTotal += score * 0.28;
+        } else if (subject.subjectName === '국어') {
+          regularTotal += score * 0.24;
         } else {
-          regularTotal += score;
+          regularTotal += score * 0.1;
         }
       });
-      return Number(regularTotal.toFixed(3));
+      return Number((regularTotal * 3.5).toFixed(3));
     }
 
     const subjectScore = calculateSubjectScore();

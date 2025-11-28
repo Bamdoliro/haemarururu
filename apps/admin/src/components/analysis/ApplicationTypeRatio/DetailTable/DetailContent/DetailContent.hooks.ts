@@ -6,7 +6,7 @@ const useApplicantRatios = (formList: ApplicantCountType[] | undefined) => {
     if (totalCount === 0) return '0%';
 
     const entry = formList?.find((item) => item.type === type);
-    return entry ? ((entry.count / totalCount) * 100).toFixed(3) + '%' : '0%';
+    return entry ? ((entry.count / totalCount) * 100).toFixed(0) + '%' : '0%';
   };
 
   return {
@@ -29,6 +29,16 @@ const useApplicantRatios = (formList: ApplicantCountType[] | undefined) => {
     disabledParentApplicant: getRatioByType('DISABLED_PARENT'),
     fallenHeroApplicant: getRatioByType('FALLEN_HERO'),
     multiChildrenApplicant: getRatioByType('MULTI_CHILDREN'),
+    nonstatutoryoneparentApplicant: getRatioByType('NON_STATUTORY_ONE_PARENT'),
+    welfarefacilityworkerApplicant: getRatioByType('WELFARE_FACILITY_WORKER'),
+    publicservantApplicant: getRatioByType('PUBLIC_SERVANT'),
+    streetcleanerApplicant: getRatioByType('STREET_CLEANER'),
+    deployedsoldierApplicant: getRatioByType('DEPLOYED_SOLDIER'),
+    postmanApplicant: getRatioByType('POSTMAN'),
+    intangibleculturalheritageApplicant: getRatioByType('INTANGIBLE_CULTURAL_HERITAGE'),
+    sailorApplicant: getRatioByType('SAILOR'),
+    specialadmissionApplicant: getRatioByType('SPECIAL_ADMISSION'),
+    nationalveteranseducationApplicant: getRatioByType('NATIONAL_VETERANS_EDUCATION'),
   };
 };
 

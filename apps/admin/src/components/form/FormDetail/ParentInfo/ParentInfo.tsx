@@ -1,6 +1,6 @@
 import { DataBox } from '@/components/common';
 import { useFormDetailQuery } from '@/services/form/queries';
-import { formatPhoneNumber } from '@/utils';
+import { formatAccount, formatPhoneNumber } from '@/utils';
 import { Loader } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
@@ -20,6 +20,14 @@ const ParentInfo = ({ id }: ParentInfoProps) => {
     { label: '주소', data: formDetailData.parent.address },
     { label: '상세 주소', data: formDetailData.parent.detailAddress },
     { label: '우편 번호', data: formDetailData.parent.zoneCode },
+    {
+      label: '환불계좌',
+      data: formatAccount(
+        formDetailData.parent.account,
+        formDetailData.parent.owner,
+        formDetailData.parent.bank
+      ),
+    },
   ];
 
   return (

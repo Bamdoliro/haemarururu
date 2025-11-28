@@ -3,6 +3,7 @@ import {
   getAllAdmissionTicket,
   getExportExcel,
   getFormDetail,
+  getFormExportAllPersonalStatement,
   getFormList,
   getSecondScoreFormat,
 } from './api';
@@ -52,6 +53,14 @@ export const useExportAllAddmissionTicket = () => {
   return { data, ...restQuery };
 };
 
+export const useExportAllPersonalStatement = () => {
+  const { data, ...restQuery } = useQuery({
+    queryKey: [KEY.FORM_EXPORT_ALL_PERSONAL_STATEMENT],
+    queryFn: getFormExportAllPersonalStatement,
+  });
+  return { data, ...restQuery };
+};
+
 export const useFormDetailQuery = (id: number) => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_DETAIL, id],
@@ -59,4 +68,15 @@ export const useFormDetailQuery = (id: number) => {
   });
 
   return { data: data?.data, ...restQuery };
+};
+
+export const useFormAllListQuery = () => {
+  const formListSortingType = useFormListSortingTypeValueStore();
+
+  const { data, ...restQuery } = useQuery({
+    queryKey: ['전체 조회', formListSortingType],
+    queryFn: () => getFormList('전체 조회', formListSortingType),
+  });
+
+  return { data: data?.dataList, ...restQuery };
 };

@@ -14,7 +14,7 @@ const FinalSubmissionCompleted = () => {
     <AppLayout header footer>
       <CompleteAlarmBox>
         <CompleteAlarm
-          text="원서 최종 제출 완료"
+          text="원서 입력 완료"
           icon={<IconCheckCircle width={150} height={150} />}
         />
       </CompleteAlarmBox>
@@ -22,7 +22,7 @@ const FinalSubmissionCompleted = () => {
         <Row gap={8} alignItems="center" justifyContent="center">
           <IconCheckCircle width={64} height={64} />
           <Text fontType="H1" color={color.gray900}>
-            입학원서 최종 제출 완료
+            입학원서 입력 완료
           </Text>
         </Row>
         <Column gap={71} alignItems="center">

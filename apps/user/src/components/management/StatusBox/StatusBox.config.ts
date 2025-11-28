@@ -1,5 +1,5 @@
-import { SCHEDULE } from '@/constants/form/constants';
 import dayjs from 'dayjs';
+import { SCHEDULE } from '@/constants/common/constants';
 
 export const getStatusConfig = (status?: string, name?: string) => {
   const now = dayjs();
@@ -10,13 +10,13 @@ export const getStatusConfig = (status?: string, name?: string) => {
   const statusConfig = {
     RECEIVED: {
       text: '승인됨',
-      script: `원서가 승인되었습니다.<br />${name}님의 1차 합격을 기원합니다!`,
+      script: `원서가 승인되었습니다.<br />${name}님의 서류 합격을 기원합니다!`,
     },
     FIRST_FAILED: {
       text: firstResult ? '1차 불합격' : '검토중',
       script: firstResult
-        ? `1차 전형에서 불합격하셨습니다.<br />관심을 가지고 지원해 주셔서 감사합니다.`
-        : `아직 1차 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
+        ? `서류 전형에서 불합격하셨습니다.<br />관심을 가지고 지원해 주셔서 감사합니다.`
+        : `아직 서류 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     FAILED: {
       text: finalResult ? '최종 불합격' : '검토중',
@@ -25,8 +25,8 @@ export const getStatusConfig = (status?: string, name?: string) => {
         : `아직 최종 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     FINAL_SUBMITTED: {
-      text: '최종 제출됨',
-      script: `원서가 최종 제출되었습니다.<br />담당 선생님의 원서 승인을 기다려주세요.`,
+      text: '원서 입력 완료',
+      script: `원서의 내용을 확인중이니 원서 승인을 기다려주세요.<br />승인된 원서의 출력물을<br />본교에 제출하지 않으면 원서는 접수되지 않습니다.`,
     },
     SUBMITTED: {
       text: '초안 제출됨',
@@ -39,14 +39,14 @@ export const getStatusConfig = (status?: string, name?: string) => {
     NO_SHOW: {
       text: finalResult ? '불참' : '검토중',
       script: finalResult
-        ? `2차 전형에 참여하지 않으셨기에<br />자동 불합격 처리되셨습니다.`
+        ? `면접 전형에 참여하지 않으셨기에<br />자동 불합격 처리되셨습니다.`
         : `아직 최종 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     FIRST_PASSED: {
       text: firstResult ? '1차 합격' : '검토중',
       script: firstResult
-        ? `1차 합격하셨습니댜.<br />남은 전형도 힘내시길 바랍니다.`
-        : `아직 1차 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
+        ? `서류 합격하셨습니댜.<br />남은 전형도 힘내시길 바랍니다.`
+        : `아직 서류 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     PASSED: {
       text: finalResult ? '최종합격' : '검토중',

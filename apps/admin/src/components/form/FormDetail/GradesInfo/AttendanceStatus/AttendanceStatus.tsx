@@ -11,6 +11,7 @@ const AttendanceStatus = ({ attendanceList }: AttendanceStatusProps) => {
     { gradeLabel: '1학년', data: attendanceList[0] },
     { gradeLabel: '2학년', data: attendanceList[1] },
     { gradeLabel: '3학년', data: attendanceList[2] },
+    { gradeLabel: '3학년', data: attendanceList[3] },
   ];
 
   const responsiveWidth = convertToResponsive(80, 140);
@@ -40,7 +41,7 @@ const AttendanceStatus = ({ attendanceList }: AttendanceStatusProps) => {
             styleType="SECONDARY"
             width={responsiveWidth}
             height={56}
-            borderBottomLeftRadius={index === attendanceData.length - 1 ? 12 : undefined}
+            borderBottomLeftRadius={index === attendanceData.length ? 12 : undefined}
           >
             {attendance.gradeLabel}
           </Td>
@@ -56,7 +57,7 @@ const AttendanceStatus = ({ attendanceList }: AttendanceStatusProps) => {
           <Td
             width={responsiveWidth}
             height={56}
-            borderBottomRightRadius={index === attendanceData.length - 1 ? 12 : undefined}
+            borderBottomRightRadius={index === attendanceData.length ? 12 : undefined}
           >
             <CellInput value={attendance.data?.classAbsenceCount} readOnly />
           </Td>

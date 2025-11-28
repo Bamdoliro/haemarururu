@@ -1,7 +1,6 @@
 'use client';
 
 import { FairStudentApplicationBox } from '@/components/fair';
-import { SCHEDULE } from '@/constants/form/constants';
 import { AppLayout } from '@/layouts';
 import { useFairListQuery } from '@/services/fair/queries';
 import { formatApplicationDate, formatFormYear, formatStartDate } from '@/utils';
@@ -9,6 +8,7 @@ import { color } from '@maru/design-system';
 import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
+import { SCHEDULE } from '@/constants/common/constants';
 
 interface FairStudentApplicationProps {
   params: { id: number };
@@ -45,7 +45,8 @@ const FairStudentApplication = ({ params: { id } }: FairStudentApplicationProps)
               <Text fontType="p1" color={color.red}>
                 *
               </Text>
-              는 필수항목입니다.
+              는 필수항목입니다. <br />
+              참석인원은 3명 이내로 입력해주세요.
             </Text>
           </Column>
         </Column>

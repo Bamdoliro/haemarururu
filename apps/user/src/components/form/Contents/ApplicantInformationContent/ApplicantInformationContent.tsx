@@ -1,18 +1,31 @@
-import { useFormValueStore } from '@/stores';
+import { useFormValueStore, useSetFormStore } from '@/stores';
 import { Column, Input, Row, Text } from '@maru/ui';
 import ProfileUploader from '../../ProfileUploader/ProfileUploader';
 import FormController from '../../FormController/FormController';
 import { useApplicantForm } from './ApplicantInformationContent.hook';
 import { color } from '@maru/design-system';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useFormProfileValueStore } from '@/stores/form/formProfile';
 
 const ApplicantInformationContent = () => {
   const { onFieldChange, handleNextStep, errors, RRNBack, RRNFront } = useApplicantForm();
   const form = useFormValueStore();
+  const setForm = useSetFormStore();
+  const profileUrl = useFormProfileValueStore();
 
   const frontRef = useRef<HTMLInputElement>(null);
   const backRef = useRef<HTMLInputElement>(null);
   const [showBack, setShowBack] = useState(false);
+  useEffect(() => {
+    const currentProfileUrl = profileUrl?.downloadUrl;
+    const formProfileUrl = form.applicant.profile;
+    if (currentProfileUrl && currentProfileUrl !== formProfileUrl) {
+      setForm((prev) => ({
+        ...prev,
+        applicant: { ...prev.applicant, profile: currentProfileUrl },
+      }));
+    }
+  }, [profileUrl?.downloadUrl, form.applicant.profile, setForm]);
 
   useEffect(() => {
     if ((RRNFront ?? '').replace(/\D/g, '').length === 6) {
@@ -63,11 +76,25 @@ const ApplicantInformationContent = () => {
     }
   };
 
+  const handleProfileUploadComplete = useCallback(
+    (url: string) => {
+      setForm((prev) => ({
+        ...prev,
+        applicant: { ...prev.applicant, profile: url },
+      }));
+    },
+    [setForm]
+  );
+
   return (
     <>
       <Row width="100%" justifyContent="space-between">
         <Column gap={40} alignItems="center">
-          <ProfileUploader name="profile" isError={!!errors.profile?.length} />
+          <ProfileUploader
+            name="profile"
+            isError={!!errors.profile?.length}
+            onUploadComplete={handleProfileUploadComplete}
+          />
         </Column>
         <Column gap={30} width={492}>
           <Input
@@ -138,6 +165,16 @@ const ApplicantInformationContent = () => {
             width="100%"
             isError={!!errors.phoneNumber?.length}
             errorMessage={errors.phoneNumber ? errors.phoneNumber[0] : ''}
+          />
+          <Input
+            label="이메일"
+            value={form.applicant.email}
+            onChange={onFieldChange}
+            name="email"
+            placeholder="이메일을 입력해주세요."
+            width="100%"
+            isError={!!errors.email?.length}
+            errorMessage={errors.email ? errors.email[0] : ''}
           />
         </Column>
       </Row>

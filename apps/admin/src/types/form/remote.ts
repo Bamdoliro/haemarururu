@@ -16,6 +16,14 @@ export interface PatchSecondRoundResultReq {
   formList: { formId: number; pass: boolean | null }[];
 }
 
+export interface PatchPaymentResultReq {
+  formList: { formId: number; paid: boolean | null }[];
+}
+
 export interface GetFormDetail {
   data: FormDetail;
+}
+
+export interface PatchInterviewNumberReq {
+  formList: { formId: number; interviewNumber: number | null }[];
 }

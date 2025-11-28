@@ -18,6 +18,10 @@ export interface Fair {
   applicationEndDate: string | null;
 }
 
+export type FairFormInput = Omit<Fair, 'capacity'> & {
+  capacity: string;
+};
+
 export interface FairData {
   id: number;
   start: string;
@@ -28,6 +32,7 @@ export interface FairData {
 }
 
 export interface AttendeeData {
+  id: number;
   schoolName: string;
   name: string;
   type: string;
@@ -39,8 +44,18 @@ export interface AttendeeData {
 export interface FairDetailData {
   start: string;
   place: string;
+  capacity: number;
+  type: FairType;
   applicationStartDate: string;
   applicationEndDate: string;
   status: FairStatus;
   attendeeList: AttendeeData[];
+}
+
+export type FairListType = '모두 보기' | '이름 내림차순' | '이름 오름차순';
+
+export type FairSort = 'none' | 'name_asc' | 'name_desc';
+
+export interface FairListSortingType {
+  sort: FairSort | null;
 }

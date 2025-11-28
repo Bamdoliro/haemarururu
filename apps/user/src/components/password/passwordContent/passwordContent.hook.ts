@@ -13,7 +13,6 @@ export const useInput = () => {
   const [changePassword, setChangePassword] = useChangePasswordStore();
   const handleChangePasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
-
     if (name === 'phoneNumber') {
       const numOnly = value.replace(/\D/g, '');
       setChangePassword((prev) => ({ ...prev, [name]: numOnly }));
@@ -21,7 +20,6 @@ export const useInput = () => {
       setChangePassword((prev) => ({ ...prev, [name]: value }));
     }
   };
-
   return { changePassword, handleChangePasswordChange };
 };
 
@@ -38,15 +36,19 @@ export const useVerificationCodeAction = (changePasswordData: SignUp) => {
   });
 
   const handleRequestVerificationCode = () => {
-    requestVerificationMutate();
+    if (changePasswordData.phoneNumber.replace(/\D/g, '').length < 11) {
+      toast('올바른 전화번호를 입력해주세요.', 'ERROR');
+    } else {
+      requestVerificationMutate();
 
-    setIsVerificationCodeDisabled(true);
-    setIsVerificationCodeSent(true);
-    setIsVerificationCodeConfirmed(false);
+      setIsVerificationCodeDisabled(true);
+      setIsVerificationCodeSent(true);
+      setIsVerificationCodeConfirmed(false);
 
-    setTimeout(() => {
-      setIsVerificationCodeDisabled(false);
-    }, 5000);
+      setTimeout(() => {
+        setIsVerificationCodeDisabled(false);
+      }, 5000);
+    }
   };
 
   const handleVerificationConfirm = () => {

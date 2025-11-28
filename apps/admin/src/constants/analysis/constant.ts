@@ -9,13 +9,13 @@ export const ANALYSIS_STEP = ['변경 전', '변경 후'] as const;
 
 export const ANALYSIS_PASS_STEP = [
   '전체 조회',
-  '1차 합격자',
-  '2차 전형자',
+  '서류 합격자',
+  '면접 전형자',
   '최종 합격자',
 ] as const;
 
 export const ANALYSIS_RATIO_TYPE = [
   '일반 전형 성비',
-  '사회 다양성 전형 성비',
+  '사회 통합 전형 성비',
   '정원 외 전형',
 ] as const;

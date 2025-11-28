@@ -12,3 +12,9 @@ export const getNoticeDetail = async (id: number) => {
 
   return data;
 };
+
+export const getAdmissionGuidelineFile = async () => {
+  const { data } = await maru.get(`/notices/admission-guide`);
+
+  return data;
+};

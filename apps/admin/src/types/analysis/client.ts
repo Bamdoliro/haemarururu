@@ -42,6 +42,7 @@ export type FormType =
   | 'PUBLIC_SERVANT'
   | 'STREET_CLEANER'
   | 'DEPLOYED_SOLDIER'
+  | 'POSTMAN'
   | 'INTANGIBLE_CULTURAL_HERITAGE'
   | 'SAILOR'
   | 'SPECIAL_ADMISSION'
@@ -62,7 +63,6 @@ export type FormTypeMainCategory = 'REGULAR' | 'SPECIAL' | 'SUPERNUMERARY';
 
 export type GenderRatioCategory =
   | 'REGULAR'
-  | 'MEISTER_TALENT'
   | 'SOCIAL_INTEGRATION'
   | 'SPECIAL_ADMISSION'
   | 'NATIONAL_VETERANS_EDUCATION';
@@ -77,6 +77,7 @@ export interface GradeDistributionType {
   firstRoundMax: number;
   firstRoundMin: number;
   firstRoundAvg: number;
+  firstRoundSeventyPercentile: number;
   totalMax: number;
   totalMin: number;
   totalAvg: number;

@@ -1,5 +1,4 @@
-import { ROUTES } from '@/constants/common/constants';
-import { SCHEDULE } from '@/constants/form/constants';
+import { ROUTES, SCHEDULE } from '@/constants/common/constants';
 import { formatDay } from '@/utils';
 import { useInterval } from '@maru/hooks';
 import type { ButtonStyleType } from '@maru/ui';
@@ -16,9 +15,9 @@ dayjs.locale('ko');
 
 const SCHEDULE_STATUS = new Map([
   [SCHEDULE.원서_접수.toString(), '원서 접수 시작까지'],
-  [SCHEDULE.이차_면접.toString(), '2차 전형 시작까지'],
+  [SCHEDULE.이차_면접.toString(), '면접 전형 시작까지'],
   [SCHEDULE.최종_합격_발표.toString(), '최종합격자 발표'],
-  [SCHEDULE.일차_합격_발표.toString(), '1차 합격자 발표'],
+  [SCHEDULE.일차_합격_발표.toString(), '서류 합격자 발표'],
   [SCHEDULE.입학_등록.toString(), '입학 등록 기간'],
 ]);
 
@@ -80,18 +79,18 @@ export const useRemainDate = () => {
 export const useButtonStatus = () => {
   const { currentTime, remainDays } = useDday();
   const router = useRouter();
-
   const isSubmitPeriod = dayjs().isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감);
 
   const isPeriodOfViewing =
     (-2 < remainDays && remainDays <= 0) ||
     dayjs().isBetween(SCHEDULE.입학_등록, SCHEDULE.입학_등록_마감);
 
-  const buttonStyleType: ButtonStyleType =
-    isSubmitPeriod || isPeriodOfViewing ? 'PRIMARY' : 'DISABLED';
+  const buttonStyleType: ButtonStyleType = isPeriodOfViewing ? 'PRIMARY' : 'DISABLED';
 
   const handleMovePage = () => {
-    if (isPeriodOfViewing) {
+    if (dayjs().isBefore(SCHEDULE.원서_접수_마감)) {
+      router.push(ROUTES.SIGNUP);
+    } else if (isPeriodOfViewing) {
       if (currentTime.isSame(SCHEDULE.일차_합격_발표)) {
         router.push(ROUTES.FIRST_RESULT);
       } else if (currentTime.isSame(SCHEDULE.최종_합격_발표)) {

@@ -1,4 +1,3 @@
-import { SCHEDULE } from '@/constants/form/constants';
 import { color } from '@maru/design-system';
 import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
@@ -6,6 +5,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ScheduleItem from './ScheduleItem/ScheduleItem';
 import { formatFormYear, formatScheduleDate } from '@/utils';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const ScheduleList = () => {
   const SCHEDULE_LIST = [
@@ -18,14 +18,14 @@ const ScheduleList = () => {
     },
     {
       id: 2,
-      title: '1차 합격자 발표',
+      title: '면접 대상자 발표',
       date: formatScheduleDate([SCHEDULE.일차_합격_발표]),
       startTime: SCHEDULE.일차_합격_발표,
       endTime: dayjs(SCHEDULE.일차_합격_발표).endOf('day'),
     },
     {
       id: 3,
-      title: '2차 전형',
+      title: '면접 전형일',
       date: formatScheduleDate(
         [SCHEDULE.이차_면접, SCHEDULE.이차_면접_종료],
         'INTERVIEW'
@@ -35,7 +35,7 @@ const ScheduleList = () => {
     },
     {
       id: 4,
-      title: '최종 합격자 발표',
+      title: '합격자 발표',
       date: formatScheduleDate([SCHEDULE.최종_합격_발표]),
       startTime: SCHEDULE.최종_합격_발표,
       endTime: dayjs(SCHEDULE.최종_합격_발표).endOf('day'),

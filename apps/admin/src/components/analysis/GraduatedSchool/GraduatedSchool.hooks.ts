@@ -5,12 +5,12 @@ import type { AnalysisApplicantType, AreaCategory } from '@/types/analysis/clien
 const useGraduatedSchool = () => {
   const [currentAnalysisPassStep, setCurrentAnalysisPassStep] =
     useState<keyof typeof stepMap>('전체 조회');
-  const [areaCategory, setAreaCategory] = useState<AreaCategory>('');
+  const [areaCategory, setAreaCategory] = useState<AreaCategory | null>(null);
 
   const stepMap: Record<string, AnalysisApplicantType[]> = {
     '전체 조회': ['RECEIVED', 'FIRST_PASSED', 'FIRST_FAILED', 'FAILED', 'PASSED'],
-    '1차 합격자': ['FIRST_PASSED', 'FAILED', 'PASSED'],
-    '2차 전형자': ['FAILED', 'PASSED'],
+    '서류 합격자': ['FIRST_PASSED', 'FAILED', 'PASSED'],
+    '면접 전형자': ['FAILED', 'PASSED'],
     '최종 합격자': ['PASSED'],
   };
 
@@ -20,8 +20,8 @@ const useGraduatedSchool = () => {
 
   const { data: formList } = useGraduatedSchoolListQuery({
     statusList: stepMap[currentAnalysisPassStep],
-    isBusan: areaCategory === 'BUSAN' ? true : false,
-    gu: areaCategory === 'OTHER_AREA' ? '' : areaCategory,
+    isBusan: areaCategory === null ? '' : areaCategory !== 'OTHER_AREA',
+    gu: areaCategory === null ? '' : areaCategory === 'OTHER_AREA' ? '' : areaCategory,
   });
 
   return {

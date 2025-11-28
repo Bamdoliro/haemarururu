@@ -17,7 +17,8 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
     useInput();
   const { handleSendFairApplication } = useCTAButton(id, application);
   const { agree, handleAgreeChange, handleButtonClick } = useAgree(
-    handleSendFairApplication
+    handleSendFairApplication,
+    application
   );
 
   const handleClick = () => {
@@ -59,22 +60,43 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
             errorMessage="성함을 입력해주세요."
             isError={isSubmitted && application.name === ''}
           />
-          <CellInput
-            name="headcount"
-            count="명"
-            label={
-              <>
-                참석 인원{' '}
-                <Text fontType="context" color={color.red}>
-                  *
+          <Column gap={8} alignItems="flex-start">
+            <CellInput
+              name="headcount"
+              count="명"
+              label={
+                <>
+                  참석 인원{' '}
+                  <Text fontType="context" color={color.red}>
+                    *
+                  </Text>
+                </>
+              }
+              onChange={handleApplicationChange}
+              value={application.headcount ?? 0}
+              errorMessage="참석 인원을 입력해주세요."
+              isError={
+                (isSubmitted &&
+                  (application.headcount === null ||
+                    application.headcount === 0 ||
+                    application.headcount === undefined)) ||
+                Number(application.headcount ?? 0) > 3
+              }
+            />
+            {(application.headcount ?? 0) > 3 && (
+              <Text fontType="caption" color={color.red}>
+                참석 인원은 최대 3명까지만 가능합니다.
+              </Text>
+            )}
+            {isSubmitted &&
+              (application.headcount === null ||
+                application.headcount === 0 ||
+                application.headcount === undefined) && (
+                <Text fontType="caption" color={color.red}>
+                  참여 인원을 입력해주세요.
                 </Text>
-              </>
-            }
-            onChange={handleApplicationChange}
-            value={application.headcount ?? 0}
-            errorMessage="참석 인원을 입력해주세요."
-            isError={isSubmitted && application.headcount === null}
-          />
+              )}
+          </Column>
           <RadioGroup
             name="type"
             label={
@@ -134,13 +156,13 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
               <br />
               홍보자료 발송 및 입학안내 이외의 용도로 사용되지 않습니다.
               <br />
-              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.maruDefault }}>
+              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.haeMaruDefault }}>
                 [개인정보처리방침]
               </Link>{' '}
               제 1조, 제 2조에 따라 개인정보를 수집, 이용 및 제공하는 것을 동의합니다.
               <br />
               또한 개인정보를 다음과 같이 보관하며, 수집, 이용 및 제공목적이 달성된 경우
-              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.maruDefault }}>
+              <Link href={ROUTES.PRIVACY_POLCY} style={{ color: color.haeMaruDefault }}>
                 [개인정보처리방침]
               </Link>{' '}
               제 6조에 따라 처리합니다.

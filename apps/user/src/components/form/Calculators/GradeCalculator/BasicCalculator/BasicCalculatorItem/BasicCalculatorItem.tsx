@@ -23,7 +23,6 @@ const BasicCalculatorItem = ({ id, achievementLevels, isError = [], isLast }: Pr
   const { handleSubjectChange } = useInput(id);
   const subject = subjectList[id];
   const getDisplayValue = (value: string) => {
-    if (value === 'F') return '미이수';
     return value;
   };
   return (

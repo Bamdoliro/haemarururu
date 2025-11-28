@@ -31,6 +31,7 @@ const StyledSwitch = styled.div`
   gap: 8px;
   padding: 8px;
   height: 54px;
+  width: fit-content;
   border-radius: 16px;
   background-color: ${color.gray100};
 `;
@@ -39,8 +40,10 @@ const SwitchButton = styled.button<{ $active: boolean }>`
   ${font.context}
   padding: 8px 20px;
   height: 100%;
+  width: fit-content;
   border-radius: 8px;
   color: ${color.gray600};
+  white-space: nowrap;
 
   ${(props) =>
     props.$active &&

@@ -1,19 +1,3 @@
-import dayjs from 'dayjs';
-import 'dayjs/locale/ko';
-
-dayjs.locale('ko');
-
-export const SCHEDULE = {
-  원서_접수: dayjs(process.env.NEXT_PUBLIC_FORM_START),
-  원서_접수_마감: dayjs(process.env.NEXT_PUBLIC_FORM_END),
-  일차_합격_발표: dayjs(process.env.NEXT_PUBLIC_FIRST_RESULT),
-  이차_면접: dayjs(process.env.NEXT_PUBLIC_INTERVIEW_START),
-  이차_면접_종료: dayjs(process.env.NEXT_PUBLIC_INTERVIEW_END),
-  최종_합격_발표: dayjs(process.env.NEXT_PUBLIC_FINAL_RESULT),
-  입학_등록: dayjs(process.env.NEXT_PUBLIC_REGISTRATION_START),
-  입학_등록_마감: dayjs(process.env.NEXT_PUBLIC_REGISTRATION_END),
-};
-
 export const SCORE = {
   REGULAR_TYPE: 0,
   SPECIAL_TYPE: 0,
@@ -116,4 +100,15 @@ export const FORBIDDEN_WORDS = [
   '전화번호',
   '토익',
   '토플',
+  '승마',
+  '영재',
+  '골프',
+  '시험',
+  '급수',
+  '점수',
+  '인증',
+  '경시',
+  '경시대회',
+  '모의고사',
+  '대회',
 ];

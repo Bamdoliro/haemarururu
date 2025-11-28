@@ -30,7 +30,7 @@ const SideBar = ({ onClick, styleType }: SideBarProps) => {
           </Column>
         </FormFinalSubmitInfoBox>
         <Button onClick={onClick} styleType={styleType} width="100%" size="LARGE">
-          원서 최종 제출
+          원서 입력 완료
         </Button>
       </Column>
     </StyledSideBar>

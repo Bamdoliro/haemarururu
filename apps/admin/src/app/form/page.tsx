@@ -10,11 +10,13 @@ import {
 import AppLayout from '@/layouts/AppLayout';
 import {
   IconAdmission,
+  IconArticlePerson,
   IconCheckDocument,
   IconClose,
   IconEditAllDocument,
   IconEditDocument,
   IconFilter,
+  IconPaid,
   IconPrint,
   IconUpload,
 } from '@maru/icon';
@@ -22,8 +24,11 @@ import { Button, Column, Dropdown, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import {
+  useEditInterviewNumberActions,
+  useEditPaymentResultActions,
   useEditSecondRoundResultActions,
   useExportAllAddmissionTicketAction,
+  useExportAllPersonalStatementAction,
   useFormPageState,
   usePrintFormURLActions,
 } from './form.hooks';
@@ -32,6 +37,15 @@ import { useOverlay } from '@toss/use-overlay';
 import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/SecondScoreUploadModal';
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
 import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
+import FormAllTable from '@/components/form/FormAllTable/FormAllTable';
+
+const FORM_TYPE_OPTIONS = [
+  { value: 'RESET', label: '정렬 초기화' },
+  ...Object.entries(FORM_TYPE_CATEGORY).map(([value, label]) => ({
+    value,
+    label,
+  })),
+];
 
 const FormPage = () => {
   const {
@@ -48,6 +62,12 @@ const FormPage = () => {
     setIsSecondRoundResultEditingFalse,
     handleSecondRoundResultEditCompleteButtonClick,
   } = useEditSecondRoundResultActions();
+  const {
+    isPaymentResultEditing,
+    setIsPaymentResultEditingTrue,
+    setIsPaymentResultEditingFalse,
+    handlePaymentResultEditCompleteButtonClick,
+  } = useEditPaymentResultActions();
 
   const {
     isFormToPrintSelecting,
@@ -55,9 +75,17 @@ const FormPage = () => {
     setIsFormToPrintSelectingFalse,
     handlePrintFormUrlButtonClick,
   } = usePrintFormURLActions();
-
   const { handleExportAllAdmissionTicketButtonClick } =
     useExportAllAddmissionTicketAction();
+  const { handleExportAllPersonalStatementButtonClick } =
+    useExportAllPersonalStatementAction();
+
+  const {
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
+  } = useEditInterviewNumberActions();
 
   const overlay = useOverlay();
 
@@ -78,7 +106,6 @@ const FormPage = () => {
       <AutoSecondRoundResultModal isOpen={isOpen} onClose={close} />
     ));
   };
-
   return (
     <AppLayout>
       <StyledFormPage>
@@ -91,13 +118,14 @@ const FormPage = () => {
                   data={[
                     { value: 'RESET', label: '정렬 초기화' },
                     { value: 'APPROVED', label: '접수' },
-                    { value: 'FIRST_FAILED', label: '1차 불합격' },
+                    { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
+                    { value: 'ALL', label: '전체 조회' },
                     { value: 'FAILED', label: '불합격' },
                     { value: 'FINAL_SUBMITTED', label: '최종 제출' },
                     { value: 'SUBMITTED', label: '제출' },
                     { value: 'RECEIVED', label: '승인' },
                     { value: 'NO_SHOW', label: '불참' },
-                    { value: 'FIRST_PASSED', label: '1차 합격' },
+                    { value: 'FIRST_PASSED', label: '면접 대상자 합격' },
                     { value: 'PASSED', label: '최종 합격' },
                     { value: 'REJECTED', label: '반려' },
                     { value: 'ENTERED', label: '입학' },
@@ -111,25 +139,7 @@ const FormPage = () => {
                   doubled={5}
                 />
                 <Dropdown
-                  data={[
-                    { value: 'RESET', label: '정렬 초기화' },
-                    { value: 'REGULAR', label: '일반전형' },
-                    { value: 'MEISTER_TALENT', label: '마이스터인재전형' },
-                    { value: 'NATIONAL_BASIC_LIVING', label: '국가기초생활수급권자' },
-                    {
-                      value: 'NATIONAL_VETERANS_EDUCATION',
-                      label: '국가보훈대상자 중 교육지원대상자녀',
-                    },
-                    { value: 'NEAR_POVERTY', label: '차상위계층' },
-                    { value: 'NATIONAL_VETERANS', label: '국가보훈자녀' },
-                    { value: 'ONE_PARENT', label: '한부모가정' },
-                    { value: 'FROM_NORTH_KOREA', label: '북한이탈주민' },
-                    { value: 'MULTICULTURAL', label: '다문화가정' },
-                    { value: 'TEEN_HOUSEHOLDER', label: '소년소녀가장' },
-                    { value: 'MULTI_CHILDREN', label: '다자녀가정자녀' },
-                    { value: 'FARMING_AND_FISHING', label: '농어촌지역출신자' },
-                    { value: 'SPECIAL_ADMISSION', label: '특례입학대상자' },
-                  ]}
+                  data={FORM_TYPE_OPTIONS}
                   size="SMALL"
                   width={160}
                   placeholder="전형 별"
@@ -203,6 +213,38 @@ const FormPage = () => {
                     출력하기
                   </Button>
                 </Row>
+              ) : isInterviewNumberResultEditing ? (
+                <Row gap={16}>
+                  <Button
+                    styleType="SECONDARY"
+                    size="SMALL"
+                    onClick={setIsInterviewNumberResultEditingFalse}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handleInterviewNumberResultEditCompleteButtonClick}
+                  >
+                    완료
+                  </Button>
+                </Row>
+              ) : isPaymentResultEditing ? (
+                <Row gap={16}>
+                  <Button
+                    styleType="SECONDARY"
+                    size="SMALL"
+                    onClick={setIsPaymentResultEditingFalse}
+                  >
+                    취소
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handlePaymentResultEditCompleteButtonClick}
+                  >
+                    완료
+                  </Button>
+                </Row>
               ) : (
                 <FunctionDropdown
                   data={[
@@ -214,19 +256,25 @@ const FormPage = () => {
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
-                      label: '2차 전형 점수 입력하기',
+                      label: '면접번호 입력하기',
+                      value: 'input_interview_numbers',
+                      onClick: setIsInterviewNumberResultEditingTrue,
+                    },
+                    {
+                      icon: <IconEditDocument width={24} height={24} />,
+                      label: '면접 전형 점수 입력하기',
                       value: 'input_second_round_scores',
                       onClick: openSecondScoreUploadModal,
                     },
                     {
                       icon: <IconEditDocument width={24} height={24} />,
-                      label: '2차 합격 여부 변경하기',
+                      label: '면접 합격 여부 변경하기',
                       value: 'update_second_round_result',
                       onClick: setIsSecondRoundResultEditingTrue,
                     },
                     {
                       icon: <IconEditAllDocument width={24} height={24} />,
-                      label: '2차 합격자 자동 선발',
+                      label: '면접 합격자 자동 선발',
                       value: 'auto_select_second_round',
                       onClick: openAutoSecondRoundResultModal,
                     },
@@ -248,12 +296,24 @@ const FormPage = () => {
                       value: 'export_all_exam_tickets',
                       onClick: handleExportAllAdmissionTicketButtonClick,
                     },
+                    {
+                      icon: <IconArticlePerson width={24} height={24} />,
+                      label: '자기소개서 전체 발급하기',
+                      value: 'export_all_personal_statements',
+                      onClick: handleExportAllPersonalStatementButtonClick,
+                    },
+                    {
+                      icon: <IconPaid width={24} height={24} />,
+                      label: '전형료 상태 변경하기',
+                      value: 'update_payment_result',
+                      onClick: setIsPaymentResultEditingTrue,
+                    },
                   ]}
                 />
               )}
             </Row>
           </Row>
-          <FormTable />
+          {formListType === '전체 조회' ? <FormAllTable /> : <FormTable />}
         </Column>
       </StyledFormPage>
     </AppLayout>

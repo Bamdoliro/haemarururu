@@ -51,7 +51,7 @@ const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
       <SwitchCase
         value={form.education.graduationType}
         caseBy={{
-          QUALIFICATION_EXAMINATION: <GEDCalculator />,
+          QUALIFICATION_EXAMINATION: <GEDCalculator subjectError={subjectError} />,
         }}
         defaultComponent={<BasicCalculator subjectError={subjectError} />}
       />

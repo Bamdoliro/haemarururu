@@ -1,6 +1,6 @@
 import { DataBox } from '@/components/common';
 import { useFormDetailQuery } from '@/services/form/queries';
-import { formatDate, formatPhoneNumber } from '@/utils';
+import { formatPhoneNumber } from '@/utils';
 import { Loader } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
@@ -15,11 +15,9 @@ const ApplicantInfo = ({ id }: ApplicantInfoProps) => {
 
   const applicantDetails = [
     { label: '이름', data: formDetailData.applicant.name },
-    {
-      label: '주민등록번호',
-      data: formatDate.toShortDateTime(formDetailData.applicant.registrationNumber),
-    },
+    { label: '주민등록번호', data: formDetailData.applicant.registrationNumber },
     { label: '전화번호', data: formatPhoneNumber(formDetailData.applicant.phoneNumber) },
+    { label: '이메일', data: formDetailData.applicant.email },
   ];
 
   return (

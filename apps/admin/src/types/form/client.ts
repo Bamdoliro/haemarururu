@@ -13,6 +13,7 @@ export type FormStatus =
 
 export type FormType =
   | 'REGULAR'
+  | 'SOCIAL_INTEGRATION'
   | 'NATIONAL_VETERANS'
   | 'NATIONAL_BASIC_LIVING'
   | 'ONE_PARENT'
@@ -34,6 +35,7 @@ export type FormType =
   | 'PUBLIC_SERVANT'
   | 'STREET_CLEANER'
   | 'DEPLOYED_SOLDIER'
+  | 'POSTMAN'
   | 'INTANGIBLE_CULTURAL_HERITAGE'
   | 'SAILOR'
   | 'SPECIAL_ADMISSION'
@@ -43,29 +45,39 @@ export type GraduationType = 'EXPECTED' | 'GRADUATED' | 'QUALIFICATION_EXAMINATI
 
 export type PassStatusType = '합격' | '불합격' | '미정';
 
+export type PaymentStatusType = '제출' | '미제출';
+
 export type ExportExcelType =
   | '전체 내보내기'
-  | '1차 전형 결과'
-  | '2차 전형 결과'
+  | '서류 전형 결과'
+  | '면접 전형 결과'
   | '최종 합격자';
 
 export interface Form {
   id: number;
   examinationNumber: number | null;
   name: string;
+  phoneNumber: string;
+  hasSubmittedForm: boolean;
   birthday: string;
   graduationType: GraduationType;
   school: string;
   status: FormStatus;
   type: FormType;
   isChangedToRegular: boolean;
+  payment: boolean | null;
+  interviewNumber: number | null;
   totalScore: number | null;
   hasDocument: boolean | null;
   firstRoundPassed: boolean | null;
   secondRoundPassed: boolean | null;
 }
 
-export type FormListType = '모두 보기' | '검토해야 하는 원서 모아보기' | '정렬';
+export type FormListType =
+  | '모두 보기'
+  | '검토해야 하는 원서 모아보기'
+  | '정렬'
+  | '전체 조회';
 
 export type FormSort = 'total-score-asc' | 'total-score-desc' | 'form-id';
 
@@ -81,6 +93,10 @@ export interface FormDetail {
   applicant: UserInfo;
   parent: ParentInfo;
   education: EducationInfo;
+  score: {
+    firstRoundScore: Score;
+    totalScore: Score;
+  };
   grade: {
     subjectList: Subject[];
     attendance1: Attendance;
@@ -95,12 +111,14 @@ export interface FormDetail {
   formUrl: string;
   type: FormType;
   status: FormStatus;
+  payment: boolean;
   changedToRegular: boolean;
 }
 
 export interface UserInfo {
   identificationPictureUri: string;
   name: string;
+  email: string;
   phoneNumber: string;
   registrationNumber: string;
 }
@@ -112,11 +130,14 @@ export interface ParentInfo {
   zoneCode: string;
   address: string;
   detailAddress: string;
+  account: string;
+  bank: string;
+  owner: string;
 }
 
 export interface EducationInfo {
   graduationType: GraduationType;
-  graduationYear: string;
+  graduationDate: string;
   schoolName: string;
   schoolLocation: string;
   schoolCode: string;
@@ -126,12 +147,22 @@ export interface EducationInfo {
   teacherMobilePhoneNumber: string;
 }
 
-export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-' | 'F';
+export type AchievementLevel = 'A' | 'B' | 'C' | 'D' | 'E' | '-';
+
+export interface QualificationExaminationSubject {
+  subjectName: string;
+  achievementLevel: AchievementLevel;
+}
 
 export interface AchievementLevelsGroup {
   subjectName: string;
   grades: number[];
   semesters: number[];
+  achievementLevels: AchievementLevel[];
+}
+
+export interface QualificationExaminationAchievementLevelsGroup {
+  subjectName: string;
   achievementLevels: AchievementLevel[];
 }
 
@@ -148,6 +179,7 @@ export interface Attendance {
   earlyLeaveCount: number;
   classAbsenceCount: number;
 }
+export type Score = number;
 
 export type FormDetailField =
   | '지원자 정보'
@@ -156,3 +188,5 @@ export type FormDetailField =
   | '전형'
   | '성적'
   | '자기소개서';
+
+export type ReceiveStatusValue = 'approve' | 'reject' | 'receive';

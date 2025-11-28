@@ -1,74 +1,71 @@
 import type { GradeDistributionType } from '@/types/analysis/client';
 
 const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
-  const regularRoundMax = formList
-    ? Math.max(
-        ...formList
-          .filter((item) => item.type === 'REGULAR')
-          .map((item) => item.firstRoundMax)
-      ).toFixed(3)
-    : undefined;
+  const isValid = (v: number | null | undefined): v is number =>
+    typeof v === 'number' && !Number.isNaN(v);
 
-  const SpecialAdmissionRoundMax = formList
-    ? Math.max(
-        ...formList
-          .filter(
-            (item) =>
-              !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(
-                item.type
-              )
-          )
-          .map((item) => item.firstRoundMax)
-      ).toFixed(3)
-    : undefined;
+  const getMaxValue = (filter: (item: GradeDistributionType) => boolean) => {
+    if (!formList) return '0.000';
+    const values = formList
+      .filter(filter)
+      .map((item) => item.firstRoundMax)
+      .filter(isValid);
+    return values.length ? Math.max(...values).toFixed(3) : '0.000';
+  };
 
-  const regularRoundMin = formList
-    ? Math.min(
-        ...formList
-          .filter((item) => item.type === 'REGULAR')
-          .map((item) => item.firstRoundMin)
-      ).toFixed(3)
-    : undefined;
+  const getMinValue = (filter: (item: GradeDistributionType) => boolean) => {
+    if (!formList) return '0.000';
+    const values = formList
+      .filter(filter)
+      .map((item) => item.firstRoundMin)
+      .filter(isValid);
+    return values.length ? Math.min(...values).toFixed(3) : '0.000';
+  };
 
-  const specialAdmissionRoundMinCom = formList
-    ? formList
-        .filter(
-          (item) =>
-            !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(
-              item.type
-            ) && item.firstRoundMin !== 0
-        )
-        .map((item) => item.firstRoundMin)
-        .reduce((min, value) => Math.min(min, value), Infinity)
-        .toFixed(3)
-    : '0.000';
+  const isSpecialAdmission = (item: GradeDistributionType) =>
+    !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(item.type);
 
-  const specialAdmissionRoundMin =
-    specialAdmissionRoundMinCom === 'Infinity' ? '0.000' : specialAdmissionRoundMinCom;
+  const regularRoundMax = getMaxValue((item) => item.type === 'REGULAR');
+  const SpecialAdmissionRoundMax = getMaxValue(isSpecialAdmission);
+  const regularRoundMin = getMinValue((item) => item.type === 'REGULAR');
+  const specialAdmissionRoundMin = getMinValue(isSpecialAdmission);
 
   const regularRoundAvg = formList
-    ?.filter((item) => ['REGULAR'].includes(item.type))
-    .map((item) => item.firstRoundAvg.toFixed(3));
+    ?.filter((item) => item.type === 'REGULAR')
+    .map((item) => item.firstRoundAvg)
+    .filter(isValid)
+    .map((v) => v.toFixed(3)) || ['0.000'];
 
   const SpecialAdmissionData =
+    formList?.filter(isSpecialAdmission).filter((item) => isValid(item.firstRoundAvg)) ||
+    [];
+
+  const SpecialAdmissionRoundAvg = SpecialAdmissionData.length
+    ? (
+        SpecialAdmissionData.reduce((sum, item) => sum + item.firstRoundAvg, 0) /
+        SpecialAdmissionData.length
+      ).toFixed(3)
+    : '0.000';
+
+  const regularRoundSeventy = formList
+    ?.filter((item) => item.type === 'REGULAR')
+    .map((item) => item.firstRoundSeventyPercentile)
+    .filter(isValid)
+    .map((v) => v.toFixed(3)) || ['0.000'];
+
+  const specialAdmissionSeventyData =
     formList
-      ?.filter(
-        (item) =>
-          !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(
-            item.type
-          )
-      )
-      .filter((item) => item.firstRoundAvg !== 0) || [];
+      ?.filter(isSpecialAdmission)
+      .filter((item) => isValid(item.firstRoundSeventyPercentile)) || [];
 
-  const totalRoundAvg = SpecialAdmissionData.reduce(
-    (sum, item) => sum + item.firstRoundAvg,
-    0
-  );
-
-  const SpecialAdmissionRoundAvg =
-    totalRoundAvg !== 0
-      ? (totalRoundAvg / SpecialAdmissionData.length).toFixed(3)
-      : '0.000';
+  const specialAdmissionSeventy = specialAdmissionSeventyData.length
+    ? (
+        specialAdmissionSeventyData.reduce(
+          (sum, item) => sum + item.firstRoundSeventyPercentile,
+          0
+        ) / specialAdmissionSeventyData.length
+      ).toFixed(3)
+    : '0.030';
 
   return {
     regularRoundMax,
@@ -77,6 +74,8 @@ const useScoreStatus = (formList: GradeDistributionType[] | undefined) => {
     specialAdmissionRoundMin,
     regularRoundAvg,
     SpecialAdmissionRoundAvg,
+    regularRoundSeventy,
+    specialAdmissionSeventy,
   };
 };
 

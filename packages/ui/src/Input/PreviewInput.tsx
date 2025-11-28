@@ -16,6 +16,7 @@ const PreviewInput = ({
   message,
   isError = false,
   onChange,
+  maxLength,
   onKeyDown,
 }: InputProps) => {
   const { value: isPreview, toggle: toggleIsPreview } = useBooleanState();
@@ -29,6 +30,7 @@ const PreviewInput = ({
             onChange={onChange}
             onKeyDown={onKeyDown}
             placeholder={placeholder}
+            maxLength={maxLength}
             type={isPreview ? 'text' : 'password'}
             name={name}
             value={value}

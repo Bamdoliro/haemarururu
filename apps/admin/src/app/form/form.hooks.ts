@@ -1,8 +1,13 @@
 import {
+  useEditInterviewNumberMutation,
+  useEditPaymentResultMutation,
   useEditSecondRoundResultMutation,
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
-import { useExportAllAddmissionTicket } from '@/services/form/queries';
+import {
+  useExportAllAddmissionTicket,
+  useExportAllPersonalStatement,
+} from '@/services/form/queries';
 import {
   useFormToPrintValueStore,
   useSetFormToPrintStore,
@@ -12,16 +17,24 @@ import { useIsFormToPrintSelectingStore } from '@/store/form/isFormToPrintSelect
 import { useIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
 import { useSecondRoundResultValueStore } from '@/store/form/secondRoundResult';
 import type { FormListSortingType } from '@/types/form/client';
+import { usePaymentResultValueStore } from '@/store/form/paymentResult';
+import { useIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
+import { useIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
+import { useInterviewNumberValueStore } from '@/store/form/interviewNumber';
 
 export const useFormPageState = () => {
   const [formListType, setFormListType] = useFormListTypeStore();
   const [formListSortingType, setFormListSortingType] = useFormListSortingTypeStore();
 
   const handleCriteriaChange = (value: string, key: string) => {
-    setFormListType('정렬');
     if (value === 'RESET') {
+      setFormListType('모두 보기');
+      setFormListSortingType((prev) => ({ ...prev, [key]: null }));
+    } else if (value === 'ALL') {
+      setFormListType('전체 조회');
       setFormListSortingType((prev) => ({ ...prev, [key]: null }));
     } else {
+      setFormListType('정렬');
       setFormListSortingType((prev) => ({ ...prev, [key]: value }));
     }
   };
@@ -130,4 +143,90 @@ export const useExportAllAddmissionTicketAction = () => {
   };
 
   return { handleExportAllAdmissionTicketButtonClick };
+};
+
+export const useExportAllPersonalStatementAction = () => {
+  const { data: exportPersonalStatementData } = useExportAllPersonalStatement();
+
+  const handleExportAllPersonalStatementButtonClick = () => {
+    if (!exportPersonalStatementData) return;
+    const statementURL = window.URL.createObjectURL(
+      new Blob([exportPersonalStatementData])
+    );
+
+    const link = document.createElement('a');
+    link.href = statementURL;
+    link.download = '전체 자기소개서.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(statementURL);
+  };
+
+  return { handleExportAllPersonalStatementButtonClick };
+};
+
+export const useEditPaymentResultActions = () => {
+  const [isPaymentResultEditing, setIsPaymentResultEditing] =
+    useIsPaymentResultEditingStore();
+
+  const setIsPaymentResultEditingTrue = () => setIsPaymentResultEditing(true);
+  const setIsPaymentResultEditingFalse = () => {
+    setIsPaymentResultEditing(false);
+  };
+
+  const paymentResult = usePaymentResultValueStore();
+  const paymentResultData = {
+    formList: Object.entries(paymentResult).map(([formId, paidStatus]) => {
+      return {
+        formId: Number(formId),
+        paid: paidStatus === '미제출' ? null : paidStatus === '제출',
+      };
+    }),
+  };
+  const { editPaymentResult } = useEditPaymentResultMutation(paymentResultData);
+
+  const handlePaymentResultEditCompleteButtonClick = () => {
+    editPaymentResult();
+  };
+
+  return {
+    isPaymentResultEditing,
+    setIsPaymentResultEditingTrue,
+    setIsPaymentResultEditingFalse,
+    handlePaymentResultEditCompleteButtonClick,
+  };
+};
+
+export const useEditInterviewNumberActions = () => {
+  const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] =
+    useIsInterviewNumberEditingStore();
+
+  const setIsInterviewNumberResultEditingTrue = () =>
+    setIsInterviewNumberResultEditing(true);
+  const setIsInterviewNumberResultEditingFalse = () => {
+    setIsInterviewNumberResultEditing(false);
+  };
+
+  const interviewNumberResult = useInterviewNumberValueStore();
+  const interviewNumberData = {
+    formList: Object.entries(interviewNumberResult).map(([formId, interviewNumber]) => {
+      return {
+        formId: Number(formId),
+        interviewNumber: interviewNumber ? Number(interviewNumber) : null,
+      };
+    }),
+  };
+  const { editInterviewNumber } = useEditInterviewNumberMutation(interviewNumberData);
+
+  const handleInterviewNumberResultEditCompleteButtonClick = () => {
+    editInterviewNumber();
+  };
+
+  return {
+    isInterviewNumberResultEditing,
+    setIsInterviewNumberResultEditingTrue,
+    setIsInterviewNumberResultEditingFalse,
+    handleInterviewNumberResultEditCompleteButtonClick,
+  };
 };
