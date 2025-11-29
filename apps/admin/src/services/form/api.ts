@@ -96,7 +96,7 @@ export const getFormDetail = async (id: number) => {
 };
 
 export const patchSecondScoreFormat = async (formData: FormData) => {
-  const data = await maru.patch('/forms/second-round/score', formData, {
+  const { data } = await maru.patch('/forms/second-round/score', formData, {
     ...authorization.FormData(),
     responseType: 'blob',
     validateStatus: () => true,
