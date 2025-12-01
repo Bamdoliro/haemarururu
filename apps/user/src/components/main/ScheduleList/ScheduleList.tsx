@@ -18,6 +18,16 @@ const ScheduleList = () => {
     },
     {
       id: 2,
+      title: '방문 원서 접수',
+      date: formatScheduleDate(
+        [SCHEDULE.방문_원서_접수, SCHEDULE.원서_접수_마감],
+        'FORM'
+      ),
+      startTime: SCHEDULE.방문_원서_접수,
+      endTime: dayjs(SCHEDULE.원서_접수_마감).endOf('day'),
+    },
+    {
+      id: 3,
       title: '면접 대상자 발표',
       date: formatScheduleDate([SCHEDULE.일차_합격_발표]),
       startTime: SCHEDULE.일차_합격_발표,
