@@ -3,6 +3,8 @@ import { Button, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import { useMobile } from '../../Mobile.hook';
+import formatMonthDay from '@/utils/formatMonthDay';
+import { SCHEDULE } from '@/constants/common/constants';
 
 const PassBox = () => {
   const { handleDownloadAdmissionTicket, handleMoveStep } = useMobile('MAIN');
@@ -12,7 +14,7 @@ const PassBox = () => {
       <Text fontType="p3" color={color.gray900} textAlign="center">
         면접 전형 응시를 위해 수험표를 출력하고
         <br />
-        12월 16일에 본교에 방문해주시기 바랍니다.
+        {formatMonthDay(SCHEDULE.이차_면접)}일에 본교에 방문해주시기 바랍니다.
         <br />
         자세한 내용은 입학 요강에서 확인해주시기 바랍니다.
       </Text>
