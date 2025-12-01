@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 const formatScheduleDate = (
   dates: (string | Dayjs)[],
-  type?: 'FORM' | 'INTERVIEW' | 'REGISTRATION' | 'STANDARD'
+  type?: 'FORM' | 'INTERVIEW' | 'REGISTRATION' | 'STANDARD' | 'RESULT'
 ): string => {
   const formatDate = (date: Dayjs, withTime = true) => {
     const y = date.year();
@@ -44,6 +44,9 @@ const formatScheduleDate = (
       return `${start.year()}년 ${
         start.month() + 1
       }월 ${start.date()}일 ~ ${end.date()}일`;
+    }
+    if (type === 'RESULT') {
+      return `${start.month() + 1}월 ${start.date()}일 ~ ${end.date()}일`;
     }
   }
 

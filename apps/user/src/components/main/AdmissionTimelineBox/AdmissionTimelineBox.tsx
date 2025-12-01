@@ -33,7 +33,7 @@ export default AdmissionTimelineBox;
 const StyledAdmissionTimelineBox = styled.div`
   ${flex({ alignItems: 'center' })}
   width: 100%;
-  height: 450px;
+  height: 530px;
   max-width: 708px;
   border-radius: 32px;
   padding: 60px;

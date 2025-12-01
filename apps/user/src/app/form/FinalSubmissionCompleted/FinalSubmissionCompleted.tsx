@@ -6,6 +6,9 @@ import { Button, Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { styled } from 'styled-components';
 import { useCTAButton } from './FinalSubmissionCompleted.hook';
+import { SCHEDULE } from '@/constants/common/constants';
+import formatMonthDay from '@/utils/formatMonthDay';
+import { formatScheduleDate } from '@/utils';
 
 const FinalSubmissionCompleted = () => {
   const { handleDownloadReciptButtonClick, userData } = useCTAButton();
@@ -33,7 +36,13 @@ const FinalSubmissionCompleted = () => {
             <Text fontType="p2" color={color.gray900} textAlign="center">
               {userData.name}님, 해운대고에 지원해주셔서 대단히 감사드립니다.
               <br />
-              1차 합격자는 12월 12일에 발표됩니다.
+              {formatScheduleDate(
+                [SCHEDULE.방문_원서_접수, SCHEDULE.원서_접수_마감],
+                'RESULT'
+              )}
+              에 학교에 원서를 제출하고 방문 접수가 가능합니다.
+              <br />
+              1차 합격자는 {formatMonthDay(SCHEDULE.일차_합격_발표)}에 발표됩니다.
               <br />
               {userData.name}님의 1차 합격을 기원합니다.
             </Text>
