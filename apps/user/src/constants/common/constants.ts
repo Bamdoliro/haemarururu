@@ -47,6 +47,7 @@ export const KEY = {
 
 export const SCHEDULE = {
   원서_접수: dayjs(process.env.NEXT_PUBLIC_FORM_START),
+  방문_원서_접수: dayjs(process.env.NEXT_PUBLIC_FORM_SUBMIT),
   원서_접수_마감: dayjs(process.env.NEXT_PUBLIC_FORM_END),
   일차_합격_발표: dayjs(process.env.NEXT_PUBLIC_FIRST_RESULT),
   이차_면접: dayjs(process.env.NEXT_PUBLIC_INTERVIEW_START),
