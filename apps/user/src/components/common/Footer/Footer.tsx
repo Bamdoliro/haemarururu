@@ -24,7 +24,8 @@ const Footer = () => {
               </Text>
               <Text fontType="p2" color={color.gray600}>
                 입학문의: {PHONE_NUMBER.ADMISSION_OFFICER_ONE},{' '}
-                {PHONE_NUMBER.ADMISSION_OFFICER_TWO},{' '}{PHONE_NUMBER.ADMISSION_OFFICER_THREE}
+                {PHONE_NUMBER.ADMISSION_OFFICER_TWO},{' '}
+                {PHONE_NUMBER.ADMISSION_OFFICER_THREE}
               </Text>
               <Text fontType="p2" color={color.gray600}>
                 행정실: {PHONE_NUMBER.TEACHER_OFFICE_PHONE_NUMBER}, Fax:
