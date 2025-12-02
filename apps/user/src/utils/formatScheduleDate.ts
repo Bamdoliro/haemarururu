@@ -11,7 +11,11 @@ const formatScheduleDate = (
     const d = date.date();
     const hh = String(date.hour()).padStart(2, '0');
     const mm = String(date.minute()).padStart(2, '0');
-    return withTime ? `${y}년 ${m}월 ${d}일 ${hh}:${mm}` : `${y}년 ${m}월 ${d}일`;
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayOfWeek = dayNames[date.day()];
+    return withTime
+      ? `${y}년 ${m}월 ${d}일(${dayOfWeek}) ${hh}:${mm}`
+      : `${y}년 ${m}월 ${d}일(${dayOfWeek})`;
   };
 
   const toDayjs = (d: string | Dayjs) => (typeof d === 'string' ? dayjs(d) : d);
@@ -27,7 +31,7 @@ const formatScheduleDate = (
   if (dates.length === 2) {
     const start = toDayjs(dates[0]);
     const end = toDayjs(dates[1]);
-
+    const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
     if (type === 'FORM') {
       return `${start.year()}년 ${
         start.month() + 1
@@ -46,7 +50,11 @@ const formatScheduleDate = (
       }월 ${start.date()}일 ~ ${end.date()}일`;
     }
     if (type === 'RESULT') {
-      return `${start.month() + 1}월 ${start.date()}일 ~ ${end.date()}일`;
+      return `${start.month() + 1}월 ${start.date()}일(${
+        dayNames[start.day()]
+      }) ${start.format('HH:mm')}~ ${end.month() + 1}월${end.date()}일(${
+        dayNames[end.day()]
+      }) ${end.format('HH:mm')}`;
     }
   }
 
