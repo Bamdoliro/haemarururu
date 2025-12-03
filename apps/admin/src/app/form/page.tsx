@@ -118,8 +118,8 @@ const FormPage = () => {
                   data={[
                     { value: 'RESET', label: '정렬 초기화' },
                     { value: 'APPROVED', label: '접수' },
-                    { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
                     { value: 'ALL', label: '전체 조회' },
+                    { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
                     { value: 'FAILED', label: '불합격' },
                     { value: 'FINAL_SUBMITTED', label: '최종 제출' },
                     { value: 'SUBMITTED', label: '제출' },
