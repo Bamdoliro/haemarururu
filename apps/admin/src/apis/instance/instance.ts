@@ -2,6 +2,7 @@ import type { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { ROUTES, TOKEN } from '@/constants/common/constant';
 import { Storage } from '../storage/storage';
+import { Cookie } from '@/apis/cookie/cookie';
 
 export const maru = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -34,7 +35,7 @@ maru.interceptors.response.use(
     const isTokenExpired =
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      Storage.getItem(TOKEN.REFRESH);
+      Cookie.getItem(TOKEN.REFRESH);
 
     if (isTokenExpired) {
       if (!isRefreshing) {
@@ -43,7 +44,7 @@ maru.interceptors.response.use(
         refreshPromise = axios
           .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth`, null, {
             headers: {
-              'Refresh-Token': Storage.getItem(TOKEN.REFRESH) || '',
+              'Refresh-Token': Cookie.getItem(TOKEN.REFRESH) || '',
             },
           })
           .then((res) => {
