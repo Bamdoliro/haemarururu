@@ -25,13 +25,13 @@ const RatioTable = ({ formList }: RatioTableProps) => {
           <Th width={88} height={44} borderTopLeftRadius={12}>
             {EMPTY_VALUE}
           </Th>
-          <Th width={80} height={44}>
+          <Th width={88} height={44}>
             일반 전형
           </Th>
-          <Th width={80} height={44}>
-            사회 통합 전형
+          <Th width={88} height={44}>
+            사회통합전형
           </Th>
-          <Th width={80} height={44} borderTopRightRadius={12}>
+          <Th width={88} height={44} borderTopRightRadius={12}>
             정원 외 전형
           </Th>
         </Row>
@@ -39,13 +39,13 @@ const RatioTable = ({ formList }: RatioTableProps) => {
           <Td width={88} height={44}>
             지원자 수
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {regularCount}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {specialAdmissionCount}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {otherCount}
           </Td>
         </Row>
@@ -53,13 +53,13 @@ const RatioTable = ({ formList }: RatioTableProps) => {
           <Td width={88} height={44} borderBottomLeftRadius={12}>
             지원 비율
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {regularRatio}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {specialAdmissionRatio}
           </Td>
-          <Td width={80} height={44} borderBottomRightRadius={12}>
+          <Td width={88} height={44} borderBottomRightRadius={12}>
             {otherRatio}
           </Td>
         </Row>
