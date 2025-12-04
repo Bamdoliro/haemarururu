@@ -81,6 +81,7 @@ export interface GradeDistributionType {
   totalMax: number;
   totalMin: number;
   totalAvg: number;
+  totalSeventyPercentile: number;
 }
 
 export interface GenderRatioType {
@@ -105,3 +106,5 @@ export interface GenderRatioCount {
 export interface GenderRatio {
   totalMale: number;
 }
+
+export type AnalysisRoundType = 'FIRST' | 'SECOND' | 'ALL';
