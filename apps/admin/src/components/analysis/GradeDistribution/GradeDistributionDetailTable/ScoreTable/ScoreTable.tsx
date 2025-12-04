@@ -64,7 +64,7 @@ const ScoreTable = ({ formList, roundType }: ScoreTableProps) => {
           <Td width={88} height={44}>
             {regularRoundAvg}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {SpecialAdmissionRoundAvg}
           </Td>
         </Row>
