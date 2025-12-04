@@ -11,6 +11,7 @@ const GraduatedSchool = () => {
     currentAnalysisPassStep,
     setCurrentAnalysisPassStep,
     handleAreaCategoryChange,
+    getAreaCategoryDropdownValue,
     formList,
   } = useGraduatedSchool();
 
@@ -60,6 +61,7 @@ const GraduatedSchool = () => {
         size="SMALL"
         width={200}
         placeholder="지역 선택"
+        value={getAreaCategoryDropdownValue()}
         onChange={handleAreaCategoryChange}
         name="category"
       ></SubDropdown>
