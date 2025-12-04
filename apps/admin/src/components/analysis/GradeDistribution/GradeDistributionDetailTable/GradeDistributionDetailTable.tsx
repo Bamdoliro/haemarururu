@@ -2,14 +2,17 @@ import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from 'styled-components';
 import ScoreTable from './ScoreTable/ScoreTable';
-import type { GradeDistributionType } from '@/types/analysis/client';
+import type { AnalysisRoundType, GradeDistributionType } from '@/types/analysis/client';
 import DetailContent from './DetailContent/DetailContent';
 import useMaxMin from './GradeDistributionDetailTable.hooks';
 
-type DetailTableProps = { formList: GradeDistributionType[] | undefined };
+type DetailTableProps = {
+  roundType: AnalysisRoundType;
+  formList: GradeDistributionType[] | undefined;
+};
 
-const GradeDistributionDetailTable = ({ formList }: DetailTableProps) => {
-  const { max, min } = useMaxMin(formList);
+const GradeDistributionDetailTable = ({ formList, roundType }: DetailTableProps) => {
+  const { max, min } = useMaxMin(formList, roundType);
 
   return (
     <Row gap={60}>
@@ -27,7 +30,7 @@ const GradeDistributionDetailTable = ({ formList }: DetailTableProps) => {
           </Column>
         </Column>
         <Column justifyContent="space-between">
-          <ScoreTable formList={formList} />
+          <ScoreTable formList={formList} roundType={roundType} />
         </Column>
       </ScoreInfoWrapper>
       <DetailContent formList={formList} />

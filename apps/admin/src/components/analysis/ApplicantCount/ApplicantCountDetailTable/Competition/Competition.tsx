@@ -23,13 +23,13 @@ const Competition = ({ formList }: DetailTableProps) => {
           <Th width={88} height={44} borderTopLeftRadius={12}>
             {EMPTY_VALUE}
           </Th>
-          <Th width={80} height={44}>
+          <Th width={88} height={44}>
             일반 전형
           </Th>
-          <Th width={80} height={44}>
-            사회 통합 전형
+          <Th width={88} height={44}>
+            사회통합전형
           </Th>
-          <Th width={80} height={44} borderTopRightRadius={12}>
+          <Th width={88} height={44} borderTopRightRadius={12}>
             정원 외 전형
           </Th>
         </Row>
@@ -37,13 +37,13 @@ const Competition = ({ formList }: DetailTableProps) => {
           <Td width={88} height={44}>
             지원자 수
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {regularCount}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {specialCount}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {theOtherCount}
           </Td>
         </Row>
@@ -51,13 +51,13 @@ const Competition = ({ formList }: DetailTableProps) => {
           <Td width={88} height={44} borderBottomLeftRadius={12}>
             경쟁률
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {regularCompetitionRate}
           </Td>
-          <Td width={80} height={44}>
+          <Td width={88} height={44}>
             {specialCompetitionRate}
           </Td>
-          <Td width={80} height={44} borderBottomRightRadius={12}>
+          <Td width={88} height={44} borderBottomRightRadius={12}>
             {theOtherCompetitionRate}
           </Td>
         </Row>

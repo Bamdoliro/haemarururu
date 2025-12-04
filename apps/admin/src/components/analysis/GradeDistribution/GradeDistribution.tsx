@@ -29,10 +29,18 @@ const GradeDistribution = () => {
       <SwitchCase
         value={currentAnalysisPassStep}
         caseBy={{
-          '전체 조회': <GradeDistributionDetailTable formList={formList} />,
-          '서류 합격자': <GradeDistributionDetailTable formList={formList} />,
-          '면접 전형자': <GradeDistributionDetailTable formList={formList} />,
-          '최종 합격자': <GradeDistributionDetailTable formList={formList} />,
+          '전체 조회': (
+            <GradeDistributionDetailTable formList={formList} roundType="ALL" />
+          ),
+          '서류 합격자': (
+            <GradeDistributionDetailTable formList={formList} roundType="FIRST" />
+          ),
+          '면접 전형자': (
+            <GradeDistributionDetailTable formList={formList} roundType="SECOND" />
+          ),
+          '최종 합격자': (
+            <GradeDistributionDetailTable formList={formList} roundType="SECOND" />
+          ),
         }}
       />
     </StyledGradeDistribution>
