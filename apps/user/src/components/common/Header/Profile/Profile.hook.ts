@@ -34,7 +34,9 @@ export const useCTAButton = (status?: string) => {
   };
 
   const handleMoveInquiry = () => {
-    router.push('https://forms.gle/Y8n7wGuYbhz5wuFy8');
+    router.push(
+      'https://docs.google.com/forms/d/e/1FAIpQLSf9Dr08OxCB0lr6UY7OIEkUpniOkK7t0QpJewkMEmApr3U6qw/viewform'
+    );
   };
 
   const handleLogout = () => {
