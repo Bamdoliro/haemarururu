@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useGraduatedSchoolListQuery } from '@/services/analysis/queries';
-import type { AnalysisApplicantType, AreaCategory } from '@/types/analysis/client';
+import {
+  type AnalysisApplicantType,
+  type AreaCategory,
+  AreaCategoryList,
+} from '@/types/analysis/client';
 
 const useGraduatedSchool = () => {
   const [currentAnalysisPassStep, setCurrentAnalysisPassStep] =
@@ -18,6 +22,10 @@ const useGraduatedSchool = () => {
     setAreaCategory(selectedValue as AreaCategory);
   };
 
+  const getAreaCategoryDropdownValue = () => {
+    return areaCategory ? AreaCategoryList[areaCategory] : undefined;
+  };
+
   const { data: formList } = useGraduatedSchoolListQuery({
     statusList: stepMap[currentAnalysisPassStep],
     isBusan: areaCategory === null ? '' : areaCategory !== 'OTHER_AREA',
@@ -28,6 +36,7 @@ const useGraduatedSchool = () => {
     currentAnalysisPassStep,
     setCurrentAnalysisPassStep,
     handleAreaCategoryChange,
+    getAreaCategoryDropdownValue,
     formList,
     stepMap,
   };

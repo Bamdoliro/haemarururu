@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { styled } from 'styled-components';
 import AppLayout from '@/layouts/AppLayout';
 import FaqTable from '@/components/faq/FaqTable/FaqTable';
@@ -10,7 +10,7 @@ import { ROUTES } from '@/constants/common/constant';
 import { useDebounceInput } from '@maru/hooks';
 import { Button, Column, Dropdown, Row, SearchInput, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import type { ExtendedFaqCategory } from '@/types/faq/client';
+import { useFaqPageState } from './faq.hooks';
 
 const FaqPage = () => {
   const router = useRouter();
@@ -22,20 +22,16 @@ const FaqPage = () => {
     debouncedValue: debouncedFaqTitle,
   } = useDebounceInput({ initialValue: '' });
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<ExtendedFaqCategory>('ALL_FAQS');
+  const { selectedCategory, handleChangeFaqCategory, getFaqCategoryDropdownValue } =
+    useFaqPageState();
 
   const handleMoveFaqCreatePage = () => {
     router.push(ROUTES.FAQ_CREATE);
   };
 
-  const handleChangeFaqCategory = (value: string) => {
-    setSelectedCategory(value as ExtendedFaqCategory);
-  };
-
   const filteredFaqList = useMemo(() => {
     const byCategory =
-      selectedCategory === 'ALL_FAQS'
+      selectedCategory === 'ALL_FAQS' || selectedCategory === null
         ? faqList
         : faqList?.filter((item) => item.category === selectedCategory);
 
@@ -68,6 +64,7 @@ const FaqPage = () => {
                 size="SMALL"
                 width={140}
                 placeholder="카테고리"
+                value={getFaqCategoryDropdownValue()}
                 onChange={handleChangeFaqCategory}
                 name="category"
               />

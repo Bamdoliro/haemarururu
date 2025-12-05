@@ -96,15 +96,26 @@ export interface GraduatedSchoolStatus {
   schoolAddress: string;
 }
 
-export interface GenderRatioCount {
-  maleCount: number;
-  regularRatio: GenderRatio;
-  specialRatio: GenderRatio;
-  supernumeraryRatio: GenderRatio;
-}
-
-export interface GenderRatio {
-  totalMale: number;
-}
-
 export type AnalysisRoundType = 'FIRST' | 'SECOND' | 'ALL';
+
+export const AreaCategoryList: Record<AreaCategory, string> = {
+  BUSAN: '부산 지역',
+  OTHER_AREA: '타 지역',
+  중구: '중구',
+  해운대구: '해운대구',
+  서구: '서구',
+  사하구: '사하구',
+  동구: '동구',
+  금정구: '금정구',
+  영도구: '영도구',
+  강서구: '강서구',
+  부산진구: '부산진구',
+  연제구: '연제구',
+  동래구: '동래구',
+  수영구: '수영구',
+  남구: '남구',
+  사상구: '사상구',
+  북구: '북구',
+  기장군: '기장군',
+  '': '부산 전체',
+};
