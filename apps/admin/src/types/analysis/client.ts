@@ -96,20 +96,9 @@ export interface GraduatedSchoolStatus {
   schoolAddress: string;
 }
 
-export interface GenderRatioCount {
-  maleCount: number;
-  regularRatio: GenderRatio;
-  specialRatio: GenderRatio;
-  supernumeraryRatio: GenderRatio;
-}
-
-export interface GenderRatio {
-  totalMale: number;
-}
-
 export type AnalysisRoundType = 'FIRST' | 'SECOND' | 'ALL';
 
-export const AREA_CATEGORY_LIST: Record<AreaCategory, string> = {
+export const AreaCategoryList: Record<AreaCategory, string> = {
   BUSAN: '부산 지역',
   OTHER_AREA: '타 지역',
   중구: '중구',
@@ -130,4 +119,3 @@ export const AREA_CATEGORY_LIST: Record<AreaCategory, string> = {
   기장군: '기장군',
   '': '부산 전체',
 };
-
