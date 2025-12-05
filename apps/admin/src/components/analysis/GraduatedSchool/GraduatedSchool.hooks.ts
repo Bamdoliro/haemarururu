@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useGraduatedSchoolListQuery } from '@/services/analysis/queries';
 import {
   type AnalysisApplicantType,
-  AREA_CATEGORY_LIST,
   type AreaCategory,
+  AreaCategoryList,
 } from '@/types/analysis/client';
 
 const useGraduatedSchool = () => {
@@ -23,7 +23,7 @@ const useGraduatedSchool = () => {
   };
 
   const getAreaCategoryDropdownValue = () => {
-    return areaCategory ? AREA_CATEGORY_LIST[areaCategory] : undefined;
+    return areaCategory ? AreaCategoryList[areaCategory] : undefined;
   };
 
   const { data: formList } = useGraduatedSchoolListQuery({
