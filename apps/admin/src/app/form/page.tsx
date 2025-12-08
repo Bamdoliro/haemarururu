@@ -117,13 +117,13 @@ const FormPage = () => {
                 <Dropdown
                   data={[
                     { value: 'RESET', label: '정렬 초기화' },
-                    { value: 'APPROVED', label: '접수' },
+                    { value: 'RECEIVED', label: '접수' },
                     { value: 'ALL', label: '전체 조회' },
                     { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
                     { value: 'FAILED', label: '불합격' },
                     { value: 'FINAL_SUBMITTED', label: '최종 제출' },
                     { value: 'SUBMITTED', label: '제출' },
-                    { value: 'RECEIVED', label: '승인' },
+                    { value: 'APPROVED', label: '승인' },
                     { value: 'NO_SHOW', label: '불참' },
                     { value: 'FIRST_PASSED', label: '면접 대상자 합격' },
                     { value: 'PASSED', label: '최종 합격' },
