@@ -60,11 +60,11 @@ const useGradeCalculation = () => {
 
         let achievementLevel = subject[key] as AchievementLevel;
 
-        if (!achievementLevel || achievementLevel === 'E') {
+        if (!achievementLevel || achievementLevel === '-') {
           achievementLevel = getFallbackLevel(subject, key) as AchievementLevel;
         }
 
-        if (achievementLevel === '-' || achievementLevel === 'E') return;
+        if (achievementLevel === '-') return;
 
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] || 0;
