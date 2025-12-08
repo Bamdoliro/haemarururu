@@ -79,7 +79,9 @@ const useGradeCalculation = () => {
     if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
       let regularTotal = 0;
       form.grade.subjectList?.forEach((subject) => {
-        const achievementLevel = subject.score ? getAchivementLevel(subject.score) : 'E';
+        if (subject.score === null || subject.score === undefined) return;
+
+        const achievementLevel = getAchivementLevel(subject.score);
         const score =
           AchievementScore[achievementLevel as keyof typeof AchievementScore] ||
           AchievementScore.E;
