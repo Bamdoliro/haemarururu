@@ -8,7 +8,14 @@ const useGradeDistribution = () => {
     useState<keyof typeof stepMap>('전체 조회');
 
   const stepMap: Record<string, AnalysisApplicantType[]> = {
-    '전체 조회': ['RECEIVED', 'FIRST_PASSED', 'FIRST_FAILED', 'FAILED', 'PASSED'],
+    '전체 조회': [
+      'RECEIVED',
+      'FIRST_PASSED',
+      'FIRST_FAILED',
+      'FAILED',
+      'PASSED',
+      'APPROVED',
+    ],
     '서류 합격자': ['FIRST_PASSED', 'FAILED', 'PASSED'],
     '면접 전형자': ['FAILED', 'PASSED'],
     '최종 합격자': ['PASSED'],

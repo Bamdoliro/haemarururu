@@ -52,6 +52,7 @@ export type AnalysisApplicantType =
   | 'FIRST_PASSED'
   | 'FAILED'
   | 'PASSED'
+  | 'APPROVED'
   | 'NO_SHOW'
   | 'RECEIVED'
   | 'FIRST_FAILED'
