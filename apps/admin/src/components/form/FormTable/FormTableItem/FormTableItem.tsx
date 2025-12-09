@@ -169,7 +169,7 @@ const FormTableItem = ({
             </Text>
           )}
           <Text fontType="p2" width={convertToResponsive(40, 60)}>
-            {status === 'SUBMITTED' ? '초안 제출' : '최종 제출'}
+            {status === 'SUBMITTED' ? '초안 제출' : '원서 입력'}
           </Text>
           <Text
             fontType="p2"

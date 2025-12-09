@@ -9,12 +9,12 @@ import type {
 import { color } from '@maru/design-system';
 
 export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
-  APPROVED: '접수',
+  APPROVED: '승인',
   FIRST_FAILED: '면접 불합격',
   FAILED: '불합격',
-  FINAL_SUBMITTED: '최종 제출',
+  FINAL_SUBMITTED: '원서 입력',
   SUBMITTED: '제출',
-  RECEIVED: '승인',
+  RECEIVED: '접수',
   NO_SHOW: '불참',
   FIRST_PASSED: '면접 합격',
   PASSED: '최종 합격',
