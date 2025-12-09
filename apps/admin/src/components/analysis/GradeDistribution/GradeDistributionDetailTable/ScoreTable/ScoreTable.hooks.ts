@@ -15,7 +15,8 @@ const useScoreStatus = (
     const values = formList
       .filter(filter)
       .map((item) => item[field])
-      .filter(isValid);
+      .filter(isValid)
+      .filter((value) => value !== 0);
     return values.length ? Math.max(...values).toFixed(3) : '0.000';
   };
 
@@ -27,8 +28,8 @@ const useScoreStatus = (
     const values = formList
       .filter(filter)
       .map((item) => item[field])
-      .filter((value) => value !== 0)
-      .filter(isValid);
+      .filter(isValid)
+      .filter((value) => value !== 0);
     return values.length ? Math.min(...values).toFixed(3) : '0.000';
   };
 
