@@ -1,9 +1,9 @@
 import type { ApplicantCountType } from '@/types/analysis/client';
 
 const useCompetiton = (formList: ApplicantCountType[] | undefined) => {
-  const REGULAR_ADMISSION = 36;
-  const SPECIAL_ADMISSION = 28;
-  const THE_OTHER_AEDMISSION = 6;
+  const REGULAR_ADMISSION = 144;
+  const SPECIAL_ADMISSION = 36;
+  const THE_OTHER_AEDMISSION = 8;
 
   const { regularCount, specialCount, theOtherCount } = formList?.reduce(
     (acc, item) => {
