@@ -9,8 +9,8 @@ export const getStatusConfig = (status?: string, name?: string) => {
 
   const statusConfig = {
     RECEIVED: {
-      text: '승인됨',
-      script: `원서가 승인되었습니다.<br />${name}님의 서류 합격을 기원합니다!`,
+      text: '접수됨',
+      script: `원서가 확인 중입니다.<br />담당 선생님의 원서 승인을 기다려주세요.`,
     },
     FIRST_FAILED: {
       text: firstResult ? '1차 불합격' : '검토중',
@@ -33,8 +33,8 @@ export const getStatusConfig = (status?: string, name?: string) => {
       script: `원서 초안이 제출되었습니다.<br />담당 선생님의 원서 승인을 기다려주세요.`,
     },
     APPROVED: {
-      text: '확인중',
-      script: `원서가 확인 중입니다.<br />담당 선생님의 원서 승인을 기다려주세요.`,
+      text: '승인',
+      script: `원서가 승인되었습니다.<br />${name}님의 서류 합격을 기원합니다!`,
     },
     NO_SHOW: {
       text: finalResult ? '불참' : '검토중',
