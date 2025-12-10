@@ -1,112 +1,87 @@
 import type { AnalysisRoundType, GradeDistributionType } from '@/types/analysis/client';
 
+type StatField = 'Max' | 'Min' | 'Avg' | 'SeventyPercentile';
+type RoundPrefix = 'firstRound' | 'total';
+
 const useScoreStatus = (
   formList: GradeDistributionType[] | undefined,
   roundType: AnalysisRoundType
 ) => {
   const isValid = (v: number | null | undefined): v is number =>
-    typeof v === 'number' && !Number.isNaN(v);
+    typeof v === 'number' && !Number.isNaN(v) && v !== 0;
 
-  const getMaxValue = (
-    filter: (item: GradeDistributionType) => boolean,
-    field: 'firstRoundMax' | 'totalMax'
-  ) => {
-    if (!formList) return '0.000';
-    const values = formList
-      .filter(filter)
-      .map((item) => item[field])
-      .filter(isValid);
-    return values.length ? Math.max(...values).toFixed(3) : '0.000';
-  };
-
-  const getMinValue = (
-    filter: (item: GradeDistributionType) => boolean,
-    field: 'firstRoundMin' | 'totalMin'
-  ) => {
-    if (!formList) return '0.000';
-    const values = formList
-      .filter(filter)
-      .map((item) => item[field])
-      .filter((value) => value !== 0)
-      .filter(isValid);
-    return values.length ? Math.min(...values).toFixed(3) : '0.000';
-  };
-
-  const getAvgValue = (
-    filter: (item: GradeDistributionType) => boolean,
-    field: 'firstRoundAvg' | 'totalAvg'
-  ) => {
-    if (!formList) return '0.000';
-    const values = formList
-      .filter(filter)
-      .map((item) => item[field])
-      .filter(isValid);
-    return values.length > 0
-      ? (values.reduce((sum, v) => sum + v, 0) / values.length).toFixed(3)
-      : '0.000';
-  };
-
-  const getSeventyValue = (
-    filter: (item: GradeDistributionType) => boolean,
-    field: 'firstRoundSeventyPercentile' | 'totalSeventyPercentile'
-  ) => {
-    if (!formList) return '0.000';
-    const values = formList
-      .filter(filter)
-      .map((item) => item[field])
-      .filter(isValid);
-    return values.length > 0
-      ? (values.reduce((sum, v) => sum + v, 0) / values.length).toFixed(3)
-      : '0.000';
-  };
+  const isRegular = (item: GradeDistributionType) => item.type === 'REGULAR';
 
   const isSpecialAdmission = (item: GradeDistributionType) =>
     !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(item.type);
 
-  const maxField = roundType === 'FIRST' ? 'firstRoundMax' : 'totalMax';
-  const minField = roundType === 'FIRST' ? 'firstRoundMin' : 'totalMin';
-  const avgField = roundType === 'FIRST' ? 'firstRoundAvg' : 'totalAvg';
-  const seventyField =
-    roundType === 'FIRST' ? 'firstRoundSeventyPercentile' : 'totalSeventyPercentile';
+  const getFieldName = (prefix: RoundPrefix, stat: StatField) =>
+    `${prefix}${stat}` as keyof GradeDistributionType;
 
-  const regularRoundMax = getMaxValue((item) => item.type === 'REGULAR', maxField);
-  const SpecialAdmissionRoundMax = getMaxValue(isSpecialAdmission, maxField);
-  const regularRoundMin = getMinValue((item) => item.type === 'REGULAR', minField);
-  const specialAdmissionRoundMin = getMinValue(isSpecialAdmission, minField);
+  const extractValues = (
+    items: GradeDistributionType[],
+    field: keyof GradeDistributionType,
+    avgField?: keyof GradeDistributionType
+  ): number[] => {
+    return items
+      .filter((item) => !avgField || isValid(item[avgField] as number))
+      .map((item) => item[field] as number)
+      .filter(isValid);
+  };
 
-  const regularRoundAvgValues =
-    formList
-      ?.filter((item) => item.type === 'REGULAR')
-      .map((item) => item[avgField])
-      .filter(isValid) ?? [];
-  const regularRoundAvg =
-    regularRoundAvgValues.length > 0
-      ? regularRoundAvgValues.map((v) => v.toFixed(3))
-      : ['0.000'];
+  const aggregate = {
+    max: (values: number[]) => (values.length ? Math.max(...values) : 0),
+    min: (values: number[]) => (values.length ? Math.min(...values) : 0),
+    avg: (values: number[]) =>
+      values.length ? values.reduce((sum, v) => sum + v, 0) / values.length : 0,
+  };
 
-  const SpecialAdmissionRoundAvg = getAvgValue(isSpecialAdmission, avgField);
+  const format = (value: number) => value.toFixed(3);
 
-  const regularRoundSeventyValues =
-    formList
-      ?.filter((item) => item.type === 'REGULAR')
-      .map((item) => item[seventyField])
-      .filter(isValid) ?? [];
-  const regularRoundSeventy =
-    regularRoundSeventyValues.length > 0
-      ? regularRoundSeventyValues.map((v) => v.toFixed(3))
-      : ['0.000'];
+  const calculateStat = (
+    filter: (item: GradeDistributionType) => boolean,
+    stat: StatField,
+    aggregator: (values: number[]) => number
+  ): string => {
+    if (!formList) return '0.000';
 
-  const specialAdmissionSeventy = getSeventyValue(isSpecialAdmission, seventyField);
+    const filtered = formList.filter(filter);
+    const prefixes: RoundPrefix[] =
+      roundType === 'ALL'
+        ? ['firstRound', 'total']
+        : [roundType === 'FIRST' ? 'firstRound' : 'total'];
+
+    const avgFieldForStat =
+      stat === 'Max' || stat === 'Min' || stat === 'SeventyPercentile';
+
+    const values = prefixes.flatMap((prefix) => {
+      const field = getFieldName(prefix, stat);
+      const avgField = avgFieldForStat ? getFieldName(prefix, 'Avg') : undefined;
+      return extractValues(filtered, field, avgField);
+    });
+
+    return format(aggregator(values));
+  };
+
+  const getStats = (filter: (item: GradeDistributionType) => boolean) => ({
+    max: calculateStat(filter, 'Max', aggregate.max),
+    min: calculateStat(filter, 'Min', aggregate.min),
+    avg: calculateStat(filter, 'Avg', aggregate.avg),
+    seventy: calculateStat(filter, 'SeventyPercentile', aggregate.max),
+  });
+
+  const regular = getStats(isRegular);
+  const special = getStats(isSpecialAdmission);
 
   return {
-    regularRoundMax,
-    SpecialAdmissionRoundMax,
-    regularRoundMin,
-    specialAdmissionRoundMin,
-    regularRoundAvg,
-    SpecialAdmissionRoundAvg,
-    regularRoundSeventy,
-    specialAdmissionSeventy,
+    regularRoundMax: regular.max,
+    SpecialAdmissionRoundMax: special.max,
+    regularRoundMin: regular.min,
+    specialAdmissionRoundMin: special.min,
+    regularRoundAvg: regular.avg,
+    SpecialAdmissionRoundAvg: special.avg,
+    regularRoundSeventy: regular.seventy,
+    specialAdmissionSeventy: special.seventy,
   };
 };
 
