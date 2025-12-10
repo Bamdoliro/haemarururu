@@ -7,13 +7,21 @@ const useScoreStatus = (
   const isValid = (v: number | null | undefined): v is number =>
     typeof v === 'number' && !Number.isNaN(v);
 
+  const isSpecialAdmission = (item: GradeDistributionType) =>
+    !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(item.type);
+
   const getMaxValue = (
     filter: (item: GradeDistributionType) => boolean,
     field: 'firstRoundMax' | 'totalMax'
   ) => {
     if (!formList) return '0.000';
+    const avgField = field === 'firstRoundMax' ? 'firstRoundAvg' : 'totalAvg';
     const values = formList
       .filter(filter)
+      .filter((item) => {
+        const avg = item[avgField];
+        return isValid(avg) && avg !== 0;
+      })
       .map((item) => item[field])
       .filter(isValid)
       .filter((value) => value !== 0);
@@ -25,8 +33,14 @@ const useScoreStatus = (
     field: 'firstRoundMin' | 'totalMin'
   ) => {
     if (!formList) return '0.000';
+    const avgField = field === 'firstRoundMin' ? 'firstRoundAvg' : 'totalAvg';
+
     const values = formList
       .filter(filter)
+      .filter((item) => {
+        const avg = item[avgField];
+        return isValid(avg) && avg !== 0;
+      })
       .map((item) => item[field])
       .filter(isValid)
       .filter((value) => value !== 0);
@@ -41,7 +55,7 @@ const useScoreStatus = (
     const values = formList
       .filter(filter)
       .map((item) => item[field])
-      .filter(isValid);
+      .filter((value) => isValid(value) && value !== 0);
     return values.length > 0
       ? (values.reduce((sum, v) => sum + v, 0) / values.length).toFixed(3)
       : '0.000';
@@ -52,17 +66,20 @@ const useScoreStatus = (
     field: 'firstRoundSeventyPercentile' | 'totalSeventyPercentile'
   ) => {
     if (!formList) return '0.000';
+    const avgField =
+      field === 'firstRoundSeventyPercentile' ? 'firstRoundAvg' : 'totalAvg';
+
     const values = formList
       .filter(filter)
+      .filter((item) => {
+        const avg = item[avgField];
+        return isValid(avg) && avg !== 0;
+      })
       .map((item) => item[field])
-      .filter(isValid);
-    return values.length > 0
-      ? (values.reduce((sum, v) => sum + v, 0) / values.length).toFixed(3)
-      : '0.000';
+      .filter(isValid)
+      .filter((value) => value !== 0);
+    return values.length > 0 ? Math.max(...values).toFixed(3) : '0.000';
   };
-
-  const isSpecialAdmission = (item: GradeDistributionType) =>
-    !['REGULAR', 'SPECIAL_ADMISSION', 'NATIONAL_VETERANS_EDUCATION'].includes(item.type);
 
   const maxField = roundType === 'FIRST' ? 'firstRoundMax' : 'totalMax';
   const minField = roundType === 'FIRST' ? 'firstRoundMin' : 'totalMin';
@@ -75,28 +92,13 @@ const useScoreStatus = (
   const regularRoundMin = getMinValue((item) => item.type === 'REGULAR', minField);
   const specialAdmissionRoundMin = getMinValue(isSpecialAdmission, minField);
 
-  const regularRoundAvgValues =
-    formList
-      ?.filter((item) => item.type === 'REGULAR')
-      .map((item) => item[avgField])
-      .filter(isValid) ?? [];
-  const regularRoundAvg =
-    regularRoundAvgValues.length > 0
-      ? regularRoundAvgValues.map((v) => v.toFixed(3))
-      : ['0.000'];
-
+  const regularRoundAvg = getAvgValue((item) => item.type === 'REGULAR', avgField);
   const SpecialAdmissionRoundAvg = getAvgValue(isSpecialAdmission, avgField);
 
-  const regularRoundSeventyValues =
-    formList
-      ?.filter((item) => item.type === 'REGULAR')
-      .map((item) => item[seventyField])
-      .filter(isValid) ?? [];
-  const regularRoundSeventy =
-    regularRoundSeventyValues.length > 0
-      ? regularRoundSeventyValues.map((v) => v.toFixed(3))
-      : ['0.000'];
-
+  const regularRoundSeventy = getSeventyValue(
+    (item) => item.type === 'REGULAR',
+    seventyField
+  );
   const specialAdmissionSeventy = getSeventyValue(isSpecialAdmission, seventyField);
 
   return {
