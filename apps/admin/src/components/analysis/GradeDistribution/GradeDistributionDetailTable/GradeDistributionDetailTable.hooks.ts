@@ -45,7 +45,7 @@ const useMaxMin = (
   } else {
     return {
       max: firstRoundMax > secondRoundMax ? firstRoundMax : secondRoundMax,
-      min: firstRoundMin < secondRoundMin ? firstRoundMin : secondRoundMin,
+      min: firstRoundMin,
     };
   }
 };
