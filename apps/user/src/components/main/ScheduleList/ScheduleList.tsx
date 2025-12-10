@@ -24,7 +24,7 @@ const ScheduleList = () => {
         'FORM'
       ),
       startTime: SCHEDULE.방문_원서_접수,
-      endTime: dayjs(SCHEDULE.원서_접수_마감).endOf('day'),
+      endTime: SCHEDULE.원서_접수_마감,
     },
     {
       id: 3,
