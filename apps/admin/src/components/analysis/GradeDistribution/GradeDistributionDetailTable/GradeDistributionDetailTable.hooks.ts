@@ -4,25 +4,35 @@ const useMaxMin = (
   formList: GradeDistributionType[] | undefined,
   roundType: AnalysisRoundType | null
 ) => {
-  const firstRoundMax =
-    formList && formList.length > 0
-      ? Math.max(...formList.map((item) => item.firstRoundMax)).toFixed(3)
-      : '0.000';
+  const getValidValues = (values: (number | null)[]) =>
+    values.filter((value) => value !== null && value !== 0) as number[];
 
-  const firstRoundMinValues =
-    formList?.map((item) => item.firstRoundMin).filter((value) => value !== 0) ?? [];
+  const firstRoundMaxValues = getValidValues(
+    formList?.map((item) => item.firstRoundMax) ?? []
+  );
+  const firstRoundMax =
+    firstRoundMaxValues.length > 0
+      ? Math.max(...firstRoundMaxValues).toFixed(3)
+      : '0.000';
+  const firstRoundMinValues = getValidValues(
+    formList?.map((item) => item.firstRoundMin) ?? []
+  );
   const firstRoundMin =
     firstRoundMinValues.length > 0
       ? Math.min(...firstRoundMinValues).toFixed(3)
       : '0.000';
 
+  const secondRoundMaxValues = getValidValues(
+    formList?.map((item) => item.totalMax) ?? []
+  );
   const secondRoundMax =
-    formList && formList.length > 0
-      ? Math.max(...formList.map((item) => item.totalMax)).toFixed(3)
+    secondRoundMaxValues.length > 0
+      ? Math.max(...secondRoundMaxValues).toFixed(3)
       : '0.000';
 
-  const secondRoundMinValues =
-    formList?.map((item) => item.totalMin).filter((value) => value !== 0) ?? [];
+  const secondRoundMinValues = getValidValues(
+    formList?.map((item) => item.totalMin) ?? []
+  );
   const secondRoundMin =
     secondRoundMinValues.length > 0
       ? Math.min(...secondRoundMinValues).toFixed(3)
