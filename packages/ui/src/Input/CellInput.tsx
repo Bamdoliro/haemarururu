@@ -14,12 +14,13 @@ const CellInput = ({
   onChange,
   placeholder,
   maxLength,
-  value = 0,
+  value,
   isError = false,
   readOnly,
   inputType = 'number',
 }: InputProps) => {
   const cellInputRef = useRef<HTMLInputElement>(null);
+  const displayValue = value ?? (inputType === 'string' ? '' : 0);
 
   const handleSelectAllClick = () => {
     if (cellInputRef.current) {
@@ -28,36 +29,30 @@ const CellInput = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!onChange) return;
+
     let newValue = e.target.value;
 
     if (inputType === 'string') {
       if (maxLength && newValue.length > maxLength) {
-        newValue = newValue.slice(0, maxLength);
+        return;
       }
-      if (onChange) {
-        e.target.value = newValue;
-        onChange(e);
-      }
+      onChange(e);
       return;
-    } else {
-      if (!isNaN(Number(newValue)) && Number(newValue) >= 0) {
-        if (maxLength && newValue.length > maxLength) {
-          newValue = newValue.slice(0, maxLength);
-        }
-        newValue = newValue.replace(/^0+/, '') || '0';
-        if (onChange) {
-          e.target.value = newValue;
-          onChange(e);
-        }
-      }
     }
 
     if (newValue === '') {
-      if (onChange) {
-        e.target.value = '';
-        onChange(e);
-      }
+      onChange(e);
       return;
+    }
+
+    if (!isNaN(Number(newValue)) && Number(newValue) >= 0) {
+      if (maxLength && newValue.length > maxLength) {
+        newValue = newValue.slice(0, maxLength);
+      }
+      newValue = newValue.replace(/^0+/, '') || '0';
+      e.target.value = newValue;
+      onChange(e);
     }
   };
 
@@ -80,7 +75,7 @@ const CellInput = ({
             onClick={handleSelectAllClick}
             onKeyPress={handleKeyPress}
             type={inputType === 'string' ? 'text' : 'number'}
-            value={value}
+            value={displayValue}
             placeholder={placeholder}
             $isError={isError}
             min={0}
