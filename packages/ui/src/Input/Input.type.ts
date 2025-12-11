@@ -10,4 +10,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isError?: boolean;
   count?: string;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  inputType?: 'number' | 'string';
 }
