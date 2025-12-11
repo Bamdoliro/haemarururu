@@ -72,7 +72,7 @@ const FormTableItem = ({
     const value = e.target.value;
     setInterviewNumberResult((prev) => ({
       ...prev,
-      [id]: value ? Number(value) : null,
+      [id]: value ? value : null,
     }));
   };
   const getStatusColor = (status: boolean | null) => {
@@ -189,7 +189,7 @@ const FormTableItem = ({
             <CellInput
               width={80}
               name="interviewNumber"
-              maxLength={5}
+              inputType="string"
               value={interviewNumberResult[id] ?? interviewNumber ?? ''}
               onChange={handleInterviewNumberChange}
             />
