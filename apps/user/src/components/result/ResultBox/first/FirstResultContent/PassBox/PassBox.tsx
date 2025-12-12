@@ -17,7 +17,7 @@ const PassBox = ({ interviewNumber }: PassBoxProps) => {
         <Text fontType="p1" color={color.gray900} textAlign="center">
           {interviewNumber}
           <br />
-          (오전 소집자는 대기실 08:00 / 오후 소집자는 체육관 12:20)
+          (오전 소집자는 본관 08:00 / 오후 소집자는 체육관 12:20)
           <br />
           여러분을 응원합니다.
         </Text>
