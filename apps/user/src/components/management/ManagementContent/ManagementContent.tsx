@@ -54,13 +54,7 @@ const ManagementContent = () => {
     return (
       <Row gap={47}>
         <Column gap={26} width={492}>
-          <StatusBox height="260px" status={statusData?.status} />
-          <CheckingBox
-            title="내 수험표 확인하기"
-            subTitle="클릭해서 수험표를 다운로드 받으세요."
-            onClick={handleDownloadAdmissionTicket}
-            isIcon
-          />
+          <StatusBox height="415px" status={statusData?.status} />
         </Column>
         <Column width={492}>
           <SchoolNumberBox size="big" />
