@@ -15,7 +15,11 @@ const FirstResultBox = () => {
         isPassed={firstResultData?.passed}
         changedToRegular={firstResultData?.changedToRegular}
       />
-      {firstResultData?.passed ? <PassBox /> : <FailBox />}
+      {firstResultData?.passed ? (
+        <PassBox interviewNumber={firstResultData?.interviewNumber} />
+      ) : (
+        <FailBox />
+      )}
     </StyledFirstResultBox>
   );
 };
