@@ -13,11 +13,8 @@ dayjs.extend(isBetween);
 const ManagementContent = () => {
   const { data: statusData } = useFormStatusQuery();
   const now = dayjs();
-  const {
-    handleWriteFormContinue,
-    handleDownloadForm,
-    handleDownloadReceipt,
-  } = useBoxClick(statusData?.status);
+  const { handleWriteFormContinue, handleDownloadForm, handleDownloadReceipt } =
+    useBoxClick(statusData?.status);
 
   if (now.isBetween(SCHEDULE.원서_접수, SCHEDULE.일차_합격_발표)) {
     return (
