@@ -17,9 +17,9 @@ const PassBox = ({ interviewNumber }: PassBoxProps) => {
         <Text fontType="p1" color={color.gray900} textAlign="center">
           {interviewNumber}
           <br />
-          전형 응시를 위해 수험표를 출력하고 12월 16일에 본교에 방문해주시기 바랍니다.
+          (오전 소집자는 대기실 08:00 / 오후 소집자는 체육관 12:20)
           <br />
-          자세한 내용은 입학 요강에서 확인해주시기 바랍니다.
+          여러분을 응원합니다.
         </Text>
         <AdmissionsGuidelineDownloadLink onClick={handleDownloadAdmissionsGuideline}>
           입학 요강 다운로드
