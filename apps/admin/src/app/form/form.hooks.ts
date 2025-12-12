@@ -213,7 +213,8 @@ export const useEditInterviewNumberActions = () => {
     formList: Object.entries(interviewNumberResult).map(([formId, interviewNumber]) => {
       return {
         formId: Number(formId),
-        interviewNumber: interviewNumber ? Number(interviewNumber) : null,
+        interviewNumber:
+          interviewNumber && interviewNumber !== '' ? interviewNumber : null,
       };
     }),
   };

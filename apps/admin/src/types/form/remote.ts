@@ -25,5 +25,5 @@ export interface GetFormDetail {
 }
 
 export interface PatchInterviewNumberReq {
-  formList: { formId: number; interviewNumber: number | null }[];
+  formList: { formId: number; interviewNumber: string | null }[];
 }
