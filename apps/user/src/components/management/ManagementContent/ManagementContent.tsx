@@ -17,7 +17,6 @@ const ManagementContent = () => {
     handleWriteFormContinue,
     handleDownloadForm,
     handleDownloadReceipt,
-    handleDownloadAdmissionTicket,
   } = useBoxClick(statusData?.status);
 
   if (now.isBetween(SCHEDULE.원서_접수, SCHEDULE.일차_합격_발표)) {
