@@ -30,7 +30,7 @@ const SchoolNumberBox = ({ size }: SchoolNumberBoxProps) => {
           </Text>
         )}
         <Text fontType={size === 'big' ? 'H1' : 'H4'} color={color.gray900}>
-          {PHONE_NUMBER.ADMISSION_OFFICER_ONE}, {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
+          {PHONE_NUMBER.ADMISSION_OFFICER_ONE} <br /> {PHONE_NUMBER.ADMISSION_OFFICER_TWO}
         </Text>
       </Column>
     </StyledSchoolNumberBox>
