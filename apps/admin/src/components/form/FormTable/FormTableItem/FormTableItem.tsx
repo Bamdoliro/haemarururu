@@ -72,7 +72,7 @@ const FormTableItem = ({
     const value = e.target.value;
     setInterviewNumberResult((prev) => ({
       ...prev,
-      [id]: value ? value : null,
+      [id]: value,
     }));
   };
   const getStatusColor = (status: boolean | null) => {

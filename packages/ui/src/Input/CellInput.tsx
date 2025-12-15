@@ -28,6 +28,24 @@ const CellInput = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newValue = e.target.value;
+    if (newValue === '') {
+      if (onChange) {
+        onChange(e);
+      }
+      return;
+    }
+    if (type === 'number') {
+      if (isNaN(Number(newValue)) || Number(newValue) < 0) {
+        return;
+      }
+      if (maxLength && newValue.length > maxLength) {
+        newValue = newValue.slice(0, maxLength);
+      }
+      newValue = newValue.replace(/^0+/, '') || '0';
+      e.target.value = newValue;
+    }
+
     if (onChange) {
       onChange(e);
     }
