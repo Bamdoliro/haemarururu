@@ -17,10 +17,9 @@ const CellInput = ({
   value,
   isError = false,
   readOnly,
-  inputType = 'number',
+  type = 'number',
 }: InputProps) => {
   const cellInputRef = useRef<HTMLInputElement>(null);
-  const displayValue = value ?? (inputType === 'string' ? '' : 0);
 
   const handleSelectAllClick = () => {
     if (cellInputRef.current) {
@@ -29,35 +28,31 @@ const CellInput = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!onChange) return;
-
     let newValue = e.target.value;
-
-    if (inputType === 'string') {
-      if (maxLength && newValue.length > maxLength) {
+    if (newValue === '') {
+      if (onChange) {
+        onChange(e);
+      }
+      return;
+    }
+    if (type === 'number') {
+      if (isNaN(Number(newValue)) || Number(newValue) < 0) {
         return;
       }
-      onChange(e);
-      return;
-    }
-
-    if (newValue === '') {
-      onChange(e);
-      return;
-    }
-
-    if (!isNaN(Number(newValue)) && Number(newValue) >= 0) {
       if (maxLength && newValue.length > maxLength) {
         newValue = newValue.slice(0, maxLength);
       }
       newValue = newValue.replace(/^0+/, '') || '0';
       e.target.value = newValue;
+    }
+
+    if (onChange) {
       onChange(e);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (inputType === 'number' && (e.key === '.' || e.key === ',')) {
+    if (e.key === '.' || e.key === ',') {
       e.preventDefault();
     }
   };
@@ -74,8 +69,9 @@ const CellInput = ({
             onChange={handleChange}
             onClick={handleSelectAllClick}
             onKeyPress={handleKeyPress}
-            type={inputType === 'string' ? 'text' : 'number'}
-            value={displayValue}
+            type={type}
+            maxLength={maxLength}
+            value={value}
             placeholder={placeholder}
             $isError={isError}
             min={0}

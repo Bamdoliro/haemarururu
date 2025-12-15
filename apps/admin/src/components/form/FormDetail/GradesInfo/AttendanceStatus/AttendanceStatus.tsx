@@ -11,7 +11,6 @@ const AttendanceStatus = ({ attendanceList }: AttendanceStatusProps) => {
     { gradeLabel: '1학년', data: attendanceList[0] },
     { gradeLabel: '2학년', data: attendanceList[1] },
     { gradeLabel: '3학년', data: attendanceList[2] },
-    { gradeLabel: '3학년', data: attendanceList[3] },
   ];
 
   const responsiveWidth = convertToResponsive(80, 140);
