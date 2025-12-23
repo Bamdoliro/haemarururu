@@ -20,6 +20,9 @@ const PassBox = () => {
         당신의 밝은 미래를 응원하며,
         <br />
         앞으로의 여정에 당신과 함께할 수 있어 영광입니다.
+        <br />
+        <br />
+        합격자 예비소집 안내: 2025년 12월 29일(월) 오전 10시, 본교 체육관
       </Text>
       <Button size="LARGE" styleType="PRIMARY" onClick={handleMoveMainPage}>
         홈으로 돌아가기
