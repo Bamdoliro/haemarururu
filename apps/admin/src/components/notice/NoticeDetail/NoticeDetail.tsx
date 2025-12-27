@@ -95,6 +95,8 @@ const NoticeDetailHeader = styled.div`
 const Content = styled.div`
   ${font.p2};
   color: ${color.gray900};
+  white-space: pre-wrap;
+  word-break: break-word;
 `;
 
 const StyledNoticeFile = styled.div`

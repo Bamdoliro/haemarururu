@@ -135,6 +135,10 @@ const TitleInput = styled.input`
 const ContentTextarea = styled.textarea`
   ${font.p2};
   color: ${color.gray900};
+  width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   &::placeholder {
     color: ${color.gray500};

@@ -29,6 +29,10 @@ export const useNoticeEditData = (id: number) => {
     }
   }, [noticeDetailData]);
 
+  useEffect(() => {
+    resizeTextarea(contentTextareaRef);
+  }, [noticeData.content]);
+
   const handleNoticeDataChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
@@ -39,8 +43,6 @@ export const useNoticeEditData = (id: number) => {
       resizeTextarea(contentTextareaRef);
     }
   };
-
-  useEffect(() => resizeTextarea(contentTextareaRef), []);
 
   return {
     noticeData,
