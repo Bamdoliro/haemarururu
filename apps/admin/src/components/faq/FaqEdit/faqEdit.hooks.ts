@@ -25,6 +25,10 @@ export const useFaqEditData = (id: number) => {
     }
   }, [faqDetailData]);
 
+  useEffect(() => {
+    resizeTextarea(contentTextareaRef);
+  }, [faqData.content]);
+
   const handleFaqDataChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e) => {
@@ -39,8 +43,6 @@ export const useFaqEditData = (id: number) => {
   const handleFaqCategoryChange = (value: string) => {
     setFaqData((prev) => ({ ...prev, category: value as FaqCategory }));
   };
-
-  useEffect(() => resizeTextarea(contentTextareaRef), []);
 
   return {
     faqData,
