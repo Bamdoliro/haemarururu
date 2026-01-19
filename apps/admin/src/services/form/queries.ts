@@ -8,11 +8,8 @@ import {
   getSecondScoreFormat,
 } from './api';
 import { useQuery } from '@tanstack/react-query';
-import {
-  useFormListSortingTypeValueStore,
-  useFormListTypeValueStore,
-} from '@/store/form/formType';
 import type { ExportExcelType } from '@/types/form/client';
+import { useFormListSortingTypeValueStore, useFormListTypeValueStore } from '@/store';
 
 export const useFormListQuery = () => {
   const formListType = useFormListTypeValueStore();

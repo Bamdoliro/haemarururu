@@ -1,10 +1,12 @@
 import TableHeader from '@/components/common/TableHeader/TableHeader';
-import { useSetFormToPrintStore } from '@/store/form/formToPrint';
-import { useIsFormToPrintSelectingValueStore } from '@/store/form/isFormToPrintSelecting';
-import { useIsSecondRoundResultEditingValueStore } from '@/store/form/isSecondRoundResultEditing';
 import { convertToResponsive } from '@/utils';
 import { CheckBox, Row, Text } from '@maru/ui';
 import type { ChangeEventHandler } from 'react';
+import {
+  useIsFormToPrintSelectingValueStore,
+  useIsSecondRoundResultEditingValueStore,
+  useSetFormToPrintStore,
+} from '@/store';
 
 interface FormTableHeaderProps {
   id: number[];

@@ -3,8 +3,10 @@ import { formatPhoneNumber } from '@/utils';
 import { Row, Text, TextButton, CheckBox } from '@maru/ui';
 import FairQuestionModal from '../FairQuestionModal/FairQuestionModal';
 import { useOverlay } from '@toss/use-overlay';
-import { useIsDeleteFairAttendeeEditingValueStore } from '@/store/fair/isDeleteFairParticipantEditing';
-import { useDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
+import {
+  useDeleteFairAttendeeStore,
+  useIsDeleteFairAttendeeEditingValueStore,
+} from '@/store';
 
 interface FairTableItemProps {
   schoolName: string;

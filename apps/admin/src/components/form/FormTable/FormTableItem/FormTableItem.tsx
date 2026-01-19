@@ -1,10 +1,6 @@
 import { TableItem } from '@/components/common';
 import { ROUTES } from '@/constants/common/constant';
 import { FORM_TYPE_CATEGORY } from '@/constants/form/constant';
-import { useFormToPrintStore } from '@/store/form/formToPrint';
-import { useIsFormToPrintSelectingValueStore } from '@/store/form/isFormToPrintSelecting';
-import { useIsSecondRoundResultEditingValueStore } from '@/store/form/isSecondRoundResultEditing';
-import { useSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import type { Form, PassStatusType, PaymentStatusType } from '@/types/form/client';
 import { convertToResponsive, maskName } from '@/utils';
 import { color } from '@maru/design-system';
@@ -13,10 +9,16 @@ import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { usePaymentResultStore } from '@/store/form/paymentResult';
-import { useIsPaymentResultEditingValueStore } from '@/store/form/isPaymentResultEditing';
-import { useIsInterviewNumberEditingValueStore } from '@/store/form/isInterviewNumberEditing';
-import { useInterviewNumberStore } from '@/store/form/interviewNumber';
+import {
+  useFormToPrintStore,
+  useInterviewNumberStore,
+  useIsFormToPrintSelectingValueStore,
+  useIsInterviewNumberEditingValueStore,
+  useIsPaymentResultEditingValueStore,
+  useIsSecondRoundResultEditingValueStore,
+  usePaymentResultStore,
+  useSecondRoundResultStore,
+} from '@/store';
 
 const FormTableItem = ({
   id,

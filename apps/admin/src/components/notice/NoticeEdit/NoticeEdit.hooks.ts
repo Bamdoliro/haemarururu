@@ -2,12 +2,12 @@ import {
   useNoticeFileUrlMutation,
   usePutNoticeMutation,
 } from '@/services/notice/mutations';
-import { useNoticeFileStore } from '@/store/notice/noticeFile';
 import type { NoticeInput } from '@/types/notice/client';
 import { useState, useEffect, useRef } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { useNoticeDetailQuery } from '@/services/notice/queries';
 import { resizeTextarea } from '@/utils';
+import { useNoticeFileStore } from '@/store';
 
 export const useNoticeEditData = (id: number) => {
   const { data: noticeDetailData } = useNoticeDetailQuery(id);

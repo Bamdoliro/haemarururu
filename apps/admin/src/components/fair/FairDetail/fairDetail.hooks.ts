@@ -1,9 +1,4 @@
 import { useFairExportExcelQuery } from '@/services/fair/queries';
-import { useIsDeleteFairAttendeeEditingStore } from '@/store/fair/isDeleteFairParticipantEditing';
-import {
-  useDeleteFairAttendeeValueStore,
-  useSetDeleteFairAttendeeStore,
-} from '@/store/fair/deleteFairAttendee';
 import { useDeleteFairAttendeeMutation } from '@/services/fair/mutations';
 import { toast } from 'react-toastify';
 
@@ -64,7 +59,13 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
   };
 };
 
-import { useFairListSortingTypeStore, useFairListTypeStore } from '@/store';
+import {
+  useDeleteFairAttendeeValueStore,
+  useFairListSortingTypeStore,
+  useFairListTypeStore,
+  useIsDeleteFairAttendeeEditingStore,
+  useSetDeleteFairAttendeeStore,
+} from '@/store';
 
 export const useFairPageState = () => {
   const [fairListType, setFairListType] = useFairListTypeStore();

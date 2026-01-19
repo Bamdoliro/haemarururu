@@ -1,10 +1,10 @@
-import { useSecondScoreFileStore } from '@/store/form/secondScoreFile';
 import { color } from '@maru/design-system';
 import { IconClose } from '@maru/icon';
 import { Button, Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useEffect, useRef, useState, type DragEvent, type ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { useSecondScoreFileStore } from '@/store';
 
 interface SecondScoreUploaderProps {
   isOpen: boolean;

@@ -11,9 +11,10 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { KEY, ROUTES } from '@/constants/common/constant';
 import type { PatchFairAttendeeResultReq, PutFairReq } from '@/types/fair/remote';
-import { useSetIsDeleteFairAttendeeEditingStore } from '@/store/fair/isDeleteFairParticipantEditing';
-import { useSetDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
-
+import {
+  useSetDeleteFairAttendeeStore,
+  useSetIsDeleteFairAttendeeEditingStore,
+} from '@/store';
 export const useCreateFairMutation = () => {
   const { handleError } = useApiError();
   const router = useRouter();

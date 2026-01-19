@@ -8,19 +8,20 @@ import {
   useExportAllAddmissionTicket,
   useExportAllPersonalStatement,
 } from '@/services/form/queries';
-import {
-  useFormToPrintValueStore,
-  useSetFormToPrintStore,
-} from '@/store/form/formToPrint';
-import { useFormListSortingTypeStore, useFormListTypeStore } from '@/store/form/formType';
-import { useIsFormToPrintSelectingStore } from '@/store/form/isFormToPrintSelecting';
-import { useIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
-import { useSecondRoundResultValueStore } from '@/store/form/secondRoundResult';
 import type { FormListSortingType } from '@/types/form/client';
-import { usePaymentResultValueStore } from '@/store/form/paymentResult';
-import { useIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
-import { useIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
-import { useInterviewNumberValueStore } from '@/store/form/interviewNumber';
+import {
+  useFormListSortingTypeStore,
+  useFormListTypeStore,
+  useFormToPrintValueStore,
+  useInterviewNumberValueStore,
+  useIsFormToPrintSelectingStore,
+  useIsInterviewNumberEditingStore,
+  useIsPaymentResultEditingStore,
+  useIsSecondRoundResultEditingStore,
+  usePaymentResultValueStore,
+  useSecondRoundResultValueStore,
+  useSetFormToPrintStore,
+} from '@/store';
 
 export const useFormPageState = () => {
   const [formListType, setFormListType] = useFormListTypeStore();

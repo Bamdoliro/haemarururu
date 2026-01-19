@@ -1,8 +1,8 @@
-import { useFairFormStore } from '@/store/fair/fairType';
 import { useCreateFairMutation } from '@/services/fair/mutations';
 import convertToApiDateFormat from '@/utils/functions/convertToApiDateFormat';
 import convertToApiDateTimeFormat from '@/utils/functions/convertToApiDateTimeFormat';
 import type { FairFormInput } from '@/types/fair/client';
+import { useFairFormStore } from '@/store';
 
 export const useFairForm = () => {
   const createFairMutation = useCreateFairMutation();

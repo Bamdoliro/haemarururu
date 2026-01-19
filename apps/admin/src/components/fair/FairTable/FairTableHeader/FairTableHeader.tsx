@@ -1,8 +1,10 @@
 import TableHeader from '@/components/common/TableHeader/TableHeader';
 import { CheckBox, Row, Text } from '@maru/ui';
-import { useDeleteFairAttendeeStore } from '@/store/fair/deleteFairAttendee';
-import { useIsDeleteFairAttendeeEditingValueStore } from '@/store/fair/isDeleteFairParticipantEditing';
 import { useMemo } from 'react';
+import {
+  useDeleteFairAttendeeStore,
+  useIsDeleteFairAttendeeEditingValueStore,
+} from '@/store';
 
 interface FairTableHeaderProps {
   attendeeId: number[];
