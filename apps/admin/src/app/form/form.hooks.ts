@@ -5,7 +5,7 @@ import {
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
 import {
-  useExportAllAddmissionTicket,
+  useExportAllAdmissionTicket,
   useExportAllPersonalStatement,
 } from '@/services/form/queries';
 import type { FormListSortingType } from '@/types/form/client';
@@ -127,8 +127,8 @@ export const usePrintFormURLActions = () => {
   };
 };
 
-export const useExportAllAddmissionTicketAction = () => {
-  const { data: exportTicketData } = useExportAllAddmissionTicket();
+export const useExportAllAdmissionTicketAction = () => {
+  const { data: exportTicketData } = useExportAllAdmissionTicket();
 
   const handleExportAllAdmissionTicketButtonClick = () => {
     if (!exportTicketData) return;

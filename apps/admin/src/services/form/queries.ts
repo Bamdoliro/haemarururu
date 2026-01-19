@@ -41,7 +41,7 @@ export const useExportExcelQuery = (exportExcelType: ExportExcelType) => {
   return { data, ...restQuery };
 };
 
-export const useExportAllAddmissionTicket = () => {
+export const useExportAllAdmissionTicket = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_EXPORT_ALL_ADMISSION_TICKET],
     queryFn: getAllAdmissionTicket,
