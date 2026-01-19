@@ -1,4 +1,3 @@
-import { useNoticeFileStore } from '@/store/notice/noticeFile';
 import { color, font } from '@maru/design-system';
 import { IconClip } from '@maru/icon';
 import { Button, Column, Row, Text } from '@maru/ui';
@@ -7,6 +6,7 @@ import { useOverlay } from '@toss/use-overlay';
 import { styled } from 'styled-components';
 import NoticeUploadModal from '../NoticeUploadModal/NoticeUploadModal';
 import { useNoticeCreateAction, useNoticeCreateData } from './NoticeCreate.hooks';
+import { useNoticeFileStore } from '@/store';
 
 const NoticeCreate = () => {
   const overlay = useOverlay();

@@ -8,11 +8,8 @@ import {
   getSecondScoreFormat,
 } from './api';
 import { useQuery } from '@tanstack/react-query';
-import {
-  useFormListSortingTypeValueStore,
-  useFormListTypeValueStore,
-} from '@/store/form/formType';
 import type { ExportExcelType } from '@/types/form/client';
+import { useFormListSortingTypeValueStore, useFormListTypeValueStore } from '@/store';
 
 export const useFormListQuery = () => {
   const formListType = useFormListTypeValueStore();
@@ -44,7 +41,7 @@ export const useExportExcelQuery = (exportExcelType: ExportExcelType) => {
   return { data, ...restQuery };
 };
 
-export const useExportAllAddmissionTicket = () => {
+export const useExportAllAdmissionTicket = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_EXPORT_ALL_ADMISSION_TICKET],
     queryFn: getAllAdmissionTicket,

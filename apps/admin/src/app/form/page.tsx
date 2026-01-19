@@ -27,7 +27,7 @@ import {
   useEditInterviewNumberActions,
   useEditPaymentResultActions,
   useEditSecondRoundResultActions,
-  useExportAllAddmissionTicketAction,
+  useExportAllAdmissionTicketAction,
   useExportAllPersonalStatementAction,
   useFormPageState,
   usePrintFormURLActions,
@@ -76,7 +76,7 @@ const FormPage = () => {
     handlePrintFormUrlButtonClick,
   } = usePrintFormURLActions();
   const { handleExportAllAdmissionTicketButtonClick } =
-    useExportAllAddmissionTicketAction();
+    useExportAllAdmissionTicketAction();
   const { handleExportAllPersonalStatementButtonClick } =
     useExportAllPersonalStatementAction();
 

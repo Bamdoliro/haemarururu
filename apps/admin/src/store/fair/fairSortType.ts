@@ -1,5 +1,5 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import type { FairListSortingType, FairListType } from '@/types/fair/client';
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const fairListTypeAtomState = atom<FairListType>({
   key: 'fair-type',

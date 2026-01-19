@@ -6,9 +6,9 @@ import { IconClock, IconCalendar } from '@maru/icon';
 import FormInput from '@maru/ui/src/Input/FormInput';
 import type { FairType } from '@/types/fair/client';
 import { useFairForm } from '@/components/fair/FairForm/fair.hooks';
-import { useFairFormValueStore } from '@/store/fair/fairType';
 import formatDateInput from '@/utils/functions/formatDateInput';
 import formatTimeInput from '@/utils/functions/formatTimeInput';
+import { useFairFormValueStore } from '@/store';
 
 const FairForm = () => {
   const fair = useFairFormValueStore();

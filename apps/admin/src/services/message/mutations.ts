@@ -2,8 +2,8 @@ import { useApiError } from '@/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { postMessageByStatus, postMessageByType, postMessageToAll } from './api';
-import { useSetMessageFormStore } from '@/store/message/messageForm';
 import type { MessageForm } from '@/types/message/client';
+import { useSetMessageFormStore } from '@/store';
 
 export const usePostMessageByStatusMutation = () => {
   const { handleError } = useApiError();

@@ -16,7 +16,7 @@ import {
 } from './fairDetail.hooks';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/common/constant';
-import { useFairListSortingTypeValueStore } from '@/store/fair/fairSortType';
+import { useFairListSortingTypeValueStore } from '@/store';
 
 interface FairDetailProps {
   id: number;

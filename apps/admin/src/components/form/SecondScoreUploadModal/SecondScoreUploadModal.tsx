@@ -6,11 +6,11 @@ import { styled } from 'styled-components';
 import SecondScoreUploader from './SecondScoreUploader/SecondScoreUploader';
 import { useEffect } from 'react';
 import type { ChangeEventHandler } from 'react';
-import { useSecondScoreFileStore } from '@/store/form/secondScoreFile';
 import {
   useExportExcelAction,
   useUploadSecondScoreFormatAction,
 } from './SecondScoreUploadModal.hooks';
+import { useSecondScoreFileStore } from '@/store';
 
 interface SecondScoreUploadModalProps {
   isOpen: boolean;

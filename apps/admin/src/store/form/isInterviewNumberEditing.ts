@@ -1,13 +1,13 @@
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-const isInterviewNumberResultEditing = atom<boolean>({
+const isInterviewNumberEditingAtomState = atom<boolean>({
   key: 'is-interview-number-editing',
   default: false,
 });
 
 export const useIsInterviewNumberEditingStore = () =>
-  useRecoilState(isInterviewNumberResultEditing);
+  useRecoilState(isInterviewNumberEditingAtomState);
 export const useIsInterviewNumberEditingValueStore = () =>
-  useRecoilValue(isInterviewNumberResultEditing);
+  useRecoilValue(isInterviewNumberEditingAtomState);
 export const useSetIsInterviewNumberEditingStore = () =>
-  useSetRecoilState(isInterviewNumberResultEditing);
+  useSetRecoilState(isInterviewNumberEditingAtomState);

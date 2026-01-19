@@ -16,14 +16,16 @@ import type {
   PatchPaymentResultReq,
   PatchSecondRoundResultReq,
 } from '@/types/form/remote';
-import { useSetIsSecondRoundResultEditingStore } from '@/store/form/isSecondRoundResultEditing';
-import { useSetSecondRoundResultStore } from '@/store/form/secondRoundResult';
 import { isPopupBlocked } from '@/utils';
 import type { ReceiveStatusValue } from '@/types/form/client';
-import { useSetIsPaymentResultEditingStore } from '@/store/form/isPaymentResultEditing';
-import { useSetPaymentResultStore } from '@/store/form/paymentResult';
-import { useSetIsInterviewNumberEditingStore } from '@/store/form/isInterviewNumberEditing';
-import { useSetInterviewNumberStore } from '@/store/form/interviewNumber';
+import {
+  useSetInterviewNumberStore,
+  useSetIsInterviewNumberEditingStore,
+  useSetIsPaymentResultEditingStore,
+  useSetIsSecondRoundResultEditingStore,
+  useSetPaymentResultStore,
+  useSetSecondRoundResultStore,
+} from '@/store';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
