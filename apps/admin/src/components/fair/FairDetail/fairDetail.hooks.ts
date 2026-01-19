@@ -64,10 +64,7 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
   };
 };
 
-import {
-  useFairListSortingTypeStore,
-  useFairListTypeStore,
-} from '@/store/fair/fairSortType';
+import { useFairListSortingTypeStore, useFairListTypeStore } from '@/store';
 
 export const useFairPageState = () => {
   const [fairListType, setFairListType] = useFairListTypeStore();
