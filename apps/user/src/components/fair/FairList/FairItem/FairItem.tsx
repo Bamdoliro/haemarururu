@@ -34,7 +34,7 @@ const FairItem = ({
         </StatusBox>
       </Row>
       <Text fontType="p2" color={color.gray500}>
-        <EllipsisText as="span">장소: {place}</EllipsisText>
+        <EllipsisText>장소: {place}</EllipsisText>
         <br />
         신청 기한: {formatApplicationDate(applicationStartDate)} ~{' '}
         {formatApplicationDate(applicationEndDate)}

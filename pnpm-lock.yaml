@@ -369,6 +369,9 @@ importers:
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@18.3.1)(react@18.2.0)
+      '@emotion/styled':
+        specifier: ^11.14.1
+        version: 11.14.1(@emotion/react@11.14.0(@types/react@18.3.1)(react@18.2.0))(@types/react@18.3.1)(react@18.2.0)
       '@maru/design-system':
         specifier: workspace:*
         version: link:../design-system
@@ -415,9 +418,6 @@ importers:
       eslint-plugin-import:
         specifier: ^2.25.3
         version: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@7.32.0)(typescript@5.5.4))(eslint-import-resolver-typescript@2.7.1)(eslint@7.32.0)
-      styled-components:
-        specifier: ^6.0.3
-        version: 6.1.19(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       typescript:
         specifier: 5.5.4
         version: 5.5.4

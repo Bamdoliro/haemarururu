@@ -1,5 +1,6 @@
 'use client';
 
+import { Global } from '@emotion/react';
 import { GlobalStyle } from '@maru/design-system';
 import { Loader, Toast } from '@maru/ui';
 import { OverlayProvider } from '@toss/use-overlay';
@@ -27,7 +28,7 @@ const Provider = ({ children }: Props) => {
   return (
     <RecoilRoot>
       <OverlayProvider>
-        <GlobalStyle />
+        <Global styles={GlobalStyle} />
         <MobileProvider>
           <Suspense fallback={<Loader />}>{children}</Suspense>
         </MobileProvider>

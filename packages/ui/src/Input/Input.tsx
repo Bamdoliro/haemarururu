@@ -1,6 +1,7 @@
 import { color, font } from '@maru/design-system';
 import { IconError } from '@maru/icon';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import ConditionalMessage from './ConditionalMessage';
 import type { InputProps } from './Input.type';
 import { forwardRef } from 'react';
