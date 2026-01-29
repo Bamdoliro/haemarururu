@@ -3,7 +3,7 @@ import { IconCalendar, IconClock } from '@maru/icon';
 import { Button, Column, IconInput, RadioGroup, Text } from '@maru/ui';
 import FormInput from '@maru/ui/src/Input/FormInput';
 import { flex } from '@maru/utils';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useEditFairForm } from './editFairForm.hooks';
 import formatTimeInput from '@/utils/functions/formatTimeInput';
 import formatDateInput from '@/utils/functions/formatDateInput';

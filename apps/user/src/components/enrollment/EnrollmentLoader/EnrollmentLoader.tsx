@@ -1,7 +1,7 @@
 import { color } from '@maru/design-system';
 import { Column, Loader, Text } from '@maru/ui';
+import styled from '@emotion/styled';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
 
 interface EnrollmentLoaderProps {
   isOpen: boolean;

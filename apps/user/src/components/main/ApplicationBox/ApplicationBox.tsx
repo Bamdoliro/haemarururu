@@ -4,9 +4,9 @@ import { IconArrowOutward } from '@maru/icon';
 import { Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useRouter } from 'next/navigation';
-import styled from 'styled-components';
 import { useFairDataQuery } from '@/services/main/queries';
 import formatMonthDay from '@/utils/formatMonthDay';
+import styled from '@emotion/styled';
 
 const ApplicationBox = () => {
   const { data: fairDataList } = useFairDataQuery();

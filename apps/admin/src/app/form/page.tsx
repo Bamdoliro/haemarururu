@@ -22,7 +22,7 @@ import {
 } from '@maru/icon';
 import { Button, Column, Dropdown, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import {
   useEditInterviewNumberActions,
   useEditPaymentResultActions,

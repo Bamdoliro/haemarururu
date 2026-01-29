@@ -13,7 +13,7 @@ import { AppLayout } from '@/layouts';
 import { Row } from '@maru/ui';
 import { flex } from '@maru/utils';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Home = () => {
   return (

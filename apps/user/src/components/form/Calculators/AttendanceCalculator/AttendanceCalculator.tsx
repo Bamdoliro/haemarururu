@@ -1,7 +1,6 @@
 import { color } from '@maru/design-system';
 import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
 import AttendanceCalculatorHeader from './AttendanceCalculatorHeader/AttendanceCalculatorHeader';
 import { useFormValueStore } from '@/stores';
 import { useInput } from './AttendanceCalculator.hook';
@@ -9,6 +8,7 @@ import AttendanceCalculatorItem from './AttendanceCalculatorItem/AttendanceCalcu
 import { ATTENDANCE_GRADE } from '@/constants/form/constants';
 import { formatScheduleDate } from '@/utils';
 import { SCHEDULE } from '@/constants/common/constants';
+import styled from '@emotion/styled';
 
 const AttendanceCalculator = () => {
   const form = useFormValueStore();

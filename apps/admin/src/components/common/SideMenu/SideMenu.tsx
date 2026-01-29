@@ -1,7 +1,8 @@
 import { color, font } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import type { ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 interface SideMenuProps {
   children: ReactNode;

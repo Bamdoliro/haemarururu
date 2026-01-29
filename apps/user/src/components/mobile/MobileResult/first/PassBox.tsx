@@ -1,7 +1,7 @@
 import { color } from '@maru/design-system';
 import { Button, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import { useMobile } from '../../Mobile.hook';
 import formatMonthDay from '@/utils/formatMonthDay';
 import { SCHEDULE } from '@/constants/common/constants';

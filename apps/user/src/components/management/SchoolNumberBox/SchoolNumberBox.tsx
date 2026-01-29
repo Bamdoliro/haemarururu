@@ -2,7 +2,7 @@ import { color } from '@maru/design-system';
 import { IconPhone } from '@maru/icon';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import { PHONE_NUMBER } from '@/constants/common/constants';
 
 interface SchoolNumberBoxProps {

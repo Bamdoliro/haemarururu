@@ -1,6 +1,6 @@
 import { FormController, GradeCalculator } from '@/components/form';
 import { Column, Text, UnderlineButton } from '@maru/ui';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import { useCTAButton } from './Score.hook';
 import { color } from '@maru/design-system';
 

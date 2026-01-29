@@ -8,6 +8,7 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
     "@maru/design-system": "workspace:*",
     "@maru/hooks": "workspace:*",
     "@maru/icon": "workspace:*",

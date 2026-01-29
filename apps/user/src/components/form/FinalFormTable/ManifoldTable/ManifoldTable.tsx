@@ -1,8 +1,8 @@
 import { color, font } from '@maru/design-system';
 import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import type { CSSProperties } from 'styled-components';
-import { styled } from 'styled-components';
+import type { CSSProperties } from 'react';
+import styled from '@emotion/styled';
 
 const ManifoldTable = () => {
   return (

@@ -2,9 +2,8 @@ import { color } from '@maru/design-system';
 import { IconClose } from '@maru/icon';
 import { Button, Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { useEffect, type ReactNode } from 'react';
-import type { CSSProperties } from 'styled-components';
-import { styled } from 'styled-components';
+import { useEffect, type CSSProperties, type ReactNode } from 'react';
+import styled from '@emotion/styled';
 
 interface AlertStyleModalProps {
   isOpen: boolean;
