@@ -1,7 +1,8 @@
-import { css } from '@emotion/react';
+'use client';
+
 import color from './color';
 
-const GlobalStyle = css`
+const globalStylesString = `
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
   * {
@@ -58,14 +59,23 @@ const GlobalStyle = css`
     width: 100%;
     height: 100%;
     overflow: auto;
+    font-family: 'Pretendard Variable', Pretendard, sans-serif;
+  }
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
 
+  html,
+  body {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
 `;
+
+const GlobalStyle = () => (
+  <style dangerouslySetInnerHTML={{ __html: globalStylesString }} />
+);
 
 export default GlobalStyle;

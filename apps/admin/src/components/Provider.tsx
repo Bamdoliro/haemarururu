@@ -1,6 +1,5 @@
 'use client';
 
-import { Global } from '@emotion/react';
 import { GlobalStyle } from '@maru/design-system';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
@@ -16,7 +15,7 @@ const Provider = ({ children }: Props) => {
   return (
     <RecoilRoot>
       <OverlayProvider>
-        <Global styles={GlobalStyle} />
+        <GlobalStyle />
         {children}
         <ToastContainer />
       </OverlayProvider>
