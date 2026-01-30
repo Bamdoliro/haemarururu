@@ -1,6 +1,7 @@
 import { font } from '@maru/design-system';
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 type Font = keyof typeof font;
 

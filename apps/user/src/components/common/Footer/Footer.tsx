@@ -3,7 +3,7 @@ import { color, font } from '@maru/design-system';
 import { Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import Link from 'next/link';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Footer = () => {
   return (

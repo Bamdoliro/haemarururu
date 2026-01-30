@@ -1,6 +1,6 @@
 import { color, font } from '@maru/design-system';
 import { flex } from '@maru/utils';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import type { InputProps } from './Input.type';
 
 const SearchInput = ({

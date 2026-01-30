@@ -1,6 +1,7 @@
 import { color, font } from '@maru/design-system';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 interface UnderlineButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

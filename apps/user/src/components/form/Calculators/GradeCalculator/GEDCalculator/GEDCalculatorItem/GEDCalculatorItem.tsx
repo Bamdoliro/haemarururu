@@ -1,6 +1,6 @@
 import { CellInput, Td, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import { styled } from 'styled-components';
+import styled from '@emotion/styled';
 import { useInput } from './GEDCalculatorItem.hook';
 import { color } from '@maru/design-system';
 

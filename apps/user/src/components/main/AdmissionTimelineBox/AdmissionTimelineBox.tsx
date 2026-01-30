@@ -1,6 +1,5 @@
 'use client';
 
-import styled from 'styled-components';
 import { flex } from '@maru/utils';
 import DdayBox from './DdayBox/DdayBox';
 import dayjs from 'dayjs';
@@ -8,6 +7,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import ProcessEndBox from './ProcessEndDox/ProcessEndDox';
 import ApplicationPeriodBox from './ApplicationPeriodBox/ApplicationPeriodBox';
 import { SCHEDULE } from '@/constants/common/constants';
+import styled from '@emotion/styled';
 
 dayjs.extend(isBetween);
 

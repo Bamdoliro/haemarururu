@@ -7,7 +7,8 @@ import { Column } from '@maru/ui';
 import { flex } from '@maru/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { css, styled } from 'styled-components';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const NAVIGATION_DATA = [
   {
@@ -104,14 +105,7 @@ const StyledLogoutBox = styled.div`
   margin-top: 110px;
 `;
 
-const StyledLink = styled(Link).attrs<{ $active: boolean }>((props) => ({
-  style: props.$active
-    ? {
-        background:
-          'linear-gradient(90deg, rgba(37, 124, 255, 0.15) 0%, rgba(37, 124, 255, 0) 100%)',
-      }
-    : {},
-}))<{ $active: boolean }>`
+const StyledLink = styled(Link)<{ $active: boolean }>`
   ${commonStyles}
   width: 100%;
   position: relative;
@@ -120,6 +114,12 @@ const StyledLink = styled(Link).attrs<{ $active: boolean }>((props) => ({
   ${(props) =>
     props.$active &&
     css`
+      background: linear-gradient(
+        90deg,
+        rgba(37, 124, 255, 0.15) 0%,
+        rgba(37, 124, 255, 0) 100%
+      );
+
       &::after {
         content: '';
         position: absolute;

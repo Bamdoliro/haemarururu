@@ -4,7 +4,7 @@ import EditFairForm from '@/components/fair/EditFairForm/EditFairForm';
 import AppLayout from '@/layouts/AppLayout';
 import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface EditFairPageProps {
   params: { id: number };

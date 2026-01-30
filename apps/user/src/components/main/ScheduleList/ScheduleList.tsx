@@ -2,7 +2,7 @@ import { color } from '@maru/design-system';
 import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import dayjs from 'dayjs';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ScheduleItem from './ScheduleItem/ScheduleItem';
 import { formatFormYear, formatScheduleDate } from '@/utils';
 import { SCHEDULE } from '@/constants/common/constants';

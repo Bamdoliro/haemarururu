@@ -1,7 +1,7 @@
 import { AttendanceCalculator, FormController } from '@/components/form';
 import { Column, UnderlineButton } from '@maru/ui';
-import { styled } from 'styled-components';
 import { useCTAButton } from './Attendance.hook';
+import styled from '@emotion/styled';
 
 const Attendance = () => {
   const { handleNextStep, handlePreviousStep } = useCTAButton();

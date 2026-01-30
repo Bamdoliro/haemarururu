@@ -7,7 +7,7 @@ import { IconArrowRight } from '@maru/icon';
 import { Button, Column, Input, PreviewInput } from '@maru/ui';
 import { flex } from '@maru/utils';
 import Link from 'next/link';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useCTAButton, useInput, useKeyDown, useLoginAction } from './login.hook';
 
 const Login = () => {

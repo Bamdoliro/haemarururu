@@ -4,7 +4,7 @@ import { SignUpContent } from '@/components/signup';
 import { AppLayout } from '@/layouts';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useMemo } from 'react';
 import { Storage } from '@/apis/storage/storage';
 import { TOKEN } from '@/constants/common/constants';

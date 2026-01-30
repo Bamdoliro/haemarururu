@@ -3,7 +3,7 @@ import { Switch, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { SwitchCase } from '@toss/react';
 import { Fragment, useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import CommonTable from './CommonTable/CommonTable';
 import EqualTable from './EqualTable/EqualTable';
 import ManifoldTable from './ManifoldTable/ManifoldTable';
