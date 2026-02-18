@@ -1,6 +1,6 @@
 import { useFairExportExcelQuery } from '@/services/fair/queries';
 import { useDeleteFairAttendeeMutation } from '@/services/fair/mutations';
-import { toast } from 'react-toastify';
+import { useToast } from '@maru/hooks';
 
 export const useExportExcelAction = (id: number) => {
   const { data: exportExcelData } = useFairExportExcelQuery(id);
@@ -27,6 +27,7 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
     useIsDeleteFairAttendeeEditingStore();
   const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
   const fairAttendeeResult = useDeleteFairAttendeeValueStore();
+  const { toast } = useToast();
 
   const setIsDeleteFairAttendeeEditingTrue = () => setIsDeleteFairAttendeeEditing(true);
   const setIsDeleteFairAttendeeEditingFalse = () => {
@@ -44,7 +45,7 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
       }));
 
     if (attendeeList.length === 0) {
-      toast.error('삭제할 인원을 선택해주세요.');
+      toast('삭제할 인원을 선택해주세요.', 'ERROR');
       return;
     }
 

@@ -15,7 +15,7 @@ const toastState = atom({
 
 const useToast = () => {
   const [popup, setPopup] = useRecoilState(toastState);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toast = useCallback(
     (
