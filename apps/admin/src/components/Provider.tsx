@@ -12,12 +12,30 @@ interface Props {
 }
 
 const GlobalToast = () => {
-  const { showToast, toastMessage, toastType, device } = useToast();
+  const { toasts, removeToast } = useToast();
 
-  return showToast ? (
-    <Toast type={toastType} device={device}>
-      {toastMessage}
-    </Toast>
+  return toasts.length > 0 ? (
+    <div
+      style={{
+        position: 'fixed',
+        top: 150,
+        right: 48,
+        zIndex: 1000,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        minWidth: 280,
+      }}>
+      {toasts.map((t) => (
+        <Toast
+          key={t.id}
+          message={t.message}
+          type={t.toastType}
+          progress={t.progress}
+          onRemove={() => removeToast(t.id)}
+        />
+      ))}
+    </div>
   ) : null;
 };
 
