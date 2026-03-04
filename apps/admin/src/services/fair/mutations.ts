@@ -7,7 +7,7 @@ import {
   putFair,
 } from '@/services/fair/api';
 import { useApiError } from '@/hooks';
-import { toast } from 'react-toastify';
+import { useToast } from '@maru/hooks';
 import { useRouter } from 'next/navigation';
 import { KEY, ROUTES } from '@/constants/common/constant';
 import type { PatchFairAttendeeResultReq, PutFairReq } from '@/types/fair/remote';
@@ -15,16 +15,16 @@ import {
   useSetDeleteFairAttendeeStore,
   useSetIsDeleteFairAttendeeEditingStore,
 } from '@/store';
+
 export const useCreateFairMutation = () => {
   const { handleError } = useApiError();
   const router = useRouter();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: (data: FairApiRequestBody) => postFairReq(data),
     onSuccess: () => {
-      toast.success('입학 설명회 일정이 만들어졌습니다.', {
-        type: 'success',
-      });
+      toast('입학 설명회 일정이 만들어졌습니다.', 'SUCCESS');
       router.push(ROUTES.FAIR);
     },
     onError: handleError,
@@ -34,13 +34,12 @@ export const useCreateFairMutation = () => {
 export const usePutFairMutation = (fairId: number) => {
   const { handleError } = useApiError();
   const router = useRouter();
+  const { toast } = useToast();
 
   const { mutate: putFairMutate, ...restMutation } = useMutation({
     mutationFn: (params: PutFairReq) => putFair(fairId, params),
     onSuccess: () => {
-      toast('입학설명회가 수정되었습니다.', {
-        type: 'success',
-      });
+      toast('입학설명회가 수정되었습니다.', 'SUCCESS');
       router.push(ROUTES.FAIR);
     },
     onError: handleError,
@@ -52,13 +51,12 @@ export const usePutFairMutation = (fairId: number) => {
 export const useDeleteFairMutation = (fairId: number) => {
   const { handleError } = useApiError();
   const router = useRouter();
+  const { toast } = useToast();
 
   const { mutate: deleteFairMutate, ...restMutation } = useMutation({
     mutationFn: () => deleteFair(fairId),
     onSuccess: () => {
-      toast('입학설명회가 삭제되었습니다.', {
-        type: 'success',
-      });
+      toast('입학설명회가 삭제되었습니다.', 'SUCCESS');
       router.push(ROUTES.FAIR);
     },
     onError: handleError,
@@ -70,6 +68,7 @@ export const useDeleteFairMutation = (fairId: number) => {
 export const useDeleteFairAttendeeMutation = (fairId: number) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const setIsDeleteFairAttendeeEditing = useSetIsDeleteFairAttendeeEditingStore();
   const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
@@ -78,9 +77,7 @@ export const useDeleteFairAttendeeMutation = (fairId: number) => {
     mutationFn: (data: PatchFairAttendeeResultReq) =>
       deleteFairAttendee(fairId, data.attendeeList),
     onSuccess: () => {
-      toast('참석인원이 삭제되었습니다.', {
-        type: 'success',
-      });
+      toast('참석인원이 삭제되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FAIR_DETAIL, fairId] });
       setIsDeleteFairAttendeeEditing(false);
       setDeleteFairAttendee({});

@@ -11,6 +11,9 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@maru/design-system": "workspace:*",
     "@maru/hooks": "workspace:*",
     "@maru/icon": "workspace:*",
@@ -22,16 +25,12 @@
     "@tanstack/react-query-devtools": "^5.66.0",
     "@toss/react": "^1.8.1",
     "@toss/use-overlay": "^1.4.2",
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "axios": "^1.7.9",
     "jwt-decode": "^4.0.0",
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.2.0",
-    "react-toastify": "^11.0.3",
     "recoil": "^0.7.7"
   },
   "devDependencies": {

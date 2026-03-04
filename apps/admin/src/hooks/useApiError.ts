@@ -1,5 +1,6 @@
 import type { AxiosError } from 'axios';
 import { isAxiosError } from 'axios';
+import { useToast } from '@maru/hooks';
 
 type ErrorStatus = 403 | 429 | 500;
 
@@ -15,26 +16,19 @@ const ERROR: Record<ErrorStatus, string> = {
 };
 
 const useApiError = () => {
+  const { toast } = useToast();
+
   const handleError = (error: AxiosError<AxiosErrorResponse>) => {
     if (isAxiosError(error)) {
       if (error.response) {
         const status = error.response.status as ErrorStatus;
         const message = error.response.data.message || ERROR[status];
-
-        if (status === 500) {
-          console.error('서버 오류 500:', message);
-          alert(message);
-          return;
-        }
-
-        alert(message);
+        toast(message, 'ERROR');
       } else {
-        console.error('응답 없음:', error);
-        alert('알 수 없는 오류가 발생하였습니다.');
+        toast('알 수 없는 오류가 발생하였습니다.', 'ERROR');
       }
     } else {
-      console.error('알 수 없는 오류:', error);
-      alert('알 수 없는 오류가 발생하였습니다.');
+      toast('알 수 없는 오류가 발생하였습니다.', 'ERROR');
     }
   };
 

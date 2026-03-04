@@ -9,7 +9,7 @@ import {
   patchSecondRoundResultAuto,
   patchSecondScoreFormat,
 } from './api';
-import { toast } from 'react-toastify';
+import { useToast } from '@maru/hooks';
 import { KEY } from '@/constants/common/constant';
 import type {
   PatchInterviewNumberReq,
@@ -30,6 +30,7 @@ import {
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const downloadBlob = (blob: Blob, filename: string) => {
     const url = window.URL.createObjectURL(blob);
@@ -51,22 +52,22 @@ export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void)
       try {
         if (contentType.includes('application/json')) {
           const { message } = await blob.text().then(JSON.parse);
-          toast.error(message || '잘못된 파일입니다.');
+          toast(message || '잘못된 파일입니다.', 'ERROR');
           return;
         }
         switch (res.status) {
           case 204:
-            toast.success('파일이 입력되었습니다.');
+            toast('파일이 입력되었습니다.', 'SUCCESS');
             queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
             break;
 
           case 400:
             downloadBlob(blob, '점수입력_오류결과.xlsx');
-            toast.error('오류가 있는 파일이 다운로드되었습니다.');
+            toast('오류가 있는 파일이 다운로드되었습니다.', 'ERROR');
             break;
 
           default:
-            toast.error('알 수 없는 응답입니다.');
+            toast('알 수 없는 응답입니다.', 'ERROR');
         }
       } finally {
         handleCloseModal();
@@ -83,6 +84,7 @@ export const useEditSecondRoundResultMutation = (
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const setIsSecondRoundResultEditing = useSetIsSecondRoundResultEditingStore();
   const setSecondRoundResult = useSetSecondRoundResultStore();
@@ -90,9 +92,7 @@ export const useEditSecondRoundResultMutation = (
   const { mutate: editSecondRoundResult, ...restMutation } = useMutation({
     mutationFn: () => patchSecondRoundResult(secondRoundResultData),
     onSuccess: () => {
-      toast('면접 합격 여부가 반영되었습니다.', {
-        type: 'success',
-      });
+      toast('면접 합격 여부가 반영되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
       setIsSecondRoundResultEditing(false);
       setSecondRoundResult({});
@@ -106,13 +106,12 @@ export const useEditSecondRoundResultMutation = (
 export const useAutoSecondRoundResultMutation = () => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { mutate: autoSecondRoundResult, ...restMutation } = useMutation({
     mutationFn: patchSecondRoundResultAuto,
     onSuccess: () => {
-      toast('면접 합격 여부가 모두 반영되었습니다.', {
-        type: 'success',
-      });
+      toast('면접 합격 여부가 모두 반영되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
     },
     onError: handleError,
@@ -146,11 +145,12 @@ export const usePrintFormUrlMutation = () => {
 export const useReceiveStatusChangeMutation = (formId: number, onClose: () => void) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { mutate: changeReceiveStatus, ...restMutation } = useMutation({
     mutationFn: (status: ReceiveStatusValue) => patchReceiveStatus(formId, status),
     onSuccess: () => {
-      toast('접수 상태가 변경되었습니다.', { type: 'success' });
+      toast('접수 상태가 변경되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_DETAIL, formId] });
       onClose();
@@ -166,6 +166,7 @@ export const useEditPaymentResultMutation = (
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const setIsPaymentResultEditing = useSetIsPaymentResultEditingStore();
   const setPaymentResult = useSetPaymentResultStore();
@@ -173,9 +174,7 @@ export const useEditPaymentResultMutation = (
   const { mutate: editPaymentResult, ...restMutation } = useMutation({
     mutationFn: () => patchPaymentResult(paymentResultData),
     onSuccess: () => {
-      toast('전형료 변경 여부가 반영되었습니다.', {
-        type: 'success',
-      });
+      toast('전형료 변경 여부가 반영되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
       setIsPaymentResultEditing(false);
       setPaymentResult({});
@@ -191,6 +190,7 @@ export const useEditInterviewNumberMutation = (
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const setIsInterviewNumberEditing = useSetIsInterviewNumberEditingStore();
   const setInterviewNumber = useSetInterviewNumberStore();
@@ -198,9 +198,7 @@ export const useEditInterviewNumberMutation = (
   const { mutate: editInterviewNumber, ...restMutation } = useMutation({
     mutationFn: () => patchInterviewNumber(InterviewNumberData),
     onSuccess: () => {
-      toast('면접번호 변경여부가 반영되었습니다.', {
-        type: 'success',
-      });
+      toast('면접번호 변경여부가 반영되었습니다.', 'SUCCESS');
       queryClient.invalidateQueries({ queryKey: [KEY.FORM_LIST] });
       setIsInterviewNumberEditing(false);
       setInterviewNumber({});
