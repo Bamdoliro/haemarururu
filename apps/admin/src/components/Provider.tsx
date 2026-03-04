@@ -25,7 +25,8 @@ const GlobalToast = () => {
         flexDirection: 'column',
         gap: 8,
         minWidth: 280,
-      }}>
+      }}
+    >
       {toasts.map((t) => (
         <Toast
           key={t.id}

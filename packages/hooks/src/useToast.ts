@@ -68,7 +68,14 @@ const useToast = () => {
     ) => {
       const id = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
       const createdAt = Date.now();
-      const item: ToastItem = { id, message, toastType: type, device, duration, createdAt };
+      const item: ToastItem = {
+        id,
+        message,
+        toastType: type,
+        device,
+        duration,
+        createdAt,
+      };
       setToasts((prev) => [...prev, item]);
       timeoutRefs.current[id] = setTimeout(() => {
         setToasts((prev) => prev.filter((p) => p.id !== id));

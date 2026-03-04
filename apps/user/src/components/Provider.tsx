@@ -33,7 +33,8 @@ const GlobalToast = () => {
             flexDirection: 'column',
             gap: 8,
             minWidth: 280,
-          }}>
+          }}
+        >
           {computerToasts.map((t) => (
             <Toast
               key={t.id}
@@ -56,7 +57,8 @@ const GlobalToast = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: 8,
-          }}>
+          }}
+        >
           {mobileToasts.map((t) => (
             <Toast
               key={t.id}

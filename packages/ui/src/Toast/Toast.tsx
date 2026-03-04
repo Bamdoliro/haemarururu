@@ -17,14 +17,21 @@ interface ToastProps {
   onRemove?: () => void;
 }
 
-const Toast = ({ message, width, type, device = 'COMPUTER', progress, onRemove }: ToastProps) => {
+const Toast = ({
+  message,
+  width,
+  type,
+  device = 'COMPUTER',
+  progress,
+  onRemove,
+}: ToastProps) => {
   return (
     <StyledToast style={{ width }} device={device} onClick={onRemove}>
       <ContentRow>
         {type === 'ERROR' ? (
-          <IconCancelCircle width={32} height={32} />
+          <IconCancelCircle width={32} height={32} color={color.red} />
         ) : (
-          <IconCheckCircle width={32} height={32} />
+          <IconCheckCircle width={32} height={32} color={color.maruDefault} />
         )}
         <Text fontType="p2" color={color.gray900}>
           {message}
@@ -96,6 +103,6 @@ const ProgressBar = styled.div`
 const ProgressFill = styled.div<{ progress: number; type: ToastType }>`
   height: 100%;
   width: ${({ progress }) => `${(1 - progress) * 100}%`};
-  background-color: ${({ type }) => (type === 'ERROR' ? '#F45452' : '#47B872')};
+  background-color: ${({ type }) => (type === 'ERROR' ? color.red : color.maruDefault)};
   transition: width 0.1s linear;
 `;
