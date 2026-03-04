@@ -5,7 +5,8 @@
   "types": "./index.ts",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint \"**/*.ts*\""
+    "lint": "eslint \"**/*.ts*\"",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@types/lodash": "^4.14.195",
