@@ -10,17 +10,20 @@
     "build": "turbo run build",
     "dev": "turbo run dev --filter=./apps/**",
     "lint": "turbo run lint",
+    "lint:staged": "eslint --fix && prettier --write",
     "type-check": "turbo run check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:staged": "prettier --write",
     "prepare": "husky"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "pnpm format:staged",
+      "pnpm type-check",
+      "pnpm lint:staged"
     ],
     "**/*.{json,md}": [
-      "prettier --write"
+      "pnpm format:staged"
     ]
   },
   "devDependencies": {
