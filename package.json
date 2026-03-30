@@ -19,7 +19,7 @@
   "lint-staged": {
     "**/*.{ts,tsx}": [
       "pnpm format:staged",
-      "pnpm type-check",
+      "bash -c 'pnpm type-check'",
       "pnpm lint:staged"
     ],
     "**/*.{json,md}": [
