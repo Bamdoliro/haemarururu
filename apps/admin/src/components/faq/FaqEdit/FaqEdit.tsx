@@ -1,6 +1,6 @@
 import { FAQ_CATEGORY, FAQ_CATEGORY_OPTIONS } from '@/constants/faq/constant';
 import { color, font } from '@maru/design-system';
-import { Button, Column, Dropdown, Row } from '@maru/ui';
+import { Button, Column, Dropdown, MarkdownEditor, Row } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useFaqEditAction, useFaqEditData } from './faqEdit.hooks';
@@ -11,7 +11,7 @@ interface FaqEditProps {
 }
 
 const FaqEdit = ({ id }: FaqEditProps) => {
-  const { faqData, contentTextareaRef, handleFaqDataChange, handleFaqCategoryChange } =
+  const { faqData, handleFaqDataChange, handleFaqCategoryChange, handleContentChange } =
     useFaqEditData(id);
 
   const { handleFaqEditButtonClick } = useFaqEditAction(id, faqData);
@@ -41,14 +41,7 @@ const FaqEdit = ({ id }: FaqEditProps) => {
             onChange={handleFaqCategoryChange}
           />
         </FaqEditHeader>
-        <ContentTextarea
-          ref={contentTextareaRef}
-          name="content"
-          value={faqData.content}
-          onChange={handleFaqDataChange}
-          placeholder="내용을 작성해주세요."
-          rows={1}
-        />
+        <MarkdownEditor value={faqData.content} onChange={handleContentChange} />
       </Column>
     </StyledFaqEdit>
   );
@@ -78,13 +71,4 @@ const TitleInput = styled.input`
   &::placeholder {
     color: ${color.gray400};
   }
-`;
-
-const ContentTextarea = styled.textarea`
-  ${font.p2};
-  color: ${color.gray900};
-  &::placeholder {
-    color: ${color.gray500};
-  }
-  resize: none;
 `;

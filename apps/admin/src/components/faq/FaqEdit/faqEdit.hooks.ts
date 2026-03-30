@@ -1,13 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { usePutFaqMutation } from '@/services/faq/mutations';
 import { useFaqDetailQuery } from '@/services/faq/queries';
-import { resizeTextarea } from '@/utils';
 import type { FaqCategory, FaqInput } from '@/types/faq/client';
 
 export const useFaqEditData = (id: number) => {
   const { data: faqDetailData } = useFaqDetailQuery(id);
-  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [faqData, setFaqData] = useState<FaqInput>({
     title: '',
@@ -25,31 +23,25 @@ export const useFaqEditData = (id: number) => {
     }
   }, [faqDetailData]);
 
-  useEffect(() => {
-    resizeTextarea(contentTextareaRef);
-  }, [faqData.content]);
-
-  const handleFaqDataChange: ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
+  const handleFaqDataChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
     setFaqData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === 'content') {
-      resizeTextarea(contentTextareaRef);
-    }
   };
 
   const handleFaqCategoryChange = (value: string) => {
     setFaqData((prev) => ({ ...prev, category: value as FaqCategory }));
   };
 
+  const handleContentChange = (value: string) => {
+    setFaqData((prev) => ({ ...prev, content: value }));
+  };
+
   return {
     faqData,
     setFaqData,
-    contentTextareaRef,
     handleFaqDataChange,
     handleFaqCategoryChange,
+    handleContentChange,
   };
 };
 

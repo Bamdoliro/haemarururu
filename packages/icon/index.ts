@@ -51,3 +51,4 @@ export { default as IconH3 } from './src/IconH3';
 export { default as IconH4 } from './src/IconH4';
 export { default as IconIntallic } from './src/IconIntallic';
 export { default as IconStroke } from './src/IconStroke';
+export { default as IconImage } from './src/IconImage';

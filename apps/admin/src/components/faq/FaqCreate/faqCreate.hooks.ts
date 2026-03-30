@@ -1,40 +1,34 @@
 import { usePostFaqMutation } from '@/services/faq/mutations';
-import { useState, useRef, useEffect } from 'react';
-import { resizeTextarea } from '@/utils';
+import { useState } from 'react';
 import type { FaqCategory, FaqInput } from '@/types/faq/client';
 import type { ChangeEventHandler } from 'react';
 
 export const useFaqCreateData = () => {
-  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [faqData, setFaqData] = useState<FaqInput>({
     title: '',
     content: '',
     category: 'SCHOOL_LIFE',
   });
 
-  const handleFaqDataChange: ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
+  const handleFaqDataChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
     setFaqData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === 'content') {
-      resizeTextarea(contentTextareaRef);
-    }
   };
 
   const handleFaqCategoryChange = (value: string) => {
     setFaqData((prev) => ({ ...prev, category: value as FaqCategory }));
   };
 
-  useEffect(() => resizeTextarea(contentTextareaRef), []);
+  const handleContentChange = (value: string) => {
+    setFaqData((prev) => ({ ...prev, content: value }));
+  };
 
   return {
     faqData,
     setFaqData,
-    contentTextareaRef,
     handleFaqDataChange,
     handleFaqCategoryChange,
+    handleContentChange,
   };
 };
 

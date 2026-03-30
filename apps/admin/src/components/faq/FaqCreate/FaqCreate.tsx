@@ -1,13 +1,13 @@
 import { FAQ_CATEGORY, FAQ_CATEGORY_OPTIONS } from '@/constants/faq/constant';
 import { color, font } from '@maru/design-system';
-import { Button, Column, Dropdown, Row } from '@maru/ui';
+import { Button, Column, Dropdown, MarkdownEditor, Row } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useFaqCreateAction, useFaqCreateData } from './faqCreate.hooks';
 import type { FaqCategory } from '@/types/faq/client';
 
 const FaqCreate = () => {
-  const { faqData, contentTextareaRef, handleFaqDataChange, handleFaqCategoryChange } =
+  const { faqData, handleFaqDataChange, handleFaqCategoryChange, handleContentChange } =
     useFaqCreateData();
 
   const { handleFaqCreateButtonClick } = useFaqCreateAction(faqData);
@@ -37,14 +37,7 @@ const FaqCreate = () => {
             onChange={handleFaqCategoryChange}
           />
         </FaqCreateHeader>
-        <ContentTextarea
-          ref={contentTextareaRef}
-          name="content"
-          value={faqData.content}
-          onChange={handleFaqDataChange}
-          placeholder="내용을 작성해주세요."
-          rows={1}
-        />
+        <MarkdownEditor value={faqData.content} onChange={handleContentChange} />
       </Column>
     </StyledFaqCreate>
   );
@@ -74,14 +67,4 @@ const TitleInput = styled.input`
   &::placeholder {
     color: ${color.gray400};
   }
-`;
-
-const ContentTextarea = styled.textarea`
-  ${font.p2};
-  color: ${color.gray900};
-
-  &::placeholder {
-    color: ${color.gray500};
-  }
-  resize: none;
 `;
