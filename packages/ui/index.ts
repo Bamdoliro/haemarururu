@@ -26,4 +26,4 @@ export { default as Textarea } from './src/Textarea/Textarea';
 export { default as CheckInput } from './src/Input/CheckInput';
 export { default as Toast } from './src/Toast/Toast';
 export { default as IconInput } from './src/Input/IconInput';
-export { default as MarkdownEditor } from './src/MarkdownEditor/MarkdownEditor';
+export { default as MarkdownViewer } from './src/MarkdownViewer/MarkdownViewer';

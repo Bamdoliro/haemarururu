@@ -1,6 +1,7 @@
 import { color, font } from '@maru/design-system';
 import { IconClip } from '@maru/icon';
-import { Button, Column, MarkdownEditor, Row, Text } from '@maru/ui';
+import { Button, Column, Row, Text } from '@maru/ui';
+import { MarkdownEditor } from '@/components/common';
 import { flex } from '@maru/utils';
 import { useOverlay } from '@toss/use-overlay';
 import styled from '@emotion/styled';
@@ -16,8 +17,13 @@ const NoticeEdit = ({ id }: NoticeEditProps) => {
   const overlay = useOverlay();
   const [fileData, setFileData] = useNoticeFileStore();
 
-  const { noticeData, setNoticeData, handleNoticeDataChange, handleContentChange } =
-    useNoticeEditData(id);
+  const {
+    noticeData,
+    setNoticeData,
+    isInitialized,
+    handleNoticeDataChange,
+    handleContentChange,
+  } = useNoticeEditData(id);
 
   const { handleNoticeEditButtonClick } = useNoticeEditAction(id, noticeData);
 
@@ -75,7 +81,12 @@ const NoticeEdit = ({ id }: NoticeEditProps) => {
           </Button>
         </Row>
       </NoticeEditHeader>
-      <MarkdownEditor value={noticeData.content} onChange={handleContentChange} />
+      {isInitialized && (
+        <MarkdownEditor
+          defaultValue={noticeData.content}
+          onChange={handleContentChange}
+        />
+      )}
       {(noticeData.fileNameList ?? []).length > 0 && (
         <Column gap={12}>
           {(noticeData.fileNameList ?? []).map((file, index) => (

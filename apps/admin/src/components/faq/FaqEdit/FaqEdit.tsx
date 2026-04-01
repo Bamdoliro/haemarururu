@@ -1,6 +1,7 @@
 import { FAQ_CATEGORY, FAQ_CATEGORY_OPTIONS } from '@/constants/faq/constant';
 import { color, font } from '@maru/design-system';
-import { Button, Column, Dropdown, MarkdownEditor, Row } from '@maru/ui';
+import { Button, Column, Dropdown, Row } from '@maru/ui';
+import { MarkdownEditor } from '@/components/common';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useFaqEditAction, useFaqEditData } from './faqEdit.hooks';
@@ -11,8 +12,13 @@ interface FaqEditProps {
 }
 
 const FaqEdit = ({ id }: FaqEditProps) => {
-  const { faqData, handleFaqDataChange, handleFaqCategoryChange, handleContentChange } =
-    useFaqEditData(id);
+  const {
+    faqData,
+    isInitialized,
+    handleFaqDataChange,
+    handleFaqCategoryChange,
+    handleContentChange,
+  } = useFaqEditData(id);
 
   const { handleFaqEditButtonClick } = useFaqEditAction(id, faqData);
 
@@ -41,7 +47,9 @@ const FaqEdit = ({ id }: FaqEditProps) => {
             onChange={handleFaqCategoryChange}
           />
         </FaqEditHeader>
-        <MarkdownEditor value={faqData.content} onChange={handleContentChange} />
+        {isInitialized && (
+          <MarkdownEditor defaultValue={faqData.content} onChange={handleContentChange} />
+        )}
       </Column>
     </StyledFaqEdit>
   );

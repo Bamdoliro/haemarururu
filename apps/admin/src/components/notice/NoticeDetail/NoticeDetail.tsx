@@ -1,8 +1,8 @@
 import { ROUTES } from '@/constants/common/constant';
 import { useNoticeDetailQuery } from '@/services/notice/queries';
-import { color, font } from '@maru/design-system';
+import { color } from '@maru/design-system';
 import { IconClip } from '@maru/icon';
-import { Button, Column, Row, Text } from '@maru/ui';
+import { Button, Column, MarkdownViewer, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useRouter } from 'next/navigation';
 import styled from '@emotion/styled';
@@ -54,7 +54,7 @@ const NoticeDetail = ({ id }: NoticeDetailProps) => {
           </Button>
         </Row>
       </NoticeDetailHeader>
-      <Content>{noticeDetailData.content}</Content>
+      <MarkdownViewer content={noticeDetailData.content} />
       {noticeDetailData.fileList && (
         <Column gap={12}>
           {noticeDetailData.fileList.map((file, index) => (
@@ -90,13 +90,6 @@ const NoticeDetailHeader = styled.div`
   gap: 16px;
   border-bottom: 1px solid ${color.gray300};
   padding-bottom: 16px;
-`;
-
-const Content = styled.div`
-  ${font.p2};
-  color: ${color.gray900};
-  white-space: pre-wrap;
-  word-break: break-word;
 `;
 
 const StyledNoticeFile = styled.div`

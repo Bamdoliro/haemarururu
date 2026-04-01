@@ -16,6 +16,7 @@ export const useNoticeEditData = (id: number) => {
     content: '',
     fileNameList: [],
   });
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     if (noticeDetailData) {
@@ -24,6 +25,7 @@ export const useNoticeEditData = (id: number) => {
         content: noticeDetailData.content,
         fileNameList: noticeDetailData.fileList?.map((file) => file.fileName) ?? [],
       });
+      setIsInitialized(true);
     }
   }, [noticeDetailData]);
 
@@ -39,6 +41,7 @@ export const useNoticeEditData = (id: number) => {
   return {
     noticeData,
     setNoticeData,
+    isInitialized,
     handleNoticeDataChange,
     handleContentChange,
   };

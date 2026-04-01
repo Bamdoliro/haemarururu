@@ -12,6 +12,7 @@ export const useFaqEditData = (id: number) => {
     content: '',
     category: 'SCHOOL_LIFE',
   });
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     if (faqDetailData) {
@@ -20,6 +21,7 @@ export const useFaqEditData = (id: number) => {
         content: faqDetailData.content,
         category: faqDetailData.category,
       });
+      setIsInitialized(true);
     }
   }, [faqDetailData]);
 
@@ -39,6 +41,7 @@ export const useFaqEditData = (id: number) => {
   return {
     faqData,
     setFaqData,
+    isInitialized,
     handleFaqDataChange,
     handleFaqCategoryChange,
     handleContentChange,
