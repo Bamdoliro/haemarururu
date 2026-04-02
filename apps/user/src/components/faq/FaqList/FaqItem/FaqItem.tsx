@@ -32,7 +32,7 @@ const FaqItem = ({ title, content, isOpen, onToggle }: FaqItemProps) => {
       {isOpen && (
         <AnswerBox>
           <Row alignItems="flex-start" gap={12}>
-            <IconAnswer width={26} height={24} color={color.gray400} />
+            <AnswerIcon color={color.gray400} />
             <Answer>{content}</Answer>
           </Row>
         </AnswerBox>
@@ -67,9 +67,20 @@ const Question = styled.p`
   color: ${color.gray900};
 `;
 
+const AnswerIcon = styled(IconAnswer)`
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+  display: block;
+`;
+
 const Answer = styled.p`
   ${font.p2};
   color: ${color.gray900};
   width: calc(100%);
   margin-top: 2px;
+  white-space: pre-wrap;
+  word-break: break-word;
 `;
