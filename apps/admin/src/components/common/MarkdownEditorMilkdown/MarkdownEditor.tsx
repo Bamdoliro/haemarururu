@@ -1,127 +1,80 @@
 'use client';
-import { commandsCtx, Editor, rootCtx, defaultValueCtx } from '@milkdown/core';
-import type { CmdKey } from '@milkdown/core';
-import {
-  commonmark,
-  toggleStrongCommand,
-  toggleEmphasisCommand,
-  wrapInHeadingCommand,
-  insertImageCommand,
-} from '@milkdown/preset-commonmark';
-import { gfm, toggleStrikethroughCommand } from '@milkdown/preset-gfm';
-import { Milkdown, MilkdownProvider, useEditor, useInstance } from '@milkdown/react';
-import { listener, listenerCtx } from '@milkdown/plugin-listener';
-import {
-  IconBold,
-  IconH1,
-  IconH2,
-  IconH3,
-  IconH4,
-  IconImage,
-  IconIntallic,
-  IconStroke,
-} from '@maru/icon';
+
+import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react';
 import { color, font } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
-import { useRef } from 'react';
+import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core';
+import { commonmark } from '@milkdown/preset-commonmark';
+import { gfm } from '@milkdown/preset-gfm';
+import { listener, listenerCtx } from '@milkdown/plugin-listener';
+import { useMarkdownEditorToolbar } from './MarkdownEditor.hooks';
 
 interface MarkdownEditorProps {
   defaultValue?: string;
   onChange?: (value: string) => void;
 }
 
+const createEditor =
+  ({ defaultValue = '', onChange }: MarkdownEditorProps) =>
+  (root: Node) =>
+    Editor.make()
+      .config((context) => {
+        context.set(rootCtx, root);
+        context.set(defaultValueCtx, defaultValue);
+
+        if (!onChange) return;
+
+        context.get(listenerCtx).markdownUpdated((_, markdown) => {
+          onChange(markdown);
+        });
+      })
+      .use(commonmark)
+      .use(gfm)
+      .use(listener);
+
 const EditorToolbar = () => {
-  const [loading, get] = useInstance();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const call = <T,>(command: { key: CmdKey<T> }, payload?: T) => {
-    if (loading) return;
-    get()?.action((ctx) => {
-      ctx.get(commandsCtx).call(command.key, payload);
-    });
-  };
-
-  const handleImageClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const base64 = event.target?.result as string;
-      const fileName = file.name.replace(/\.[^/.]+$/, '');
-      call(insertImageCommand, { src: base64, alt: fileName, title: fileName });
-    };
-    reader.readAsDataURL(file);
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
+  const {
+    headingActions,
+    textStyleActions,
+    imageTitle,
+    ImageIcon,
+    fileInputRef,
+    call,
+    handleImageClick,
+    handleImageChange,
+  } = useMarkdownEditorToolbar();
 
   return (
     <Toolbar>
       <ToolbarGroup>
-        <ToolbarButton
-          type="button"
-          title="H1"
-          onClick={() => call(wrapInHeadingCommand, 1)}
-        >
-          <IconH1 width={24} height={24} />
-        </ToolbarButton>
-        <ToolbarButton
-          type="button"
-          title="H2"
-          onClick={() => call(wrapInHeadingCommand, 2)}
-        >
-          <IconH2 width={24} height={24} />
-        </ToolbarButton>
-        <ToolbarButton
-          type="button"
-          title="H3"
-          onClick={() => call(wrapInHeadingCommand, 3)}
-        >
-          <IconH3 width={24} height={24} />
-        </ToolbarButton>
-        <ToolbarButton
-          type="button"
-          title="H4"
-          onClick={() => call(wrapInHeadingCommand, 4)}
-        >
-          <IconH4 width={24} height={24} />
-        </ToolbarButton>
+        {headingActions.map(({ title, icon: Icon, command, payload }) => (
+          <ToolbarButton
+            key={title}
+            type="button"
+            title={title}
+            onClick={() => call(command, payload)}
+          >
+            <Icon width={24} height={24} />
+          </ToolbarButton>
+        ))}
       </ToolbarGroup>
       <ToolbarDivider />
       <ToolbarGroup>
-        <ToolbarButton
-          type="button"
-          title="굵게"
-          onClick={() => call(toggleStrongCommand)}
-        >
-          <IconBold width={24} height={24} />
-        </ToolbarButton>
-        <ToolbarButton
-          type="button"
-          title="기울임"
-          onClick={() => call(toggleEmphasisCommand)}
-        >
-          <IconIntallic width={24} height={24} />
-        </ToolbarButton>
-        <ToolbarButton
-          type="button"
-          title="취소선"
-          onClick={() => call(toggleStrikethroughCommand)}
-        >
-          <IconStroke width={24} height={24} />
-        </ToolbarButton>
+        {textStyleActions.map(({ title, icon: Icon, command }) => (
+          <ToolbarButton
+            key={title}
+            type="button"
+            title={title}
+            onClick={() => call(command)}
+          >
+            <Icon width={24} height={24} />
+          </ToolbarButton>
+        ))}
       </ToolbarGroup>
       <ToolbarDivider />
-      <ToolbarButton type="button" title="이미지" onClick={handleImageClick}>
-        <IconImage width={24} height={24} />
+      <ToolbarButton type="button" title={imageTitle} onClick={handleImageClick}>
+        <ImageIcon width={24} height={24} />
       </ToolbarButton>
       <HiddenFileInput
         ref={fileInputRef}
@@ -134,21 +87,7 @@ const EditorToolbar = () => {
 };
 
 const EditorInner = ({ defaultValue = '', onChange }: MarkdownEditorProps) => {
-  useEditor((root) =>
-    Editor.make()
-      .config((ctx) => {
-        ctx.set(rootCtx, root);
-        ctx.set(defaultValueCtx, defaultValue);
-        if (onChange) {
-          ctx.get(listenerCtx).markdownUpdated((_, markdown) => {
-            onChange(markdown);
-          });
-        }
-      })
-      .use(commonmark)
-      .use(gfm)
-      .use(listener)
-  );
+  useEditor(createEditor({ defaultValue, onChange }));
 
   return <Milkdown />;
 };
