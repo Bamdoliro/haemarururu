@@ -72,9 +72,15 @@ importers:
       '@milkdown/preset-commonmark':
         specifier: ^7.20.0
         version: 7.20.0
+      '@milkdown/preset-gfm':
+        specifier: ^7.20.0
+        version: 7.20.0
       '@milkdown/react':
         specifier: ^7.20.0
         version: 7.20.0(@codemirror/language@6.12.3)(@codemirror/state@6.6.0)(@codemirror/view@6.41.0)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.5.4)
+      '@milkdown/theme-nord':
+        specifier: ^7.20.0
+        version: 7.20.0
       '@suspensive/react':
         specifier: ^2.18.12
         version: 2.18.13(react@18.2.0)
@@ -980,6 +986,9 @@ packages:
     peerDependencies:
       react: '*'
       react-dom: '*'
+
+  '@milkdown/theme-nord@7.20.0':
+    resolution: {integrity: sha512-yfT+BQvURTmi+Cjt9rRqFjORrQISbJItKzQD+486hc8hfBcbHnbEjhNAkvoi6IAOWsK+Cj67BuCFtKbYeovrKA==}
 
   '@milkdown/transformer@7.20.0':
     resolution: {integrity: sha512-h7KGFr1o5AYwc+hEfnA3Dldo4jRrYOB/7KExaqelcjUz++KYI/9LXMOsV7CpgjtLI3Xtf2IIRTZND1+p2nsOaw==}
@@ -4439,6 +4448,15 @@ snapshots:
       - prosemirror-view
       - supports-color
       - typescript
+
+  '@milkdown/theme-nord@7.20.0':
+    dependencies:
+      '@milkdown/core': 7.20.0
+      '@milkdown/ctx': 7.20.0
+      '@milkdown/prose': 7.20.0
+      clsx: 2.1.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@milkdown/transformer@7.20.0':
     dependencies:
