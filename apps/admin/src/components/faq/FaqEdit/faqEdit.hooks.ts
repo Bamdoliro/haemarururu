@@ -12,7 +12,6 @@ export const useFaqEditData = (id: number) => {
     content: '',
     category: 'SCHOOL_LIFE',
   });
-  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     if (faqDetailData) {
@@ -21,7 +20,6 @@ export const useFaqEditData = (id: number) => {
         content: faqDetailData.content,
         category: faqDetailData.category,
       });
-      setIsInitialized(true);
     }
   }, [faqDetailData]);
 
@@ -34,17 +32,17 @@ export const useFaqEditData = (id: number) => {
     setFaqData((prev) => ({ ...prev, category: value as FaqCategory }));
   };
 
-  const handleContentChange = (value: string) => {
-    setFaqData((prev) => ({ ...prev, content: value }));
+  const handleFaqContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    const { name, value } = e.target;
+    setFaqData((prev) => ({ ...prev, [name]: value }));
   };
 
   return {
     faqData,
     setFaqData,
-    isInitialized,
     handleFaqDataChange,
     handleFaqCategoryChange,
-    handleContentChange,
+    handleFaqContentChange,
   };
 };
 

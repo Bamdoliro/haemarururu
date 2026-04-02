@@ -19,8 +19,9 @@ export const useFaqCreateData = () => {
     setFaqData((prev) => ({ ...prev, category: value as FaqCategory }));
   };
 
-  const handleContentChange = (value: string) => {
-    setFaqData((prev) => ({ ...prev, content: value }));
+  const handleFaqContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    const { name, value } = e.target;
+    setFaqData((prev) => ({ ...prev, [name]: value }));
   };
 
   return {
@@ -28,7 +29,7 @@ export const useFaqCreateData = () => {
     setFaqData,
     handleFaqDataChange,
     handleFaqCategoryChange,
-    handleContentChange,
+    handleFaqContentChange,
   };
 };
 

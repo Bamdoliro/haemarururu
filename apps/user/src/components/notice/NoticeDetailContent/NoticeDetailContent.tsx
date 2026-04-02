@@ -1,7 +1,7 @@
 import { useNoticeDetailQuery } from '@/services/notice/queries';
-import { color, font } from '@maru/design-system';
-import { Column, Text } from '@maru/ui';
-import { convertLink, flex, formatCreatedAt } from '@maru/utils';
+import { color } from '@maru/design-system';
+import { Column, MarkdownViewer, Text } from '@maru/ui';
+import { flex, formatCreatedAt } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useNoticeFile } from './NoticeDetailContent.hook';
 import DownloadButton from './DownloadButton/DownloadButton';
@@ -25,11 +25,7 @@ const NoticeDetailContent = ({ id }: NoticeDetailContentProps) => {
         </Text>
       </NoticeDetailHeader>
       <Column gap={36}>
-        <Content
-          dangerouslySetInnerHTML={{
-            __html: convertLink(noticeDetailData?.content ?? ''),
-          }}
-        />
+        <MarkdownViewer content={noticeDetailData?.content ?? ''} />
         {noticeDetailData?.fileList && (
           <Column gap={12}>
             {noticeDetailData?.fileList?.map((file, index) => (
@@ -59,9 +55,4 @@ const NoticeDetailHeader = styled.div`
   gap: 16px;
   border-bottom: 1px solid ${color.gray300};
   padding-bottom: 8px;
-`;
-
-const Content = styled.div`
-  ${font.p2}
-  color: ${color.gray900};
 `;
