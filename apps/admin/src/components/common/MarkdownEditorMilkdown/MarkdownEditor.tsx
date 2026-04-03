@@ -108,11 +108,6 @@ const StyledEditor = styled.div`
   border-radius: 8px;
   overflow: hidden;
 
-  .milkdown {
-    font-family: inherit;
-    line-height: 1.5;
-  }
-
   .ProseMirror {
     outline: none;
     color: ${color.gray900} !important;

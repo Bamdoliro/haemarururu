@@ -1,5 +1,6 @@
 'use client';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { color, font } from '@maru/design-system';
 import styled from '@emotion/styled';
 
@@ -9,7 +10,7 @@ interface MarkdownViewerProps {
 
 const MarkdownViewer = ({ content }: MarkdownViewerProps) => (
   <StyledViewer>
-    <ReactMarkdown>{content}</ReactMarkdown>
+    <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
   </StyledViewer>
 );
 

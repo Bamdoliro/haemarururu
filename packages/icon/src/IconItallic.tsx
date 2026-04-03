@@ -1,7 +1,7 @@
 import type { SVGProps } from 'react';
 import React from 'react';
 
-const IconIntallic = (props: SVGProps<SVGSVGElement>) => {
+const IconItallic = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="32"
@@ -22,4 +22,4 @@ const IconIntallic = (props: SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default IconIntallic;
+export default IconItallic;

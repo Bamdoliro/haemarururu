@@ -15,8 +15,8 @@ import {
   IconH3,
   IconH4,
   IconImage,
-  IconIntallic,
   IconStroke,
+  IconItallic,
 } from '@maru/icon';
 import type { ChangeEvent, ComponentType, SVGProps } from 'react';
 import { useRef } from 'react';
@@ -45,7 +45,7 @@ const headingActions: ToolbarAction<number>[] = [
 
 const textStyleActions: ToolbarAction[] = [
   { title: '굵게', icon: IconBold, command: toggleStrongCommand },
-  { title: '기울임', icon: IconIntallic, command: toggleEmphasisCommand },
+  { title: '기울임', icon: IconItallic, command: toggleEmphasisCommand },
   { title: '취소선', icon: IconStroke, command: toggleStrikethroughCommand },
 ];
 
