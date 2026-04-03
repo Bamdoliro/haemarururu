@@ -19,6 +19,12 @@
     "@maru/icon": "workspace:*",
     "@maru/ui": "workspace:*",
     "@maru/utils": "workspace:*",
+    "@milkdown/core": "^7.20.0",
+    "@milkdown/plugin-listener": "^7.20.0",
+    "@milkdown/preset-commonmark": "^7.20.0",
+    "@milkdown/preset-gfm": "^7.20.0",
+    "@milkdown/react": "^7.20.0",
+    "@milkdown/theme-nord": "^7.20.0",
     "@suspensive/react": "^2.18.12",
     "@suspensive/react-query": "^2.18.12",
     "@tanstack/react-query": "^5.66.0",
@@ -31,6 +37,7 @@
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
     "recoil": "^0.7.7"
   },
   "devDependencies": {

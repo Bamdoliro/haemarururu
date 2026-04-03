@@ -1,6 +1,7 @@
 import { color, font } from '@maru/design-system';
 import { IconClip } from '@maru/icon';
 import { Button, Column, Row, Text } from '@maru/ui';
+import { MarkdownEditor } from '@/components/common';
 import { flex } from '@maru/utils';
 import { useOverlay } from '@toss/use-overlay';
 import styled from '@emotion/styled';
@@ -11,7 +12,7 @@ import { useNoticeFileStore } from '@/store';
 const NoticeCreate = () => {
   const overlay = useOverlay();
   const [fileData, setFileData] = useNoticeFileStore();
-  const { noticeData, setNoticeData, contentTextareaRef, handleNoticeDataChange } =
+  const { noticeData, setNoticeData, handleNoticeDataChange, handleContentChange } =
     useNoticeCreateData();
 
   const { handleNoticeCreateButtonClick } = useNoticeCreateAction(noticeData);
@@ -70,14 +71,7 @@ const NoticeCreate = () => {
           </Button>
         </Row>
       </NoticeCreateHeader>
-      <ContentTextarea
-        ref={contentTextareaRef}
-        name="content"
-        value={noticeData.content}
-        onChange={handleNoticeDataChange}
-        placeholder="내용을 작성해주세요."
-        rows={1}
-      />
+      <MarkdownEditor onChange={handleContentChange} />
       {(noticeData.fileNameList ?? []).length > 0 && (
         <Column gap={12}>
           {(noticeData.fileNameList ?? []).map((file, index) => (
@@ -125,16 +119,6 @@ const TitleInput = styled.input`
   &::placeholder {
     color: ${color.gray400};
   }
-`;
-
-const ContentTextarea = styled.textarea`
-  ${font.p2};
-  color: ${color.gray900};
-
-  &::placeholder {
-    color: ${color.gray500};
-  }
-  resize: none;
 `;
 
 const StyledNoticeFile = styled.div`

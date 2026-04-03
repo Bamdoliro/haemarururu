@@ -7,8 +7,12 @@ import { useFaqCreateAction, useFaqCreateData } from './faqCreate.hooks';
 import type { FaqCategory } from '@/types/faq/client';
 
 const FaqCreate = () => {
-  const { faqData, contentTextareaRef, handleFaqDataChange, handleFaqCategoryChange } =
-    useFaqCreateData();
+  const {
+    faqData,
+    handleFaqDataChange,
+    handleFaqCategoryChange,
+    handleFaqContentChange,
+  } = useFaqCreateData();
 
   const { handleFaqCreateButtonClick } = useFaqCreateAction(faqData);
 
@@ -38,12 +42,10 @@ const FaqCreate = () => {
           />
         </FaqCreateHeader>
         <ContentTextarea
-          ref={contentTextareaRef}
           name="content"
           value={faqData.content}
-          onChange={handleFaqDataChange}
-          placeholder="내용을 작성해주세요."
-          rows={1}
+          onChange={handleFaqContentChange}
+          placeholder="내용을 입력해주세요"
         />
       </Column>
     </StyledFaqCreate>
@@ -77,11 +79,19 @@ const TitleInput = styled.input`
 `;
 
 const ContentTextarea = styled.textarea`
-  ${font.p2};
+  ${font.p2}
+  width: 100%;
+  min-height: 480px;
+  padding: 0;
+  border: none;
   color: ${color.gray900};
+  resize: vertical;
 
   &::placeholder {
-    color: ${color.gray500};
+    color: ${color.gray400};
   }
-  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 `;

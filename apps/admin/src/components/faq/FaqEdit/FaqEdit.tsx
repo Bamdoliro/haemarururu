@@ -11,8 +11,12 @@ interface FaqEditProps {
 }
 
 const FaqEdit = ({ id }: FaqEditProps) => {
-  const { faqData, contentTextareaRef, handleFaqDataChange, handleFaqCategoryChange } =
-    useFaqEditData(id);
+  const {
+    faqData,
+    handleFaqDataChange,
+    handleFaqCategoryChange,
+    handleFaqContentChange,
+  } = useFaqEditData(id);
 
   const { handleFaqEditButtonClick } = useFaqEditAction(id, faqData);
 
@@ -42,12 +46,10 @@ const FaqEdit = ({ id }: FaqEditProps) => {
           />
         </FaqEditHeader>
         <ContentTextarea
-          ref={contentTextareaRef}
           name="content"
           value={faqData.content}
-          onChange={handleFaqDataChange}
-          placeholder="내용을 작성해주세요."
-          rows={1}
+          onChange={handleFaqContentChange}
+          placeholder="내용을 입력해주세요"
         />
       </Column>
     </StyledFaqEdit>
@@ -81,10 +83,19 @@ const TitleInput = styled.input`
 `;
 
 const ContentTextarea = styled.textarea`
-  ${font.p2};
+  ${font.p2}
+  width: 100%;
+  min-height: 480px;
+  padding: 0;
+  border: none;
   color: ${color.gray900};
+  resize: vertical;
+
   &::placeholder {
-    color: ${color.gray500};
+    color: ${color.gray400};
   }
-  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 `;

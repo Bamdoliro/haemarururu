@@ -3,37 +3,31 @@ import {
   useNoticeFileUrlMutation,
 } from '@/services/notice/mutations';
 import type { NoticeInput } from '@/types/notice/client';
-import { resizeTextarea } from '@/utils';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { useNoticeFileStore } from '@/store';
 
 export const useNoticeCreateData = () => {
-  const contentTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [noticeData, setNoticeData] = useState<NoticeInput>({
     title: '',
     content: '',
     fileNameList: [],
   });
 
-  const handleNoticeDataChange: ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) => {
+  const handleNoticeDataChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;
     setNoticeData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === 'content') {
-      resizeTextarea(contentTextareaRef);
-    }
   };
 
-  useEffect(() => resizeTextarea(contentTextareaRef), []);
+  const handleContentChange = (value: string) => {
+    setNoticeData((prev) => ({ ...prev, content: value }));
+  };
 
   return {
     noticeData,
     setNoticeData,
-    contentTextareaRef,
     handleNoticeDataChange,
+    handleContentChange,
   };
 };
 

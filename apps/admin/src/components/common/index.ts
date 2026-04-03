@@ -1,4 +1,5 @@
 export { default as DataBox } from './DataBox/DataBox';
+export { default as MarkdownEditor } from './MarkdownEditorMilkdown/MarkdownEditor';
 export { default as FunctionDropdown } from './FunctionDropdown/FunctionDropdown';
 export { default as SideBar } from './SideBar/SideBar';
 export { default as SideMenu } from './SideMenu/SideMenu';
