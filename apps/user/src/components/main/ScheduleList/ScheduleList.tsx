@@ -34,7 +34,7 @@ const ScheduleList = () => {
       endTime: dayjs(SCHEDULE.일차_합격_발표).endOf('day'),
     },
     {
-      id: 3,
+      id: 4,
       title: '면접 전형일',
       date: formatScheduleDate(
         [SCHEDULE.이차_면접, SCHEDULE.이차_면접_종료],
@@ -44,14 +44,14 @@ const ScheduleList = () => {
       endTime: SCHEDULE.이차_면접_종료,
     },
     {
-      id: 4,
+      id: 5,
       title: '합격자 발표',
       date: formatScheduleDate([SCHEDULE.최종_합격_발표]),
       startTime: SCHEDULE.최종_합격_발표,
       endTime: dayjs(SCHEDULE.최종_합격_발표).endOf('day'),
     },
     {
-      id: 5,
+      id: 6,
       title: '입학등록기간',
       date: formatScheduleDate(
         [SCHEDULE.입학_등록, SCHEDULE.입학_등록_마감],
