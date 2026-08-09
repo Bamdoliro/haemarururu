@@ -7,6 +7,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Text from '../Text/Text';
+import ConditionalMessage from '../Input/ConditionalMessage';
 
 type DropdownSizeOption = 'MEDIUM' | 'SMALL';
 
@@ -16,7 +17,7 @@ interface Data {
 }
 
 interface DropdownProps {
-  label?: string;
+  label?: string | React.ReactNode;
   data: Data[] | string[];
   width?: CSSProperties['width'];
   size?: DropdownSizeOption;
@@ -26,6 +27,7 @@ interface DropdownProps {
   placeholder?: string;
   doubled?: number;
   isError?: boolean;
+  errorMessage?: string;
   disabled?: boolean;
   background?: 'White' | 'Gray';
 }
@@ -41,6 +43,7 @@ const Dropdown = ({
   placeholder,
   doubled,
   isError = false,
+  errorMessage,
   background = 'White',
   disabled = false,
 }: DropdownProps) => {
@@ -64,6 +67,12 @@ const Dropdown = ({
     }
   };
 
+  const selectedItem = (data as (Data | string)[]).find(
+    (item) => (typeof item === 'string' ? item : item.value) === value
+  );
+  const selectedLabel =
+    selectedItem && typeof selectedItem !== 'string' ? selectedItem.label : value;
+
   return (
     <div ref={dropdownRef} style={{ width }}>
       {label && <Label>{label}</Label>}
@@ -76,7 +85,7 @@ const Dropdown = ({
         disabled={disabled}
       >
         <Text fontType="p2" color={value ? color.gray900 : color.gray500} ellipsis={true}>
-          {value || placeholder}
+          {selectedLabel || placeholder}
         </Text>
         {isOpen ? (
           <IconArrowTop color={color.gray600} width={24} height={24} />
@@ -101,6 +110,7 @@ const Dropdown = ({
           })}
         </DropdownList>
       </DropdownListBox>
+      <ConditionalMessage isError={isError} errorMessage={errorMessage} />
     </div>
   );
 };

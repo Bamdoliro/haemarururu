@@ -17,6 +17,7 @@ export const useInput = () => {
   const [application, setApplication] = useState<FairApplication>({
     schoolName: '',
     name: '',
+    grade: '',
     type: '학생',
     phoneNumber: '',
     headcount: null,
@@ -32,6 +33,10 @@ export const useInput = () => {
     }));
   };
 
+  const handleApplicationDropdownChange = (value: string, name: string) => {
+    setApplication((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleApplicationTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = (
     e
   ) => {
@@ -39,7 +44,12 @@ export const useInput = () => {
     setApplication({ ...application, [name]: value });
   };
 
-  return { application, handleApplicationChange, handleApplicationTextAreaChange };
+  return {
+    application,
+    handleApplicationChange,
+    handleApplicationDropdownChange,
+    handleApplicationTextAreaChange,
+  };
 };
 
 export const useAgree = (
@@ -62,6 +72,7 @@ export const useAgree = (
 
     if (!application.schoolName.trim()) missingFields.push('소속학교');
     if (!application.name.trim()) missingFields.push('성함');
+    if (!application.grade) missingFields.push('학년');
     if (!application.phoneNumber.trim()) missingFields.push('연락처');
     if (application.headcount === null || application.headcount === 0) {
       missingFields.push('참석 인원');

@@ -35,6 +35,7 @@ export interface AttendeeData {
   id: number;
   schoolName: string;
   name: string;
+  grade: number | null;
   type: string;
   phoneNumber: string;
   headcount: number;
