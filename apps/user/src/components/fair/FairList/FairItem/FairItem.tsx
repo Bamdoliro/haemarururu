@@ -33,12 +33,15 @@ const FairItem = ({
           <Text fontType="code">{formatStatus(status)}</Text>
         </StatusBox>
       </Row>
-      <Text fontType="p2" color={color.gray500}>
-        <EllipsisText>장소: {place}</EllipsisText>
-        <br />
-        신청 기한: {formatApplicationDate(applicationStartDate)} ~{' '}
-        {formatApplicationDate(applicationEndDate)}
-      </Text>
+      <div>
+        <Text fontType="p2" color={color.gray500} ellipsis width="100%" tag="p">
+          장소: {place}
+        </Text>
+        <Text fontType="p2" color={color.gray500} tag="p">
+          신청 기한: {formatApplicationDate(applicationStartDate)} ~{' '}
+          {formatApplicationDate(applicationEndDate)}
+        </Text>
+      </div>
     </StyledFairItem>
   );
 };
@@ -75,13 +78,4 @@ const StatusBox = styled.div<{ status: string }>`
     status === 'APPLICATION_IN_PROGRESS' || status === 'APPLICATION_NOT_STARTED'
       ? color.haeMaruDefault
       : color.red};
-`;
-
-const EllipsisText = styled(Text)`
-  display: inline-block;
-  max-width: 336px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: bottom;
 `;
