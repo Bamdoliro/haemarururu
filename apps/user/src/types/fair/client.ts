@@ -11,6 +11,7 @@ export interface Fair {
 export interface FairApplication {
   schoolName: string;
   name: string;
+  grade?: string;
   type: string;
   phoneNumber: string;
   headcount?: number | null;

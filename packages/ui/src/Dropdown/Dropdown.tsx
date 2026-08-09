@@ -7,6 +7,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Text from '../Text/Text';
+import ConditionalMessage from '../Input/ConditionalMessage';
 
 type DropdownSizeOption = 'MEDIUM' | 'SMALL';
 
@@ -16,7 +17,7 @@ interface Data {
 }
 
 interface DropdownProps {
-  label?: string;
+  label?: string | React.ReactNode;
   data: Data[] | string[];
   width?: CSSProperties['width'];
   size?: DropdownSizeOption;
@@ -26,6 +27,7 @@ interface DropdownProps {
   placeholder?: string;
   doubled?: number;
   isError?: boolean;
+  errorMessage?: string;
   disabled?: boolean;
   background?: 'White' | 'Gray';
 }
@@ -41,6 +43,7 @@ const Dropdown = ({
   placeholder,
   doubled,
   isError = false,
+  errorMessage,
   background = 'White',
   disabled = false,
 }: DropdownProps) => {
@@ -101,6 +104,7 @@ const Dropdown = ({
           })}
         </DropdownList>
       </DropdownListBox>
+      <ConditionalMessage isError={isError} errorMessage={errorMessage} />
     </div>
   );
 };

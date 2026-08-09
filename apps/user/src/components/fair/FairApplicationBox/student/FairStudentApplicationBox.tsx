@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { color } from '@maru/design-system';
-import { Button, CellInput, Column, Input, RadioGroup, Text, Textarea } from '@maru/ui';
+import {
+  Button,
+  CellInput,
+  Column,
+  Dropdown,
+  Input,
+  RadioGroup,
+  Text,
+  Textarea,
+} from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useAgree, useCTAButton, useInput } from './FairStudentApplicationBox.hook';
@@ -13,8 +22,12 @@ interface FairStudentApplicationBoxProps {
 
 const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { application, handleApplicationChange, handleApplicationTextAreaChange } =
-    useInput();
+  const {
+    application,
+    handleApplicationChange,
+    handleApplicationDropdownChange,
+    handleApplicationTextAreaChange,
+  } = useInput();
   const { handleSendFairApplication } = useCTAButton(id, application);
   const { agree, handleAgreeChange, handleButtonClick } = useAgree(
     handleSendFairApplication,
@@ -44,6 +57,24 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
             onChange={handleApplicationChange}
             errorMessage="소속학교를 입력해주세요."
             isError={isSubmitted && application.schoolName === ''}
+          />
+          <Dropdown
+            label={
+              <>
+                학년{' '}
+                <Text fontType="context" color={color.red}>
+                  *
+                </Text>
+              </>
+            }
+            name="grade"
+            data={['1학년', '2학년', '3학년']}
+            onChange={handleApplicationDropdownChange}
+            value={application.grade}
+            placeholder="-"
+            width={384}
+            isError={isSubmitted && application.grade === ''}
+            errorMessage="학년을 선택해주세요."
           />
           <Input
             label={
