@@ -67,6 +67,12 @@ const Dropdown = ({
     }
   };
 
+  const selectedItem = (data as (Data | string)[]).find(
+    (item) => (typeof item === 'string' ? item : item.value) === value
+  );
+  const selectedLabel =
+    selectedItem && typeof selectedItem !== 'string' ? selectedItem.label : value;
+
   return (
     <div ref={dropdownRef} style={{ width }}>
       {label && <Label>{label}</Label>}
@@ -79,7 +85,7 @@ const Dropdown = ({
         disabled={disabled}
       >
         <Text fontType="p2" color={value ? color.gray900 : color.gray500} ellipsis={true}>
-          {value || placeholder}
+          {selectedLabel || placeholder}
         </Text>
         {isOpen ? (
           <IconArrowTop color={color.gray600} width={24} height={24} />

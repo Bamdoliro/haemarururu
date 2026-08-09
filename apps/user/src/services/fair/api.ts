@@ -12,7 +12,10 @@ export const postFairApplication = async (
   fairId: number,
   fairApplicationData: FairApplication
 ) => {
-  const { data } = await maru.post(`/fairs/${fairId}`, fairApplicationData);
+  const { data } = await maru.post(`/fairs/${fairId}`, {
+    ...fairApplicationData,
+    grade: fairApplicationData.grade ? Number(fairApplicationData.grade) : null,
+  });
 
   return data;
 };

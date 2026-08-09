@@ -62,6 +62,9 @@ const FairTableHeader = ({ attendeeId }: FairTableHeaderProps) => {
         <Text fontType="p2" width={293}>
           학교
         </Text>
+        <Text fontType="p2" width={60}>
+          학년
+        </Text>
       </Row>
       <Row gap={48}>
         <Text fontType="p2" width={120}>

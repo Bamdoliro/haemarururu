@@ -14,12 +14,13 @@ const FairTable = ({ dataList }: FairTableProps) => {
     <Column gap={12}>
       <FairTableHeader attendeeId={attendeeId} />
       {dataList?.map(
-        ({ id, schoolName, name, type, phoneNumber, headcount, question }) => (
+        ({ id, schoolName, name, grade, type, phoneNumber, headcount, question }) => (
           <FairTableItem
             key={id}
             id={id}
             schoolName={schoolName}
             name={name}
+            grade={grade}
             type={type}
             phoneNumber={phoneNumber}
             headcount={headcount}

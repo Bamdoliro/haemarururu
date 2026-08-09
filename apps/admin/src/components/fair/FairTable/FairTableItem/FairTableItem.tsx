@@ -12,6 +12,7 @@ interface FairTableItemProps {
   schoolName: string;
   id: number;
   name: string;
+  grade: number | null;
   type: string;
   phoneNumber: string;
   headcount: number;
@@ -21,6 +22,7 @@ interface FairTableItemProps {
 const FairTableItem = ({
   schoolName,
   name,
+  grade,
   id,
   type,
   phoneNumber,
@@ -73,6 +75,9 @@ const FairTableItem = ({
         </Text>
         <Text fontType="p2" width={293}>
           {schoolName}
+        </Text>
+        <Text fontType="p2" width={60}>
+          {grade ? `${grade}학년` : '-'}
         </Text>
       </Row>
       <Row gap={48}>

@@ -68,7 +68,11 @@ const FairStudentApplicationBox = ({ id }: FairStudentApplicationBoxProps) => {
               </>
             }
             name="grade"
-            data={['1학년', '2학년', '3학년']}
+            data={[
+              { label: '1학년', value: '1' },
+              { label: '2학년', value: '2' },
+              { label: '3학년', value: '3' },
+            ]}
             onChange={handleApplicationDropdownChange}
             value={application.grade}
             placeholder="-"
