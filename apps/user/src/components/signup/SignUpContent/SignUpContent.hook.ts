@@ -27,38 +27,51 @@ export const useSignUpAction = (signUpData: SignUp, termsAgree: boolean) => {
   return { handleSignUp };
 };
 
-export const useVerificationCodeAction = (signUpData: SignUp) => {
+const RESEND_COOLDOWN_MS = 5000;
+
+export const useVerificationCodeAction = (
+  signUpData: SignUp,
+  onRequestSuccess?: () => void
+) => {
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
-  const [isVerificationCodeDisabled, setIsVerificationCodeDisabled] = useState(false);
+  const [isResendCoolingDown, setIsResendCoolingDown] = useState(false);
   const [isVerificationCodeConfirmed, setIsVerificationCodeConfirmed] = useState(false);
   const { toast } = useToast();
-  const { requestVerificationMutate } = useRequestUserVerificationMutation({
+  const { requestVerificationMutate, restMutation } = useRequestUserVerificationMutation({
     phoneNumber: signUpData.phoneNumber,
     type: 'SIGNUP',
   });
+  const isRequestPending = restMutation.isPending;
   const [signUp] = useSignUpStore();
   const { verificationMutate } = useVerificationMutation(setIsVerificationCodeConfirmed);
 
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleRequestVerificationCode = () => {
+    if (isRequestPending || isResendCoolingDown) return;
+
     if (signUp.phoneNumber.replace(/\D/g, '').length < 11) {
       toast('올바른 전화번호를 입력해주세요.', 'ERROR');
-    } else {
-      timerRef.current = setTimeout(() => {
-        requestVerificationMutate();
-        setIsVerificationCodeDisabled(false);
-        setIsVerificationCodeDisabled(true);
+      return;
+    }
+
+    requestVerificationMutate(undefined, {
+      onSuccess: () => {
         setIsVerificationCodeSent(true);
         setIsVerificationCodeConfirmed(false);
-      }, 5000);
-    }
+        setIsResendCoolingDown(true);
+        cooldownTimerRef.current = setTimeout(() => {
+          setIsResendCoolingDown(false);
+        }, RESEND_COOLDOWN_MS);
+        onRequestSuccess?.();
+      },
+    });
   };
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
+      if (cooldownTimerRef.current) {
+        clearTimeout(cooldownTimerRef.current);
       }
     };
   }, []);
@@ -79,7 +92,7 @@ export const useVerificationCodeAction = (signUpData: SignUp) => {
   return {
     handleRequestVerificationCode,
     handleVerificationCodeConfirm,
-    isVerificationCodeDisabled,
+    isVerificationCodeDisabled: isRequestPending || isResendCoolingDown,
     isVerificationCodeConfirmed,
     isVerificationCodeSent,
   };
