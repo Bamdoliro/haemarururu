@@ -65,7 +65,7 @@ maru.interceptors.response.use(
             };
             return maru(originalRequest);
           })
-          .catch(Promise.reject);
+          .catch((err) => Promise.reject(err));
       }
 
       originalRequest._retry = true;
@@ -83,7 +83,7 @@ maru.interceptors.response.use(
         const newAccessToken = res.data.data.accessToken;
 
         if (!newAccessToken) {
-          alert('다시 로그인 해주세요');
+          throw new Error('토큰 재발급 응답에 accessToken이 없습니다.');
         }
 
         Storage.setItem(TOKEN.ACCESS, newAccessToken);
@@ -97,8 +97,17 @@ maru.interceptors.response.use(
         return maru(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        localStorage.clear();
-        window.location.href = '/login';
+
+        const isAuthError =
+          axios.isAxiosError(refreshError) &&
+          [401, 403].includes(refreshError.response?.status ?? 0);
+
+        if (isAuthError) {
+          Storage.removeItem(TOKEN.ACCESS);
+          Storage.removeItem(TOKEN.REFRESH);
+          window.location.href = '/login';
+        }
+
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
