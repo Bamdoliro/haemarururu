@@ -22,6 +22,9 @@ maru.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// 백엔드가 인증 실패류를 모두 401로 응답하므로, 토큰 문제일 때만 재발급을 시도하도록 에러 코드로 구분한다
+const TOKEN_ERROR_CODES = ['EXPIRED_TOKEN', 'INVALID_TOKEN', 'EMPTY_TOKEN'];
+
 interface FailedRequest {
   resolve: (token: string) => void;
   reject: (error?: unknown) => void;
@@ -48,10 +51,13 @@ maru.interceptors.response.use(
       _retry?: boolean;
     };
 
+    const errorCode = (error.response?.data as { code?: string } | undefined)?.code;
+
     const isTokenExpired =
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      Storage.getItem(TOKEN.REFRESH);
+      Storage.getItem(TOKEN.REFRESH) &&
+      TOKEN_ERROR_CODES.includes(errorCode ?? '');
 
     if (isTokenExpired) {
       if (isRefreshing) {

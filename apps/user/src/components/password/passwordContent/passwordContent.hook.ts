@@ -33,7 +33,9 @@ export const useVerificationCodeAction = (
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
   const [isVerificationCodeConfirmed, setIsVerificationCodeConfirmed] = useState(false);
   const { toast } = useToast();
-  const { verificationMutate } = useVerificationMutation(setIsVerificationCodeConfirmed);
+  const { verificationMutate, restMutation: confirmMutation } = useVerificationMutation(
+    setIsVerificationCodeConfirmed
+  );
 
   const { requestVerificationMutate, restMutation } = useRequestUserVerificationMutation({
     phoneNumber: changePasswordData.phoneNumber,
@@ -73,6 +75,8 @@ export const useVerificationCodeAction = (
   }, []);
 
   const handleVerificationConfirm = () => {
+    if (confirmMutation.isPending || isVerificationCodeConfirmed) return;
+
     if (changePasswordData.code.trim().length === 0) {
       toast('인증 코드를 입력해주세요', 'ERROR');
       return;
