@@ -43,7 +43,9 @@ export const useVerificationCodeAction = (
   });
   const isRequestPending = restMutation.isPending;
   const [signUp] = useSignUpStore();
-  const { verificationMutate } = useVerificationMutation(setIsVerificationCodeConfirmed);
+  const { verificationMutate, restMutation: confirmMutation } = useVerificationMutation(
+    setIsVerificationCodeConfirmed
+  );
 
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -77,6 +79,8 @@ export const useVerificationCodeAction = (
   }, []);
 
   const handleVerificationCodeConfirm = () => {
+    if (confirmMutation.isPending || isVerificationCodeConfirmed) return;
+
     if (!signUpData.code) {
       toast('인증번호를 입력해주세요', 'ERROR');
       return;
