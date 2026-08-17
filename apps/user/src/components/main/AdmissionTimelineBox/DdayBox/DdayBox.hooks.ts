@@ -65,7 +65,15 @@ export const useRemainDate = () => {
 
   const status = SCHEDULE_STATUS.get(currentTime.toString());
   const remainTime = remainDays >= 1 || remainDays < 0 ? formatDay(remainDays) : timeDiff;
-  const targetDate = currentTime.format('YYYY년 MM월 DD일 (ddd) HH:mm');
+
+  // 원서 접수가 타깃일 때는 시작일만이 아니라 접수 기간 전체를 보여준다
+  const isApplicationTarget =
+    currentTime.isSame(SCHEDULE.원서_접수) || currentTime.isSame(SCHEDULE.원서_접수_마감);
+  const targetDate = isApplicationTarget
+    ? `${SCHEDULE.원서_접수.format(
+        'YYYY년 M월 D일(ddd) HH:mm'
+      )} ~ ${SCHEDULE.원서_접수_마감.format('YYYY년 M월 D일(ddd) HH:mm')}`
+    : currentTime.format('YYYY년 MM월 DD일 (ddd) HH:mm');
   const isSecondRoundDay = now.isBetween(SCHEDULE.이차_면접, SCHEDULE.이차_면접_종료);
 
   return {

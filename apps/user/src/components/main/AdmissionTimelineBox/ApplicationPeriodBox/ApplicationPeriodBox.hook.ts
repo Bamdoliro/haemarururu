@@ -8,8 +8,8 @@ export const useSchoolRecruitDate = () => {
   const [applicationEnd, setApplicationEnd] = useState('');
 
   useEffect(() => {
-    setApplicationStart(SCHEDULE.원서_접수.format('YYYY년 MM월 DD일 (ddd) HH:mm'));
-    setApplicationEnd(SCHEDULE.원서_접수_마감.format('YYYY년 MM월 DD일 (ddd) HH:mm'));
+    setApplicationStart(SCHEDULE.원서_접수.format('YYYY년 M월 D일(ddd) HH:mm'));
+    setApplicationEnd(SCHEDULE.원서_접수_마감.format('YYYY년 M월 D일(ddd) HH:mm'));
   }, []);
 
   const handleMoveFormPage = () => {
