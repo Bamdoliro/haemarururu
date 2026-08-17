@@ -14,7 +14,7 @@ dayjs.extend(utc);
 dayjs.locale('ko');
 
 const SCHEDULE_STATUS = new Map([
-  [SCHEDULE.원서_접수.toString(), '원서 접수 시작까지'],
+  [SCHEDULE.방문_원서_접수.toString(), '원서 접수 시작까지'],
   [SCHEDULE.이차_면접.toString(), '면접 전형 시작까지'],
   [SCHEDULE.최종_합격_발표.toString(), '최종합격자 발표'],
   [SCHEDULE.일차_합격_발표.toString(), '서류 합격자 발표'],
@@ -27,7 +27,7 @@ const useDday = () => {
   const getCurrentTime = () => {
     const now = dayjs();
 
-    if (now.isBefore(SCHEDULE.원서_접수)) return SCHEDULE.원서_접수;
+    if (now.isBefore(SCHEDULE.방문_원서_접수)) return SCHEDULE.방문_원서_접수;
     if (now.isBefore(SCHEDULE.원서_접수_마감)) return SCHEDULE.원서_접수_마감;
     if (now.isBefore(SCHEDULE.일차_합격_발표.add(1, 'day')))
       return SCHEDULE.일차_합격_발표;
@@ -66,11 +66,12 @@ export const useRemainDate = () => {
   const status = SCHEDULE_STATUS.get(currentTime.toString());
   const remainTime = remainDays >= 1 || remainDays < 0 ? formatDay(remainDays) : timeDiff;
 
-  // 원서 접수가 타깃일 때는 시작일만이 아니라 접수 기간 전체를 보여준다
+  // 원서 접수가 타깃일 때는 시작일만이 아니라 접수 기간 전체(방문 원서 접수 기준)를 보여준다
   const isApplicationTarget =
-    currentTime.isSame(SCHEDULE.원서_접수) || currentTime.isSame(SCHEDULE.원서_접수_마감);
+    currentTime.isSame(SCHEDULE.방문_원서_접수) ||
+    currentTime.isSame(SCHEDULE.원서_접수_마감);
   const targetDate = isApplicationTarget
-    ? `${SCHEDULE.원서_접수.format(
+    ? `${SCHEDULE.방문_원서_접수.format(
         'YYYY년 M월 D일(ddd) HH:mm'
       )} ~ ${SCHEDULE.원서_접수_마감.format('YYYY년 M월 D일(ddd) HH:mm')}`
     : currentTime.format('YYYY년 MM월 DD일 (ddd) HH:mm');
