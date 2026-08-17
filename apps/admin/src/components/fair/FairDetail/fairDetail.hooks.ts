@@ -79,9 +79,12 @@ export const useFairPageState = () => {
     } else if (value === 'name_asc') {
       setFairListType('이름 오름차순');
       setFairListSortingType({ sort: 'name_asc' });
-    } else if (value === 'name_desc') {
-      setFairListType('이름 내림차순');
-      setFairListSortingType({ sort: 'name_desc' });
+    } else if (value === 'school_name_asc') {
+      setFairListType('학교명 오름차순');
+      setFairListSortingType({ sort: 'school_name_asc' });
+    } else if (value === 'grade_asc') {
+      setFairListType('학년 오름차순');
+      setFairListSortingType({ sort: 'grade_asc' });
     }
   };
   const getCriteriaDropdownValue = (

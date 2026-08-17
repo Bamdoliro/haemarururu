@@ -28,5 +28,6 @@ export const FAIR_ITEM_STATUS: Record<FairStatus, StatusType> = {
 export const FAIR_SORT_TYPE: Record<FairSort, string> = {
   none: '초기화',
   name_asc: '이름 오름차순',
-  name_desc: '이름 내림차순',
+  school_name_asc: '학교명 오름차순',
+  grade_asc: '학년 오름차순',
 };
