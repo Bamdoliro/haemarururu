@@ -64,7 +64,8 @@ const FairDetail = ({ id }: FairDetailProps) => {
           data={[
             { label: '초기화', value: 'none' },
             { label: '이름 오름차순', value: 'name_asc' },
-            { label: '이름 내림차순', value: 'name_desc' },
+            { label: '학교명 오름차순', value: 'school_name_asc' },
+            { label: '학년 오름차순', value: 'grade_asc' },
           ]}
           size="SMALL"
           width={160}
