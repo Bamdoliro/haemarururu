@@ -1,12 +1,17 @@
+import { formatFairRequestBody } from '@/components/fair/FairForm/fair.hooks';
 import { useDeleteFairMutation, usePutFairMutation } from '@/services/fair/mutations';
 import { useFairDetailQuery } from '@/services/fair/queries';
-import type { Fair, FairFormInput } from '@/types/fair/client';
+import type { FairFormInput } from '@/types/fair/client';
 import { useEffect, useState } from 'react';
 
+// 서버 응답의 ISO 형식("2026-09-05T11:00:00")을 폼에서 쓰는 12자리("202609051100")로 변환
+const toRawDateTime = (isoDateTime: string) =>
+  isoDateTime.replace(/\D/g, '').slice(0, 12);
+
 export const useEditFairForm = (fairId: number) => {
-  const [editFair, setEditFair] = useState<Fair>({
+  const [editFair, setEditFair] = useState<FairFormInput>({
     start: '',
-    capacity: 0,
+    capacity: '',
     place: '',
     type: 'STUDENT_AND_PARENT',
     applicationStartDate: null,
@@ -20,8 +25,8 @@ export const useEditFairForm = (fairId: number) => {
   useEffect(() => {
     if (fairData) {
       setEditFair({
-        start: fairData.start,
-        capacity: fairData.capacity,
+        start: toRawDateTime(fairData.start),
+        capacity: String(fairData.capacity),
         place: fairData.place,
         type: fairData.type,
         applicationStartDate: fairData.applicationStartDate,
@@ -35,7 +40,7 @@ export const useEditFairForm = (fairId: number) => {
   };
 
   const handleEditFair = () => {
-    putFairMutate(editFair);
+    putFairMutate(formatFairRequestBody(editFair));
   };
 
   const handleChange = <K extends keyof FairFormInput>(
