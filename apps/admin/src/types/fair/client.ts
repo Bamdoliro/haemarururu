@@ -46,7 +46,7 @@ export interface FairDetailData {
   start: string;
   place: string;
   capacity: number;
-  type: FairType;
+  fairType: FairType;
   applicationStartDate: string;
   applicationEndDate: string;
   status: FairStatus;

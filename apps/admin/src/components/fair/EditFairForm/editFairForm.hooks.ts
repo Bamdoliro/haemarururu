@@ -28,7 +28,7 @@ export const useEditFairForm = (fairId: number) => {
         start: toRawDateTime(fairData.start),
         capacity: String(fairData.capacity),
         place: fairData.place,
-        type: fairData.type,
+        type: fairData.fairType,
         applicationStartDate: fairData.applicationStartDate,
         applicationEndDate: fairData.applicationEndDate,
       });
