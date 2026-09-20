@@ -14,7 +14,7 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
   const { toast } = useToast();
   const {
     data: exportFormData,
-    isFetching: isExportFormFetching,
+    isLoading: isExportFormLoading,
     isError: isExportFormError,
   } = useExportFormQuery();
   const hasDownloadedRef = useRef(false);
@@ -40,12 +40,12 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
   }, [exportFormData, userData.name]);
 
   useEffect(() => {
-    if (isExportFormFetching) {
+    if (isExportFormLoading) {
       openPdfLoader();
     } else {
       closePdfLoader();
     }
-  }, [isExportFormFetching, openPdfLoader, closePdfLoader]);
+  }, [isExportFormLoading, openPdfLoader, closePdfLoader]);
 
   useEffect(() => {
     if (isExportFormError) {
