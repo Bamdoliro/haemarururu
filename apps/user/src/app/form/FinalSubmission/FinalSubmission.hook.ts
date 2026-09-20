@@ -3,13 +3,21 @@ import { useUploadFormMutation } from '@/services/form/mutations';
 import { useExportFormQuery } from '@/services/form/queries';
 import { useFinalFormStore, useFinalFormValueStore } from '@/stores/form/finalForm';
 import { downloadFile } from '@/utils';
-import { useCallback, useEffect, useState } from 'react';
+import { useToast } from '@maru/hooks';
+import { useCallback, useEffect, useRef } from 'react';
+
+const EXPORT_FORM_ERROR_MESSAGE =
+  '원서 pdf를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
 
 export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => void) => {
   const { userData } = useUser();
-  const { data: exportFormData } = useExportFormQuery();
-  const [pdfBlobUrl, setPdfBlobUrl] = useState('');
-  const [hasDownloaded, setHasDownloaded] = useState(false);
+  const { toast } = useToast();
+  const {
+    data: exportFormData,
+    isLoading: isExportFormLoading,
+    isError: isExportFormError,
+  } = useExportFormQuery();
+  const hasDownloadedRef = useRef(false);
   const final = useFinalFormValueStore();
   const { uploadFormMutate } = useUploadFormMutation(
     {
@@ -24,40 +32,40 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
     uploadFormMutate();
   };
 
-  const downloadPdf = useCallback(() => {
-    if (!pdfBlobUrl) return;
+  const downloadExportForm = useCallback(() => {
+    if (!exportFormData) return false;
 
-    downloadFile(pdfBlobUrl, `${userData.name} 해운대고등학교 원서접수.pdf`);
-    setPdfBlobUrl('');
-    setHasDownloaded(true);
-  }, [pdfBlobUrl, userData.name]);
+    downloadFile(exportFormData, `${userData.name} 해운대고등학교 원서접수.pdf`);
+    return true;
+  }, [exportFormData, userData.name]);
 
   useEffect(() => {
-    if (exportFormData && !hasDownloaded) {
-      const blob = new Blob([exportFormData]);
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      setPdfBlobUrl(blobUrl);
-      downloadPdf();
-      closePdfLoader();
-    } else if (!exportFormData) {
+    if (isExportFormLoading) {
       openPdfLoader();
+    } else {
+      closePdfLoader();
     }
-  }, [exportFormData, hasDownloaded, closePdfLoader, openPdfLoader, downloadPdf]);
+  }, [isExportFormLoading, openPdfLoader, closePdfLoader]);
+
+  useEffect(() => {
+    if (isExportFormError) {
+      toast(EXPORT_FORM_ERROR_MESSAGE, 'ERROR');
+    }
+  }, [isExportFormError, toast]);
+
+  useEffect(() => {
+    if (hasDownloadedRef.current) return;
+
+    if (downloadExportForm()) {
+      hasDownloadedRef.current = true;
+    }
+  }, [downloadExportForm]);
 
   const handleExportForm = useCallback(() => {
-    if (pdfBlobUrl) {
-      downloadPdf();
-    } else if (exportFormData) {
-      const blob = new Blob([exportFormData]);
-      const blobUrl = window.URL.createObjectURL(blob);
-
-      setPdfBlobUrl(blobUrl);
-      downloadPdf();
-    } else {
-      openPdfLoader();
+    if (!downloadExportForm()) {
+      toast(EXPORT_FORM_ERROR_MESSAGE, 'ERROR');
     }
-  }, [downloadPdf, openPdfLoader, exportFormData, pdfBlobUrl]);
+  }, [downloadExportForm, toast]);
 
   return { handleSubmitFinalForm, handleExportForm };
 };

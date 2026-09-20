@@ -32,13 +32,19 @@ export const useBoxClick = (status?: string) => {
   };
 
   const handleDownloadForm = () => {
-    const accept = ['FINAL_SUBMITTED', 'APPROVED', 'RECEIVED', 'REJECTED'];
+    const accept = ['SUBMITTED', 'FINAL_SUBMITTED', 'APPROVED', 'RECEIVED', 'REJECTED'];
 
     if (!status || !accept.includes(status)) {
       alert('원서를 제출하지 않아, 다운로드 할 수 없습니다.');
-    } else {
-      downloadFile(exportFormData, `${userData.name} 해운대고등학교 원서.pdf`);
+      return;
     }
+
+    if (!exportFormData) {
+      alert('원서를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+      return;
+    }
+
+    downloadFile(exportFormData, `${userData.name} 해운대고등학교 원서.pdf`);
   };
 
   const handleDownloadReceipt = () => {

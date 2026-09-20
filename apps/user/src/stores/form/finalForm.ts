@@ -2,7 +2,7 @@ import type { FinalForm } from '@/types/form/client';
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const finalFormAtomState = atom<FinalForm>({
-  key: 'profile',
+  key: 'final-form',
   default: {
     fileName: '',
     mediaType: '',
