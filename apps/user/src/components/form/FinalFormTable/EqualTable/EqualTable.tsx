@@ -19,7 +19,7 @@ const EqualTable = () => {
       </thead>
       <tbody>
         <Tr>
-          <Td width={120} height={66}>
+          <Td width={120} height={92}>
             공통
           </Td>
           <Td
@@ -30,9 +30,10 @@ const EqualTable = () => {
               padding: '20px 8px',
             }}
             width={696}
-            height={66}
+            height={92}
           >
             <Text color={color.haeMaruDefault} fontType="p2">
+              <li>가족관계증명서(학부모 기준) 1부*</li>
               <li>사회통합전형 대상자(재학 학교장 및 학부모) 확인서 1부*</li>
             </Text>
           </Td>
