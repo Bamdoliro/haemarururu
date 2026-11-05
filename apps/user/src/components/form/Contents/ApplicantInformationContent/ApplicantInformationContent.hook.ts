@@ -7,6 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
 import { useFormProfileValueStore } from '@/stores/form/formProfile';
+import { useIsMutating } from '@tanstack/react-query';
+import { UPLOAD_PROFILE_MUTATION_KEY } from '@/services/form/mutations';
 
 const digits = (v: string) => v.replace(/\D/g, '');
 
@@ -14,6 +16,8 @@ export const useApplicantForm = () => {
   const form = useFormValueStore();
   const setForm = useSetFormStore();
   const profileUrl = useFormProfileValueStore();
+  const isUploadingProfile =
+    useIsMutating({ mutationKey: UPLOAD_PROFILE_MUTATION_KEY }) > 0;
   const { userData } = useUser();
   const { data: saveFormQuery } = useSaveFormQuery();
 
@@ -162,6 +166,14 @@ export const useApplicantForm = () => {
   };
 
   const handleNextStep = () => {
+    if (isUploadingProfile) {
+      setErrors((prevErr) => ({
+        ...prevErr,
+        profile: ['증명사진을 업로드하는 중입니다. 잠시 후 다시 시도해 주세요.'],
+      }));
+      return;
+    }
+
     const currentProfile = profileUrl?.downloadUrl || form.applicant.profile || '';
     try {
       const formDataWithRRN = {

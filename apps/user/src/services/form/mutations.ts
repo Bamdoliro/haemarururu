@@ -15,6 +15,7 @@ import type { Form } from '@/types/form/client';
 import { useSetFormStepStore } from '@/stores';
 import type { FileDocument } from '@/types/form/remote';
 import { useSetFormProfileStore } from '@/stores/form/formProfile';
+import { useToast } from '@maru/hooks';
 
 export const useSaveFormMutation = () => {
   const { handleError } = useApiError();
@@ -65,27 +66,29 @@ export const useCorrectionFormMutation = () => {
   return { correctionFormMutate, ...restMutation };
 };
 
-export const usePutProfileImageMutation = (file: File | null) => {
-  const { mutate: profileImageMutate, ...restMutation } = useMutation({
-    mutationFn: (url: string) => putProfileUpoload(file, url),
-  });
+export const UPLOAD_PROFILE_MUTATION_KEY = ['uploadProfile'] as const;
 
-  return { profileImageMutate, ...restMutation };
-};
-
-export const useUploadProfileMutation = (fileData: FileDocument, file: File | null) => {
+export const useUploadProfileMutation = () => {
   const setFormProfile = useSetFormProfileStore();
-  const { profileImageMutate } = usePutProfileImageMutation(file);
+  const { toast } = useToast();
 
   const { mutate: uploadProfileMutate, ...restMutation } = useMutation({
-    mutationFn: () => postUploadProfileImage(fileData),
-    onSuccess: (res) => {
-      const { uploadUrl, downloadUrl } = res.data;
-      setFormProfile({
-        uploadUrl: uploadUrl,
-        downloadUrl: downloadUrl,
+    mutationKey: UPLOAD_PROFILE_MUTATION_KEY,
+    mutationFn: async (file: File) => {
+      const res = await postUploadProfileImage({
+        fileName: file.name,
+        mediaType: file.type,
+        fileSize: file.size,
       });
-      profileImageMutate(uploadUrl);
+      const { uploadUrl, downloadUrl } = res.data;
+      await putProfileUpoload(file, uploadUrl);
+      return { uploadUrl, downloadUrl } as { uploadUrl: string; downloadUrl: string };
+    },
+    onSuccess: ({ uploadUrl, downloadUrl }) => {
+      setFormProfile({ uploadUrl, downloadUrl });
+    },
+    onError: () => {
+      toast('증명사진 업로드에 실패했습니다. 다시 시도해 주세요.', 'ERROR');
     },
   });
 
