@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { useDragAndDrop, useOpenFileUploader } from '@/hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SmartCrop from 'smartcrop';
-import { useProfileStore } from '@/stores/form/profile';
+import { useSetProfileStore } from '@/stores/form/profile';
 import { Storage } from '@/apis/storage/storage';
 import {
   useRefreshProfileMutation,
@@ -31,7 +31,7 @@ const ProfileUploader = ({
   onUploadStateChange,
   onUploadComplete,
 }: ProfileUploaderProps) => {
-  const [profile, setProfile] = useProfileStore();
+  const setProfile = useSetProfileStore();
   const profileUrl = useFormProfileValueStore();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { openFileUploader, ref: imageUploaderRef } = useOpenFileUploader();
@@ -46,14 +46,7 @@ const ProfileUploader = ({
     fileSize: Number(fileSize),
   });
 
-  const { uploadProfileMutate } = useUploadProfileMutation(
-    {
-      fileName: profile.fileName ?? '',
-      mediaType: profile.mediaType ?? '',
-      fileSize: profile.fileSize ?? 0,
-    },
-    profile.file ?? null
-  );
+  const { uploadProfileMutate, isPending: isUploading } = useUploadProfileMutation();
 
   const mountedRef = useRef(false);
 
@@ -70,21 +63,19 @@ const ProfileUploader = ({
   }, [refreshProfileMutate]);
 
   useEffect(() => {
-    const hasImage = !!(previewUrl || profileUrl?.downloadUrl);
+    const hasImage = !!profileUrl?.downloadUrl;
     if (onUploadStateChange) {
       onUploadStateChange(hasImage);
     }
-    if (previewUrl && onUploadComplete) {
-      onUploadComplete(previewUrl);
-    }
-
     if (profileUrl?.downloadUrl && onUploadComplete) {
       onUploadComplete(profileUrl.downloadUrl);
     }
-  }, [previewUrl, profileUrl?.downloadUrl, onUploadStateChange, onUploadComplete]);
+  }, [profileUrl?.downloadUrl, onUploadStateChange, onUploadComplete]);
 
   const handleFile = useCallback(
     async (file: File) => {
+      if (isUploading) return;
+
       if (file.size > MAX_SIZE) {
         alert('파일 용량이 2MB를 초과했습니다.');
         setPreviewUrl(null);
@@ -167,20 +158,24 @@ const ProfileUploader = ({
               type: 'image/jpeg',
             });
 
-            setProfile({
-              fileName: croppedFile.name,
-              mediaType: croppedFile.type,
-              fileSize: croppedFile.size,
-              file: croppedFile,
+            uploadProfileMutate(croppedFile, {
+              onSuccess: () => {
+                setProfile({
+                  fileName: croppedFile.name,
+                  mediaType: croppedFile.type,
+                  fileSize: croppedFile.size,
+                  file: croppedFile,
+                });
+
+                Storage.setItem('fileName', croppedFile.name);
+                Storage.setItem('mediaType', croppedFile.type);
+                Storage.setItem('fileSize', croppedFile.size.toString());
+                Storage.setItem('upload', 'true');
+              },
+              onError: () => {
+                setPreviewUrl(null);
+              },
             });
-
-            Storage.setItem('fileName', croppedFile.name);
-            Storage.setItem('mediaType', croppedFile.type);
-            Storage.setItem('fileSize', croppedFile.size.toString());
-            Storage.setItem('upload', 'true');
-
-            uploadProfileMutate();
-            refreshProfileMutate();
           }, 'image/jpeg');
         };
 
@@ -194,8 +189,13 @@ const ProfileUploader = ({
 
       reader.readAsDataURL(file);
     },
-    [setProfile, uploadProfileMutate]
+    [isUploading, setProfile, uploadProfileMutate]
   );
+
+  const handleOpenFileUploader = useCallback(() => {
+    if (isUploading) return;
+    openFileUploader();
+  }, [isUploading, openFileUploader]);
 
   const { isDragging, onDragOver, onDragLeave, onDrop, onDragEnter } =
     useDragAndDrop(handleFile);
@@ -228,7 +228,7 @@ const ProfileUploader = ({
           $isError={isError}
         >
           <Column gap={12} alignItems="center">
-            <Button size="SMALL" onClick={openFileUploader}>
+            <Button size="SMALL" onClick={handleOpenFileUploader}>
               파일 선택
             </Button>
             <Text fontType="p2" color={color.gray500}>
@@ -237,8 +237,13 @@ const ProfileUploader = ({
           </Column>
         </UploadImageBox>
       )}
+      {isUploading && (
+        <Text fontType="p2" color={color.gray500}>
+          증명사진을 업로드하는 중입니다...
+        </Text>
+      )}
       {(previewUrl || profileUrl?.downloadUrl) && (
-        <Button size="SMALL" onClick={openFileUploader}>
+        <Button size="SMALL" onClick={handleOpenFileUploader}>
           재업로드
         </Button>
       )}
