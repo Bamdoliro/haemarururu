@@ -51,7 +51,8 @@ export type ExportExcelType =
   | '전체 내보내기'
   | '서류 전형 결과'
   | '면접 전형 결과'
-  | '최종 합격자';
+  | '최종 합격자'
+  | '신입생 명단';
 
 export interface Form {
   id: number;

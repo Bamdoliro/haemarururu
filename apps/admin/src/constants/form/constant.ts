@@ -85,6 +85,7 @@ export const EXPORT_EXCEL_TYPE_VALUE: Record<ExportExcelType, string> = {
   '서류 전형 결과': 'first-round',
   '면접 전형 결과': 'second-round',
   '최종 합격자': 'final-passed',
+  '신입생 명단': 'new-student',
 } as const;
 
 export const EXPORT_EXCEL_TYPE = [
@@ -92,6 +93,7 @@ export const EXPORT_EXCEL_TYPE = [
   '서류 전형 결과',
   '면접 전형 결과',
   '최종 합격자',
+  '신입생 명단',
 ] as const;
 
 export const FORM_DETAIL_FIELDS = [
