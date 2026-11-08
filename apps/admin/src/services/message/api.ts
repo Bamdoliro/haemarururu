@@ -1,5 +1,7 @@
 import { maru } from '@/apis/instance/instance';
 import { authorization } from '@/apis/token';
+import type { FormStatus } from '@/types/form/client';
+import type { GetFormListRes } from '@/types/form/remote';
 import type {
   PostSendMessageByStatusRequest,
   PostSendMessageByTypeRequest,
@@ -18,5 +20,13 @@ export const postMessageByType = async (params: PostSendMessageByTypeRequest) =>
 
 export const postMessageToAll = async (params: PostSendMessageToAllRequest) => {
   const { data } = await maru.post('/messages/all', params, authorization());
+  return data;
+};
+
+export const getMessageRecipientList = async (status: FormStatus) => {
+  const { data } = await maru.get<GetFormListRes>('/forms', {
+    ...authorization(),
+    params: { status },
+  });
   return data;
 };
