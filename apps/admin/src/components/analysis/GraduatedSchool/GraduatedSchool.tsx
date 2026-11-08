@@ -16,7 +16,7 @@ const GraduatedSchool = () => {
   } = useGraduatedSchool();
 
   return (
-    <StyledGenderRatio>
+    <StyledGraduatedSchool>
       <NavigatorBar>
         {ANALYSIS_PASS_STEP.map((step, index) => (
           <UnderlineButton
@@ -74,13 +74,13 @@ const GraduatedSchool = () => {
           '최종 합격자': <GraduatedAreaTable formList={formList} />,
         }}
       />
-    </StyledGenderRatio>
+    </StyledGraduatedSchool>
   );
 };
 
 export default GraduatedSchool;
 
-const StyledGenderRatio = styled.div`
+const StyledGraduatedSchool = styled.div`
   ${flex({ flexDirection: 'column' })}
   width: 100%;
   gap: 36px;
