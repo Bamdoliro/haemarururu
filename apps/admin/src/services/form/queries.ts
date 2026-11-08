@@ -11,13 +11,14 @@ import { useQuery } from '@tanstack/react-query';
 import type { ExportExcelType } from '@/types/form/client';
 import { useFormListSortingTypeValueStore, useFormListTypeValueStore } from '@/store';
 
-export const useFormListQuery = () => {
+export const useFormListQuery = ({ enabled = true } = {}) => {
   const formListType = useFormListTypeValueStore();
   const formListSortingType = useFormListSortingTypeValueStore();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_LIST, formListType, formListSortingType],
     queryFn: () => getFormList(formListType, formListSortingType),
+    enabled,
   });
 
   return { data: data?.dataList, ...restQuery };
@@ -67,12 +68,13 @@ export const useFormDetailQuery = (id: number) => {
   return { data: data?.data, ...restQuery };
 };
 
-export const useFormAllListQuery = () => {
+export const useFormAllListQuery = ({ enabled = true } = {}) => {
   const formListSortingType = useFormListSortingTypeValueStore();
 
   const { data, ...restQuery } = useQuery({
     queryKey: ['전체 조회', formListSortingType],
     queryFn: () => getFormList('전체 조회', formListSortingType),
+    enabled,
   });
 
   return { data: data?.dataList, ...restQuery };
