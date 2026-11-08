@@ -38,6 +38,9 @@ import SecondScoreUploadModal from '@/components/form/SecondScoreUploadModal/Sec
 import ExportExcelModal from '@/components/form/ExportExcelModal/ExportExcelModal';
 import AutoSecondRoundResultModal from '@/components/form/AutoSecondRoundResultModal/AutoSecondRoundResultModal';
 import FormAllTable from '@/components/form/FormAllTable/FormAllTable';
+import { useRef } from 'react';
+import { useScrollRestoration } from '@/hooks';
+import { useFormAllListQuery, useFormListQuery } from '@/services/form/queries';
 
 const FORM_TYPE_OPTIONS = [
   { value: 'RESET', label: '정렬 초기화' },
@@ -55,6 +58,12 @@ const FormPage = () => {
     handleFormListTypeAll,
     getCriteriaDropdownValue,
   } = useFormPageState();
+
+  const scrollRef = useRef<HTMLElement>(null);
+  const isAllList = formListType === '전체 조회';
+  const { data: formList } = useFormListQuery({ enabled: !isAllList });
+  const { data: formAllList } = useFormAllListQuery({ enabled: isAllList });
+  useScrollRestoration('form-list', scrollRef, isAllList ? !!formAllList : !!formList);
 
   const {
     isSecondRoundResultEditing,
@@ -107,7 +116,7 @@ const FormPage = () => {
     ));
   };
   return (
-    <AppLayout>
+    <AppLayout ref={scrollRef}>
       <StyledFormPage>
         <Text fontType="H1">원서 관리</Text>
         <Column gap={36}>
@@ -313,7 +322,7 @@ const FormPage = () => {
               )}
             </Row>
           </Row>
-          {formListType === '전체 조회' ? <FormAllTable /> : <FormTable />}
+          {isAllList ? <FormAllTable /> : <FormTable />}
         </Column>
       </StyledFormPage>
     </AppLayout>
