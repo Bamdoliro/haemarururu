@@ -13,9 +13,3 @@ export const ANALYSIS_PASS_STEP = [
   '면접 전형자',
   '최종 합격자',
 ] as const;
-
-export const ANALYSIS_RATIO_TYPE = [
-  '일반 전형 성비',
-  '사회 통합 전형 성비',
-  '정원 외 전형',
-] as const;

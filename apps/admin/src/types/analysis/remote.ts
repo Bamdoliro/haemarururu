@@ -3,8 +3,6 @@ import type {
   ApplicantCountType,
   AnalysisApplicantType,
   GradeDistributionType,
-  FormTypeMainCategory,
-  GenderRatioType,
   AreaCategory,
   GraduatedSchoolStatus,
 } from './client';
@@ -23,16 +21,6 @@ export interface AnalysisApplicantTypeReq {
 
 export interface GetGradeDistributionRes {
   dataList: GradeDistributionType[];
-}
-
-export interface GenderRatioStatusReq {
-  statusList: AnalysisApplicantType[];
-  mainCategory: FormTypeMainCategory;
-  type: AnalysisApplicantCountType;
-}
-
-export interface GetGenderRatioRes {
-  dataList: GenderRatioType[];
 }
 
 export interface GraduatedSchoolStatusReq {

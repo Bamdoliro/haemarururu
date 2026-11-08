@@ -2,13 +2,11 @@ import { KEY } from '@/constants/common/constant';
 import type {
   AnalysisApplicantCountReq,
   AnalysisApplicantTypeReq,
-  GenderRatioStatusReq,
   GraduatedSchoolStatusReq,
 } from '@/types/analysis/remote';
 import { useQuery } from '@tanstack/react-query';
 import {
   getApplicantCountList,
-  getGenderRatioList,
   getGradeDistributionList,
   getGraduatedSchoolList,
 } from './api';
@@ -26,15 +24,6 @@ export const useGradeDistributionListQuery = (statusList: AnalysisApplicantTypeR
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.APPLICANT_GRADE_DISTRIBUTION, statusList] as const,
     queryFn: () => getGradeDistributionList(statusList),
-  });
-
-  return { data: data?.dataList, ...restQuery };
-};
-
-export const useGenderRatioListQuery = (params: GenderRatioStatusReq) => {
-  const { data, ...restQuery } = useQuery({
-    queryKey: [KEY.APPLICANT_GENDER_RATIO, params] as const,
-    queryFn: () => getGenderRatioList(params),
   });
 
   return { data: data?.dataList, ...restQuery };

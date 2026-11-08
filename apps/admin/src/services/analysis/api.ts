@@ -5,8 +5,6 @@ import type {
   GetApplicantCountRes,
   AnalysisApplicantTypeReq,
   GetGradeDistributionRes,
-  GenderRatioStatusReq,
-  GetGenderRatioRes,
   GraduatedSchoolStatusReq,
   GetGraduatedSchoolRes,
 } from '@/types/analysis/remote';
@@ -24,20 +22,6 @@ export const getGradeDistributionList = async ({
 }: AnalysisApplicantTypeReq) => {
   const { data } = await maru.get<GetGradeDistributionRes>(
     `/analysis/grade-distribution?statusList=${statusList.join('&statusList=')}`,
-    authorization()
-  );
-  return data;
-};
-
-export const getGenderRatioList = async ({
-  statusList,
-  mainCategory,
-  type,
-}: GenderRatioStatusReq) => {
-  const { data } = await maru.get<GetGenderRatioRes>(
-    `/analysis/gender-ratio?statusList=${statusList.join(
-      '&statusList='
-    )}&mainCategory=${mainCategory}&type=${type}`,
     authorization()
   );
   return data;
