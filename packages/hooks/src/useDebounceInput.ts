@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import { debounce } from 'es-toolkit/compat';
 import type { ChangeEventHandler } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 
@@ -16,7 +16,7 @@ const useDebounceInput = ({ initialValue = '', debounceTimeout = 150 }: Props) =
       debounce((value: string) => {
         setDebouncedValue(value);
       }, debounceTimeout),
-    [debounceTimeout]
+    [debounceTimeout],
   );
 
   const handleSetValue = useCallback(
@@ -24,7 +24,7 @@ const useDebounceInput = ({ initialValue = '', debounceTimeout = 150 }: Props) =
       setValue(value);
       handleSetDebounceValue(value);
     },
-    [handleSetDebounceValue]
+    [handleSetDebounceValue],
   );
 
   const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> =
@@ -32,7 +32,7 @@ const useDebounceInput = ({ initialValue = '', debounceTimeout = 150 }: Props) =
       (e) => {
         handleSetValue(e.target.value);
       },
-      [handleSetValue]
+      [handleSetValue],
     );
 
   return { value, setValue, onChange, debouncedValue };

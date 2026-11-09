@@ -8,13 +8,14 @@
     "lint": "eslint \"**/*.ts*\"",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {
-    "react": "18.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@maru/eslint-config": "workspace:^",
     "@maru/tsconfig": "workspace:*",
     "@types/react": "18.3.1",
     "typescript": "5.5.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
   }
 }
