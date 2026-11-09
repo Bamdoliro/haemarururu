@@ -48,7 +48,12 @@ export type PassStatusType = '합격' | '불합격' | '미정';
 export type PaymentStatusType = '제출' | '미제출';
 
 export type ExportExcelType =
-  '전체 내보내기' | '서류 전형 결과' | '면접 전형 결과' | '최종 합격자';
+  | '전체 내보내기'
+  | '서류 전형 결과'
+  | '면접 전형 결과'
+  | '최종 합격자'
+  | '1차 전형 점수'
+  | '교과 성적 상세';
 
 export interface Form {
   id: number;

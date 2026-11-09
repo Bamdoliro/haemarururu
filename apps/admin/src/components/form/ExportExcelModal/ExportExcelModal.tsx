@@ -24,7 +24,8 @@ const ExportExcelModal = ({ isOpen, onClose }: ExportExcelModalProps) => {
     setExportExcelType(value as ExportExcelType);
   };
 
-  const { handleExportExcelButtonClick } = useExportExcelAction(exportExcelType);
+  const { handleExportExcelButtonClick, isExporting } =
+    useExportExcelAction(exportExcelType);
 
   return (
     <BlurBackground isOpen={isOpen}>
@@ -46,9 +47,9 @@ const ExportExcelModal = ({ isOpen, onClose }: ExportExcelModalProps) => {
             onClick={onClose}
           />
         </Row>
-        <Row justifyContent="space-between" gap={12}>
+        <CardRadioGrid>
           {EXPORT_EXCEL_TYPE.map((type) => (
-            <CardRadioBox checked={exportExcelType === type}>
+            <CardRadioBox key={type} checked={exportExcelType === type}>
               <Text
                 fontType="context"
                 color={exportExcelType === type ? color.haeMaruDefault : color.gray600}
@@ -64,17 +65,17 @@ const ExportExcelModal = ({ isOpen, onClose }: ExportExcelModalProps) => {
               />
             </CardRadioBox>
           ))}
-        </Row>
+        </CardRadioGrid>
         <Row gap={16} style={{ alignSelf: 'flex-end' }}>
           <Button size="SMALL" styleType="SECONDARY" onClick={onClose}>
             취소
           </Button>
           <Button
             size="SMALL"
-            styleType={exportExcelType ? 'PRIMARY' : 'DISABLED'}
+            styleType={isExporting ? 'DISABLED' : 'PRIMARY'}
             onClick={handleExportExcelButtonClick}
           >
-            내보내기
+            {isExporting ? '내보내는 중...' : '내보내기'}
           </Button>
         </Row>
       </StyledExportExcelModal>
@@ -98,11 +99,17 @@ const BlurBackground = styled.div<{ isOpen: boolean }>`
 
 const StyledExportExcelModal = styled.div`
   ${flex({ flexDirection: 'column', justifyContent: 'space-between' })}
+  gap: 32px;
   width: 720px;
-  height: 350px;
   padding: 36px;
   border-radius: 16px;
   background: ${color.white};
+`;
+
+const CardRadioGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 `;
 
 const CardRadioBox = styled.label<{ checked: boolean }>`
