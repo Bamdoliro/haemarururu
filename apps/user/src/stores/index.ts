@@ -1,61 +1,33 @@
-export { useUserStore } from './user/user';
-export {
-  useSetEntrollmentDocumentStore,
-  useEntrollmentDocumentValueStore,
-} from './entrollment/entrollmentDocument';
+export { userAtom } from './user/user';
 
-export { useFormStore, useFormValueStore, useSetFormStore } from './form/form';
+export { entrollmentDocumentAtom } from './entrollment/entrollmentDocument';
 
-export {
-  useSubjectListStore,
-  useSubjectListValueStore,
-  useSetSubjectListStore,
-  useNewSubjectListStore,
-  useNewSubjectListValueStore,
-  useSetNewSubjectListStore,
-} from './form/subjectList';
+export { formAtom } from './form/form';
 
-export {
-  useFormSubjectIncompleteStore,
-  useSetmSubjectIncompleteStore,
-  useSubjectIncompleteValueStore,
-} from './form/formSubjectIncomplete';
+export { subjectListAtom, newSubjectListAtom } from './form/subjectList';
 
-export {
-  useGEDSubjectListStore,
-  useGEDSubjectListValueStore,
-  useSetGEDSubjectListStore,
-  useNewGEDSubjectListStore,
-  useNewGEDSubjectListValueStore,
-  useSetNewGEDSubjectListStore,
-} from './form/GEDSubjectList';
+export { formSubjectIncompleteAtom } from './form/formSubjectIncomplete';
 
-export {
-  useFormStepStore,
-  useSetFormStepStore,
-  useFormStepValueStore,
-} from './form/formStep';
+export { GEDSubjectListAtom, newGEDSubjectListAtom } from './form/GEDSubjectList';
 
-export { useIsSaveFormLoadedStore } from './form/isSave';
+export { formStepAtom } from './form/formStep';
 
-export {
-  useFormGradeStepStore,
-  useSetFormGradeStepStore,
-  useFormGradeStepValueStore,
-} from './form/formGradeStep';
+export { isSaveFormLoadedAtom } from './form/isSave';
 
-export {
-  useFormDocumentStore,
-  useSetFormDocumentStore,
-  useFormDocumentValueStore,
-} from './form/formDocument';
+export { formGradeStepAtom } from './form/formGradeStep';
 
-export { useSignUpStore } from './user/signup';
+export { formDocumentAtom } from './form/formDocument';
 
-export {
-  useCorrectStore,
-  useCorrectValueStore,
-  useSetCorrectStore,
-} from './form/correct';
+export { formProfileAtom } from './form/formProfile';
 
-export { useStepStore, useSetStepStore, useStepValueStore } from './mobile/step';
+export { profileAtom } from './form/profile';
+
+export { finalFormAtom } from './form/finalForm';
+
+export { signUpAtom } from './user/signup';
+
+export { changePasswordAtom } from './user/changePassword';
+
+export { correctAtom } from './form/correct';
+
+export { stepAtom } from './mobile/step';
