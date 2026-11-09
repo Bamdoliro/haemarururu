@@ -1,85 +1,88 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { ROUTES, TOKEN } from '@/constants/common/constant';
-import { Storage } from '../storage/storage';
-import { Cookie } from '@/apis/cookie/cookie';
+import { ROUTES } from '@/constants/common/constant';
+import { clearStaleSession } from './session';
 
 export const maru = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: '/api',
   timeout: 15000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-let isRefreshing = false;
-let refreshPromise: Promise<string> | null = null;
+const REFRESH_URL = '/auth';
 
-maru.interceptors.request.use(
-  (config) => {
-    const token = Storage.getItem(TOKEN.ACCESS);
-    if (token) {
-      config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer ${token}`;
+interface FailedRequest {
+  resolve: () => void;
+  reject: (error?: unknown) => void;
+}
+
+const REFRESH_EXCLUDED_REQUESTS = [
+  { url: REFRESH_URL, method: 'patch' },
+  { url: REFRESH_URL, method: 'post' },
+];
+
+const isRefreshExcluded = (config?: AxiosRequestConfig) =>
+  REFRESH_EXCLUDED_REQUESTS.some(
+    ({ url, method }) => config?.url === url && config?.method?.toLowerCase() === method
+  );
+
+let isRefreshing = false;
+let failedQueue: FailedRequest[] = [];
+
+const processQueue = (error: unknown) => {
+  failedQueue.forEach((request) => {
+    if (error) {
+      request.reject(error);
+    } else {
+      request.resolve();
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+  });
+
+  failedQueue = [];
+};
 
 maru.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
-    const isTokenExpired =
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      Cookie.getItem(TOKEN.REFRESH);
+    if (isRefreshExcluded(originalRequest)) {
+      return Promise.reject(error);
+    }
+
+    const isTokenExpired = error.response?.status === 401 && !originalRequest._retry;
 
     if (isTokenExpired) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-
-        refreshPromise = axios
-          .patch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth`, null, {
-            headers: {
-              'Refresh-Token': Cookie.getItem(TOKEN.REFRESH) || '',
-            },
-          })
-          .then((res) => {
-            const newToken = res.data.data.accessToken;
-            if (!newToken) {
-              alert('다시 로그인 해주세요');
-              localStorage.clear();
-              window.location.href = ROUTES.MAIN;
-              return Promise.reject('No access token');
-            }
-            Storage.setItem(TOKEN.ACCESS, newToken);
-            maru.defaults.headers.common.Authorization = `Bearer ${newToken}`;
-            return newToken;
-          })
-          .catch((refreshError) => {
-            localStorage.clear();
-            window.location.href = ROUTES.MAIN;
-            return Promise.reject(refreshError);
-          })
-          .finally(() => {
-            isRefreshing = false;
-          });
-      }
-
+      // 큐에 들어가는 요청도 재시도 대상이므로 먼저 표시해야
+      // 재시도가 또 401이 났을 때 재발급을 반복하지 않는다.
       originalRequest._retry = true;
 
-      const newToken = await refreshPromise;
-      if (!newToken) return Promise.reject(error);
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({
+            resolve: () => resolve(maru(originalRequest)),
+            reject,
+          });
+        });
+      }
 
-      originalRequest.headers = {
-        ...originalRequest.headers,
-        Authorization: `Bearer ${newToken}`,
-      };
+      isRefreshing = true;
 
-      return maru(originalRequest);
+      try {
+        await maru.patch(REFRESH_URL);
+        processQueue(null);
+        return maru(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError);
+        await clearStaleSession();
+        window.location.href = ROUTES.MAIN;
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
     }
 
     return Promise.reject(error);

@@ -1,5 +1,7 @@
 import Provider from '@/components/Provider';
+import { AUTH_COOKIES } from '@/constants/common/constant';
 import QueryClientProvider from '@/services/QueryClientProvider';
+import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import StyledComponentsRegistry from '@/lib/StyledComponentRegistry';
 
@@ -13,12 +15,15 @@ interface RootLayoutProps {
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
+  const cookieStore = cookies();
+  const initialLoggedIn = AUTH_COOKIES.some((name) => cookieStore.has(name));
+
   return (
     <html lang="en">
       <body>
         <StyledComponentsRegistry>
           <QueryClientProvider>
-            <Provider>{children}</Provider>
+            <Provider initialLoggedIn={initialLoggedIn}>{children}</Provider>
           </QueryClientProvider>
         </StyledComponentsRegistry>
       </body>

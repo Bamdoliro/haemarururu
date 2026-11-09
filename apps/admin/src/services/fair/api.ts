@@ -1,5 +1,4 @@
 import { maru } from '@/apis/instance/instance';
-import { authorization } from '@/apis/token';
 import type { Fair } from '@/types/fair/client';
 import type { GetFairListRes, GetFairDetailRes, PutFairReq } from '@/types/fair/remote';
 
@@ -12,7 +11,6 @@ export const getFairList = async () => {
 export const getFairDetail = async (id: number, sort?: string | null) => {
   const params = sort ? { sort } : {};
   const { data } = await maru.get<GetFairDetailRes>(`/fairs/${id}`, {
-    ...authorization(),
     params,
   });
 
@@ -21,7 +19,6 @@ export const getFairDetail = async (id: number, sort?: string | null) => {
 
 export const getFairExportExcel = async (id: number) => {
   const { data } = await maru.get(`/fairs/${id}/export`, {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -29,19 +26,19 @@ export const getFairExportExcel = async (id: number) => {
 };
 
 export const postFairReq = async (fairdata: Fair) => {
-  const { data } = await maru.post(`/fairs`, fairdata, authorization());
+  const { data } = await maru.post(`/fairs`, fairdata);
 
   return data;
 };
 
 export const putFair = async (fairId: number, param: PutFairReq) => {
-  const { data } = await maru.put(`/fairs/${fairId}`, param, authorization());
+  const { data } = await maru.put(`/fairs/${fairId}`, param);
 
   return data;
 };
 
 export const deleteFair = async (fairId: number) => {
-  const { data } = await maru.delete(`/fairs/${fairId}`, authorization());
+  const { data } = await maru.delete(`/fairs/${fairId}`);
 
   return data;
 };
@@ -52,7 +49,6 @@ export const deleteFairAttendee = async (
 ) => {
   const { data } = await maru.delete(`/fairs/${fairId}/attendees`, {
     data: { attendeeList },
-    ...authorization(),
   });
 
   return data;

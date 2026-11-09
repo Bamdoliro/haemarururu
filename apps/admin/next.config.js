@@ -17,14 +17,16 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/:path*',
-  //       destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    if (!process.env.NEXT_PUBLIC_BASE_URL) return [];
+
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
+      },
+    ];
+  },
   async headers() {
     return [
       {

@@ -114,9 +114,6 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      react-cookie:
-        specifier: ^7.2.2
-        version: 7.2.2(@types/react@18.3.1)(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -1169,9 +1166,6 @@ packages:
     resolution: {integrity: sha512-x6m8jLKWtAmCbxTLXbgTzJ5wZyRSUQPLpR/oLJP1ZK9ytXcRf03oA46W/+78kErUkEw/yQz2L+t2xFDHSeZ6IQ==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
-  '@types/cookie@0.6.0':
-    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
-
   '@types/debug@4.1.13':
     resolution: {integrity: sha512-KSVgmQmzMwPlmtljOomayoR89W4FynCAi3E8PPs7vmDVPe84hT+vGPKkJfThkmXs0x0jAaa9U8uW8bbfyS2fWw==}
 
@@ -1609,10 +1603,6 @@ packages:
 
   convert-source-map@1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
-
-  cookie@0.7.2:
-    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
-    engines: {node: '>= 0.6'}
 
   cosmiconfig-typescript-loader@6.2.0:
     resolution: {integrity: sha512-GEN39v7TgdxgIoNcdkRE3uiAzQt3UXLyHbRHD6YoL048XAeOomyxaP+Hh/+2C6C2wYjxJ2onhJcsQp+L4YEkVQ==}
@@ -2915,11 +2905,6 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-cookie@7.2.2:
-    resolution: {integrity: sha512-e+hi6axHcw9VODoeVu8WyMWyoosa1pzpyjfvrLdF7CexfU+WSGZdDuRfHa4RJgTpfv3ZjdIpHE14HpYBieHFhg==}
-    peerDependencies:
-      react: '>= 16.3.0'
-
   react-daum-postcode@3.2.0:
     resolution: {integrity: sha512-NHY8TUicZXMqykbKYT8kUo2PEU7xu1DFsdRmyWJrLEUY93Xhd3rEdoJ7vFqrvs+Grl9wIm9Byxh3bI+eZxepMQ==}
     peerDependencies:
@@ -3387,9 +3372,6 @@ packages:
 
   unist-util-visit@5.1.0:
     resolution: {integrity: sha512-m+vIdyeCOpdr/QeQCu2EzxX/ohgS8KbnPDgFni4dQsfSCtpz8UqDyY5GjRru8PDKuYn7Fq19j1CQ+nJSsGKOzg==}
-
-  universal-cookie@7.2.2:
-    resolution: {integrity: sha512-fMiOcS3TmzP2x5QV26pIH3mvhexLIT0HmPa3V7Q7knRfT9HG6kTwq02HZGLPw0sAOXrAmotElGRvTLCMbJsvxQ==}
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -4616,8 +4598,6 @@ snapshots:
       '@toss/utility-types': 1.2.1
       date-fns: 2.30.0
 
-  '@types/cookie@0.6.0': {}
-
   '@types/debug@4.1.13':
     dependencies:
       '@types/ms': 2.1.0
@@ -5134,8 +5114,6 @@ snapshots:
       meow: 13.2.0
 
   convert-source-map@1.9.0: {}
-
-  cookie@0.7.2: {}
 
   cosmiconfig-typescript-loader@6.2.0(@types/node@20.19.23)(cosmiconfig@9.0.1(typescript@5.5.4))(typescript@5.5.4):
     dependencies:
@@ -6813,15 +6791,6 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-cookie@7.2.2(@types/react@18.3.1)(react@18.2.0):
-    dependencies:
-      '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.1)
-      hoist-non-react-statics: 3.3.2
-      react: 18.2.0
-      universal-cookie: 7.2.2
-    transitivePeerDependencies:
-      - '@types/react'
-
   react-daum-postcode@3.2.0(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -7396,11 +7365,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.0.2
-
-  universal-cookie@7.2.2:
-    dependencies:
-      '@types/cookie': 0.6.0
-      cookie: 0.7.2
 
   uri-js@4.4.1:
     dependencies:

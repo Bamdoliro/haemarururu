@@ -1,7 +1,7 @@
 'use client';
 
 import { GlobalStyle } from '@maru/design-system';
-import { useToast } from '@maru/hooks';
+import { AuthStateProvider, useToast } from '@maru/hooks';
 import { Toast } from '@maru/ui';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
@@ -9,6 +9,7 @@ import { Provider as JotaiProvider } from 'jotai';
 
 interface Props {
   children: ReactNode;
+  initialLoggedIn: boolean;
 }
 
 const GlobalToast = () => {
@@ -40,14 +41,16 @@ const GlobalToast = () => {
   ) : null;
 };
 
-const Provider = ({ children }: Props) => {
+const Provider = ({ children, initialLoggedIn }: Props) => {
   return (
     <JotaiProvider>
-      <OverlayProvider>
-        <GlobalStyle />
-        {children}
-      </OverlayProvider>
-      <GlobalToast />
+      <AuthStateProvider initialLoggedIn={initialLoggedIn}>
+        <OverlayProvider>
+          <GlobalStyle />
+          {children}
+        </OverlayProvider>
+        <GlobalToast />
+      </AuthStateProvider>
     </JotaiProvider>
   );
 };
