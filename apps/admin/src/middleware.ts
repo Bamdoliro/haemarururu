@@ -1,12 +1,30 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { jwtDecode } from 'jwt-decode';
+
+const REFRESH_TOKEN_COOKIE = 'refreshToken';
+
+const redirectToMain = (request: NextRequest, clearCookie = false) => {
+  const response = NextResponse.redirect(new URL('/', request.url));
+  if (clearCookie) response.cookies.delete(REFRESH_TOKEN_COOKIE);
+  return response;
+};
 
 export const middleware = (request: NextRequest) => {
-  const refreshToken = request.cookies.get('refresh-token');
-  if (!refreshToken || !refreshToken.value) {
-    const redirectUrl = new URL('/', request.url);
-    return NextResponse.redirect(redirectUrl);
+  const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE);
+  if (!refreshToken?.value) {
+    return redirectToMain(request);
   }
+
+  try {
+    const { exp } = jwtDecode<{ exp: number }>(refreshToken.value);
+    if (exp * 1000 < Date.now()) {
+      return redirectToMain(request, true);
+    }
+  } catch {
+    return redirectToMain(request, true);
+  }
+
   return NextResponse.next();
 };
 

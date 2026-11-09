@@ -1,5 +1,4 @@
 import { maru } from '@/apis/instance/instance';
-import { authorization } from '@/apis/token';
 import { EXPORT_EXCEL_TYPE_VALUE } from '@/constants/form/constant';
 import type {
   ExportExcelType,
@@ -36,14 +35,13 @@ export const getFormList = async (
     if (queryString) url += `?${queryString}`;
   }
 
-  const { data } = await maru.get<GetFormListRes>(url, authorization());
+  const { data } = await maru.get<GetFormListRes>(url);
 
   return data;
 };
 
 export const getSecondScoreFormat = async () => {
   const { data } = await maru.get('/forms/second-round/format', {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -54,7 +52,6 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
   const { data } = await maru.get(
     `/forms/xlsx/${EXPORT_EXCEL_TYPE_VALUE[exportExcelType]}`,
     {
-      ...authorization(),
       responseType: 'blob',
     }
   );
@@ -64,8 +61,7 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
 
 export const getFormUrl = async (formIdList: number[]) => {
   const { data } = await maru.get<GetFormURLRes>(
-    `/forms/form-url?id-list=${formIdList.join('%2C')}`,
-    authorization()
+    `/forms/form-url?id-list=${formIdList.join('%2C')}`
   );
 
   return data;
@@ -73,7 +69,6 @@ export const getFormUrl = async (formIdList: number[]) => {
 
 export const getMergedFormPdf = async (formIdList: number[]) => {
   const { data } = await maru.get<Blob>(`/forms/pdf?id-list=${formIdList.join('%2C')}`, {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -82,7 +77,6 @@ export const getMergedFormPdf = async (formIdList: number[]) => {
 
 export const getAllAdmissionTicket = async () => {
   const { data } = await maru.get('/forms/admission-tickets', {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -91,7 +85,6 @@ export const getAllAdmissionTicket = async () => {
 
 export const getFormExportAllPersonalStatement = async () => {
   const { data } = await maru.get('/forms/documents/export', {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -99,7 +92,7 @@ export const getFormExportAllPersonalStatement = async () => {
 };
 
 export const getFormDetail = async (id: number) => {
-  const { data } = await maru.get<GetFormDetail>(`/forms/${id}`, authorization());
+  const { data } = await maru.get<GetFormDetail>(`/forms/${id}`);
 
   return data;
 };
@@ -119,17 +112,13 @@ export const patchSecondScoreFormat = async (formData: FormData) => {
 export const patchSecondRoundResult = async (
   secondRoundResultData: PatchSecondRoundResultReq
 ) => {
-  const { data } = await maru.patch(
-    '/forms/second-round/result',
-    secondRoundResultData,
-    authorization()
-  );
+  const { data } = await maru.patch('/forms/second-round/result', secondRoundResultData);
 
   return data;
 };
 
 export const patchSecondRoundResultAuto = async () => {
-  const { data } = await maru.patch('/forms/second-round/select', null, authorization());
+  const { data } = await maru.patch('/forms/second-round/select', null);
 
   return data;
 };
@@ -138,19 +127,14 @@ export const patchReceiveStatus = async (
   formId: number,
   receiveStatus: ReceiveStatusValue
 ) => {
-  const { data } = await maru.patch(
-    `/forms/${formId}/${receiveStatus}`,
-    {},
-    authorization()
-  );
+  const { data } = await maru.patch(`/forms/${formId}/${receiveStatus}`, {});
   return data;
 };
 
 export const patchPaymentResult = async (paymentResultData: PatchPaymentResultReq) => {
   const { data } = await maru.patch(
     '/forms/admission-fees/payment-status',
-    paymentResultData,
-    authorization()
+    paymentResultData
   );
 
   return data;
@@ -159,10 +143,6 @@ export const patchPaymentResult = async (paymentResultData: PatchPaymentResultRe
 export const patchInterviewNumber = async (
   interviewNumberData: PatchInterviewNumberReq
 ) => {
-  const { data } = await maru.patch(
-    '/forms/interview-number',
-    interviewNumberData,
-    authorization()
-  );
+  const { data } = await maru.patch('/forms/interview-number', interviewNumberData);
   return data;
 };
