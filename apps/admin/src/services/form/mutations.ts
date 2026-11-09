@@ -2,6 +2,7 @@ import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getFormUrl,
+  getMergedFormPdf,
   patchInterviewNumber,
   patchPaymentResult,
   patchReceiveStatus,
@@ -16,7 +17,8 @@ import type {
   PatchPaymentResultReq,
   PatchSecondRoundResultReq,
 } from '@/types/form/remote';
-import { isPopupBlocked } from '@/utils';
+import { downloadBlob, isPopupBlocked } from '@/utils';
+import { isAxiosError } from 'axios';
 import type { ReceiveStatusValue } from '@/types/form/client';
 import {
   useSetInterviewNumberStore,
@@ -31,17 +33,6 @@ export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void)
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
   const { toast } = useToast();
-
-  const downloadBlob = (blob: Blob, filename: string) => {
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(url);
-  };
 
   const { mutate: uploadSecondScoreFormat, ...restMutation } = useMutation({
     mutationFn: (formData: FormData) => patchSecondScoreFormat(formData),
@@ -140,6 +131,29 @@ export const usePrintFormUrlMutation = () => {
   });
 
   return { printFormUrl, ...restMutation };
+};
+
+export const useMergeFormPdfMutation = () => {
+  const { handleError } = useApiError();
+
+  const { mutate: mergeFormPdf, ...restMutation } = useMutation({
+    mutationFn: (formIdList: number[]) => getMergedFormPdf(formIdList),
+    onSuccess: (data) => {
+      downloadBlob(new Blob([data], { type: 'application/pdf' }), '원서모음.pdf');
+    },
+    onError: async (error: Parameters<typeof handleError>[0]) => {
+      const errorData = error.response?.data;
+      if (isAxiosError(error) && error.response && errorData instanceof Blob) {
+        error.response.data = await errorData
+          .text()
+          .then(JSON.parse)
+          .catch(() => errorData);
+      }
+      handleError(error);
+    },
+  });
+
+  return { mergeFormPdf, ...restMutation };
 };
 
 export const useReceiveStatusChangeMutation = (formId: number, onClose: () => void) => {
