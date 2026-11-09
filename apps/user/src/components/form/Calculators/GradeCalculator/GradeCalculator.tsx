@@ -1,4 +1,4 @@
-import { useFormStore } from '@/stores';
+import { formAtom } from '@/stores';
 import type { GraduationType } from '@/types/form/client';
 import { color } from '@maru/design-system';
 import { Row, Switch, Text } from '@maru/ui';
@@ -7,6 +7,7 @@ import { SwitchCase } from '@toss/react';
 import styled from '@emotion/styled';
 import GEDCalculator from './GEDCalculator/GEDCalculator';
 import BasicCalculator from './BasicCalculator/BasicCalculator';
+import { useAtom } from 'jotai';
 
 interface GradeCalculatorProps {
   subjectError?: boolean[];
@@ -14,7 +15,7 @@ interface GradeCalculatorProps {
 }
 
 const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
-  const [form, setForm] = useFormStore();
+  const [form, setForm] = useAtom(formAtom);
 
   const handleChangeGraduationType = (value: string) => {
     const graduationType = value as GraduationType;

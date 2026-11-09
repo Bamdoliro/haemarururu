@@ -11,10 +11,8 @@ import { useToast } from '@maru/hooks';
 import { useRouter } from 'next/navigation';
 import { KEY, ROUTES } from '@/constants/common/constant';
 import type { PatchFairAttendeeResultReq, PutFairReq } from '@/types/fair/remote';
-import {
-  useSetDeleteFairAttendeeStore,
-  useSetIsDeleteFairAttendeeEditingStore,
-} from '@/store';
+import { deleteFairAttendeeAtom, isDeleteFairAttendeeEditingAtom } from '@/store';
+import { useSetAtom } from 'jotai';
 
 export const useCreateFairMutation = () => {
   const { handleError } = useApiError();
@@ -70,8 +68,8 @@ export const useDeleteFairAttendeeMutation = (fairId: number) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const setIsDeleteFairAttendeeEditing = useSetIsDeleteFairAttendeeEditingStore();
-  const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
+  const setIsDeleteFairAttendeeEditing = useSetAtom(isDeleteFairAttendeeEditingAtom);
+  const setDeleteFairAttendee = useSetAtom(deleteFairAttendeeAtom);
 
   const { mutate: deleteFairAttendeeResult, ...restMutation } = useMutation({
     mutationFn: (data: PatchFairAttendeeResultReq) =>

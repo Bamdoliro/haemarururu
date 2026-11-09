@@ -6,13 +6,13 @@ import styled from '@emotion/styled';
 import { useDragAndDrop, useOpenFileUploader } from '@/hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SmartCrop from 'smartcrop';
-import { useSetProfileStore } from '@/stores/form/profile';
 import { Storage } from '@/apis/storage/storage';
 import {
   useRefreshProfileMutation,
   useUploadProfileMutation,
 } from '@/services/form/mutations';
-import { useFormProfileValueStore } from '@/stores/form/formProfile';
+import { profileAtom, formProfileAtom } from '@/stores';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 const MIN_WIDTH = 113.4;
 const MIN_HEIGHT = 151.2;
@@ -31,8 +31,8 @@ const ProfileUploader = ({
   onUploadStateChange,
   onUploadComplete,
 }: ProfileUploaderProps) => {
-  const setProfile = useSetProfileStore();
-  const profileUrl = useFormProfileValueStore();
+  const setProfile = useSetAtom(profileAtom);
+  const profileUrl = useAtomValue(formProfileAtom);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { openFileUploader, ref: imageUploaderRef } = useOpenFileUploader();
 

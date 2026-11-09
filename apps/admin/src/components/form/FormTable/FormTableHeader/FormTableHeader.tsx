@@ -3,20 +3,21 @@ import { convertToResponsive } from '@/utils';
 import { CheckBox, Row, Text } from '@maru/ui';
 import type { ChangeEventHandler } from 'react';
 import {
-  useIsFormToPrintSelectingValueStore,
-  useIsSecondRoundResultEditingValueStore,
-  useSetFormToPrintStore,
+  isFormToPrintSelectingAtom,
+  isSecondRoundResultEditingAtom,
+  formToPrintAtom,
 } from '@/store';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 interface FormTableHeaderProps {
   id: number[];
 }
 
 const FormTableHeader = ({ id }: FormTableHeaderProps) => {
-  const isSecondRoundResultEditing = useIsSecondRoundResultEditingValueStore();
-  const isFormToPrintSelecting = useIsFormToPrintSelectingValueStore();
+  const isSecondRoundResultEditing = useAtomValue(isSecondRoundResultEditingAtom);
+  const isFormToPrintSelecting = useAtomValue(isFormToPrintSelectingAtom);
 
-  const setFormToPrint = useSetFormToPrintStore();
+  const setFormToPrint = useSetAtom(formToPrintAtom);
 
   const handleAllFormToPrintSelectChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { checked } = e.target;

@@ -1,9 +1,10 @@
-import { useSetFormStore } from '@/stores';
+import { formAtom } from '@/stores';
 import type { AttendanceName } from '@/types/form/client';
 import type { ChangeEventHandler } from 'react';
+import { useSetAtom } from 'jotai';
 
 export const useInput = () => {
-  const setForm = useSetFormStore();
+  const setForm = useSetAtom(formAtom);
 
   const handleAttendanceInfoChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { name, value } = e.target;

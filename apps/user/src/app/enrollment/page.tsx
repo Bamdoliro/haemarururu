@@ -8,10 +8,11 @@ import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useOpenFileUploader } from '@/hooks';
 import { useFormStatusQuery } from '@/services/form/queries';
-import { useEntrollmentDocumentStore } from '@/stores/entrollment/entrollmentDocument';
 import { useUploadDocumentMutation } from '@/services/enrollment/mutations';
 import usePageAccessGuard from '@/hooks/usePageAccessGuard';
 import { useSchedule } from '@/services/schedule/queries';
+import { entrollmentDocumentAtom } from '@/stores';
+import { useAtom } from 'jotai';
 
 const Enrollment = () => {
   const schedule = useSchedule();
@@ -25,7 +26,7 @@ const Enrollment = () => {
   const { openFileUploader: openPdfFileUploader, ref: pdfFileUploaderRef } =
     useOpenFileUploader();
 
-  const [entrollmentDocument, setEntrollmentDocument] = useEntrollmentDocumentStore();
+  const [entrollmentDocument, setEntrollmentDocument] = useAtom(entrollmentDocumentAtom);
   const { data: formStatusData } = useFormStatusQuery();
   const { uploadProfileMutate } = useUploadDocumentMutation(
     {

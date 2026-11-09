@@ -1,9 +1,10 @@
-import { useNewGEDSubjectListStore } from '@/stores';
+import { newGEDSubjectListAtom } from '@/stores';
 import type { Subject } from '@/types/form/client';
 import { useRef } from 'react';
+import { useAtom } from 'jotai';
 
 export const useAddNewGEDSubject = () => {
-  const [newGEDSubjectList, setNewGEDSubjectList] = useNewGEDSubjectListStore();
+  const [newGEDSubjectList, setNewGEDSubjectList] = useAtom(newGEDSubjectListAtom);
 
   const newGEDSubjectIdRef = useRef(newGEDSubjectList.length);
   const handleAddNewGEDSubject = () => {

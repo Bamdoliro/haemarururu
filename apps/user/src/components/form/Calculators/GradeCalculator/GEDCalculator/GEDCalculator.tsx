@@ -1,21 +1,18 @@
 import styled from '@emotion/styled';
 import GEDCalculatorHeader from './GEDCalculatorHeader/GEDCalculatorHeader';
 import { useEffect } from 'react';
-import {
-  useGEDSubjectListValueStore,
-  useNewGEDSubjectListValueStore,
-  useSetFormStore,
-} from '@/stores';
+import { GEDSubjectListAtom, newGEDSubjectListAtom, formAtom } from '@/stores';
 import GEDCalculatorItem from './GEDCalculatorItem/GEDCalculatorItem';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 interface GEDCalculatorProps {
   subjectError?: boolean[];
 }
 
 const GEDCalculator = ({ subjectError }: GEDCalculatorProps) => {
-  const newGEDSubjectList = useNewGEDSubjectListValueStore();
-  const GEDSubjectList = useGEDSubjectListValueStore();
-  const setForm = useSetFormStore();
+  const newGEDSubjectList = useAtomValue(newGEDSubjectListAtom);
+  const GEDSubjectList = useAtomValue(GEDSubjectListAtom);
+  const setForm = useSetAtom(formAtom);
 
   useEffect(() => {
     const studentSubjectList = [...GEDSubjectList, ...newGEDSubjectList].map(

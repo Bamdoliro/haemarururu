@@ -2,11 +2,12 @@ import { Button, Dropdown, Td } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { GED_SUBJECT_LIST, SUBJECT_LIST } from '@/constants/form/data';
-import { useNewSubjectListValueStore } from '@/stores';
+import { newSubjectListAtom } from '@/stores';
 import color from '@maru/design-system/src/color';
 import { font } from '@maru/design-system';
 import { useDeleteNewSubject, useInput } from './NewBasicCalculatorItem.hook';
 import type { Subject } from '@/types/form/client';
+import { useAtomValue } from 'jotai';
 
 interface NewBasicCalculatorItemProps {
   id: number;
@@ -26,7 +27,7 @@ const NewBasicCalculatorItem = ({
   achievementLevels,
   isError = [],
 }: NewBasicCalculatorItemProps) => {
-  const newSubjectList = useNewSubjectListValueStore();
+  const newSubjectList = useAtomValue(newSubjectListAtom);
   const newSubjectIndex = newSubjectList.findIndex((item) => item.id === id);
 
   const { handleNewSubjectChange, handleNewSubjectNameChange } =

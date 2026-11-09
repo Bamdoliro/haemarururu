@@ -1,10 +1,11 @@
 import { useUser } from '@/hooks';
 import { useUploadFormMutation } from '@/services/form/mutations';
 import { useExportFormQuery } from '@/services/form/queries';
-import { useFinalFormStore, useFinalFormValueStore } from '@/stores/form/finalForm';
 import { downloadFile } from '@/utils';
 import { useToast } from '@maru/hooks';
 import { useCallback, useEffect, useRef } from 'react';
+import { finalFormAtom } from '@/stores';
+import { useAtom, useAtomValue } from 'jotai';
 
 const EXPORT_FORM_ERROR_MESSAGE =
   '원서 pdf를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
@@ -18,7 +19,7 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
     isError: isExportFormError,
   } = useExportFormQuery();
   const hasDownloadedRef = useRef(false);
-  const final = useFinalFormValueStore();
+  const final = useAtomValue(finalFormAtom);
   const { uploadFormMutate } = useUploadFormMutation(
     {
       fileName: final.fileName ?? '',
@@ -71,7 +72,7 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
 };
 
 export const useInput = () => {
-  const [final, setFinal] = useFinalFormStore();
+  const [final, setFinal] = useAtom(finalFormAtom);
 
   const handleFormDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

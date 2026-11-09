@@ -23,10 +23,11 @@ export const useExportExcelAction = (id: number) => {
 };
 
 export const useDeleteFairAttendeeActions = (fairId: number) => {
-  const [isDeleteFairAttendeeEditing, setIsDeleteFairAttendeeEditing] =
-    useIsDeleteFairAttendeeEditingStore();
-  const setDeleteFairAttendee = useSetDeleteFairAttendeeStore();
-  const fairAttendeeResult = useDeleteFairAttendeeValueStore();
+  const [isDeleteFairAttendeeEditing, setIsDeleteFairAttendeeEditing] = useAtom(
+    isDeleteFairAttendeeEditingAtom
+  );
+  const setDeleteFairAttendee = useSetAtom(deleteFairAttendeeAtom);
+  const fairAttendeeResult = useAtomValue(deleteFairAttendeeAtom);
   const { toast } = useToast();
 
   const setIsDeleteFairAttendeeEditingTrue = () => setIsDeleteFairAttendeeEditing(true);
@@ -61,16 +62,16 @@ export const useDeleteFairAttendeeActions = (fairId: number) => {
 };
 
 import {
-  useDeleteFairAttendeeValueStore,
-  useFairListSortingTypeStore,
-  useFairListTypeStore,
-  useIsDeleteFairAttendeeEditingStore,
-  useSetDeleteFairAttendeeStore,
+  deleteFairAttendeeAtom,
+  fairListSortingTypeAtom,
+  fairListTypeAtom,
+  isDeleteFairAttendeeEditingAtom,
 } from '@/store';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 export const useFairPageState = () => {
-  const [fairListType, setFairListType] = useFairListTypeStore();
-  const [fairListSortingType, setFairListSortingType] = useFairListSortingTypeStore();
+  const [fairListType, setFairListType] = useAtom(fairListTypeAtom);
+  const [fairListSortingType, setFairListSortingType] = useAtom(fairListSortingTypeAtom);
 
   const handleCriteriaChange = (value: string) => {
     if (value === 'none') {

@@ -1,8 +1,9 @@
-import { useSetNewSubjectListStore } from '@/stores';
+import { newSubjectListAtom } from '@/stores';
 import type { ChangeEventHandler } from 'react';
+import { useSetAtom } from 'jotai';
 
 export const useInput = (newSubjectIndex: number) => {
-  const setNewSubjectList = useSetNewSubjectListStore();
+  const setNewSubjectList = useSetAtom(newSubjectListAtom);
 
   const handleNewSubjectChange = (data: string, name: string) => {
     const value = data === '-' ? 'E' : data;
@@ -33,7 +34,7 @@ export const useInput = (newSubjectIndex: number) => {
 };
 
 export const useDeleteNewSubject = () => {
-  const setNewSubjectList = useSetNewSubjectListStore();
+  const setNewSubjectList = useSetAtom(newSubjectListAtom);
 
   const handleDeleteNewSubject = (id: number) => {
     setNewSubjectList((prev) => prev.filter((item) => item.id !== id));

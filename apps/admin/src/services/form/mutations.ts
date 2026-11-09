@@ -21,13 +21,14 @@ import { downloadBlob, isPopupBlocked } from '@/utils';
 import { isAxiosError } from 'axios';
 import type { ReceiveStatusValue } from '@/types/form/client';
 import {
-  useSetInterviewNumberStore,
-  useSetIsInterviewNumberEditingStore,
-  useSetIsPaymentResultEditingStore,
-  useSetIsSecondRoundResultEditingStore,
-  useSetPaymentResultStore,
-  useSetSecondRoundResultStore,
+  interviewNumberAtom,
+  isInterviewNumberEditingAtom,
+  isPaymentResultEditingAtom,
+  isSecondRoundResultEditingAtom,
+  paymentResultAtom,
+  secondRoundResultAtom,
 } from '@/store';
+import { useSetAtom } from 'jotai';
 
 export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void) => {
   const { handleError } = useApiError();
@@ -77,8 +78,8 @@ export const useEditSecondRoundResultMutation = (
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const setIsSecondRoundResultEditing = useSetIsSecondRoundResultEditingStore();
-  const setSecondRoundResult = useSetSecondRoundResultStore();
+  const setIsSecondRoundResultEditing = useSetAtom(isSecondRoundResultEditingAtom);
+  const setSecondRoundResult = useSetAtom(secondRoundResultAtom);
 
   const { mutate: editSecondRoundResult, ...restMutation } = useMutation({
     mutationFn: () => patchSecondRoundResult(secondRoundResultData),
@@ -182,8 +183,8 @@ export const useEditPaymentResultMutation = (
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const setIsPaymentResultEditing = useSetIsPaymentResultEditingStore();
-  const setPaymentResult = useSetPaymentResultStore();
+  const setIsPaymentResultEditing = useSetAtom(isPaymentResultEditingAtom);
+  const setPaymentResult = useSetAtom(paymentResultAtom);
 
   const { mutate: editPaymentResult, ...restMutation } = useMutation({
     mutationFn: () => patchPaymentResult(paymentResultData),
@@ -206,8 +207,8 @@ export const useEditInterviewNumberMutation = (
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const setIsInterviewNumberEditing = useSetIsInterviewNumberEditingStore();
-  const setInterviewNumber = useSetInterviewNumberStore();
+  const setIsInterviewNumberEditing = useSetAtom(isInterviewNumberEditingAtom);
+  const setInterviewNumber = useSetAtom(interviewNumberAtom);
 
   const { mutate: editInterviewNumber, ...restMutation } = useMutation({
     mutationFn: () => patchInterviewNumber(InterviewNumberData),

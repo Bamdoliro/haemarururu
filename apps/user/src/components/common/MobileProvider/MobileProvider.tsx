@@ -3,10 +3,11 @@
 import { Storage } from '@/apis/storage/storage';
 import { MobileLogin, MobileMain, MobileResult } from '@/components/mobile';
 import { TOKEN } from '@/constants/common/constants';
-import { useStepStore } from '@/stores';
+import { stepAtom } from '@/stores';
 import { SwitchCase } from '@toss/react';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { useAtom } from 'jotai';
 
 interface Props {
   children: ReactNode;
@@ -14,7 +15,7 @@ interface Props {
 
 const MobileProvider = ({ children }: Props) => {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
-  const [step, setStep] = useStepStore();
+  const [step, setStep] = useAtom(stepAtom);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 700);

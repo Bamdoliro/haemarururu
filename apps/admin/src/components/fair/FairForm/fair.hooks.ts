@@ -2,11 +2,12 @@ import { useCreateFairMutation } from '@/services/fair/mutations';
 import convertToApiDateFormat from '@/utils/functions/convertToApiDateFormat';
 import convertToApiDateTimeFormat from '@/utils/functions/convertToApiDateTimeFormat';
 import type { FairFormInput } from '@/types/fair/client';
-import { useFairFormStore } from '@/store';
+import { fairFormAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 export const useFairForm = () => {
   const createFairMutation = useCreateFairMutation();
-  const [form, setForm] = useFairFormStore();
+  const [form, setForm] = useAtom(fairFormAtom);
   const handleChange = <K extends keyof FairFormInput>(
     key: K,
     value: FairFormInput[K]

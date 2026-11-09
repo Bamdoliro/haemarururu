@@ -2,17 +2,18 @@ import { color } from '@maru/design-system';
 import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import AttendanceCalculatorHeader from './AttendanceCalculatorHeader/AttendanceCalculatorHeader';
-import { useFormValueStore } from '@/stores';
+import { formAtom } from '@/stores';
 import { useInput } from './AttendanceCalculator.hook';
 import AttendanceCalculatorItem from './AttendanceCalculatorItem/AttendanceCalculatorItem';
 import { ATTENDANCE_GRADE } from '@/constants/form/constants';
 import { formatScheduleDate } from '@/utils';
 import { useSchedule } from '@/services/schedule/queries';
 import styled from '@emotion/styled';
+import { useAtomValue } from 'jotai';
 
 const AttendanceCalculator = () => {
   const schedule = useSchedule();
-  const form = useFormValueStore();
+  const form = useAtomValue(formAtom);
   const { handleAttendanceInfoChange } = useInput();
   const isReadOnly = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
   return (

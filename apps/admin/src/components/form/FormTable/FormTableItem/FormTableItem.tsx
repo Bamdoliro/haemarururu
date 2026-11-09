@@ -10,15 +10,16 @@ import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  useFormToPrintStore,
-  useInterviewNumberStore,
-  useIsFormToPrintSelectingValueStore,
-  useIsInterviewNumberEditingValueStore,
-  useIsPaymentResultEditingValueStore,
-  useIsSecondRoundResultEditingValueStore,
-  usePaymentResultStore,
-  useSecondRoundResultStore,
+  formToPrintAtom,
+  interviewNumberAtom,
+  isFormToPrintSelectingAtom,
+  isInterviewNumberEditingAtom,
+  isPaymentResultEditingAtom,
+  isSecondRoundResultEditingAtom,
+  paymentResultAtom,
+  secondRoundResultAtom,
 } from '@/store';
+import { useAtom, useAtomValue } from 'jotai';
 
 const FormTableItem = ({
   id,
@@ -37,12 +38,12 @@ const FormTableItem = ({
 }: Form) => {
   const router = useRouter();
 
-  const isSecondRoundResultEditing = useIsSecondRoundResultEditingValueStore();
-  const isInterviewNumberEditing = useIsInterviewNumberEditingValueStore();
-  const isPaymentResultEditing = useIsPaymentResultEditingValueStore();
-  const [secondRoundResult, setSecondRoundResult] = useSecondRoundResultStore();
-  const [paymentResult, setPaymentResult] = usePaymentResultStore();
-  const [interviewNumberResult, setInterviewNumberResult] = useInterviewNumberStore();
+  const isSecondRoundResultEditing = useAtomValue(isSecondRoundResultEditingAtom);
+  const isInterviewNumberEditing = useAtomValue(isInterviewNumberEditingAtom);
+  const isPaymentResultEditing = useAtomValue(isPaymentResultEditingAtom);
+  const [secondRoundResult, setSecondRoundResult] = useAtom(secondRoundResultAtom);
+  const [paymentResult, setPaymentResult] = useAtom(paymentResultAtom);
+  const [interviewNumberResult, setInterviewNumberResult] = useAtom(interviewNumberAtom);
   const [isHovered, setIsHovered] = useState(false);
 
   const getDocumentType = (type: string): string => {
@@ -103,8 +104,8 @@ const FormTableItem = ({
     return color.gray600;
   };
 
-  const isFormToPrintSelecting = useIsFormToPrintSelectingValueStore();
-  const [formToPrint, setFormToPrint] = useFormToPrintStore();
+  const isFormToPrintSelecting = useAtomValue(isFormToPrintSelectingAtom);
+  const [formToPrint, setFormToPrint] = useAtom(formToPrintAtom);
 
   const handleFormToPrintSelectChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { checked } = e.target;

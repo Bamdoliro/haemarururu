@@ -6,7 +6,8 @@ import { ROUTES, TOKEN } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
 import { Storage } from '@/apis/storage/storage';
 import { useToast } from '@/hooks';
-import { useSetStepStore } from '@/stores';
+import { stepAtom } from '@/stores';
+import { useSetAtom } from 'jotai';
 
 export const useLoginMutation = (
   device: string,
@@ -14,7 +15,7 @@ export const useLoginMutation = (
 ) => {
   const router = useRouter();
   const { toast } = useToast();
-  const setStep = useSetStepStore();
+  const setStep = useSetAtom(stepAtom);
 
   const { mutate: loginMutate, ...restMutation } = useMutation({
     mutationFn: () => postLogin({ phoneNumber, password }),

@@ -12,22 +12,22 @@ import {
 } from '@/services/form/queries';
 import type { FormListSortingType } from '@/types/form/client';
 import {
-  useFormListSortingTypeStore,
-  useFormListTypeStore,
-  useFormToPrintValueStore,
-  useInterviewNumberValueStore,
-  useIsFormToPrintSelectingStore,
-  useIsInterviewNumberEditingStore,
-  useIsPaymentResultEditingStore,
-  useIsSecondRoundResultEditingStore,
-  usePaymentResultValueStore,
-  useSecondRoundResultValueStore,
-  useSetFormToPrintStore,
+  formListSortingTypeAtom,
+  formListTypeAtom,
+  formToPrintAtom,
+  interviewNumberAtom,
+  isFormToPrintSelectingAtom,
+  isInterviewNumberEditingAtom,
+  isPaymentResultEditingAtom,
+  isSecondRoundResultEditingAtom,
+  paymentResultAtom,
+  secondRoundResultAtom,
 } from '@/store';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 export const useFormPageState = () => {
-  const [formListType, setFormListType] = useFormListTypeStore();
-  const [formListSortingType, setFormListSortingType] = useFormListSortingTypeStore();
+  const [formListType, setFormListType] = useAtom(formListTypeAtom);
+  const [formListSortingType, setFormListSortingType] = useAtom(formListSortingTypeAtom);
 
   const handleCriteriaChange = (value: string, key: string) => {
     if (value === 'RESET') {
@@ -63,15 +63,16 @@ export const useFormPageState = () => {
 };
 
 export const useEditSecondRoundResultActions = () => {
-  const [isSecondRoundResultEditing, setIsSecondRoundResultEditing] =
-    useIsSecondRoundResultEditingStore();
+  const [isSecondRoundResultEditing, setIsSecondRoundResultEditing] = useAtom(
+    isSecondRoundResultEditingAtom
+  );
 
   const setIsSecondRoundResultEditingTrue = () => setIsSecondRoundResultEditing(true);
   const setIsSecondRoundResultEditingFalse = () => {
     setIsSecondRoundResultEditing(false);
   };
 
-  const secondRoundResult = useSecondRoundResultValueStore();
+  const secondRoundResult = useAtomValue(secondRoundResultAtom);
   const secondRoundResultData = {
     formList: Object.entries(secondRoundResult).map(([formId, passStatus]) => {
       return {
@@ -96,9 +97,10 @@ export const useEditSecondRoundResultActions = () => {
 };
 
 export const usePrintFormURLActions = () => {
-  const [isFormToPrintSelecting, setIsFormToPrintSelecting] =
-    useIsFormToPrintSelectingStore();
-  const setFormToPrint = useSetFormToPrintStore();
+  const [isFormToPrintSelecting, setIsFormToPrintSelecting] = useAtom(
+    isFormToPrintSelectingAtom
+  );
+  const setFormToPrint = useSetAtom(formToPrintAtom);
 
   const setIsFormToPrintSelectingTrue = () => {
     setIsFormToPrintSelecting(true);
@@ -108,7 +110,7 @@ export const usePrintFormURLActions = () => {
     setFormToPrint({});
   };
 
-  const formToPrint = useFormToPrintValueStore();
+  const formToPrint = useAtomValue(formToPrintAtom);
   const formIdList = Object.entries(formToPrint).reduce(
     (acc: number[], [formId, isSelected]) =>
       isSelected ? [...acc, Number(formId)] : acc,
@@ -182,15 +184,16 @@ export const useExportAllPersonalStatementAction = () => {
 };
 
 export const useEditPaymentResultActions = () => {
-  const [isPaymentResultEditing, setIsPaymentResultEditing] =
-    useIsPaymentResultEditingStore();
+  const [isPaymentResultEditing, setIsPaymentResultEditing] = useAtom(
+    isPaymentResultEditingAtom
+  );
 
   const setIsPaymentResultEditingTrue = () => setIsPaymentResultEditing(true);
   const setIsPaymentResultEditingFalse = () => {
     setIsPaymentResultEditing(false);
   };
 
-  const paymentResult = usePaymentResultValueStore();
+  const paymentResult = useAtomValue(paymentResultAtom);
   const paymentResultData = {
     formList: Object.entries(paymentResult).map(([formId, paidStatus]) => {
       return {
@@ -214,8 +217,9 @@ export const useEditPaymentResultActions = () => {
 };
 
 export const useEditInterviewNumberActions = () => {
-  const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] =
-    useIsInterviewNumberEditingStore();
+  const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] = useAtom(
+    isInterviewNumberEditingAtom
+  );
 
   const setIsInterviewNumberResultEditingTrue = () =>
     setIsInterviewNumberResultEditing(true);
@@ -223,7 +227,7 @@ export const useEditInterviewNumberActions = () => {
     setIsInterviewNumberResultEditing(false);
   };
 
-  const interviewNumberResult = useInterviewNumberValueStore();
+  const interviewNumberResult = useAtomValue(interviewNumberAtom);
   const interviewNumberData = {
     formList: Object.entries(interviewNumberResult).map(([formId, interviewNumber]) => {
       return {

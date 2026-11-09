@@ -1,13 +1,14 @@
 import { ButtonInput, Column, Input, Row } from '@maru/ui';
 import FormController from '../../FormController/FormController';
-import { useFormValueStore } from '@/stores';
+import { formAtom } from '@/stores';
 import { useOverlay } from '@toss/use-overlay';
 import FindAddressModal from '../../FindAddressModal/FindAddressModal';
 import { useGuardianForm } from './GuardianInformationContent.hook';
+import { useAtomValue } from 'jotai';
 
 const GuardianInformationContent = () => {
   const overlay = useOverlay();
-  const form = useFormValueStore();
+  const form = useAtomValue(formAtom);
   const { onFieldChange, handleNextStep, handlePreviousStep, errors } = useGuardianForm();
   const openFindAddressModal = () => {
     overlay.open(({ isOpen, close }) => (

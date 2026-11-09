@@ -1,10 +1,11 @@
 import { useFormStatusQuery } from '@/services/form/queries';
-import { useSetFormStepStore } from '@/stores';
+import { formStepAtom } from '@/stores';
 import { useEffect } from 'react';
+import { useSetAtom } from 'jotai';
 
 const FormStatusManager = () => {
   const { data: formStatusData } = useFormStatusQuery();
-  const setFormStep = useSetFormStepStore();
+  const setFormStep = useSetAtom(formStepAtom);
 
   useEffect(() => {
     if (formStatusData) {

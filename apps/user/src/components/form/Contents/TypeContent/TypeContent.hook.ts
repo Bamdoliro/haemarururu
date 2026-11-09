@@ -1,11 +1,12 @@
 import { useSaveFormMutation } from '@/services/form/mutations';
-import { useFormValueStore, useSetFormStepStore, useSetFormStore } from '@/stores';
+import { formAtom, formStepAtom } from '@/stores';
 import { useFormStep } from '@/utils';
 import type { ChangeEventHandler } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 export const useCTAButton = () => {
-  const form = useFormValueStore();
-  const setFormStep = useSetFormStepStore();
+  const form = useAtomValue(formAtom);
+  const setFormStep = useSetAtom(formStepAtom);
   const { saveFormMutate } = useSaveFormMutation();
   const { run: FormStep } = useFormStep();
 
@@ -24,7 +25,7 @@ export const useCTAButton = () => {
 };
 
 export const useRadio = () => {
-  const setForm = useSetFormStore();
+  const setForm = useSetAtom(formAtom);
 
   const handleFormTypeChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { name, value },

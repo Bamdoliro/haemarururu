@@ -1,8 +1,9 @@
 import { Dropdown, Td } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
-import { useSubjectListValueStore } from '@/stores';
+import { subjectListAtom } from '@/stores';
 import { useInput } from './BasicCalculatorItem.hook';
+import { useAtomValue } from 'jotai';
 
 interface Props {
   id: number;
@@ -19,7 +20,7 @@ const ACHIEVEMENT_KEYS = [
 ] as const;
 
 const BasicCalculatorItem = ({ id, achievementLevels, isError = [], isLast }: Props) => {
-  const subjectList = useSubjectListValueStore();
+  const subjectList = useAtomValue(subjectListAtom);
   const { handleSubjectChange } = useInput(id);
   const subject = subjectList[id];
   const getDisplayValue = (value: string) => {

@@ -1,8 +1,9 @@
-import { useFormStepValueStore } from '@/stores';
+import { formStepAtom } from '@/stores';
 import { color, font } from '@maru/design-system';
 import { IconCheck } from '@maru/icon';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
+import { useAtomValue } from 'jotai';
 
 const PROGRESS_BAR_DISPLAY_DATA = [
   '지원자 정보',
@@ -23,7 +24,7 @@ const PROGRESS_BAR_DATA = [
 ] as const;
 
 const ProgressSteps = () => {
-  const formStep = useFormStepValueStore();
+  const formStep = useAtomValue(formStepAtom);
   const currentStepIndex = PROGRESS_BAR_DATA.findIndex((step) => step === formStep);
 
   return (
