@@ -17,6 +17,7 @@ import type {
 } from '@/types/user/remote';
 import type { Dispatch, SetStateAction } from 'react';
 import { useAuthState } from '@maru/hooks';
+import { clearStaleSession } from '@/apis/instance/session';
 
 export const useWithdrawalMutation = (password: string) => {
   const { handleError } = useApiError();
@@ -25,8 +26,9 @@ export const useWithdrawalMutation = (password: string) => {
 
   const { mutate: withdrawalMutate, ...restMutation } = useMutation({
     mutationFn: () => deleteUser(password),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast('회원탈퇴에 성공했습니다.', 'SUCCESS');
+      await clearStaleSession();
       setIsLoggedIn(false);
       window.location.href = ROUTES.MAIN;
     },

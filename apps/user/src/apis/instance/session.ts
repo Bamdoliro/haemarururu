@@ -1,7 +1,8 @@
 const SESSION_CLEAR_URL = '/session/clear';
 
+// 429·408 같은 일시적 오류로 유효한 세션을 지우지 않도록 인증 실패만 만료로 본다.
 export const isSessionExpiredStatus = (status?: number) =>
-  status !== undefined && status >= 400 && status < 500;
+  status === 401 || status === 403;
 
 /**
  * 서버에서 이미 만료된 토큰 쿠키가 브라우저에 남아 있으면

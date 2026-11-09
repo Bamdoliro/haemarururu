@@ -14,6 +14,7 @@ import { Loader } from '@maru/ui';
 import styled from '@emotion/styled';
 import { MobileProvider } from './common';
 import { useScheduleQuery } from '@/services/schedule/queries';
+import { USER_SCOPED_KEYS } from '@/constants/common/constants';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +30,7 @@ const SessionExpiredHandler = () => {
 
   useSessionExpired(() => {
     setIsLoggedIn(false);
-    queryClient.clear();
+    USER_SCOPED_KEYS.forEach((key) => queryClient.removeQueries({ queryKey: [key] }));
   });
 
   return null;
