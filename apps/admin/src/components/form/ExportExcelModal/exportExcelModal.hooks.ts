@@ -1,21 +1,29 @@
-import { useExportExcelQuery } from '@/services/form/queries';
+import { KEY } from '@/constants/common/constant';
+import { getExportExcel } from '@/services/form/api';
 import type { ExportExcelType } from '@/types/form/client';
+import { downloadBlob } from '@/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
 export const useExportExcelAction = (exportExcelType: ExportExcelType) => {
-  const { data: exportExcelData } = useExportExcelQuery(exportExcelType);
+  const queryClient = useQueryClient();
+  const [isExporting, setIsExporting] = useState(false);
 
-  const handleExportExcelButtonClick = () => {
-    if (!exportExcelData) return;
-    const excelUrl = window.URL.createObjectURL(new Blob([exportExcelData]));
+  const handleExportExcelButtonClick = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
 
-    const link = document.createElement('a');
-    link.href = excelUrl;
-    link.download = `${exportExcelType}.xlsx`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(excelUrl);
+    try {
+      const exportExcelData = await queryClient.fetchQuery({
+        queryKey: [KEY.FORM_EXPORT_EXCEL, exportExcelType],
+        queryFn: () => getExportExcel(exportExcelType),
+      });
+
+      downloadBlob(new Blob([exportExcelData]), `${exportExcelType}.xlsx`);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
-  return { handleExportExcelButtonClick };
+  return { handleExportExcelButtonClick, isExporting };
 };
