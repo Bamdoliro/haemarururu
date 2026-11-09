@@ -1,7 +1,9 @@
 'use client';
 
 import { GlobalStyle, color } from '@maru/design-system';
-import { useToast } from '@maru/hooks';
+import { AuthStateProvider, useAuthState, useToast } from '@maru/hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useSessionExpired } from '@/hooks';
 import { Text, Toast } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { OverlayProvider } from '@toss/use-overlay';
@@ -16,6 +18,22 @@ import { useScheduleQuery } from '@/services/schedule/queries';
 interface Props {
   children: ReactNode;
 }
+
+interface ProviderProps extends Props {
+  initialLoggedIn: boolean;
+}
+
+const SessionExpiredHandler = () => {
+  const { setIsLoggedIn } = useAuthState();
+  const queryClient = useQueryClient();
+
+  useSessionExpired(() => {
+    setIsLoggedIn(false);
+    queryClient.clear();
+  });
+
+  return null;
+};
 
 const ScheduleGate = ({ children }: Props) => {
   const { data, isError } = useScheduleQuery();
@@ -104,18 +122,21 @@ const GlobalToast = () => {
   );
 };
 
-const Provider = ({ children }: Props) => {
+const Provider = ({ children, initialLoggedIn }: ProviderProps) => {
   return (
     <RecoilRoot>
-      <OverlayProvider>
-        <GlobalStyle />
-        <ScheduleGate>
-          <MobileProvider>
-            <Suspense fallback={<Loader />}>{children}</Suspense>
-          </MobileProvider>
-        </ScheduleGate>
-      </OverlayProvider>
-      <GlobalToast />
+      <AuthStateProvider initialLoggedIn={initialLoggedIn}>
+        <SessionExpiredHandler />
+        <OverlayProvider>
+          <GlobalStyle />
+          <ScheduleGate>
+            <MobileProvider>
+              <Suspense fallback={<Loader />}>{children}</Suspense>
+            </MobileProvider>
+          </ScheduleGate>
+        </OverlayProvider>
+        <GlobalToast />
+      </AuthStateProvider>
     </RecoilRoot>
   );
 };

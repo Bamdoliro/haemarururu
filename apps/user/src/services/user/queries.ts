@@ -1,13 +1,14 @@
-import { KEY, TOKEN } from '@/constants/common/constants';
+import { KEY } from '@/constants/common/constants';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from './api';
-import { Storage } from '@/apis/storage/storage';
+import { useAuthState } from '@maru/hooks';
 
 export const useUserQuery = () => {
+  const { isLoggedIn } = useAuthState();
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.USER],
     queryFn: getUser,
-    enabled: !!Storage.getItem(TOKEN.ACCESS),
+    enabled: isLoggedIn,
     retry: false,
   });
 

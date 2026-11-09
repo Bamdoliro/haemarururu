@@ -23,10 +23,7 @@ export const ROUTES = {
   SCHOOL: 'https://school.busanedu.net/haeundae-h',
 };
 
-export const TOKEN = {
-  ACCESS: 'access-token',
-  REFRESH: 'refresh-token',
-} as const;
+export const AUTH_COOKIES = ['accessToken', 'refreshToken'] as const;
 
 export const KEY = {
   NOTICE_LIST: 'useNoticeList',
