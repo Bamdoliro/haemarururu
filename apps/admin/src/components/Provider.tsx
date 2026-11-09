@@ -5,7 +5,7 @@ import { useToast } from '@maru/hooks';
 import { Toast } from '@maru/ui';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
-import { RecoilRoot } from 'recoil';
+import { Provider as JotaiProvider } from 'jotai';
 
 interface Props {
   children: ReactNode;
@@ -42,13 +42,13 @@ const GlobalToast = () => {
 
 const Provider = ({ children }: Props) => {
   return (
-    <RecoilRoot>
+    <JotaiProvider>
       <OverlayProvider>
         <GlobalStyle />
         {children}
       </OverlayProvider>
       <GlobalToast />
-    </RecoilRoot>
+    </JotaiProvider>
   );
 };
 

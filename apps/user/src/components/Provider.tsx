@@ -6,7 +6,7 @@ import { Text, Toast } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
-import { RecoilRoot } from 'recoil';
+import { Provider as JotaiProvider } from 'jotai';
 import { Suspense } from 'react';
 import { Loader } from '@maru/ui';
 import styled from '@emotion/styled';
@@ -106,7 +106,7 @@ const GlobalToast = () => {
 
 const Provider = ({ children }: Props) => {
   return (
-    <RecoilRoot>
+    <JotaiProvider>
       <OverlayProvider>
         <GlobalStyle />
         <ScheduleGate>
@@ -116,7 +116,7 @@ const Provider = ({ children }: Props) => {
         </ScheduleGate>
       </OverlayProvider>
       <GlobalToast />
-    </RecoilRoot>
+    </JotaiProvider>
   );
 };
 
