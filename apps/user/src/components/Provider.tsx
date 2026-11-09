@@ -9,12 +9,13 @@ import { flex } from '@maru/utils';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
 import { Provider as JotaiProvider } from 'jotai';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Loader } from '@maru/ui';
 import styled from '@emotion/styled';
 import { MobileProvider } from './common';
 import { useScheduleQuery } from '@/services/schedule/queries';
 import { USER_SCOPED_KEYS } from '@/constants/common/constants';
+import { consumeLoginToast } from '@/utils';
 
 interface Props {
   children: ReactNode;
@@ -32,6 +33,17 @@ const SessionExpiredHandler = () => {
     setIsLoggedIn(false);
     USER_SCOPED_KEYS.forEach((key) => queryClient.removeQueries({ queryKey: [key] }));
   });
+
+  return null;
+};
+
+const LoginToastHandler = () => {
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const device = consumeLoginToast();
+    if (device) toast('로그인 되었습니다.', 'SUCCESS', device);
+  }, [toast]);
 
   return null;
 };
@@ -137,6 +149,7 @@ const Provider = ({ children, initialLoggedIn }: ProviderProps) => {
           </ScheduleGate>
         </OverlayProvider>
         <GlobalToast />
+        <LoginToastHandler />
       </AuthStateProvider>
     </JotaiProvider>
   );

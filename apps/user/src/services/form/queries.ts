@@ -20,6 +20,7 @@ export const useFormStatusQuery = () => {
     queryKey: [KEY.FORM_STATUS],
     queryFn: getFormStatus,
     enabled: isLoggedIn,
+    staleTime: 1000 * 60 * 5,
     retry: false,
   });
 
@@ -62,6 +63,7 @@ export const useSaveFormQuery = () => {
     queryKey: [KEY.SAVE_FORM],
     queryFn: getSaveForm,
     enabled: isLoggedIn,
+    staleTime: Infinity,
     retry: false,
   });
 
