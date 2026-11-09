@@ -4,9 +4,10 @@ import { flex } from '@maru/utils';
 import type { CSSProperties } from 'react';
 import styled from '@emotion/styled';
 import { formatScheduleDate } from '@/utils';
-import { SCHEDULE } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 
 const CommonTable = () => {
+  const schedule = useSchedule();
   return (
     <StyledCommonTable>
       <thead>
@@ -66,7 +67,7 @@ const CommonTable = () => {
                 <li>
                   출결 기준일
                   <Text color={color.red} fontType="p2">
-                    {' (' + formatScheduleDate([SCHEDULE.출결_기준일], 'STANDARD') + ') '}
+                    {' (' + formatScheduleDate([schedule.출결_기준일], 'STANDARD') + ') '}
                   </Text>
                   까지 출결 사항이 반영되도록 마감하여 출력 (특기사항란에 기준일 기재)
                 </li>

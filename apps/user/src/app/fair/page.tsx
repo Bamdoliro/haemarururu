@@ -8,9 +8,10 @@ import { Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { SCHEDULE } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 
 const Fair = () => {
+  const schedule = useSchedule();
   const [category, setCategory] = useState('진행 중인 신청');
 
   const handleTabClick = (name: string) => {
@@ -22,7 +23,7 @@ const Fair = () => {
       <StyledFair>
         <Column>
           <Text fontType="H1" color={color.gray900}>
-            {formatFormYear(SCHEDULE.원서_접수)}학년도 해운대고등학교
+            {formatFormYear(schedule.원서_접수)}학년도 해운대고등학교
           </Text>
           <Text fontType="H1" color={color.gray900}>
             입학전형 설명회 참가 신청

@@ -1,18 +1,47 @@
 'use client';
 
-import { GlobalStyle } from '@maru/design-system';
+import { GlobalStyle, color } from '@maru/design-system';
 import { useToast } from '@maru/hooks';
-import { Toast } from '@maru/ui';
+import { Text, Toast } from '@maru/ui';
+import { flex } from '@maru/utils';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Suspense } from 'react';
 import { Loader } from '@maru/ui';
+import styled from '@emotion/styled';
 import { MobileProvider } from './common';
+import { useScheduleQuery } from '@/services/schedule/queries';
 
 interface Props {
   children: ReactNode;
 }
+
+const ScheduleGate = ({ children }: Props) => {
+  const { data, isError } = useScheduleQuery();
+
+  if (isError) {
+    return (
+      <StyledScheduleError>
+        <Text fontType="p1" color={color.gray900} textAlign="center">
+          입학 일정을 불러오지 못했습니다.
+          <br />
+          잠시 후 다시 시도해 주세요.
+        </Text>
+      </StyledScheduleError>
+    );
+  }
+
+  if (!data) return <Loader />;
+
+  return <>{children}</>;
+};
+
+const StyledScheduleError = styled.div`
+  ${flex({ alignItems: 'center', justifyContent: 'center' })}
+  width: 100%;
+  height: 100vh;
+`;
 
 const GlobalToast = () => {
   const { toasts, removeToast } = useToast();
@@ -80,9 +109,11 @@ const Provider = ({ children }: Props) => {
     <RecoilRoot>
       <OverlayProvider>
         <GlobalStyle />
-        <MobileProvider>
-          <Suspense fallback={<Loader />}>{children}</Suspense>
-        </MobileProvider>
+        <ScheduleGate>
+          <MobileProvider>
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </MobileProvider>
+        </ScheduleGate>
       </OverlayProvider>
       <GlobalToast />
     </RecoilRoot>

@@ -6,11 +6,12 @@ import { Button, Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useCTAButton } from './FinalSubmissionCompleted.hook';
-import { SCHEDULE } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 import formatMonthDay from '@/utils/formatMonthDay';
 import { formatScheduleDate } from '@/utils';
 
 const FinalSubmissionCompleted = () => {
+  const schedule = useSchedule();
   const { handleDownloadReciptButtonClick, userData } = useCTAButton();
 
   return (
@@ -37,12 +38,12 @@ const FinalSubmissionCompleted = () => {
               {userData.name}님, 해운대고등학교에 지원해주셔서 대단히 감사드립니다.
               <br />
               {formatScheduleDate(
-                [SCHEDULE.방문_원서_접수, SCHEDULE.원서_접수_마감],
+                [schedule.방문_원서_접수, schedule.원서_접수_마감],
                 'RESULT'
               )}
               까지 본교에 방문하여 원서를 제출하실 수 있습니다.
               <br />
-              면접대상자는 {formatMonthDay(SCHEDULE.일차_합격_발표, 'DAY_OF_WEEK')}에
+              면접대상자는 {formatMonthDay(schedule.일차_합격_발표, 'DAY_OF_WEEK')}에
               발표될 예정입니다.
             </Text>
           </Column>

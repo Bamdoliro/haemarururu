@@ -1,4 +1,5 @@
-import { KEY, SCHEDULE, TOKEN } from '@/constants/common/constants';
+import { KEY, TOKEN } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 import { useQuery } from '@tanstack/react-query';
 import { getAdmissionTicket, getFinalResult, getFirstResult } from './api';
 import { Storage } from '@/apis/storage/storage';
@@ -27,6 +28,7 @@ export const useFinalResultQuery = () => {
 };
 
 export const useDownloadAdmissionTicketQuery = () => {
+  const schedule = useSchedule();
   const day = dayjs();
 
   const { data, ...restQuery } = useQuery({
@@ -34,7 +36,7 @@ export const useDownloadAdmissionTicketQuery = () => {
     queryFn: getAdmissionTicket,
     enabled:
       !!Storage.getItem(TOKEN.ACCESS) &&
-      day.isBetween(SCHEDULE.일차_합격_발표, SCHEDULE.이차_면접),
+      day.isBetween(schedule.일차_합격_발표, schedule.이차_면접),
     retry: false,
   });
 
