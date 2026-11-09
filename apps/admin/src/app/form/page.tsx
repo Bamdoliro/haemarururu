@@ -61,6 +61,7 @@ const FormPage = () => {
 
   const scrollRef = useRef<HTMLElement>(null);
   const isAllList = formListType === '전체 조회';
+  const isReviewList = formListType === '검토해야 하는 원서 모아보기';
   const { data: formList } = useFormListQuery({ enabled: !isAllList });
   const { data: formAllList } = useFormAllListQuery({ enabled: isAllList });
   useScrollRestoration('form-list', scrollRef, isAllList ? !!formAllList : !!formList);
@@ -122,63 +123,9 @@ const FormPage = () => {
       <StyledFormPage>
         <Text fontType="H1">원서 관리</Text>
         <Column gap={36}>
-          <Row justifyContent="space-between">
-            {formListType !== '검토해야 하는 원서 모아보기' ? (
-              <Row gap={12}>
-                <Dropdown
-                  data={[
-                    { value: 'RESET', label: '정렬 초기화' },
-                    { value: 'RECEIVED', label: '접수' },
-                    { value: 'ALL', label: '전체 조회' },
-                    { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
-                    { value: 'FAILED', label: '불합격' },
-                    { value: 'FINAL_SUBMITTED', label: '원서 입력' },
-                    { value: 'SUBMITTED', label: '제출' },
-                    { value: 'APPROVED', label: '승인' },
-                    { value: 'NO_SHOW', label: '불참' },
-                    { value: 'FIRST_PASSED', label: '면접 대상자 합격' },
-                    { value: 'PASSED', label: '최종 합격' },
-                    { value: 'REJECTED', label: '반려' },
-                    { value: 'ENTERED', label: '입학' },
-                  ]}
-                  size="SMALL"
-                  width={160}
-                  placeholder="상태 별"
-                  onChange={handleCriteriaChange}
-                  value={getCriteriaDropdownValue('status', FORM_STATUS_CATEGORY)}
-                  name="status"
-                  doubled={5}
-                />
-                <Dropdown
-                  data={FORM_TYPE_OPTIONS}
-                  size="SMALL"
-                  width={160}
-                  placeholder="전형 별"
-                  onChange={handleCriteriaChange}
-                  value={getCriteriaDropdownValue('type', FORM_TYPE_CATEGORY)}
-                  name="type"
-                  doubled={5}
-                />
-                <Dropdown
-                  data={[
-                    { value: 'RESET', label: '정렬 초기화' },
-                    { value: 'total-score-desc', label: '높은 순' },
-                    { value: 'total-score-asc', label: '낮은 순' },
-                    { value: 'form-id', label: '접수순' },
-                  ]}
-                  size="SMALL"
-                  width={160}
-                  placeholder="최종 점수"
-                  onChange={handleCriteriaChange}
-                  value={getCriteriaDropdownValue('sort', FORM_SORTING_CATEGORY)}
-                  name="sort"
-                />
-              </Row>
-            ) : (
-              <div />
-            )}
-            <Row gap={16}>
-              {formListType === '검토해야 하는 원서 모아보기' ? (
+          <Row justifyContent="space-between" alignItems="center" gap={12}>
+            <Row gap={8} alignItems="center">
+              {isReviewList ? (
                 <ReviewFilterBox>
                   <Row alignItems="center" gap={4}>
                     <IconFilter width={24} height={24} />
@@ -194,7 +141,60 @@ const FormPage = () => {
                     onClick={handleFormListTypeAll}
                   />
                 </ReviewFilterBox>
-              ) : null}
+              ) : (
+                <>
+                  <Dropdown
+                    data={[
+                      { value: 'RESET', label: '정렬 초기화' },
+                      { value: 'RECEIVED', label: '접수' },
+                      { value: 'ALL', label: '전체 조회' },
+                      { value: 'FIRST_FAILED', label: '면접 대상자 불합격' },
+                      { value: 'FAILED', label: '불합격' },
+                      { value: 'FINAL_SUBMITTED', label: '원서 입력' },
+                      { value: 'SUBMITTED', label: '제출' },
+                      { value: 'APPROVED', label: '승인' },
+                      { value: 'NO_SHOW', label: '불참' },
+                      { value: 'FIRST_PASSED', label: '면접 대상자 합격' },
+                      { value: 'PASSED', label: '최종 합격' },
+                      { value: 'REJECTED', label: '반려' },
+                      { value: 'ENTERED', label: '입학' },
+                    ]}
+                    size="SMALL"
+                    width={160}
+                    placeholder="상태"
+                    onChange={handleCriteriaChange}
+                    value={getCriteriaDropdownValue('status', FORM_STATUS_CATEGORY)}
+                    name="status"
+                    doubled={5}
+                  />
+                  <Dropdown
+                    data={FORM_TYPE_OPTIONS}
+                    size="SMALL"
+                    width={160}
+                    placeholder="전형"
+                    onChange={handleCriteriaChange}
+                    value={getCriteriaDropdownValue('type', FORM_TYPE_CATEGORY)}
+                    name="type"
+                    doubled={5}
+                  />
+                  <Dropdown
+                    data={[
+                      { value: 'RESET', label: '정렬 초기화' },
+                      { value: 'total-score-desc', label: '높은 순' },
+                      { value: 'total-score-asc', label: '낮은 순' },
+                      { value: 'form-id', label: '접수순' },
+                    ]}
+                    size="SMALL"
+                    width={150}
+                    placeholder="정렬"
+                    onChange={handleCriteriaChange}
+                    value={getCriteriaDropdownValue('sort', FORM_SORTING_CATEGORY)}
+                    name="sort"
+                  />
+                </>
+              )}
+            </Row>
+            <Row gap={8} alignItems="center">
               {isSecondRoundResultEditing ? (
                 <Row gap={16}>
                   <Button
