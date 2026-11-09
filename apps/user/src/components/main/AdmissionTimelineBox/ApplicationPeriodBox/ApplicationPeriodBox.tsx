@@ -3,10 +3,11 @@ import { useSchoolRecruitDate } from './ApplicationPeriodBox.hook';
 import { color } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import { formatFormYear } from '@/utils';
-import { SCHEDULE } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 import styled from '@emotion/styled';
 
 const ApplicationPeriodBox = () => {
+  const schedule = useSchedule();
   const { applicationStart, applicationEnd, handleMoveFormPage } = useSchoolRecruitDate();
 
   return (
@@ -14,7 +15,7 @@ const ApplicationPeriodBox = () => {
       <Column gap={36}>
         <Text fontType="H1" color={color.white}>
           해운대고등학교 <br />
-          {formatFormYear(SCHEDULE.원서_접수)}학년도 신입생 모집
+          {formatFormYear(schedule.원서_접수)}학년도 신입생 모집
         </Text>
         <Text fontType="p2" color={color.gray300}>
           {applicationStart} ~ {applicationEnd}

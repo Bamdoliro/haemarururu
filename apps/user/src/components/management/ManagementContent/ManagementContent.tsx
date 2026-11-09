@@ -6,17 +6,18 @@ import { Column, Row } from '@maru/ui';
 import SchoolNumberBox from '../SchoolNumberBox/SchoolNumberBox';
 import CheckingBox from '../CheckingBox/CheckingBox';
 import { useBoxClick } from './ManagementContent.hook';
-import { SCHEDULE } from '@/constants/common/constants';
+import { useSchedule } from '@/services/schedule/queries';
 
 dayjs.extend(isBetween);
 
 const ManagementContent = () => {
+  const schedule = useSchedule();
   const { data: statusData } = useFormStatusQuery();
   const now = dayjs();
   const { handleWriteFormContinue, handleDownloadForm, handleDownloadReceipt } =
     useBoxClick(statusData?.status);
 
-  if (now.isBetween(SCHEDULE.원서_접수, SCHEDULE.일차_합격_발표)) {
+  if (now.isBetween(schedule.원서_접수, schedule.일차_합격_발표)) {
     return (
       <Row gap={47}>
         <Column gap={26} width={492}>
@@ -46,7 +47,7 @@ const ManagementContent = () => {
     );
   }
 
-  if (now.isBetween(SCHEDULE.일차_합격_발표, SCHEDULE.이차_면접)) {
+  if (now.isBetween(schedule.일차_합격_발표, schedule.이차_면접)) {
     return (
       <Row gap={47}>
         <Column gap={26} width={492}>
@@ -59,7 +60,7 @@ const ManagementContent = () => {
     );
   }
 
-  if (now.isBetween(SCHEDULE.이차_면접, SCHEDULE.입학_등록_마감)) {
+  if (now.isBetween(schedule.이차_면접, schedule.입학_등록_마감)) {
     return (
       <Row alignItems="top" gap={30}>
         <StatusBox height="415px" status={statusData?.status} />
