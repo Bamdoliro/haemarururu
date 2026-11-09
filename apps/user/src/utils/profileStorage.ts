@@ -13,9 +13,14 @@ export const getStoredProfile = (owner: string): FileDocument | null => {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) return null;
 
-  const { owner: storedOwner, ...fileData } = JSON.parse(stored) as StoredProfile;
+  try {
+    const { owner: storedOwner, ...fileData } = JSON.parse(stored) as StoredProfile;
 
-  return storedOwner === owner ? fileData : null;
+    return storedOwner === owner ? fileData : null;
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return null;
+  }
 };
 
 export const saveStoredProfile = (owner: string, fileData: FileDocument) => {

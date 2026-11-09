@@ -14,15 +14,19 @@ import {
 import type { Form } from '@/types/form/client';
 import { KEY } from '@/constants/common/constants';
 import { formStepAtom, formProfileAtom } from '@/stores';
-import type { FileDocument } from '@/types/form/remote';
+import type { FileDocument, GetSaveFormRes } from '@/types/form/remote';
 import { useToast } from '@maru/hooks';
 import { useSetAtom } from 'jotai';
 
 export const useSaveFormMutation = () => {
   const { handleError } = useApiError();
+  const queryClient = useQueryClient();
 
   const { mutate: saveFormMutate, ...restMutation } = useMutation({
     mutationFn: (form: Form) => postSaveForm(form),
+    onSuccess: (_, form) => {
+      queryClient.setQueryData<GetSaveFormRes>([KEY.SAVE_FORM], { data: form });
+    },
     onError: handleError,
   });
 

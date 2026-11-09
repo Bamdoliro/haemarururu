@@ -1,11 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { KEY } from '@/constants/common/constants';
 import { patchEnter, postEntrollmentDocument, putEntrollmentDocument } from './api';
 import type { FileDocument } from '@/types/enrollment/client';
 
 export const useChangeEnterMutation = () => {
+  const queryClient = useQueryClient();
+
   const { mutate: enterMutate, ...restMutation } = useMutation({
     mutationFn: () => patchEnter(),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_STATUS] });
       alert('입학등록원이 제출되었습니다.');
     },
   });
