@@ -30,7 +30,7 @@ export const useEducationForm = () => {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
         const normalizedErrors = Object.fromEntries(
-          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []])
+          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []]),
         );
         setErrors(normalizedErrors);
       }
@@ -47,7 +47,7 @@ export const useEducationForm = () => {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
         const normalizedErrors = Object.fromEntries(
-          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []])
+          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []]),
         );
         setErrors(normalizedErrors);
       }
@@ -66,7 +66,7 @@ export const useEducationForm = () => {
       if (onlyNums.length === 8) {
         newValue = `${onlyNums.slice(0, 4)}-${onlyNums.slice(4, 6)}-${onlyNums.slice(
           6,
-          8
+          8,
         )}`;
       } else {
         newValue = onlyNums;

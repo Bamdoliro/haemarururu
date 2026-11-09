@@ -7,7 +7,7 @@ import { ROUTES } from '@/constants/common/constants';
 
 export const useFairApplicationQuery = (
   id: number,
-  fairApplicationData: FairApplication
+  fairApplicationData: FairApplication,
 ) => {
   const { handleError } = useApiError();
   const router = useRouter();

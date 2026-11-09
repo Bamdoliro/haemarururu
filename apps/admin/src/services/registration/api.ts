@@ -9,7 +9,7 @@ export const getRegistrationList = async () => {
   const encodedIdList = encodeURIComponent(idList);
 
   const { data: returnData } = await maru.get<GetRegistrationListRes>(
-    `/forms/admission-and-pledges?id-list=${encodedIdList}`
+    `/forms/admission-and-pledges?id-list=${encodedIdList}`,
   );
 
   return returnData;

@@ -32,7 +32,7 @@ export const useMessageRecipientListQuery = (recipient: RecipientType) => {
 
   const select = useCallback(
     (data: GetFormListRes) => filterRecipientList(data.dataList, recipient),
-    [recipient]
+    [recipient],
   );
 
   return useQuery({

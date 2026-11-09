@@ -72,8 +72,8 @@ const Circle = styled.div<{ $active: boolean; $isCurrent: boolean; name: string 
     props.$active
       ? color.white
       : props.$isCurrent
-      ? color.haeMaruDefault
-      : color.gray600};
+        ? color.haeMaruDefault
+        : color.gray600};
   background-color: ${(props) =>
     props.$active ? color.haeMaruDefault : props.$isCurrent ? color.white : color.gray50};
   border-radius: 50%;

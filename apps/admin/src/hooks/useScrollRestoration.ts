@@ -16,7 +16,7 @@ export const requestScrollRestoration = () => {
 const useScrollRestoration = (
   key: string,
   scrollRef: RefObject<HTMLElement>,
-  isReady: boolean
+  isReady: boolean,
 ) => {
   const storageKey = `scroll-position:${key}`;
   const shouldRestoreRef = useRef<boolean | null>(null);

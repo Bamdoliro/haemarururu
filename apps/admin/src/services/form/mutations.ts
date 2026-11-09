@@ -72,7 +72,7 @@ export const useUploadSecondScoreFormatMutation = (handleCloseModal: () => void)
 };
 
 export const useEditSecondRoundResultMutation = (
-  secondRoundResultData: PatchSecondRoundResultReq
+  secondRoundResultData: PatchSecondRoundResultReq,
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
@@ -177,7 +177,7 @@ export const useReceiveStatusChangeMutation = (formId: number, onClose: () => vo
 };
 
 export const useEditPaymentResultMutation = (
-  paymentResultData: PatchPaymentResultReq
+  paymentResultData: PatchPaymentResultReq,
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();
@@ -201,7 +201,7 @@ export const useEditPaymentResultMutation = (
 };
 
 export const useEditInterviewNumberMutation = (
-  InterviewNumberData: PatchInterviewNumberReq
+  InterviewNumberData: PatchInterviewNumberReq,
 ) => {
   const { handleError } = useApiError();
   const queryClient = useQueryClient();

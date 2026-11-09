@@ -77,7 +77,7 @@ export const useRemainDate = () => {
     currentTime.isSame(schedule.원서_접수_마감);
   const targetDate = isApplicationTarget
     ? `${schedule.방문_원서_접수.format(
-        'YYYY년 M월 D일(ddd) HH:mm'
+        'YYYY년 M월 D일(ddd) HH:mm',
       )} ~ ${schedule.원서_접수_마감.format('YYYY년 M월 D일(ddd) HH:mm')}`
     : currentTime.format('YYYY년 MM월 DD일 (ddd) HH:mm');
   const isSecondRoundDay = now.isBetween(schedule.이차_면접, schedule.이차_면접_종료);
@@ -119,8 +119,8 @@ export const useButtonStatus = () => {
   const buttonText = dayjs().isBefore(schedule.원서_접수_마감)
     ? '원서 접수하기'
     : dayjs().isBetween(schedule.입학_등록, schedule.입학_등록_마감)
-    ? '입학 등록하기'
-    : '결과 확인하기';
+      ? '입학 등록하기'
+      : '결과 확인하기';
 
   return {
     buttonStyleType,

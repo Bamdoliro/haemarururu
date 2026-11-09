@@ -14,7 +14,7 @@ const FairTableHeader = ({ attendeeId }: FairTableHeaderProps) => {
 
   const selectedCount = useMemo(
     () => attendeeId.filter((id) => deleteFairAttendee[id]).length,
-    [attendeeId, deleteFairAttendee]
+    [attendeeId, deleteFairAttendee],
   );
 
   const allSelected = attendeeId.length > 0 && selectedCount === attendeeId.length;

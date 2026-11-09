@@ -48,10 +48,7 @@ export type PassStatusType = '합격' | '불합격' | '미정';
 export type PaymentStatusType = '제출' | '미제출';
 
 export type ExportExcelType =
-  | '전체 내보내기'
-  | '서류 전형 결과'
-  | '면접 전형 결과'
-  | '최종 합격자';
+  '전체 내보내기' | '서류 전형 결과' | '면접 전형 결과' | '최종 합격자';
 
 export interface Form {
   id: number;
@@ -74,10 +71,7 @@ export interface Form {
 }
 
 export type FormListType =
-  | '모두 보기'
-  | '검토해야 하는 원서 모아보기'
-  | '정렬'
-  | '전체 조회';
+  '모두 보기' | '검토해야 하는 원서 모아보기' | '정렬' | '전체 조회';
 
 export type FormSort = 'total-score-asc' | 'total-score-desc' | 'form-id';
 
@@ -182,11 +176,6 @@ export interface Attendance {
 export type Score = number;
 
 export type FormDetailField =
-  | '지원자 정보'
-  | '보호자 정보'
-  | '출신학교 및 학력'
-  | '전형'
-  | '성적'
-  | '자기소개서';
+  '지원자 정보' | '보호자 정보' | '출신학교 및 학력' | '전형' | '성적' | '자기소개서';
 
 export type ReceiveStatusValue = 'approve' | 'reject' | 'receive';

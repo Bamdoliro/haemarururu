@@ -32,7 +32,7 @@ const RESEND_COOLDOWN_MS = 5000;
 
 export const useVerificationCodeAction = (
   signUpData: SignUp,
-  onRequestSuccess?: () => void
+  onRequestSuccess?: () => void,
 ) => {
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
   const [isResendCoolingDown, setIsResendCoolingDown] = useState(false);
@@ -45,7 +45,7 @@ export const useVerificationCodeAction = (
   const isRequestPending = restMutation.isPending;
   const [signUp] = useAtom(signUpAtom);
   const { verificationMutate, restMutation: confirmMutation } = useVerificationMutation(
-    setIsVerificationCodeConfirmed
+    setIsVerificationCodeConfirmed,
   );
 
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);

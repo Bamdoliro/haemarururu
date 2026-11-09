@@ -47,7 +47,7 @@ export const useFormPageState = () => {
 
   const getCriteriaDropdownValue = (
     key: keyof FormListSortingType,
-    category: Record<string, string>
+    category: Record<string, string>,
   ) => {
     const value = formListSortingType[key];
     return value ? category[value] : undefined;
@@ -64,7 +64,7 @@ export const useFormPageState = () => {
 
 export const useEditSecondRoundResultActions = () => {
   const [isSecondRoundResultEditing, setIsSecondRoundResultEditing] = useAtom(
-    isSecondRoundResultEditingAtom
+    isSecondRoundResultEditingAtom,
   );
 
   const setIsSecondRoundResultEditingTrue = () => setIsSecondRoundResultEditing(true);
@@ -98,7 +98,7 @@ export const useEditSecondRoundResultActions = () => {
 
 export const usePrintFormURLActions = () => {
   const [isFormToPrintSelecting, setIsFormToPrintSelecting] = useAtom(
-    isFormToPrintSelectingAtom
+    isFormToPrintSelectingAtom,
   );
   const setFormToPrint = useSetAtom(formToPrintAtom);
 
@@ -114,7 +114,7 @@ export const usePrintFormURLActions = () => {
   const formIdList = Object.entries(formToPrint).reduce(
     (acc: number[], [formId, isSelected]) =>
       isSelected ? [...acc, Number(formId)] : acc,
-    []
+    [],
   );
   const { printFormUrl } = usePrintFormUrlMutation();
   const handlePrintFormUrlButtonClick = () => {
@@ -168,7 +168,7 @@ export const useExportAllPersonalStatementAction = () => {
   const handleExportAllPersonalStatementButtonClick = () => {
     if (!exportPersonalStatementData) return;
     const statementURL = window.URL.createObjectURL(
-      new Blob([exportPersonalStatementData])
+      new Blob([exportPersonalStatementData]),
     );
 
     const link = document.createElement('a');
@@ -185,7 +185,7 @@ export const useExportAllPersonalStatementAction = () => {
 
 export const useEditPaymentResultActions = () => {
   const [isPaymentResultEditing, setIsPaymentResultEditing] = useAtom(
-    isPaymentResultEditingAtom
+    isPaymentResultEditingAtom,
   );
 
   const setIsPaymentResultEditingTrue = () => setIsPaymentResultEditing(true);
@@ -218,7 +218,7 @@ export const useEditPaymentResultActions = () => {
 
 export const useEditInterviewNumberActions = () => {
   const [isInterviewNumberResultEditing, setIsInterviewNumberResultEditing] = useAtom(
-    isInterviewNumberEditingAtom
+    isInterviewNumberEditingAtom,
   );
 
   const setIsInterviewNumberResultEditingTrue = () =>

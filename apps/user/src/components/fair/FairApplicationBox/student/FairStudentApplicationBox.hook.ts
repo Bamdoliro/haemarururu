@@ -38,7 +38,7 @@ export const useInput = () => {
   };
 
   const handleApplicationTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = (
-    e
+    e,
   ) => {
     const { name, value } = e.target;
     setApplication({ ...application, [name]: value });
@@ -54,7 +54,7 @@ export const useInput = () => {
 
 export const useAgree = (
   handleSendFairApplication: () => void,
-  application: FairApplication
+  application: FairApplication,
 ) => {
   const [agree, setAgree] = useState<string | null>(null);
 

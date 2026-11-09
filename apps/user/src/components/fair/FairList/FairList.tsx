@@ -35,7 +35,7 @@ const FairList = ({ fairType, status }: FairListProps) => {
       }
     } else if (
       status.some((status) =>
-        ['APPLICATION_EARLY_CLOSED', 'APPLICATION_ENDED'].includes(status)
+        ['APPLICATION_EARLY_CLOSED', 'APPLICATION_ENDED'].includes(status),
       )
     ) {
       alert('신청이 마감된 입학 설명회입니다.');
@@ -51,7 +51,7 @@ const FairList = ({ fairType, status }: FairListProps) => {
         .map(
           (
             { id, start, place, status, applicationStartDate, applicationEndDate },
-            index
+            index,
           ) => (
             <FairItem
               id={id}
@@ -63,7 +63,7 @@ const FairList = ({ fairType, status }: FairListProps) => {
               applicationStartDate={applicationStartDate}
               onClick={() => handleMoveApplicationPage(id)}
             />
-          )
+          ),
         )}
     </StyledFairList>
   );
