@@ -42,12 +42,12 @@ export const useInput = (subjectIndex: number) => {
       normalizedScore >= 99
         ? 'A'
         : normalizedScore >= 97
-        ? 'B'
-        : normalizedScore >= 93
-        ? 'C'
-        : normalizedScore >= 89
-        ? 'D'
-        : 'E';
+          ? 'B'
+          : normalizedScore >= 93
+            ? 'C'
+            : normalizedScore >= 89
+              ? 'D'
+              : 'E';
 
     setNewGEDSubjectList((prev) => {
       const updatedList = [...prev];

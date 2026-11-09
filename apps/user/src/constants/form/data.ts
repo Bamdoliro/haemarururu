@@ -71,7 +71,7 @@ export const SUBJECT_LIST: Subject[] = ['국어', '사회', '수학', '과학', 
     achievementLevel31: '-',
     achievementLevel32: '-',
     score: null,
-  })
+  }),
 );
 
 export const GED_SUBJECT_LIST: Subject[] = ['국어', '수학', '사회', '과학', '영어'].map(
@@ -83,5 +83,5 @@ export const GED_SUBJECT_LIST: Subject[] = ['국어', '수학', '사회', '과�
     achievementLevel31: '-',
     achievementLevel32: '-',
     score: null,
-  })
+  }),
 );

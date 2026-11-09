@@ -8,7 +8,7 @@ import { useToast } from '@/hooks';
 
 export const useLoginMutation = (
   device: 'COMPUTER' | 'MOBILE',
-  { phoneNumber, password }: PostLoginReq
+  { phoneNumber, password }: PostLoginReq,
 ) => {
   const { toast } = useToast();
 

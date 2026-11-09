@@ -28,14 +28,14 @@ const RESEND_COOLDOWN_MS = 5000;
 
 export const useVerificationCodeAction = (
   changePasswordData: SignUp,
-  onRequestSuccess?: () => void
+  onRequestSuccess?: () => void,
 ) => {
   const [isResendCoolingDown, setIsResendCoolingDown] = useState(false);
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState(false);
   const [isVerificationCodeConfirmed, setIsVerificationCodeConfirmed] = useState(false);
   const { toast } = useToast();
   const { verificationMutate, restMutation: confirmMutation } = useVerificationMutation(
-    setIsVerificationCodeConfirmed
+    setIsVerificationCodeConfirmed,
   );
 
   const { requestVerificationMutate, restMutation } = useRequestUserVerificationMutation({

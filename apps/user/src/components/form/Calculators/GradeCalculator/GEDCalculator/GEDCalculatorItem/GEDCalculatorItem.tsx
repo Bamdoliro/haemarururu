@@ -39,14 +39,14 @@ const GEDCalculatorItem = ({ id, subject, score, isError = [], isLast }: Props) 
           {score === null
             ? '-'
             : score >= 99 && score <= 100
-            ? 'A'
-            : score >= 97 && score < 99
-            ? 'B'
-            : score >= 93 && score < 97
-            ? 'C'
-            : score >= 89 && score < 93
-            ? 'D'
-            : 'E'}
+              ? 'A'
+              : score >= 97 && score < 99
+                ? 'B'
+                : score >= 93 && score < 97
+                  ? 'C'
+                  : score >= 89 && score < 93
+                    ? 'D'
+                    : 'E'}
         </Text>
       </Td>
     </StyledGEDCalculatorItem>

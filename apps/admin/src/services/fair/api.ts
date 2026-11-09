@@ -45,7 +45,7 @@ export const deleteFair = async (fairId: number) => {
 
 export const deleteFairAttendee = async (
   fairId: number,
-  attendeeList: { attendeeId: number }[]
+  attendeeList: { attendeeId: number }[],
 ) => {
   const { data } = await maru.delete(`/fairs/${fairId}/attendees`, {
     data: { attendeeList },

@@ -42,7 +42,7 @@ const FinalFormTable = () => {
               <br />
               {msg}
             </Fragment>
-          )
+          ),
         )}
       </Text>
       <SwitchCase

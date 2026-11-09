@@ -54,10 +54,7 @@ export interface FairDetailData {
 }
 
 export type FairListType =
-  | '모두 보기'
-  | '이름 오름차순'
-  | '학교명 오름차순'
-  | '학년 오름차순';
+  '모두 보기' | '이름 오름차순' | '학교명 오름차순' | '학년 오름차순';
 
 export type FairSort = 'none' | 'name_asc' | 'school_name_asc' | 'grade_asc';
 

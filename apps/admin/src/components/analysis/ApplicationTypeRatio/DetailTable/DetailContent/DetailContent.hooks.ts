@@ -18,7 +18,7 @@ const useApplicantRatios = (formList: ApplicantCountType[] | undefined) => {
     lowerMiddleApplicant: getRatioByType('LOWER_MIDDLE'),
     principalRecommendationApplicant: getRatioByType('PRINCIPAL_RECOMMENDATION'),
     superintendentRecommendationApplicant: getRatioByType(
-      'SUPERINTENDENT_RECOMMENDATION'
+      'SUPERINTENDENT_RECOMMENDATION',
     ),
     multiculturalApplicant: getRatioByType('MULTICULTURAL'),
     fromNorthKoreaApplicant: getRatioByType('FROM_NORTH_KOREA'),

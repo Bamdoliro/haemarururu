@@ -24,7 +24,7 @@ export const useExportExcelAction = (id: number) => {
 
 export const useDeleteFairAttendeeActions = (fairId: number) => {
   const [isDeleteFairAttendeeEditing, setIsDeleteFairAttendeeEditing] = useAtom(
-    isDeleteFairAttendeeEditingAtom
+    isDeleteFairAttendeeEditingAtom,
   );
   const setDeleteFairAttendee = useSetAtom(deleteFairAttendeeAtom);
   const fairAttendeeResult = useAtomValue(deleteFairAttendeeAtom);
@@ -90,7 +90,7 @@ export const useFairPageState = () => {
   };
   const getCriteriaDropdownValue = (
     _key: 'sort',
-    category: Record<string, string>
+    category: Record<string, string>,
   ): string | undefined => {
     const sortValue = fairListSortingType.sort;
     if (!sortValue) return undefined;

@@ -39,7 +39,7 @@ const FinalSubmissionCompleted = () => {
               <br />
               {formatScheduleDate(
                 [schedule.방문_원서_접수, schedule.원서_접수_마감],
-                'RESULT'
+                'RESULT',
               )}
               까지 본교에 방문하여 원서를 제출하실 수 있습니다.
               <br />

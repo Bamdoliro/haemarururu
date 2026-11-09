@@ -22,7 +22,7 @@ const ScheduleList = () => {
       title: '방문 원서 접수',
       date: formatScheduleDate(
         [schedule.방문_원서_접수, schedule.원서_접수_마감],
-        'FORM'
+        'FORM',
       ),
       startTime: schedule.방문_원서_접수,
       endTime: schedule.원서_접수_마감,
@@ -39,7 +39,7 @@ const ScheduleList = () => {
       title: '면접 전형일',
       date: formatScheduleDate(
         [schedule.이차_면접, schedule.이차_면접_종료],
-        'INTERVIEW'
+        'INTERVIEW',
       ),
       startTime: schedule.이차_면접,
       endTime: schedule.이차_면접_종료,
@@ -56,7 +56,7 @@ const ScheduleList = () => {
       title: '입학등록기간',
       date: formatScheduleDate(
         [schedule.입학_등록, schedule.입학_등록_마감],
-        'REGISTRATION'
+        'REGISTRATION',
       ),
       startTime: schedule.입학_등록,
       endTime: schedule.입학_등록_마감,

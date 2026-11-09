@@ -68,7 +68,7 @@ const Dropdown = ({
   };
 
   const selectedItem = (data as (Data | string)[]).find(
-    (item) => (typeof item === 'string' ? item : item.value) === value
+    (item) => (typeof item === 'string' ? item : item.value) === value,
   );
   const selectedLabel =
     selectedItem && typeof selectedItem !== 'string' ? selectedItem.label : value;

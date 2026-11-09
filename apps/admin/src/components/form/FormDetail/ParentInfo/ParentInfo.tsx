@@ -25,7 +25,7 @@ const ParentInfo = ({ id }: ParentInfoProps) => {
       data: formatAccount(
         formDetailData.parent.account,
         formDetailData.parent.owner,
-        formDetailData.parent.bank
+        formDetailData.parent.bank,
       ),
     },
   ];

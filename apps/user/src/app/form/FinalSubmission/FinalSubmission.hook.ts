@@ -26,7 +26,7 @@ export const useCTAButton = (openPdfLoader: () => void, closePdfLoader: () => vo
       mediaType: final.mediaType ?? '',
       fileSize: final.fileSize ?? 0,
     },
-    final.file ?? null
+    final.file ?? null,
   );
 
   const handleSubmitFinalForm = () => {

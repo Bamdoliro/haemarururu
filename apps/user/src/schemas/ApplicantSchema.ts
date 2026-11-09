@@ -19,7 +19,7 @@ export const ApplicantSchema = z.object({
     .regex(/^\d{7}$/, '7자리를 입력해주세요.')
     .refine(
       (value) => ['1', '3'].includes(value.charAt(0)),
-      '주민등록번호를 다시 확인해주세요'
+      '주민등록번호를 다시 확인해주세요',
     ),
   phoneNumber: z
     .string()
@@ -31,7 +31,7 @@ export const ApplicantSchema = z.object({
     .nonempty('증명사진을 업로드해 주세요.')
     .refine(
       (value) => !value.startsWith('data:') && !value.startsWith('blob:'),
-      '증명사진을 다시 업로드해 주세요.'
+      '증명사진을 다시 업로드해 주세요.',
     ),
   email: z
     .string({ message: '이메일을 입력해주세요.' })

@@ -48,7 +48,7 @@ export const useApplicantForm = () => {
       applicant: { ...prev.applicant, profile: url },
     }));
     setErrors((prevErr) =>
-      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr
+      prevErr.profile?.length ? { ...prevErr, profile: [] } : prevErr,
     );
   }, [profileUrl?.downloadUrl, setForm]);
   useEffect(() => {
@@ -76,7 +76,7 @@ export const useApplicantForm = () => {
 
     const name = saved?.name || form.applicant?.name || userData.name || '';
     const phone = digits(
-      saved?.phoneNumber || form.applicant?.phoneNumber || userData.phoneNumber || ''
+      saved?.phoneNumber || form.applicant?.phoneNumber || userData.phoneNumber || '',
     );
 
     if (front || back) {
@@ -108,7 +108,7 @@ export const useApplicantForm = () => {
   const onFieldChange = (arg: OnArg) => {
     const name =
       typeof arg === 'string'
-        ? (document.activeElement as HTMLInputElement | null)?.name ?? ''
+        ? ((document.activeElement as HTMLInputElement | null)?.name ?? '')
         : arg.target.name;
 
     const raw = typeof arg === 'string' ? arg : arg.target.value;
@@ -200,7 +200,7 @@ export const useApplicantForm = () => {
       if (err instanceof z.ZodError) {
         const fieldErrors = err.flatten().fieldErrors;
         const normalizedErrors = Object.fromEntries(
-          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []])
+          Object.entries(fieldErrors).map(([key, value]) => [key, value ?? []]),
         );
         setErrors(normalizedErrors);
       }

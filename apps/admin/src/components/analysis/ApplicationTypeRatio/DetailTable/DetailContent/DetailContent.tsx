@@ -202,7 +202,7 @@ const DetailContent = ({ formList }: DetailTableProps) => {
                 <Td key={i} width="100%" height={56}>
                   {ratio}
                 </Td>
-              )
+              ),
             )}
           </Column>
         </Row>

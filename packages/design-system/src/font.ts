@@ -4,7 +4,7 @@ const fontGenerator = (
   weight: number,
   size: number,
   lineHeight: number,
-  letterSpacing: number
+  letterSpacing: number,
 ) => css`
   font-family: 'Pretendard Variable';
   font-weight: ${weight};

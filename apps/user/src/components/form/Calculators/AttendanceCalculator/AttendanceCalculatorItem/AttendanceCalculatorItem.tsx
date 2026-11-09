@@ -3,6 +3,7 @@ import { CellInput, Row, Td } from '@maru/ui';
 
 interface AttendanceCalculatorItemProps {
   attendanceName: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   grade: any;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isReadOnly: boolean;
@@ -26,8 +27,8 @@ const AttendanceCalculatorItem = ({
       {attendanceName === 'attendance1'
         ? '1학년'
         : attendanceName === 'attendance2'
-        ? '2학년'
-        : '3학년'}
+          ? '2학년'
+          : '3학년'}
     </Td>
     {ATTENDANCE_TYPE.map((countName, colIndex) => (
       <Td

@@ -1,8 +1,5 @@
 export type FaqCategory =
-  | 'SCHOOL_LIFE'
-  | 'SUBMIT_DOCUMENT'
-  | 'ADMISSION_PROCESS'
-  | 'TOP_QUESTION';
+  'SCHOOL_LIFE' | 'SUBMIT_DOCUMENT' | 'ADMISSION_PROCESS' | 'TOP_QUESTION';
 
 export type FaqAllCategory = FaqCategory | 'ALL_FAQS';
 

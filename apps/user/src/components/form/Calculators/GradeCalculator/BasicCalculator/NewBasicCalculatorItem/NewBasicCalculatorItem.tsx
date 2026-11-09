@@ -40,12 +40,12 @@ const NewBasicCalculatorItem = ({
     !subject.subjectName ||
     GED_SUBJECT_LIST.some(
       (listSubject) =>
-        listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
+        listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase(),
     );
 
   const sameSubject = SUBJECT_LIST.some(
     (listSubject) =>
-      listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase()
+      listSubject.subjectName.toLowerCase() === subject.subjectName?.toLowerCase(),
   );
   const getDisplayValue = (value: string) => {
     return value;

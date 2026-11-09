@@ -106,7 +106,7 @@ const ProfileUploader = ({
             0,
             0,
             crop.width,
-            crop.height
+            crop.height,
           );
 
           const TARGET_WIDTH = 117;
@@ -133,7 +133,7 @@ const ProfileUploader = ({
             0,
             0,
             TARGET_WIDTH,
-            TARGET_HEIGHT
+            TARGET_HEIGHT,
           );
 
           const dataUrl = outputCanvas.toDataURL('image/jpeg', 1.0);
@@ -177,7 +177,7 @@ const ProfileUploader = ({
 
       reader.readAsDataURL(file);
     },
-    [isUploading, owner, setProfile, uploadProfileMutate]
+    [isUploading, owner, setProfile, uploadProfileMutate],
   );
 
   const handleOpenFileUploader = useCallback(() => {
@@ -194,7 +194,7 @@ const ProfileUploader = ({
       if (!file) return;
       handleFile(file);
     },
-    [handleFile]
+    [handleFile],
   );
 
   return (

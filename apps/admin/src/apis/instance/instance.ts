@@ -26,7 +26,7 @@ const REFRESH_EXCLUDED_REQUESTS = [
 
 const isRefreshExcluded = (config?: AxiosRequestConfig) =>
   REFRESH_EXCLUDED_REQUESTS.some(
-    ({ url, method }) => config?.url === url && config?.method?.toLowerCase() === method
+    ({ url, method }) => config?.url === url && config?.method?.toLowerCase() === method,
   );
 
 let isRefreshing = false;
@@ -86,5 +86,5 @@ maru.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );

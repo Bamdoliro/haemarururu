@@ -62,7 +62,7 @@ export const useNoticeEditAction = (id: number, noticeData: NoticeInput) => {
 
     putNoticeMutate(
       { ...noticeData, fileNameList },
-      { onSuccess: () => setFileData([]) }
+      { onSuccess: () => setFileData([]) },
     );
   };
 
