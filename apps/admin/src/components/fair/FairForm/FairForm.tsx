@@ -8,10 +8,11 @@ import type { FairType } from '@/types/fair/client';
 import { useFairForm } from '@/components/fair/FairForm/fair.hooks';
 import formatDateInput from '@/utils/functions/formatDateInput';
 import formatTimeInput from '@/utils/functions/formatTimeInput';
-import { useFairFormValueStore } from '@/store';
+import { fairFormAtom } from '@/store';
+import { useAtomValue } from 'jotai';
 
 const FairForm = () => {
-  const fair = useFairFormValueStore();
+  const fair = useAtomValue(fairFormAtom);
 
   const {
     handleChange,

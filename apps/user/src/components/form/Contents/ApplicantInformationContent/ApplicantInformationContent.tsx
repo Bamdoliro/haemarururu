@@ -1,17 +1,17 @@
-import { useFormValueStore, useSetFormStore } from '@/stores';
+import { formAtom, formProfileAtom } from '@/stores';
 import { Column, Input, Row, Text } from '@maru/ui';
 import ProfileUploader from '../../ProfileUploader/ProfileUploader';
 import FormController from '../../FormController/FormController';
 import { useApplicantForm } from './ApplicantInformationContent.hook';
 import { color } from '@maru/design-system';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useFormProfileValueStore } from '@/stores/form/formProfile';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 const ApplicantInformationContent = () => {
   const { onFieldChange, handleNextStep, errors, RRNBack, RRNFront } = useApplicantForm();
-  const form = useFormValueStore();
-  const setForm = useSetFormStore();
-  const profileUrl = useFormProfileValueStore();
+  const form = useAtomValue(formAtom);
+  const setForm = useSetAtom(formAtom);
+  const profileUrl = useAtomValue(formProfileAtom);
 
   const frontRef = useRef<HTMLInputElement>(null);
   const backRef = useRef<HTMLInputElement>(null);

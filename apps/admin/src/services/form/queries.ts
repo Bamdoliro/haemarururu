@@ -9,11 +9,12 @@ import {
 } from './api';
 import { useQuery } from '@tanstack/react-query';
 import type { ExportExcelType } from '@/types/form/client';
-import { useFormListSortingTypeValueStore, useFormListTypeValueStore } from '@/store';
+import { formListSortingTypeAtom, formListTypeAtom } from '@/store';
+import { useAtomValue } from 'jotai';
 
 export const useFormListQuery = ({ enabled = true } = {}) => {
-  const formListType = useFormListTypeValueStore();
-  const formListSortingType = useFormListSortingTypeValueStore();
+  const formListType = useAtomValue(formListTypeAtom);
+  const formListSortingType = useAtomValue(formListSortingTypeAtom);
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_LIST, formListType, formListSortingType],
@@ -69,7 +70,7 @@ export const useFormDetailQuery = (id: number) => {
 };
 
 export const useFormAllListQuery = ({ enabled = true } = {}) => {
-  const formListSortingType = useFormListSortingTypeValueStore();
+  const formListSortingType = useAtomValue(formListSortingTypeAtom);
 
   const { data, ...restQuery } = useQuery({
     queryKey: ['전체 조회', formListSortingType],

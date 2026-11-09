@@ -1,26 +1,27 @@
 import { useSaveFormMutation } from '@/services/form/mutations';
 import {
-  useFormValueStore,
-  useNewSubjectListValueStore,
-  useSetFormGradeStepStore,
-  useSetFormStepStore,
-  useSubjectListValueStore,
-  useNewGEDSubjectListValueStore,
-  useGEDSubjectListValueStore,
+  formAtom,
+  newSubjectListAtom,
+  formGradeStepAtom,
+  formStepAtom,
+  subjectListAtom,
+  newGEDSubjectListAtom,
+  GEDSubjectListAtom,
 } from '@/stores';
 import { useState } from 'react';
 import { useFormStep } from '@/utils';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 export const useCTAButton = () => {
-  const form = useFormValueStore();
-  const subjectList = useSubjectListValueStore();
-  const newSubjectList = useNewSubjectListValueStore();
-  const newGEDSubjectList = useNewGEDSubjectListValueStore();
-  const GEDSubjectList = useGEDSubjectListValueStore();
+  const form = useAtomValue(formAtom);
+  const subjectList = useAtomValue(subjectListAtom);
+  const newSubjectList = useAtomValue(newSubjectListAtom);
+  const newGEDSubjectList = useAtomValue(newGEDSubjectListAtom);
+  const GEDSubjectList = useAtomValue(GEDSubjectListAtom);
   const SUBJECT_OPTIONS = ['도덕', '기술가정', '음악', '체육', '미술'];
   const { run: FormStep } = useFormStep();
-  const setFormStep = useSetFormStepStore();
-  const setFormGradeStep = useSetFormGradeStepStore();
+  const setFormStep = useSetAtom(formStepAtom);
+  const setFormGradeStep = useSetAtom(formGradeStepAtom);
   const { saveFormMutate } = useSaveFormMutation();
 
   const [subjectError, setSubjectError] = useState<boolean[]>([]);

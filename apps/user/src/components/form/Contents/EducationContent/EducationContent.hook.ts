@@ -1,15 +1,16 @@
 import { EducationSchema } from '@/schemas/EducationSchema';
 import { useSaveFormMutation } from '@/services/form/mutations';
-import { useFormStore, useSetFormGradeStepStore, useSetFormStepStore } from '@/stores';
+import { formAtom, formGradeStepAtom, formStepAtom } from '@/stores';
 import { useFormStep } from '@/utils';
 import type { ChangeEventHandler } from 'react';
 import { useState } from 'react';
 import { z } from 'zod';
+import { useAtom, useSetAtom } from 'jotai';
 
 export const useEducationForm = () => {
-  const [form, setForm] = useFormStore();
-  const setFormStep = useSetFormStepStore();
-  const setFormGradeStep = useSetFormGradeStepStore();
+  const [form, setForm] = useAtom(formAtom);
+  const setFormStep = useSetAtom(formStepAtom);
+  const setFormGradeStep = useSetAtom(formGradeStepAtom);
   const { saveFormMutate } = useSaveFormMutation();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { run: FormStep } = useFormStep();

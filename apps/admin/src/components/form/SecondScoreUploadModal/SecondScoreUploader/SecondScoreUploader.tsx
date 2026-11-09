@@ -4,14 +4,15 @@ import { Button, Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { useEffect, useRef, useState, type DragEvent, type ChangeEvent } from 'react';
 import styled from '@emotion/styled';
-import { useSecondScoreFileStore } from '@/store';
+import { secondScoreFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 interface SecondScoreUploaderProps {
   isOpen: boolean;
 }
 
 const SecondScoreUploader = ({ isOpen }: SecondScoreUploaderProps) => {
-  const [uploadedFile, setUploadedFile] = useSecondScoreFileStore();
+  const [uploadedFile, setUploadedFile] = useAtom(secondScoreFileAtom);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 

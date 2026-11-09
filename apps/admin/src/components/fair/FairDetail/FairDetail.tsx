@@ -16,7 +16,8 @@ import {
 } from './fairDetail.hooks';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/common/constant';
-import { useFairListSortingTypeValueStore } from '@/store';
+import { fairListSortingTypeAtom } from '@/store';
+import { useAtomValue } from 'jotai';
 
 interface FairDetailProps {
   id: number;
@@ -24,7 +25,7 @@ interface FairDetailProps {
 
 const FairDetail = ({ id }: FairDetailProps) => {
   const { handleCriteriaChange, getCriteriaDropdownValue } = useFairPageState();
-  const fairListSortingType = useFairListSortingTypeValueStore();
+  const fairListSortingType = useAtomValue(fairListSortingTypeAtom);
 
   const { data: FairDetailData } = useFairDetailQuery(id, fairListSortingType.sort);
 

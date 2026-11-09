@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { clearStaleSession } from '@/apis/instance/session';
 import { useToast } from '@/hooks';
 import { useAuthState } from '@maru/hooks';
-import { useSetStepStore } from '@/stores';
+import { stepAtom } from '@/stores';
+import { useSetAtom } from 'jotai';
 
 export const useLoginMutation = (
   device: string,
@@ -14,7 +15,7 @@ export const useLoginMutation = (
 ) => {
   const router = useRouter();
   const { toast } = useToast();
-  const setStep = useSetStepStore();
+  const setStep = useSetAtom(stepAtom);
   const { setIsLoggedIn } = useAuthState();
 
   const { mutate: loginMutate, ...restMutation } = useMutation({

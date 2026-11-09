@@ -1,13 +1,3 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom } from 'jotai';
 
-const isPaymentResultEditingAtomState = atom<boolean>({
-  key: 'is-payment-result-editing',
-  default: false,
-});
-
-export const useIsPaymentResultEditingStore = () =>
-  useRecoilState(isPaymentResultEditingAtomState);
-export const useIsPaymentResultEditingValueStore = () =>
-  useRecoilValue(isPaymentResultEditingAtomState);
-export const useSetIsPaymentResultEditingStore = () =>
-  useSetRecoilState(isPaymentResultEditingAtomState);
+export const isPaymentResultEditingAtom = atom<boolean>(false);

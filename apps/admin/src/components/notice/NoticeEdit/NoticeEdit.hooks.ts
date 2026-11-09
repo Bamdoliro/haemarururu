@@ -6,7 +6,8 @@ import type { NoticeInput } from '@/types/notice/client';
 import { useState, useEffect } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { useNoticeDetailQuery } from '@/services/notice/queries';
-import { useNoticeFileStore } from '@/store';
+import { noticeFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 export const useNoticeEditData = (id: number) => {
   const { data: noticeDetailData } = useNoticeDetailQuery(id);
@@ -50,7 +51,7 @@ export const useNoticeEditData = (id: number) => {
 export const useNoticeEditAction = (id: number, noticeData: NoticeInput) => {
   const { putNoticeMutate } = usePutNoticeMutation(id);
   const { noticeFileUrlMutate } = useNoticeFileUrlMutation();
-  const [fileData, setFileData] = useNoticeFileStore();
+  const [fileData, setFileData] = useAtom(noticeFileAtom);
 
   const handleNoticeEditButtonClick = async () => {
     const fileNameList = noticeData.fileNameList ?? [];

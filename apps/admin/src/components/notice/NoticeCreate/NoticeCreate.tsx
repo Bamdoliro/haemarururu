@@ -7,11 +7,12 @@ import { useOverlay } from '@toss/use-overlay';
 import styled from '@emotion/styled';
 import NoticeUploadModal from '../NoticeUploadModal/NoticeUploadModal';
 import { useNoticeCreateAction, useNoticeCreateData } from './NoticeCreate.hooks';
-import { useNoticeFileStore } from '@/store';
+import { noticeFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 const NoticeCreate = () => {
   const overlay = useOverlay();
-  const [fileData, setFileData] = useNoticeFileStore();
+  const [fileData, setFileData] = useAtom(noticeFileAtom);
   const { noticeData, setNoticeData, handleNoticeDataChange, handleContentChange } =
     useNoticeCreateData();
 

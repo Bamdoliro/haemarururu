@@ -10,7 +10,8 @@ import {
   useExportExcelAction,
   useUploadSecondScoreFormatAction,
 } from './SecondScoreUploadModal.hooks';
-import { useSecondScoreFileStore } from '@/store';
+import { secondScoreFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 interface SecondScoreUploadModalProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ interface SecondScoreUploadModalProps {
 }
 
 const SecondScoreUploadModal = ({ isOpen, onClose }: SecondScoreUploadModalProps) => {
-  const [uploadedFile, setUploadedFile] = useSecondScoreFileStore();
+  const [uploadedFile, setUploadedFile] = useAtom(secondScoreFileAtom);
 
   const { handleExportSecondScoreFormatButtonClick } = useExportExcelAction();
 

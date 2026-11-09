@@ -102,6 +102,9 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.13.0
+      jotai:
+        specifier: ^2.20.3
+        version: 2.20.3(@babel/template@7.28.6)(@types/react@18.3.1)(react@18.2.0)
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -117,9 +120,6 @@ importers:
       react-markdown:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@18.3.1)(react@18.2.0)
-      recoil:
-        specifier: ^0.7.7
-        version: 0.7.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     devDependencies:
       '@maru/eslint-config':
         specifier: workspace:*
@@ -193,6 +193,9 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.18
+      jotai:
+        specifier: ^2.20.3
+        version: 2.20.3(@babel/template@7.28.6)(@types/react@18.3.1)(react@18.2.0)
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -211,9 +214,6 @@ importers:
       react-markdown:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@18.3.1)(react@18.2.0)
-      recoil:
-        specifier: ^0.7.7
-        version: 0.7.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       smartcrop:
         specifier: ^2.0.5
         version: 2.0.5
@@ -355,15 +355,15 @@ importers:
       '@types/lodash':
         specifier: ^4.14.195
         version: 4.17.20
+      jotai:
+        specifier: ^2.20.3
+        version: 2.20.3(@babel/template@7.28.6)(@types/react@18.3.1)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       react:
         specifier: 18.2.0
         version: 18.2.0
-      recoil:
-        specifier: ^0.7.7
-        version: 0.7.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     devDependencies:
       '@maru/eslint-config':
         specifier: workspace:*
@@ -2104,9 +2104,6 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  hamt_plus@1.0.2:
-    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
-
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
     engines: {node: '>= 0.4'}
@@ -2344,6 +2341,24 @@ packages:
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
+
+  jotai@2.20.3:
+    resolution: {integrity: sha512-N8L9FUbeGDP+0qNJw1FebOxt+5hk+jTOwUA2LlRE4C081jUcY6F1T/FSETp4DT2/INMtiSRZyNm2D+yZdzrSgA==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@babel/core': '>=7.0.0'
+      '@babel/template': '>=7.0.0'
+      '@types/react': 18.3.1
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@types/react':
+        optional: true
+      react:
+        optional: true
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2918,18 +2933,6 @@ packages:
   react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
-
-  recoil@0.7.7:
-    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
 
   reflect.getprototypeof@1.0.10:
     resolution: {integrity: sha512-00o4I+DVrefhv+nX0ulyi3biSHCPDe+yLv5o/p6d/UVlirijB8E16FtfwSAi4g3tcqrQ4lRAqQSoFEZJehYEcw==}
@@ -5740,8 +5743,6 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  hamt_plus@1.0.2: {}
-
   has-bigints@1.1.0: {}
 
   has-flag@3.0.0: {}
@@ -5983,6 +5984,12 @@ snapshots:
       '@pkgjs/parseargs': 0.11.0
 
   jiti@2.6.1: {}
+
+  jotai@2.20.3(@babel/template@7.28.6)(@types/react@18.3.1)(react@18.2.0):
+    optionalDependencies:
+      '@babel/template': 7.28.6
+      '@types/react': 18.3.1
+      react: 18.2.0
 
   js-tokens@4.0.0: {}
 
@@ -6822,13 +6829,6 @@ snapshots:
   react@18.2.0:
     dependencies:
       loose-envify: 1.4.0
-
-  recoil@0.7.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 18.2.0
-    optionalDependencies:
-      react-dom: 18.2.0(react@18.2.0)
 
   reflect.getprototypeof@1.0.10:
     dependencies:

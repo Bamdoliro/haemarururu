@@ -1,6 +1,7 @@
 import { SCORE, SUBJECT_RATIO, SEMESTER_RATIO } from '@/constants/form/constants';
-import { useFormValueStore } from '@/stores';
+import { formAtom } from '@/stores';
 import { getAchivementLevel } from '@/utils';
+import { useAtomValue } from 'jotai';
 
 enum AchievementScore {
   '-' = 0,
@@ -24,7 +25,7 @@ type AttendanceKey =
   | 'classAbsenceCount';
 
 const useGradeCalculation = () => {
-  const form = useFormValueStore();
+  const form = useAtomValue(formAtom);
 
   const getFallbackLevel = (subject: any, key: AchievementLevelKey): string => {
     const fallbackMap: Record<AchievementLevelKey, AchievementLevelKey> = {

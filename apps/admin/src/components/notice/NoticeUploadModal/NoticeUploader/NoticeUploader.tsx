@@ -5,7 +5,8 @@ import { flex } from '@maru/utils';
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, DragEvent } from 'react';
 import styled from '@emotion/styled';
-import { useUploadedNoticeFileStore } from '@/store';
+import { uploadedNoticeFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 interface Props {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface Props {
 const MAX_FILE_SIZE = 2 * 10 * 1024 * 1024;
 
 const NoticeUploader = ({ isOpen }: Props) => {
-  const [uploadedFile, setUploadedFile] = useUploadedNoticeFileStore();
+  const [uploadedFile, setUploadedFile] = useAtom(uploadedNoticeFileAtom);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 

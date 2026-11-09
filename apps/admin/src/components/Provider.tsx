@@ -5,7 +5,7 @@ import { AuthStateProvider, useToast } from '@maru/hooks';
 import { Toast } from '@maru/ui';
 import { OverlayProvider } from '@toss/use-overlay';
 import type { ReactNode } from 'react';
-import { RecoilRoot } from 'recoil';
+import { Provider as JotaiProvider } from 'jotai';
 
 interface Props {
   children: ReactNode;
@@ -43,7 +43,7 @@ const GlobalToast = () => {
 
 const Provider = ({ children, initialLoggedIn }: Props) => {
   return (
-    <RecoilRoot>
+    <JotaiProvider>
       <AuthStateProvider initialLoggedIn={initialLoggedIn}>
         <OverlayProvider>
           <GlobalStyle />
@@ -51,7 +51,7 @@ const Provider = ({ children, initialLoggedIn }: Props) => {
         </OverlayProvider>
         <GlobalToast />
       </AuthStateProvider>
-    </RecoilRoot>
+    </JotaiProvider>
   );
 };
 

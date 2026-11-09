@@ -2,16 +2,17 @@ import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import BasicCalculatorHeader from './BasicCalculatorHeader/BasicCalculatorHeader';
 import BasicCalculatorItem from './BasicCalculatorItem/BasicCalculatorItem';
-import { useSetFormStore, useSubjectListValueStore } from '@/stores';
+import { formAtom, subjectListAtom } from '@/stores';
 import { useEffect } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 interface BasicCalculatorProps {
   subjectError?: boolean[];
 }
 
 const BasicCalculator = ({ subjectError }: BasicCalculatorProps) => {
-  const subjectList = useSubjectListValueStore();
-  const setForm = useSetFormStore();
+  const subjectList = useAtomValue(subjectListAtom);
+  const setForm = useSetAtom(formAtom);
 
   useEffect(() => {
     const studentSubjectList = [...subjectList].map(({ ...rest }) => rest);

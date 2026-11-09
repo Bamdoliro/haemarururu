@@ -1,9 +1,10 @@
 import { useUserQuery } from '@/services/user/queries';
-import { useUserStore } from '@/stores';
+import { userAtom } from '@/stores';
 import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 
 const useUser = () => {
-  const [user, setUser] = useUserStore();
+  const [user, setUser] = useAtom(userAtom);
   const { data: userData } = useUserQuery();
 
   useEffect(() => {

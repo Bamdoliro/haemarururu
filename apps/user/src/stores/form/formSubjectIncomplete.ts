@@ -1,12 +1,4 @@
 import type { Incomplete } from '@/types/form/client';
-import { useRecoilState, atom, useSetRecoilState, useRecoilValue } from 'recoil';
+import { atom } from 'jotai';
 
-const formSubjectIncomplete = atom<Incomplete>({
-  key: 'form-Subject-Incomplete',
-  default: {},
-});
-
-export const useFormSubjectIncompleteStore = () => useRecoilState(formSubjectIncomplete);
-export const useSetmSubjectIncompleteStore = () =>
-  useSetRecoilState(formSubjectIncomplete);
-export const useSubjectIncompleteValueStore = () => useRecoilValue(formSubjectIncomplete);
+export const formSubjectIncompleteAtom = atom<Incomplete>({});

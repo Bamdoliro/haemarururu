@@ -1,9 +1,10 @@
-import { useNewSubjectListStore } from '@/stores';
+import { newSubjectListAtom } from '@/stores';
 import type { Subject } from '@/types/form/client';
 import { useRef } from 'react';
+import { useAtom } from 'jotai';
 
 export const useAddNewSubject = () => {
-  const [newSubjectList, setNewSubjectList] = useNewSubjectListStore();
+  const [newSubjectList, setNewSubjectList] = useAtom(newSubjectListAtom);
 
   const newSubjectIdRef = useRef(newSubjectList.length);
   const handleAddNewSubject = () => {

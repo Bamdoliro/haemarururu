@@ -3,11 +3,12 @@ import {
   useSignUpMutation,
   useVerificationMutation,
 } from '@/services/user/mutations';
-import { useSignUpStore } from '@/stores';
+import { signUpAtom } from '@/stores';
 import type { SignUp } from '@/types/user/client';
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEventHandler } from 'react';
 import { useToast } from '@/hooks';
+import { useAtom } from 'jotai';
 
 export const useSignUpAction = (signUpData: SignUp, termsAgree: boolean) => {
   const { signUpMutate } = useSignUpMutation(signUpData);
@@ -42,7 +43,7 @@ export const useVerificationCodeAction = (
     type: 'SIGNUP',
   });
   const isRequestPending = restMutation.isPending;
-  const [signUp] = useSignUpStore();
+  const [signUp] = useAtom(signUpAtom);
   const { verificationMutate, restMutation: confirmMutation } = useVerificationMutation(
     setIsVerificationCodeConfirmed
   );
@@ -103,7 +104,7 @@ export const useVerificationCodeAction = (
 };
 
 export const useInput = () => {
-  const [signUp, setSignUp] = useSignUpStore();
+  const [signUp, setSignUp] = useAtom(signUpAtom);
   const { toast } = useToast();
 
   const handleSignUpChange: ChangeEventHandler<HTMLInputElement> = (e) => {

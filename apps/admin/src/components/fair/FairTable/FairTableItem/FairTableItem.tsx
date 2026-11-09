@@ -3,10 +3,8 @@ import { formatPhoneNumber } from '@/utils';
 import { Row, Text, TextButton, CheckBox } from '@maru/ui';
 import FairQuestionModal from '../FairQuestionModal/FairQuestionModal';
 import { useOverlay } from '@toss/use-overlay';
-import {
-  useDeleteFairAttendeeStore,
-  useIsDeleteFairAttendeeEditingValueStore,
-} from '@/store';
+import { deleteFairAttendeeAtom, isDeleteFairAttendeeEditingAtom } from '@/store';
+import { useAtom, useAtomValue } from 'jotai';
 
 interface FairTableItemProps {
   schoolName: string;
@@ -30,8 +28,8 @@ const FairTableItem = ({
   question,
 }: FairTableItemProps) => {
   const overlay = useOverlay();
-  const isDeleteFairAttendeeEditing = useIsDeleteFairAttendeeEditingValueStore();
-  const [deleteFairAttendee, setDeleteFairAttendee] = useDeleteFairAttendeeStore();
+  const isDeleteFairAttendeeEditing = useAtomValue(isDeleteFairAttendeeEditingAtom);
+  const [deleteFairAttendee, setDeleteFairAttendee] = useAtom(deleteFairAttendeeAtom);
 
   const handleFairQuestionModalButtonClick = () => {
     overlay.open(({ isOpen, close }) => (

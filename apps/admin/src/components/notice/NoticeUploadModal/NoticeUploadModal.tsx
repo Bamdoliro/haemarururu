@@ -6,7 +6,8 @@ import styled from '@emotion/styled';
 import NoticeUploader from './NoticeUploader/NoticeUploader';
 import { useEffect } from 'react';
 import type { ChangeEventHandler } from 'react';
-import { useNoticeFileStore, useUploadedNoticeFileStore } from '@/store';
+import { noticeFileAtom, uploadedNoticeFileAtom } from '@/store';
+import { useAtom } from 'jotai';
 
 interface NoticeUploadModalProps {
   isOpen: boolean;
@@ -15,8 +16,8 @@ interface NoticeUploadModalProps {
 }
 
 const NoticeUploadModal = ({ isOpen, onClose, onFileAttach }: NoticeUploadModalProps) => {
-  const [fileData, setFileData] = useNoticeFileStore();
-  const [uploadedFile, setUploadedFile] = useUploadedNoticeFileStore();
+  const [fileData, setFileData] = useAtom(noticeFileAtom);
+  const [uploadedFile, setUploadedFile] = useAtom(uploadedNoticeFileAtom);
 
   useEffect(() => {
     if (isOpen) {

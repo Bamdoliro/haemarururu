@@ -1,7 +1,7 @@
 import { useToast, useUser } from '@/hooks';
 import { useLoginMutation } from '@/services/auth/mutations';
 import { useDownloadAdmissionTicketQuery } from '@/services/result/queries';
-import { useSetStepStore } from '@/stores';
+import { stepAtom } from '@/stores';
 import type { PostLoginReq } from '@/types/auth/remote';
 import dayjs from 'dayjs';
 import type { ChangeEventHandler } from 'react';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 import isBetween from 'dayjs/plugin/isBetween';
 import { useSchedule } from '@/services/schedule/queries';
 import type { Step } from '@/types/mobile/client';
+import { useSetAtom } from 'jotai';
 
 dayjs.extend(isBetween);
 
@@ -18,7 +19,7 @@ export const useMobile = (step: Step) => {
     phoneNumber: '',
     password: '',
   });
-  const setStep = useSetStepStore();
+  const setStep = useSetAtom(stepAtom);
   const { data: admissionTicketData } = useDownloadAdmissionTicketQuery();
   const { userData } = useUser();
   const { loginMutate } = useLoginMutation('MOBILE', login);

@@ -1,8 +1,9 @@
-import { useFormValueStore } from '@/stores';
+import { formAtom } from '@/stores';
 import { useState } from 'react';
+import { useAtomValue } from 'jotai';
 
 export const useNavigationClick = () => {
-  const form = useFormValueStore();
+  const form = useAtomValue(formAtom);
   const [currentStep, setCurrentStep] = useState('성적 입력');
 
   const handleMoveStep = (step: string) => {

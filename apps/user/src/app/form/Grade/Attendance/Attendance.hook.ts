@@ -1,10 +1,11 @@
 import { useSaveFormMutation } from '@/services/form/mutations';
-import { useFormValueStore, useSetFormGradeStepStore } from '@/stores';
+import { formAtom, formGradeStepAtom } from '@/stores';
 import { useFormStep } from '@/utils';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 export const useCTAButton = () => {
-  const form = useFormValueStore();
-  const setFormGradeStep = useSetFormGradeStepStore();
+  const form = useAtomValue(formAtom);
+  const setFormGradeStep = useSetAtom(formGradeStepAtom);
   const { saveFormMutate } = useSaveFormMutation();
   const { run: FormStep } = useFormStep();
 

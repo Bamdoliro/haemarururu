@@ -1,21 +1,21 @@
 import { useUser } from '@/hooks';
 import { ApplicantSchema } from '@/schemas/ApplicantSchema';
 import { useSaveFormQuery } from '@/services/form/queries';
-import { useFormValueStore, useSetFormStore } from '@/stores';
+import { formAtom, formProfileAtom } from '@/stores';
 import { useFormStep, formatBirthday } from '@/utils';
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { z } from 'zod';
-import { useFormProfileValueStore } from '@/stores/form/formProfile';
 import { useIsMutating } from '@tanstack/react-query';
 import { UPLOAD_PROFILE_MUTATION_KEY } from '@/services/form/mutations';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 const digits = (v: string) => v.replace(/\D/g, '');
 
 export const useApplicantForm = () => {
-  const form = useFormValueStore();
-  const setForm = useSetFormStore();
-  const profileUrl = useFormProfileValueStore();
+  const form = useAtomValue(formAtom);
+  const setForm = useSetAtom(formAtom);
+  const profileUrl = useAtomValue(formProfileAtom);
   const isUploadingProfile =
     useIsMutating({ mutationKey: UPLOAD_PROFILE_MUTATION_KEY }) > 0;
   const { userData } = useUser();

@@ -1,13 +1,3 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom } from 'jotai';
 
-const isDeleteFairAttendeeEditingAtomState = atom<boolean>({
-  key: 'is-delete-fair-attendee-editing',
-  default: false,
-});
-
-export const useIsDeleteFairAttendeeEditingStore = () =>
-  useRecoilState(isDeleteFairAttendeeEditingAtomState);
-export const useIsDeleteFairAttendeeEditingValueStore = () =>
-  useRecoilValue(isDeleteFairAttendeeEditingAtomState);
-export const useSetIsDeleteFairAttendeeEditingStore = () =>
-  useSetRecoilState(isDeleteFairAttendeeEditingAtomState);
+export const isDeleteFairAttendeeEditingAtom = atom<boolean>(false);

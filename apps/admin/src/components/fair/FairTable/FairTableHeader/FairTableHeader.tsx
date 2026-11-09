@@ -1,18 +1,16 @@
 import TableHeader from '@/components/common/TableHeader/TableHeader';
 import { CheckBox, Row, Text } from '@maru/ui';
 import { useMemo } from 'react';
-import {
-  useDeleteFairAttendeeStore,
-  useIsDeleteFairAttendeeEditingValueStore,
-} from '@/store';
+import { deleteFairAttendeeAtom, isDeleteFairAttendeeEditingAtom } from '@/store';
+import { useAtom, useAtomValue } from 'jotai';
 
 interface FairTableHeaderProps {
   attendeeId: number[];
 }
 
 const FairTableHeader = ({ attendeeId }: FairTableHeaderProps) => {
-  const isDeleteFairAttendeeEditing = useIsDeleteFairAttendeeEditingValueStore();
-  const [deleteFairAttendee, setDeleteFairAttendee] = useDeleteFairAttendeeStore();
+  const isDeleteFairAttendeeEditing = useAtomValue(isDeleteFairAttendeeEditingAtom);
+  const [deleteFairAttendee, setDeleteFairAttendee] = useAtom(deleteFairAttendeeAtom);
 
   const selectedCount = useMemo(
     () => attendeeId.filter((id) => deleteFairAttendee[id]).length,
