@@ -17,8 +17,4 @@ export interface TableProps {
 }
 
 export type TableStyleType =
-  | 'PRIMARY'
-  | 'SECONDARY'
-  | 'FORM'
-  | 'ANALYSIS'
-  | 'ANALYSIS_SECONDARY';
+  'PRIMARY' | 'SECONDARY' | 'FORM' | 'ANALYSIS' | 'ANALYSIS_SECONDARY';

@@ -16,7 +16,7 @@ const GEDCalculator = ({ subjectError }: GEDCalculatorProps) => {
 
   useEffect(() => {
     const studentSubjectList = [...GEDSubjectList, ...newGEDSubjectList].map(
-      ({ ...rest }) => rest
+      ({ ...rest }) => rest,
     );
     setForm((prev) => ({
       ...prev,

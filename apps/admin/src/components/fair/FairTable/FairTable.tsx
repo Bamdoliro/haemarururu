@@ -26,7 +26,7 @@ const FairTable = ({ dataList }: FairTableProps) => {
             headcount={headcount}
             question={question}
           />
-        )
+        ),
       )}
     </Column>
   );

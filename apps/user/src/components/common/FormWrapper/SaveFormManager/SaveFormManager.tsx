@@ -34,7 +34,7 @@ const SaveFormManager = () => {
       const updateSubjects: [
         Dispatch<SetStateAction<Subject[]>>,
         Dispatch<SetStateAction<Subject[]>>,
-        number
+        number,
       ] =
         graduationType === 'QUALIFICATION_EXAMINATION'
           ? [setGEDSubjectList, setNewGEDSubjectList, 5]

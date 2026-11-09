@@ -5,11 +5,11 @@ import { useAtomValue } from 'jotai';
 
 enum AchievementScore {
   '-' = 0,
-  'A' = 40,
-  'B' = 32,
-  'C' = 24,
-  'D' = 16,
-  'E' = 8,
+  A = 40,
+  B = 32,
+  C = 24,
+  D = 16,
+  E = 8,
 }
 
 type AchievementLevelKey =
@@ -19,14 +19,12 @@ type AchievementLevelKey =
   | 'achievementLevel32';
 
 type AttendanceKey =
-  | 'absenceCount'
-  | 'latenessCount'
-  | 'earlyLeaveCount'
-  | 'classAbsenceCount';
+  'absenceCount' | 'latenessCount' | 'earlyLeaveCount' | 'classAbsenceCount';
 
 const useGradeCalculation = () => {
   const form = useAtomValue(formAtom);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getFallbackLevel = (subject: any, key: AchievementLevelKey): string => {
     const fallbackMap: Record<AchievementLevelKey, AchievementLevelKey> = {
       achievementLevel21: 'achievementLevel31',
@@ -144,11 +142,11 @@ const useGradeCalculation = () => {
 
   const regularTotalScore = Math.min(
     Number((regularScore + attendanceScore).toFixed(3)),
-    SCORE.MAX_SCORE
+    SCORE.MAX_SCORE,
   );
   const specialTotalScore = Math.min(
     Number((specialScore + attendanceScore).toFixed(3)),
-    SCORE.MAX_SCORE
+    SCORE.MAX_SCORE,
   );
 
   return {

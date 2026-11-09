@@ -45,7 +45,7 @@ export const useEditFairForm = (fairId: number) => {
 
   const handleChange = <K extends keyof FairFormInput>(
     key: K,
-    value: FairFormInput[K]
+    value: FairFormInput[K],
   ) => {
     setEditFair((prev) => ({
       ...prev,
@@ -60,7 +60,7 @@ export const useEditFairForm = (fairId: number) => {
       const numericValue = value.replace(/\D/g, '');
       handleChange(
         name as keyof FairFormInput,
-        numericValue as FairFormInput[keyof FairFormInput]
+        numericValue as FairFormInput[keyof FairFormInput],
       );
       return;
     }

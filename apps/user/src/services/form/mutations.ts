@@ -1,5 +1,5 @@
 import { useApiError } from '@/hooks';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   getUploadProfile,
   patchSubmitFinalForm,
@@ -12,16 +12,21 @@ import {
   putUploadForm,
 } from './api';
 import type { Form } from '@/types/form/client';
+import { KEY } from '@/constants/common/constants';
 import { formStepAtom, formProfileAtom } from '@/stores';
-import type { FileDocument } from '@/types/form/remote';
+import type { FileDocument, GetSaveFormRes } from '@/types/form/remote';
 import { useToast } from '@maru/hooks';
 import { useSetAtom } from 'jotai';
 
 export const useSaveFormMutation = () => {
   const { handleError } = useApiError();
+  const queryClient = useQueryClient();
 
   const { mutate: saveFormMutate, ...restMutation } = useMutation({
     mutationFn: (form: Form) => postSaveForm(form),
+    onSuccess: (_, form) => {
+      queryClient.setQueryData<GetSaveFormRes>([KEY.SAVE_FORM], { data: form });
+    },
     onError: handleError,
   });
 
@@ -31,9 +36,14 @@ export const useSaveFormMutation = () => {
 export const useSubmitDraftFormMutation = (formData: Form) => {
   const { handleError } = useApiError();
   const setFormStep = useSetAtom(formStepAtom);
+  const queryClient = useQueryClient();
   const { mutate: submitDraftFormMutate, ...restMutation } = useMutation({
     mutationFn: () => postSubmitDraftFrom(formData),
-    onSuccess: () => setFormStep('초안제출완료'),
+    onSuccess: () => {
+      setFormStep('초안제출완료');
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_STATUS] });
+      queryClient.invalidateQueries({ queryKey: [KEY.SAVE_FORM] });
+    },
     onError: handleError,
   });
 
@@ -43,10 +53,14 @@ export const useSubmitDraftFormMutation = (formData: Form) => {
 export const useSubmitFinalFormMutation = () => {
   const setFormStep = useSetAtom(formStepAtom);
   const { handleError } = useApiError();
+  const queryClient = useQueryClient();
 
   const { mutate: submitFinalFormMutate, ...restMutation } = useMutation({
     mutationFn: () => patchSubmitFinalForm(),
-    onSuccess: () => setFormStep('최종제출완료'),
+    onSuccess: () => {
+      setFormStep('최종제출완료');
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_STATUS] });
+    },
     onError: handleError,
   });
 
@@ -56,10 +70,15 @@ export const useSubmitFinalFormMutation = () => {
 export const useCorrectionFormMutation = () => {
   const { handleError } = useApiError();
   const setFormStep = useSetAtom(formStepAtom);
+  const queryClient = useQueryClient();
 
   const { mutate: correctionFormMutate, ...restMutation } = useMutation({
     mutationFn: (formData: Form) => putFormCorrection(formData),
-    onSuccess: () => setFormStep('초안제출완료'),
+    onSuccess: () => {
+      setFormStep('초안제출완료');
+      queryClient.invalidateQueries({ queryKey: [KEY.FORM_STATUS] });
+      queryClient.invalidateQueries({ queryKey: [KEY.SAVE_FORM] });
+    },
     onError: handleError,
   });
 
@@ -103,12 +122,12 @@ export const useGetRefreshProfileMutation = () => {
   return { getRefreshProfileMutate, ...restMutation };
 };
 
-export const useRefreshProfileMutation = (fileData: FileDocument) => {
+export const useRefreshProfileMutation = () => {
   const setFormProfile = useSetAtom(formProfileAtom);
   const { getRefreshProfileMutate } = useGetRefreshProfileMutation();
 
   const { mutate: refreshProfileMutate, ...restMutation } = useMutation({
-    mutationFn: () => postUploadProfileImage(fileData),
+    mutationFn: (fileData: FileDocument) => postUploadProfileImage(fileData),
     onSuccess: (res) => {
       const { uploadUrl, downloadUrl } = res.data;
       setFormProfile({

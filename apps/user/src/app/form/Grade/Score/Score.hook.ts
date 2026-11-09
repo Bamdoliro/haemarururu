@@ -39,7 +39,7 @@ export const useCTAButton = () => {
           !subject.subjectName ||
           subject.subjectName === '-' ||
           subject.subjectName === '' ||
-          !SUBJECT_OPTIONS.includes(subject.subjectName)
+          !SUBJECT_OPTIONS.includes(subject.subjectName),
       );
 
       setSubjectError(GEDErrors);
@@ -62,7 +62,7 @@ export const useCTAButton = () => {
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
         subject.achievementLevel31 === '-' ||
-        subject.achievementLevel32 === '-'
+        subject.achievementLevel32 === '-',
     );
 
     const newSubjectErrors = newSubjectList.map(
@@ -73,7 +73,7 @@ export const useCTAButton = () => {
         subject.achievementLevel21 === '-' ||
         subject.achievementLevel22 === '-' ||
         subject.achievementLevel31 === '-' ||
-        subject.achievementLevel32 === '-'
+        subject.achievementLevel32 === '-',
     );
 
     setSubjectError(subjectErrors);

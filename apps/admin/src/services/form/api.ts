@@ -17,7 +17,7 @@ import type {
 
 export const getFormList = async (
   formListType: FormListType,
-  formListSortingType?: FormListSortingType
+  formListSortingType?: FormListSortingType,
 ) => {
   let url = '/forms';
 
@@ -53,7 +53,7 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
     `/forms/xlsx/${EXPORT_EXCEL_TYPE_VALUE[exportExcelType]}`,
     {
       responseType: 'blob',
-    }
+    },
   );
 
   return data;
@@ -61,7 +61,7 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
 
 export const getFormUrl = async (formIdList: number[]) => {
   const { data } = await maru.get<GetFormURLRes>(
-    `/forms/form-url?id-list=${formIdList.join('%2C')}`
+    `/forms/form-url?id-list=${formIdList.join('%2C')}`,
   );
 
   return data;
@@ -110,7 +110,7 @@ export const patchSecondScoreFormat = async (formData: FormData) => {
 };
 
 export const patchSecondRoundResult = async (
-  secondRoundResultData: PatchSecondRoundResultReq
+  secondRoundResultData: PatchSecondRoundResultReq,
 ) => {
   const { data } = await maru.patch('/forms/second-round/result', secondRoundResultData);
 
@@ -125,7 +125,7 @@ export const patchSecondRoundResultAuto = async () => {
 
 export const patchReceiveStatus = async (
   formId: number,
-  receiveStatus: ReceiveStatusValue
+  receiveStatus: ReceiveStatusValue,
 ) => {
   const { data } = await maru.patch(`/forms/${formId}/${receiveStatus}`, {});
   return data;
@@ -134,14 +134,14 @@ export const patchReceiveStatus = async (
 export const patchPaymentResult = async (paymentResultData: PatchPaymentResultReq) => {
   const { data } = await maru.patch(
     '/forms/admission-fees/payment-status',
-    paymentResultData
+    paymentResultData,
   );
 
   return data;
 };
 
 export const patchInterviewNumber = async (
-  interviewNumberData: PatchInterviewNumberReq
+  interviewNumberData: PatchInterviewNumberReq,
 ) => {
   const { data } = await maru.patch('/forms/interview-number', interviewNumberData);
   return data;

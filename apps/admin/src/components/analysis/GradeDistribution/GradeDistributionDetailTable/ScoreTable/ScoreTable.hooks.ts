@@ -5,7 +5,7 @@ type RoundPrefix = 'firstRound' | 'total';
 
 const useScoreStatus = (
   formList: GradeDistributionType[] | undefined,
-  roundType: AnalysisRoundType
+  roundType: AnalysisRoundType,
 ) => {
   const isValid = (v: number | null | undefined): v is number =>
     typeof v === 'number' && !Number.isNaN(v) && v !== 0;
@@ -21,7 +21,7 @@ const useScoreStatus = (
   const extractValues = (
     items: GradeDistributionType[],
     field: keyof GradeDistributionType,
-    avgField?: keyof GradeDistributionType
+    avgField?: keyof GradeDistributionType,
   ): number[] => {
     return items
       .filter((item) => !avgField || isValid(item[avgField] as number))
@@ -41,7 +41,7 @@ const useScoreStatus = (
   const calculateStat = (
     filter: (item: GradeDistributionType) => boolean,
     stat: StatField,
-    aggregator: (values: number[]) => number
+    aggregator: (values: number[]) => number,
   ): string => {
     if (!formList) return '0.000';
 

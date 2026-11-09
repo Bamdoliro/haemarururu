@@ -83,7 +83,7 @@ const ApplicantInformationContent = () => {
         applicant: { ...prev.applicant, profile: url },
       }));
     },
-    [setForm]
+    [setForm],
   );
 
   return (

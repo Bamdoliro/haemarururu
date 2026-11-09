@@ -2,20 +2,20 @@ import type { AnalysisRoundType, GradeDistributionType } from '@/types/analysis/
 
 const useMaxMin = (
   formList: GradeDistributionType[] | undefined,
-  roundType: AnalysisRoundType | null
+  roundType: AnalysisRoundType | null,
 ) => {
   const getValidValues = (values: (number | null)[]) =>
     values.filter((value) => value !== null && value !== 0) as number[];
 
   const firstRoundMaxValues = getValidValues(
-    formList?.map((item) => item.firstRoundMax) ?? []
+    formList?.map((item) => item.firstRoundMax) ?? [],
   );
   const firstRoundMax =
     firstRoundMaxValues.length > 0
       ? Math.max(...firstRoundMaxValues).toFixed(3)
       : '0.000';
   const firstRoundMinValues = getValidValues(
-    formList?.map((item) => item.firstRoundMin) ?? []
+    formList?.map((item) => item.firstRoundMin) ?? [],
   );
   const firstRoundMin =
     firstRoundMinValues.length > 0
@@ -23,7 +23,7 @@ const useMaxMin = (
       : '0.000';
 
   const secondRoundMaxValues = getValidValues(
-    formList?.map((item) => item.totalMax) ?? []
+    formList?.map((item) => item.totalMax) ?? [],
   );
   const secondRoundMax =
     secondRoundMaxValues.length > 0
@@ -31,7 +31,7 @@ const useMaxMin = (
       : '0.000';
 
   const secondRoundMinValues = getValidValues(
-    formList?.map((item) => item.totalMin) ?? []
+    formList?.map((item) => item.totalMin) ?? [],
   );
   const secondRoundMin =
     secondRoundMinValues.length > 0

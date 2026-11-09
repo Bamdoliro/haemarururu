@@ -10,7 +10,7 @@ export const useFairForm = () => {
   const [form, setForm] = useAtom(fairFormAtom);
   const handleChange = <K extends keyof FairFormInput>(
     key: K,
-    value: FairFormInput[K]
+    value: FairFormInput[K],
   ) => {
     setForm((prev) => ({
       ...prev,
@@ -25,7 +25,7 @@ export const useFairForm = () => {
       const numericValue = value.replace(/\D/g, '');
       handleChange(
         name as keyof FairFormInput,
-        numericValue as FairFormInput[keyof FairFormInput]
+        numericValue as FairFormInput[keyof FairFormInput],
       );
       return;
     }

@@ -26,7 +26,7 @@ export const AuthStateProvider = ({
       isLoggedIn,
       setIsLoggedIn,
     }),
-    [isLoggedIn, setIsLoggedIn]
+    [isLoggedIn, setIsLoggedIn],
   );
 
   return <AuthStateContext.Provider value={value}>{children}</AuthStateContext.Provider>;

@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       isError = false,
       ...rest
     },
-    ref
+    ref,
   ) => {
     return (
       <div style={{ width, height }}>
@@ -64,7 +64,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         />
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';
