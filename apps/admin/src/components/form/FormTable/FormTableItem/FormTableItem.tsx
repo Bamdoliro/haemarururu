@@ -3,7 +3,7 @@ import { ROUTES } from '@/constants/common/constant';
 import { FORM_TYPE_CATEGORY } from '@/constants/form/constant';
 import type { Form, PassStatusType, PaymentStatusType } from '@/types/form/client';
 import { convertToResponsive, maskName } from '@/utils';
-import { color } from '@maru/design-system';
+import { color, font } from '@maru/design-system';
 import { CellInput, CheckBox, Dropdown, Row, Text } from '@maru/ui';
 import { useRouter } from 'next/navigation';
 import type { ChangeEventHandler } from 'react';
@@ -202,13 +202,19 @@ const FormTableItem = ({
               {interviewNumber ?? '-'}
             </Text>
           )}
-          <Text
-            fontType="p2"
-            width={convertToResponsive(40, 60)}
-            color={typeof totalScore !== 'number' ? color.gray600 : color.black}
-          >
-            {typeof totalScore !== 'number' ? '미정' : Number(totalScore.toFixed(3))}
-          </Text>
+          {typeof totalScore !== 'number' ? (
+            <Text fontType="p2" width={convertToResponsive(40, 60)} color={color.gray600}>
+              미정
+            </Text>
+          ) : (
+            <Text fontType="p2" width={convertToResponsive(40, 60)} color={color.black}>
+              {isHovered ? (
+                Number(totalScore.toFixed(3))
+              ) : (
+                <MaskedScore aria-label="점수 숨김">•••</MaskedScore>
+              )}
+            </Text>
+          )}
         </Row>
         <Row>
           {isSecondRoundResultEditing ? (
@@ -239,4 +245,10 @@ export default FormTableItem;
 
 const DirectButton = styled.button`
   text-align: start;
+`;
+
+const MaskedScore = styled.span`
+  ${font.p2}
+  color: ${color.gray500};
+  letter-spacing: 1px;
 `;
