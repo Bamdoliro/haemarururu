@@ -83,6 +83,8 @@ const FormPage = () => {
     setIsFormToPrintSelectingTrue,
     setIsFormToPrintSelectingFalse,
     handlePrintFormUrlButtonClick,
+    handleMergeFormPdfButtonClick,
+    isMergeFormPdfPending,
   } = usePrintFormURLActions();
   const { handleExportAllAdmissionTicketButtonClick } =
     useExportAllAdmissionTicketAction();
@@ -220,6 +222,13 @@ const FormPage = () => {
                   </Button>
                   <Button size="SMALL" onClick={handlePrintFormUrlButtonClick}>
                     출력하기
+                  </Button>
+                  <Button
+                    size="SMALL"
+                    onClick={handleMergeFormPdfButtonClick}
+                    disabled={isMergeFormPdfPending}
+                  >
+                    PDF 병합하기
                   </Button>
                 </Row>
               ) : isInterviewNumberResultEditing ? (
