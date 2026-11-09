@@ -3,10 +3,11 @@ import type { NextRequest } from 'next/server';
 import { jwtDecode } from 'jwt-decode';
 
 const REFRESH_TOKEN_COOKIE = 'refreshToken';
+const AUTH_COOKIES = ['accessToken', REFRESH_TOKEN_COOKIE];
 
 const redirectToMain = (request: NextRequest, clearCookie = false) => {
   const response = NextResponse.redirect(new URL('/', request.url));
-  if (clearCookie) response.cookies.delete(REFRESH_TOKEN_COOKIE);
+  if (clearCookie) AUTH_COOKIES.forEach((name) => response.cookies.delete(name));
   return response;
 };
 

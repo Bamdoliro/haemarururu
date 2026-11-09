@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { ROUTES } from '@/constants/common/constant';
+import { clearStaleSession } from './session';
 
 export const maru = axios.create({
   baseURL: '/api',
@@ -76,6 +77,7 @@ maru.interceptors.response.use(
         return maru(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError);
+        await clearStaleSession();
         window.location.href = ROUTES.MAIN;
         return Promise.reject(refreshError);
       } finally {
