@@ -1,13 +1,3 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom } from 'jotai';
 
-const deleteFairAttendeeAtomState = atom<Record<number, boolean>>({
-  key: 'delete-fair-attendee',
-  default: {},
-});
-
-export const useDeleteFairAttendeeStore = () =>
-  useRecoilState(deleteFairAttendeeAtomState);
-export const useDeleteFairAttendeeValueStore = () =>
-  useRecoilValue(deleteFairAttendeeAtomState);
-export const useSetDeleteFairAttendeeStore = () =>
-  useSetRecoilState(deleteFairAttendeeAtomState);
+export const deleteFairAttendeeAtom = atom<Record<number, boolean>>({});

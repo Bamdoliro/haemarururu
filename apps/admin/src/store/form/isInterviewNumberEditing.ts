@@ -1,13 +1,3 @@
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom } from 'jotai';
 
-const isInterviewNumberEditingAtomState = atom<boolean>({
-  key: 'is-interview-number-editing',
-  default: false,
-});
-
-export const useIsInterviewNumberEditingStore = () =>
-  useRecoilState(isInterviewNumberEditingAtomState);
-export const useIsInterviewNumberEditingValueStore = () =>
-  useRecoilValue(isInterviewNumberEditingAtomState);
-export const useSetIsInterviewNumberEditingStore = () =>
-  useSetRecoilState(isInterviewNumberEditingAtomState);
+export const isInterviewNumberEditingAtom = atom<boolean>(false);
