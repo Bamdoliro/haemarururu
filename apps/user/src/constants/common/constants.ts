@@ -23,10 +23,7 @@ export const ROUTES = {
   SCHOOL: 'https://school.busanedu.net/haeundae-h',
 };
 
-export const TOKEN = {
-  ACCESS: 'access-token',
-  REFRESH: 'refresh-token',
-} as const;
+export const AUTH_COOKIES = ['accessToken', 'refreshToken'] as const;
 
 export const KEY = {
   NOTICE_LIST: 'useNoticeList',
@@ -45,6 +42,18 @@ export const KEY = {
   FAIR_DATA: 'useFairData',
   SCHEDULE: 'useSchedule',
 };
+
+// 세션 만료 시 제거할 사용자 데이터 쿼리. 일정처럼 비로그인에도 쓰이는 쿼리는 남긴다.
+export const USER_SCOPED_KEYS = [
+  KEY.USER,
+  KEY.FIRST_RESULT,
+  KEY.FINAL_RESULT,
+  KEY.ADMISSION_TICKET,
+  KEY.FORM_STATUS,
+  KEY.EXPORT_FORM,
+  KEY.EXPORT_RECEIPT,
+  KEY.SAVE_FORM,
+] as const;
 
 export const PHONE_NUMBER = {
   ADMISSION_OFFICER_ONE: process.env.NEXT_PUBLIC_ADMISSION_OFFICER_ONE,

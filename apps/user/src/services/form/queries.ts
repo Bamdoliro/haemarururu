@@ -1,4 +1,4 @@
-import { KEY, TOKEN } from '@/constants/common/constants';
+import { KEY } from '@/constants/common/constants';
 import { useSchedule } from '@/services/schedule/queries';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -8,17 +8,18 @@ import {
   getSaveForm,
   getSchoolList,
 } from './api';
-import { Storage } from '@/apis/storage/storage';
+import { useAuthState } from '@maru/hooks';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
 dayjs.extend(isBetween);
 
 export const useFormStatusQuery = () => {
+  const { isLoggedIn } = useAuthState();
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_STATUS],
     queryFn: getFormStatus,
-    enabled: !!Storage.getItem(TOKEN.ACCESS),
+    enabled: isLoggedIn,
     retry: false,
   });
 
@@ -26,15 +27,14 @@ export const useFormStatusQuery = () => {
 };
 
 export const useExportFormQuery = () => {
+  const { isLoggedIn } = useAuthState();
   const schedule = useSchedule();
   const day = dayjs();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.EXPORT_FORM],
     queryFn: getExportForm,
-    enabled:
-      !!Storage.getItem(TOKEN.ACCESS) &&
-      day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
+    enabled: isLoggedIn && day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
     retry: false,
   });
 
@@ -42,15 +42,14 @@ export const useExportFormQuery = () => {
 };
 
 export const useExportReciptQuery = () => {
+  const { isLoggedIn } = useAuthState();
   const schedule = useSchedule();
   const day = dayjs();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.EXPORT_RECEIPT],
     queryFn: getExportRecipt,
-    enabled:
-      !!Storage.getItem(TOKEN.ACCESS) &&
-      day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
+    enabled: isLoggedIn && day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
     retry: false,
   });
 
@@ -58,10 +57,11 @@ export const useExportReciptQuery = () => {
 };
 
 export const useSaveFormQuery = () => {
+  const { isLoggedIn } = useAuthState();
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.SAVE_FORM],
     queryFn: getSaveForm,
-    enabled: !!Storage.getItem(TOKEN.ACCESS),
+    enabled: isLoggedIn,
     retry: false,
   });
 

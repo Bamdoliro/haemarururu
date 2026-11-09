@@ -1,11 +1,11 @@
 import type { PostLoginReq } from '@/types/auth/remote';
 import { useMutation } from '@tanstack/react-query';
 import { deleteLogout, postLogin } from './api';
-import type { AxiosResponse } from 'axios';
-import { ROUTES, TOKEN } from '@/constants/common/constants';
+import { ROUTES } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
-import { Storage } from '@/apis/storage/storage';
+import { clearStaleSession } from '@/apis/instance/session';
 import { useToast } from '@/hooks';
+import { useAuthState } from '@maru/hooks';
 import { useSetStepStore } from '@/stores';
 
 export const useLoginMutation = (
@@ -15,13 +15,12 @@ export const useLoginMutation = (
   const router = useRouter();
   const { toast } = useToast();
   const setStep = useSetStepStore();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: loginMutate, ...restMutation } = useMutation({
     mutationFn: () => postLogin({ phoneNumber, password }),
-    onSuccess: (res: AxiosResponse) => {
-      const { accessToken, refreshToken } = res.data;
-      Storage.setItem(TOKEN.ACCESS, accessToken);
-      Storage.setItem(TOKEN.REFRESH, refreshToken);
+    onSuccess: () => {
+      setIsLoggedIn(true);
       if (device === 'COMPUTER') {
         toast('로그인 되었습니다.', 'SUCCESS');
         router.replace(ROUTES.MAIN);
@@ -36,7 +35,6 @@ export const useLoginMutation = (
       } else if (device === 'MOBILE') {
         toast('전화번호나 비밀번호를 다시 확인해주세요.', 'ERROR', 'MOBILE');
       }
-      localStorage.clear();
     },
   });
 
@@ -44,19 +42,13 @@ export const useLoginMutation = (
 };
 
 export const useLogoutMutation = () => {
-  const router = useRouter();
-
   const { mutate: logoutMutate, ...restMutation } = useMutation({
     mutationFn: deleteLogout,
-    onSuccess: () => {
-      router.replace(ROUTES.MAIN);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      Storage.removeItem(TOKEN.ACCESS);
-      Storage.removeItem(TOKEN.REFRESH);
+    onSettled: async (_, error) => {
+      // 로그아웃 요청이 실패해도 브라우저에 남은 인증 쿠키는 정리한다.
+      if (error) await clearStaleSession();
+      window.location.href = ROUTES.MAIN;
     },
-    onError: () => {},
   });
 
   return { logoutMutate, ...restMutation };

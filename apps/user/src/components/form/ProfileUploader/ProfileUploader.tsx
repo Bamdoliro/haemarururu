@@ -7,7 +7,6 @@ import { useDragAndDrop, useOpenFileUploader } from '@/hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SmartCrop from 'smartcrop';
 import { useSetProfileStore } from '@/stores/form/profile';
-import { Storage } from '@/apis/storage/storage';
 import {
   useRefreshProfileMutation,
   useUploadProfileMutation,
@@ -26,6 +25,9 @@ interface ProfileUploaderProps {
   onUploadComplete?: (url: string) => void;
 }
 
+const getStoredItem = (key: string) =>
+  typeof window !== 'undefined' ? localStorage.getItem(key) : null;
+
 const ProfileUploader = ({
   isError = false,
   onUploadStateChange,
@@ -36,9 +38,9 @@ const ProfileUploader = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { openFileUploader, ref: imageUploaderRef } = useOpenFileUploader();
 
-  const fileName = Storage.getItem('fileName');
-  const mediaType = Storage.getItem('mediaType');
-  const fileSize = Storage.getItem('fileSize');
+  const fileName = getStoredItem('fileName');
+  const mediaType = getStoredItem('mediaType');
+  const fileSize = getStoredItem('fileSize');
 
   const { refreshProfileMutate } = useRefreshProfileMutation({
     fileName: fileName ?? '',
@@ -51,7 +53,7 @@ const ProfileUploader = ({
   const mountedRef = useRef(false);
 
   useEffect(() => {
-    const upload = Storage.getItem('upload');
+    const upload = localStorage.getItem('upload');
     if (mountedRef.current) return;
     mountedRef.current = true;
 
@@ -167,10 +169,10 @@ const ProfileUploader = ({
                   file: croppedFile,
                 });
 
-                Storage.setItem('fileName', croppedFile.name);
-                Storage.setItem('mediaType', croppedFile.type);
-                Storage.setItem('fileSize', croppedFile.size.toString());
-                Storage.setItem('upload', 'true');
+                localStorage.setItem('fileName', croppedFile.name);
+                localStorage.setItem('mediaType', croppedFile.type);
+                localStorage.setItem('fileSize', croppedFile.size.toString());
+                localStorage.setItem('upload', 'true');
               },
               onError: () => {
                 setPreviewUrl(null);
