@@ -18,6 +18,7 @@ export const KEY = {
   REGISTRATION_LIST: 'useRegistrationList',
   FORM_EXPORT_ALL_PERSONAL_STATEMENT: 'useFormExportAllPersonalStatement',
   MESSAGE_RECIPIENT_LIST: 'useMessageRecipientList',
+  SCHEDULE: 'useSchedule',
 };
 
 export const ROUTES = {
@@ -35,6 +36,7 @@ export const ROUTES = {
   FAIR_CREATE: '/fair/create',
   FAIR_EDIT: '/fair/edit',
   REGISTRATION: '/registration',
+  SCHEDULE: '/schedule',
 } as const;
 
 export const AUTH_COOKIES = ['accessToken', 'refreshToken'] as const;
