@@ -14,6 +14,8 @@ export interface GetCurrentScheduleRes {
     registrationStart: string;
     registrationEnd: string;
     attendanceStandardDate: string;
+    maintenanceStart: string | null;
+    maintenanceEnd: string | null;
     updatedAt: string;
   };
 }

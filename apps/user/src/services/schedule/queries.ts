@@ -15,6 +15,8 @@ const selectSchedule = ({ data }: GetCurrentScheduleRes) => ({
   입학_등록: dayjs(data.registrationStart),
   입학_등록_마감: dayjs(data.registrationEnd),
   출결_기준일: dayjs(data.attendanceStandardDate),
+  점검_시작: data.maintenanceStart ? dayjs(data.maintenanceStart) : null,
+  점검_종료: data.maintenanceEnd ? dayjs(data.maintenanceEnd) : null,
 });
 
 export type Schedule = ReturnType<typeof selectSchedule>;
