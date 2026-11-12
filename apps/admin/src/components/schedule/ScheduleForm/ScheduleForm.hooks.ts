@@ -73,6 +73,16 @@ const validateSchedule = (form: ScheduleInput) => {
     errors.attendanceStandardDate = '원서 접수 마감일 이전(같은 날 가능)이어야 합니다.';
   }
 
+  if (
+    !errors.admissionAndPledgeEnd &&
+    !errors.registrationEnd &&
+    form.admissionAndPledgeEnd &&
+    form.registrationEnd &&
+    form.admissionAndPledgeEnd > form.registrationEnd
+  ) {
+    errors.admissionAndPledgeEnd = '입학 등록 마감 이전(같은 시각 가능)이어야 합니다.';
+  }
+
   return errors;
 };
 
@@ -113,7 +123,6 @@ export const useScheduleForm = () => {
       return;
     }
 
-    // 필수 항목은 위 검증을 통과했으므로 null이 아니다.
     const dateTimes = SCHEDULE_FIELDS.reduce(
       (acc, { key }) => ({ ...acc, [key]: toRequestValue(key, form[key], schedule) }),
       {} as ScheduleDateTimes,

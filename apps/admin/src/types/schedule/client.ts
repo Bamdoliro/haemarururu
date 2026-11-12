@@ -2,12 +2,15 @@ export interface ScheduleDateTimes {
   applicationFormStart: string;
   visitSubmissionAt: string;
   applicationFormEnd: string;
+  selectFirstPassAt: string;
   announcementOfFirstPass: string;
   interviewStart: string;
   interviewEnd: string;
   announcementOfFinalPass: string;
   registrationStart: string;
   registrationEnd: string;
+  admissionAndPledgeStart: string;
+  admissionAndPledgeEnd: string;
   attendanceStandardDate: string;
   maintenanceStart: string | null;
   maintenanceEnd: string | null;
