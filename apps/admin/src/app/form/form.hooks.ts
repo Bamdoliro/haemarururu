@@ -9,6 +9,7 @@ import { useToast } from '@maru/hooks';
 import {
   useExportAllAdmissionTicket,
   useExportAllPersonalStatement,
+  useExportAllPersonalStatementSheet,
 } from '@/services/form/queries';
 import type { FormListSortingType } from '@/types/form/client';
 import {
@@ -164,20 +165,27 @@ export const useExportAllAdmissionTicketAction = () => {
 
 export const useExportAllPersonalStatementAction = () => {
   const { data: exportPersonalStatementData } = useExportAllPersonalStatement();
+  const { data: exportPersonalStatementSheetData } = useExportAllPersonalStatementSheet();
 
-  const handleExportAllPersonalStatementButtonClick = () => {
-    if (!exportPersonalStatementData) return;
-    const statementURL = window.URL.createObjectURL(
-      new Blob([exportPersonalStatementData]),
-    );
+  const downloadBlob = (data: BlobPart, fileName: string) => {
+    const url = window.URL.createObjectURL(new Blob([data]));
 
     const link = document.createElement('a');
-    link.href = statementURL;
-    link.download = '전체 자기소개서.pdf';
+    link.href = url;
+    link.download = fileName;
     document.body.appendChild(link);
     link.click();
     link.remove();
-    window.URL.revokeObjectURL(statementURL);
+    window.URL.revokeObjectURL(url);
+  };
+
+  const handleExportAllPersonalStatementButtonClick = () => {
+    if (exportPersonalStatementData) {
+      downloadBlob(exportPersonalStatementData, '전체 자기소개서.pdf');
+    }
+    if (exportPersonalStatementSheetData) {
+      downloadBlob(exportPersonalStatementSheetData, '자기소개서.xlsx');
+    }
   };
 
   return { handleExportAllPersonalStatementButtonClick };

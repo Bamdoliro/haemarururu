@@ -91,6 +91,14 @@ export const getFormExportAllPersonalStatement = async () => {
   return data;
 };
 
+export const getFormExportAllPersonalStatementSheet = async () => {
+  const { data } = await maru.get('/forms/documents/export/personal-statement-sheet', {
+    responseType: 'blob',
+  });
+
+  return data;
+};
+
 export const getFormDetail = async (id: number) => {
   const { data } = await maru.get<GetFormDetail>(`/forms/${id}`);
 
