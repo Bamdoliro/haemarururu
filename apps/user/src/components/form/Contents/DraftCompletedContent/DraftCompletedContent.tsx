@@ -15,12 +15,12 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
       <Row gap={8} alignItems="center">
         <IconCheckCircle width={64} height={64} />
         <Text fontType="H1" color={color.gray900}>
-          원서 초안 작성 완료
+          온라인 원서 작성 완료
         </Text>
       </Row>
       <Column gap={12} style={{ maxWidth: '80%' }}>
         <Text fontType="p1" color={color.gray900}>
-          원서 초안 작성이 완료되었습니다.
+          온라인 원서 작성이 완료되었습니다.
         </Text>
         <Text fontType="H4" color={color.red}>
           작성한 원서를 출력하여 학교장 직인 날인 후 <br />
@@ -29,7 +29,7 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
       </Column>
       <Column gap={24}>
         <Text fontType="H3" color={color.gray900}>
-          제출하시겠습니까?
+          초안을 제출하시겠습니까?
         </Text>
         <Row gap={16}>
           <Button onClick={onClick} styleType="SECONDARY" size="LARGE">
