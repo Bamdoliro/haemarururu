@@ -37,8 +37,9 @@ const StyledCheckingBox = styled.div`
     alignItems: 'flex-start',
     justifyContent: 'space-between',
   })}
+  flex: 1;
   width: 100%;
-  height: 125px;
+  min-height: 125px;
   border-radius: 12px;
   padding: 24px 32px;
   border: 1px solid ${color.gray200};
