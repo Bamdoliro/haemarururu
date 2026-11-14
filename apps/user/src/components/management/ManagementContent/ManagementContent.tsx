@@ -14,8 +14,7 @@ const ManagementContent = () => {
   const schedule = useSchedule();
   const { data: statusData } = useFormStatusQuery();
   const now = dayjs();
-  const { handleWriteFormContinue, handleDownloadForm, handleDownloadReceipt } =
-    useBoxClick(statusData?.status);
+  const { handleWriteFormContinue, handleDownloadForm } = useBoxClick(statusData?.status);
 
   if (now.isBetween(schedule.원서_접수, schedule.일차_합격_발표)) {
     return (
@@ -34,12 +33,6 @@ const ManagementContent = () => {
             title="내 원서 확인하기"
             subTitle="클릭해서 원서를 다운로드 받으세요."
             onClick={handleDownloadForm}
-            isIcon
-          />
-          <CheckingBox
-            title="내 접수증 확인하기"
-            subTitle="클릭해서 접수증을 다운로드 받으세요."
-            onClick={handleDownloadReceipt}
             isIcon
           />
         </Column>

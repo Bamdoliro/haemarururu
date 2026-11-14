@@ -22,14 +22,6 @@ export const getExportForm = async () => {
   return data;
 };
 
-export const getExportRecipt = async () => {
-  const { data } = await maru.get('/forms/proof-of-application', {
-    responseType: 'blob',
-  });
-
-  return data;
-};
-
 export const getSaveForm = async () => {
   const { data } = await maru.get<GetSaveFormRes>('/form/draft');
 

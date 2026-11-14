@@ -1,13 +1,7 @@
 import { KEY } from '@/constants/common/constants';
 import { useSchedule } from '@/services/schedule/queries';
 import { useQuery } from '@tanstack/react-query';
-import {
-  getExportForm,
-  getExportRecipt,
-  getFormStatus,
-  getSaveForm,
-  getSchoolList,
-} from './api';
+import { getExportForm, getFormStatus, getSaveForm, getSchoolList } from './api';
 import { useAuthState } from '@maru/hooks';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -35,21 +29,6 @@ export const useExportFormQuery = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.EXPORT_FORM],
     queryFn: getExportForm,
-    enabled: isLoggedIn && day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
-    retry: false,
-  });
-
-  return { data, ...restQuery };
-};
-
-export const useExportReciptQuery = () => {
-  const { isLoggedIn } = useAuthState();
-  const schedule = useSchedule();
-  const day = dayjs();
-
-  const { data, ...restQuery } = useQuery({
-    queryKey: [KEY.EXPORT_RECEIPT],
-    queryFn: getExportRecipt,
     enabled: isLoggedIn && day.isBetween(schedule.원서_접수, schedule.원서_접수_마감),
     retry: false,
   });
