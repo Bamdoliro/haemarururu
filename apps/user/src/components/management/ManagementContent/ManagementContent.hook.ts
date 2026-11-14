@@ -1,6 +1,6 @@
 import { ROUTES } from '@/constants/common/constants';
 import { useUser } from '@/hooks';
-import { useExportFormQuery, useExportReciptQuery } from '@/services/form/queries';
+import { useExportFormQuery } from '@/services/form/queries';
 import { useDownloadAdmissionTicketQuery } from '@/services/result/queries';
 import { downloadFile } from '@/utils';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,6 @@ export const useBoxClick = (status?: string) => {
   const router = useRouter();
   const { userData } = useUser();
   const { data: exportFormData } = useExportFormQuery();
-  const { data: reciptData } = useExportReciptQuery();
   const { data: admissionTicketData } = useDownloadAdmissionTicketQuery();
 
   const handleWriteFormContinue = () => {
@@ -47,17 +46,6 @@ export const useBoxClick = (status?: string) => {
     downloadFile(exportFormData, `${userData.name} 해운대고등학교 원서.pdf`);
   };
 
-  const handleDownloadReceipt = () => {
-    const accept =
-      status === 'FINAL_SUBMITTED' || status === 'APPROVED' || status === 'RECEIVED';
-
-    if (!accept) {
-      alert('원서가 미제출 상태이거나 확인 중에 있어, 다운로드할 수 없습니다.');
-    } else {
-      downloadFile(reciptData, `${userData.name} 접수증.pdf`);
-    }
-  };
-
   const handleDownloadAdmissionTicket = () => {
     if (!(status === 'FIRST_PASSED')) {
       alert('1차 합격일때만 수험표를 출력할 수 있습니다.');
@@ -69,7 +57,6 @@ export const useBoxClick = (status?: string) => {
   return {
     handleWriteFormContinue,
     handleDownloadForm,
-    handleDownloadReceipt,
     handleDownloadAdmissionTicket,
   };
 };

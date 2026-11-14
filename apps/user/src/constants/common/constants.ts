@@ -36,7 +36,6 @@ export const KEY = {
   ADMISSION_TICKET: 'useDownloadAdmissionTicket',
   FORM_STATUS: 'useFormStatus',
   EXPORT_FORM: 'useExportForm',
-  EXPORT_RECEIPT: 'useExportReceipt',
   SAVE_FORM: 'useSaveForm',
   SCHOOL_LIST: 'useSchoolList',
   FAIR_DATA: 'useFairData',
@@ -51,7 +50,6 @@ export const USER_SCOPED_KEYS = [
   KEY.ADMISSION_TICKET,
   KEY.FORM_STATUS,
   KEY.EXPORT_FORM,
-  KEY.EXPORT_RECEIPT,
   KEY.SAVE_FORM,
 ] as const;
 
