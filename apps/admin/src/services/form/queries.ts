@@ -2,8 +2,6 @@ import { KEY } from '@/constants/common/constant';
 import {
   getAllAdmissionTicket,
   getFormDetail,
-  getFormExportAllPersonalStatement,
-  getFormExportPersonalStatementSheet,
   getFormList,
   getSecondScoreFormat,
 } from './api';
@@ -39,22 +37,6 @@ export const useExportAllAdmissionTicket = () => {
     queryFn: getAllAdmissionTicket,
   });
 
-  return { data, ...restQuery };
-};
-
-export const useExportAllPersonalStatement = () => {
-  const { data, ...restQuery } = useQuery({
-    queryKey: [KEY.FORM_EXPORT_ALL_PERSONAL_STATEMENT],
-    queryFn: getFormExportAllPersonalStatement,
-  });
-  return { data, ...restQuery };
-};
-
-export const useExportPersonalStatementSheet = () => {
-  const { data, ...restQuery } = useQuery({
-    queryKey: [KEY.FORM_EXPORT_PERSONAL_STATEMENT_SHEET],
-    queryFn: getFormExportPersonalStatementSheet,
-  });
   return { data, ...restQuery };
 };
 
