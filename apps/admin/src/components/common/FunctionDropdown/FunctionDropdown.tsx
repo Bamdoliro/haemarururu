@@ -12,6 +12,8 @@ interface Data {
   label: string;
   value: string;
   onClick: () => void;
+  isLoading?: boolean;
+  loadingLabel?: string;
 }
 
 interface FunctionDropdownProps {
@@ -26,12 +28,13 @@ const FunctionDropdown = ({ data }: FunctionDropdownProps) => {
   } = useBooleanState();
 
   const dropdownRef = useOutsideClick(closeDropdown);
+  const isAnyItemLoading = data.some((item) => item.isLoading);
 
   return (
     <div style={{ width: 120 }} ref={dropdownRef}>
       <StyledFunctionDropdown isOpen={isOpen} onClick={handleToggleButtonClick}>
         <Text fontType="p2" color={color.gray700}>
-          추가 기능
+          {isAnyItemLoading ? '처리 중...' : '추가 기능'}
         </Text>
         {isOpen ? (
           <IconArrowTop color={color.gray600} width={24} height={24} />
@@ -44,14 +47,15 @@ const FunctionDropdown = ({ data }: FunctionDropdownProps) => {
           {data.map((item, index) => (
             <DropdownItem
               key={index}
+              disabled={item.isLoading}
               onClick={() => {
                 item.onClick();
                 closeDropdown();
               }}
             >
               {item.icon}
-              <Text fontType="p2" color={color.gray900}>
-                {item.label}
+              <Text fontType="p2" color={item.isLoading ? color.gray500 : color.gray900}>
+                {item.isLoading ? (item.loadingLabel ?? item.label) : item.label}
               </Text>
             </DropdownItem>
           ))}
@@ -109,7 +113,11 @@ const DropdownItem = styled.button`
   border-radius: 6px;
   cursor: pointer;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${color.gray100};
+  }
+
+  &:disabled {
+    cursor: wait;
   }
 `;

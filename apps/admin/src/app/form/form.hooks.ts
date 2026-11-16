@@ -6,11 +6,15 @@ import {
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
 import { useToast } from '@maru/hooks';
+import { useExportAllAdmissionTicket } from '@/services/form/queries';
 import {
-  useExportAllAdmissionTicket,
-  useExportAllPersonalStatement,
-  useExportPersonalStatementSheet,
-} from '@/services/form/queries';
+  getFormExportAllPersonalStatement,
+  getFormExportPersonalStatementSheet,
+} from '@/services/form/api';
+import { KEY } from '@/constants/common/constant';
+import { downloadBlob } from '@/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import type { FormListSortingType } from '@/types/form/client';
 import {
   formListSortingTypeAtom,
@@ -164,31 +168,36 @@ export const useExportAllAdmissionTicketAction = () => {
 };
 
 export const useExportAllPersonalStatementAction = () => {
-  const { data: exportPersonalStatementData } = useExportAllPersonalStatement();
-  const { data: exportPersonalStatementSheetData } = useExportPersonalStatementSheet();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const [isExportingPersonalStatement, setIsExportingPersonalStatement] = useState(false);
 
-  const downloadBlob = (data: BlobPart, fileName: string) => {
-    const url = window.URL.createObjectURL(new Blob([data]));
+  const handleExportAllPersonalStatementButtonClick = async () => {
+    if (isExportingPersonalStatement) return;
+    setIsExportingPersonalStatement(true);
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(url);
+    try {
+      const [personalStatementPdf, personalStatementSheet] = await Promise.all([
+        queryClient.fetchQuery({
+          queryKey: [KEY.FORM_EXPORT_ALL_PERSONAL_STATEMENT],
+          queryFn: getFormExportAllPersonalStatement,
+        }),
+        queryClient.fetchQuery({
+          queryKey: [KEY.FORM_EXPORT_PERSONAL_STATEMENT_SHEET],
+          queryFn: getFormExportPersonalStatementSheet,
+        }),
+      ]);
+
+      downloadBlob(new Blob([personalStatementPdf]), '전체 자기소개서.pdf');
+      downloadBlob(new Blob([personalStatementSheet]), '자기소개서.xlsx');
+    } catch {
+      toast('자기소개서 발급에 실패했습니다.', 'ERROR');
+    } finally {
+      setIsExportingPersonalStatement(false);
+    }
   };
 
-  const handleExportAllPersonalStatementButtonClick = () => {
-    if (exportPersonalStatementData) {
-      downloadBlob(exportPersonalStatementData, '전체 자기소개서.pdf');
-    }
-    if (exportPersonalStatementSheetData) {
-      downloadBlob(exportPersonalStatementSheetData, '자기소개서.xlsx');
-    }
-  };
-
-  return { handleExportAllPersonalStatementButtonClick };
+  return { handleExportAllPersonalStatementButtonClick, isExportingPersonalStatement };
 };
 
 export const useEditPaymentResultActions = () => {

@@ -89,7 +89,7 @@ const FormPage = () => {
   } = usePrintFormURLActions();
   const { handleExportAllAdmissionTicketButtonClick } =
     useExportAllAdmissionTicketAction();
-  const { handleExportAllPersonalStatementButtonClick } =
+  const { handleExportAllPersonalStatementButtonClick, isExportingPersonalStatement } =
     useExportAllPersonalStatementAction();
 
   const {
@@ -319,6 +319,8 @@ const FormPage = () => {
                       label: '자기소개서 전체 발급하기',
                       value: 'export_all_personal_statements',
                       onClick: handleExportAllPersonalStatementButtonClick,
+                      isLoading: isExportingPersonalStatement,
+                      loadingLabel: '자기소개서 발급 중...',
                     },
                     {
                       icon: <IconPaid width={24} height={24} />,
