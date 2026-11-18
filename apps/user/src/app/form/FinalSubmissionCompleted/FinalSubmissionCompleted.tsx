@@ -26,7 +26,7 @@ const FinalSubmissionCompleted = () => {
         <Row gap={8} alignItems="center" justifyContent="center">
           <IconCheckCircle width={64} height={64} />
           <Text fontType="H1" color={color.gray900}>
-            입학원서 입력 완료
+            온라인 원서 제출 완료
           </Text>
         </Row>
         <Column gap={27} alignItems="center">
