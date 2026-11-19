@@ -6,15 +6,18 @@ import {
   usePrintFormUrlMutation,
 } from '@/services/form/mutations';
 import { useToast } from '@maru/hooks';
-import { useExportAllAdmissionTicket } from '@/services/form/queries';
 import {
-  getFormExportAllPersonalStatement,
+  useDocumentExportJobQuery,
+  useExportAllAdmissionTicket,
+} from '@/services/form/queries';
+import {
   getFormExportPersonalStatementSheet,
+  postDocumentExportJob,
 } from '@/services/form/api';
 import { KEY } from '@/constants/common/constant';
 import { downloadBlob } from '@/utils';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormListSortingType } from '@/types/form/client';
 import {
   formListSortingTypeAtom,
@@ -167,34 +170,88 @@ export const useExportAllAdmissionTicketAction = () => {
   return { handleExportAllAdmissionTicketButtonClick };
 };
 
+const PERSONAL_STATEMENT_EXPORT_JOB_ID_KEY = 'personalStatementExportJobId';
+
+const getStoredExportJobId = () => {
+  const storedJobId = Number(localStorage.getItem(PERSONAL_STATEMENT_EXPORT_JOB_ID_KEY));
+  return Number.isInteger(storedJobId) && storedJobId > 0 ? storedJobId : null;
+};
+
+const downloadFromUrl = (url: string, fileName: string) => {
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+};
+
 export const useExportAllPersonalStatementAction = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
-  const [isExportingPersonalStatement, setIsExportingPersonalStatement] = useState(false);
+  const [isStartingExport, setIsStartingExport] = useState(false);
+  const [exportJobId, setExportJobId] = useState<number | null>(null);
+
+  const { data: exportJob, isError: isExportJobError } =
+    useDocumentExportJobQuery(exportJobId);
+
+  const updateExportJobId = (jobId: number | null) => {
+    if (jobId === null) localStorage.removeItem(PERSONAL_STATEMENT_EXPORT_JOB_ID_KEY);
+    else localStorage.setItem(PERSONAL_STATEMENT_EXPORT_JOB_ID_KEY, String(jobId));
+    setExportJobId(jobId);
+  };
+
+  useEffect(() => {
+    setExportJobId(getStoredExportJobId());
+  }, []);
+
+  useEffect(() => {
+    if (isExportJobError) {
+      toast('자기소개서 발급 상태를 확인하지 못했습니다.', 'ERROR');
+      updateExportJobId(null);
+      return;
+    }
+
+    if (exportJob?.status === 'COMPLETED') {
+      if (exportJob.downloadUrl) {
+        downloadFromUrl(exportJob.downloadUrl, '전체 자기소개서.pdf');
+      } else {
+        toast('자기소개서 다운로드 링크를 찾을 수 없습니다.', 'ERROR');
+      }
+      updateExportJobId(null);
+    } else if (exportJob?.status === 'FAILED') {
+      toast(exportJob.errorMessage ?? '자기소개서 발급에 실패했습니다.', 'ERROR');
+      updateExportJobId(null);
+    }
+  }, [exportJob, isExportJobError, toast]);
+
+  const isExportingPersonalStatement = isStartingExport || exportJobId !== null;
 
   const handleExportAllPersonalStatementButtonClick = async () => {
     if (isExportingPersonalStatement) return;
-    setIsExportingPersonalStatement(true);
+    setIsStartingExport(true);
 
-    try {
-      const [personalStatementPdf, personalStatementSheet] = await Promise.all([
-        queryClient.fetchQuery({
-          queryKey: [KEY.FORM_EXPORT_ALL_PERSONAL_STATEMENT],
-          queryFn: getFormExportAllPersonalStatement,
-        }),
-        queryClient.fetchQuery({
-          queryKey: [KEY.FORM_EXPORT_PERSONAL_STATEMENT_SHEET],
-          queryFn: getFormExportPersonalStatementSheet,
-        }),
-      ]);
+    const [exportJobResult, personalStatementSheetResult] = await Promise.allSettled([
+      postDocumentExportJob(),
+      queryClient.fetchQuery({
+        queryKey: [KEY.FORM_EXPORT_PERSONAL_STATEMENT_SHEET],
+        queryFn: getFormExportPersonalStatementSheet,
+      }),
+    ]);
 
-      downloadBlob(new Blob([personalStatementPdf]), '전체 자기소개서.pdf');
-      downloadBlob(new Blob([personalStatementSheet]), '자기소개서.xlsx');
-    } catch {
+    if (exportJobResult.status === 'fulfilled') {
+      updateExportJobId(exportJobResult.value.data.id);
+    } else {
       toast('자기소개서 발급에 실패했습니다.', 'ERROR');
-    } finally {
-      setIsExportingPersonalStatement(false);
     }
+
+    if (personalStatementSheetResult.status === 'fulfilled') {
+      downloadBlob(new Blob([personalStatementSheetResult.value]), '자기소개서.xlsx');
+    } else {
+      toast('자기소개서 엑셀 발급에 실패했습니다.', 'ERROR');
+    }
+
+    setIsStartingExport(false);
   };
 
   return { handleExportAllPersonalStatementButtonClick, isExportingPersonalStatement };

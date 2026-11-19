@@ -16,7 +16,7 @@ export const KEY = {
   FAQ_LIST: 'useFaqList',
   FAQ_DETAIL: 'useFaqDetail',
   REGISTRATION_LIST: 'useRegistrationList',
-  FORM_EXPORT_ALL_PERSONAL_STATEMENT: 'useFormExportAllPersonalStatement',
+  FORM_DOCUMENT_EXPORT_JOB: 'useFormDocumentExportJob',
   FORM_EXPORT_PERSONAL_STATEMENT_SHEET: 'useFormExportPersonalStatementSheet',
   MESSAGE_RECIPIENT_LIST: 'useMessageRecipientList',
   SCHEDULE: 'useSchedule',

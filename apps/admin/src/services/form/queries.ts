@@ -1,6 +1,7 @@
 import { KEY } from '@/constants/common/constant';
 import {
   getAllAdmissionTicket,
+  getDocumentExportJob,
   getFormDetail,
   getFormList,
   getSecondScoreFormat,
@@ -59,4 +60,23 @@ export const useFormAllListQuery = ({ enabled = true } = {}) => {
   });
 
   return { data: data?.dataList, ...restQuery };
+};
+
+const DOCUMENT_EXPORT_JOB_POLLING_INTERVAL = 3000;
+
+export const useDocumentExportJobQuery = (jobId: number | null) => {
+  const { data, ...restQuery } = useQuery({
+    queryKey: [KEY.FORM_DOCUMENT_EXPORT_JOB, jobId],
+    queryFn: () => getDocumentExportJob(jobId as number),
+    enabled: jobId !== null,
+    gcTime: 0,
+    refetchInterval: (query) => {
+      const status = query.state.data?.data.status;
+      return status === 'COMPLETED' || status === 'FAILED'
+        ? false
+        : DOCUMENT_EXPORT_JOB_POLLING_INTERVAL;
+    },
+  });
+
+  return { data: data?.data, ...restQuery };
 };
