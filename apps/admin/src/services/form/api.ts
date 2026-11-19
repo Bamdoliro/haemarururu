@@ -7,12 +7,14 @@ import type {
   ReceiveStatusValue,
 } from '@/types/form/client';
 import type {
+  GetDocumentExportJobRes,
   GetFormDetail,
   GetFormListRes,
   GetFormURLRes,
   PatchInterviewNumberReq,
   PatchPaymentResultReq,
   PatchSecondRoundResultReq,
+  PostDocumentExportJobRes,
 } from '@/types/form/remote';
 
 export const getFormList = async (
@@ -83,10 +85,18 @@ export const getAllAdmissionTicket = async () => {
   return data;
 };
 
-export const getFormExportAllPersonalStatement = async () => {
-  const { data } = await maru.get('/forms/documents/export', {
-    responseType: 'blob',
-  });
+export const postDocumentExportJob = async () => {
+  const { data } = await maru.post<PostDocumentExportJobRes>(
+    '/forms/documents/export/jobs',
+  );
+
+  return data;
+};
+
+export const getDocumentExportJob = async (jobId: number) => {
+  const { data } = await maru.get<GetDocumentExportJobRes>(
+    `/forms/documents/export/jobs/${jobId}`,
+  );
 
   return data;
 };

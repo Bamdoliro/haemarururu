@@ -27,3 +27,22 @@ export interface GetFormDetail {
 export interface PatchInterviewNumberReq {
   formList: { formId: number; interviewNumber: string | null }[];
 }
+
+export type DocumentExportJobStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED';
+
+export interface DocumentExportJob {
+  id: number;
+  status: DocumentExportJobStatus;
+  downloadUrl: string | null;
+  errorMessage: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PostDocumentExportJobRes {
+  data: { id: number };
+}
+
+export interface GetDocumentExportJobRes {
+  data: DocumentExportJob;
+}
