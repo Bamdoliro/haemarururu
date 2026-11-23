@@ -152,22 +152,24 @@ export const usePrintFormURLActions = () => {
 };
 
 export const useExportAllAdmissionTicketAction = () => {
-  const { data: exportTicketData } = useExportAllAdmissionTicket();
+  const { toast } = useToast();
+  const { refetch: fetchAllAdmissionTicket, isFetching: isExportingAdmissionTicket } =
+    useExportAllAdmissionTicket();
 
-  const handleExportAllAdmissionTicketButtonClick = () => {
-    if (!exportTicketData) return;
-    const ticketURL = window.URL.createObjectURL(new Blob([exportTicketData]));
+  const handleExportAllAdmissionTicketButtonClick = async () => {
+    if (isExportingAdmissionTicket) return;
 
-    const link = document.createElement('a');
-    link.href = ticketURL;
-    link.download = '전체 접수증.pdf';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(ticketURL);
+    const { data, isError } = await fetchAllAdmissionTicket();
+
+    if (isError || !data) {
+      toast('수험표 발급에 실패했습니다.', 'ERROR');
+      return;
+    }
+
+    downloadBlob(new Blob([data]), '전체 접수증.pdf');
   };
 
-  return { handleExportAllAdmissionTicketButtonClick };
+  return { handleExportAllAdmissionTicketButtonClick, isExportingAdmissionTicket };
 };
 
 const PERSONAL_STATEMENT_EXPORT_JOB_ID_KEY = 'personalStatementExportJobId';
