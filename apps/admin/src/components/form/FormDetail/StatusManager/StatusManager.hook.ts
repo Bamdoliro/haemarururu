@@ -21,8 +21,8 @@ export const useStatusFormatter = (status: FormStatus) => {
 
     if (status === 'REJECTED') return { text: '반려', color: color.red };
     if (status === 'SUBMITTED') return { text: '미제출', color: color.black };
-    if (status === 'FINAL_SUBMITTED') return { text: '제출', color: color.maruDefault };
-    if (status === 'RECEIVED') return { text: '접수', color: color.maruDefault };
+    if (status === 'FINAL_SUBMITTED') return { text: '미도착', color: color.gray600 };
+    if (status === 'RECEIVED') return { text: '학교도착', color: color.gray600 };
     if (approvedStatus.includes(status)) {
       return { text: '승인', color: color.maruDefault };
     }
