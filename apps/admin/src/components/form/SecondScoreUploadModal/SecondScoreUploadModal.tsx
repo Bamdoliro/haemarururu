@@ -21,7 +21,8 @@ interface SecondScoreUploadModalProps {
 const SecondScoreUploadModal = ({ isOpen, onClose }: SecondScoreUploadModalProps) => {
   const [uploadedFile, setUploadedFile] = useAtom(secondScoreFileAtom);
 
-  const { handleExportSecondScoreFormatButtonClick } = useExportExcelAction();
+  const { handleExportSecondScoreFormatButtonClick, isExportingSecondScoreFormat } =
+    useExportExcelAction();
 
   useEffect(() => {
     if (isOpen) {
@@ -71,7 +72,9 @@ const SecondScoreUploadModal = ({ isOpen, onClose }: SecondScoreUploadModalProps
             color={color.gray600}
             onClick={handleExportSecondScoreFormatButtonClick}
           >
-            [ 엑셀 포맷 다운로드 ]
+            {isExportingSecondScoreFormat
+              ? '[ 다운로드 중... ]'
+              : '[ 엑셀 포맷 다운로드 ]'}
           </TextButton>
         </Column>
         <Row justifyContent="flex-end" alignItems="flex-start" gap="16px">

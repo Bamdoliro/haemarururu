@@ -1,23 +1,27 @@
+import { useToast } from '@maru/hooks';
 import { useUploadSecondScoreFormatMutation } from '@/services/form/mutations';
 import { useExportSecondScoreFormatQuery } from '@/services/form/queries';
+import { downloadBlob } from '@/utils';
 
 export const useExportExcelAction = () => {
-  const { data: secondScoreFormatData } = useExportSecondScoreFormatQuery();
+  const { toast } = useToast();
+  const { refetch: fetchSecondScoreFormat, isFetching: isExportingSecondScoreFormat } =
+    useExportSecondScoreFormatQuery();
 
-  const handleExportSecondScoreFormatButtonClick = () => {
-    if (!secondScoreFormatData) return;
-    const excelUrl = window.URL.createObjectURL(new Blob([secondScoreFormatData]));
+  const handleExportSecondScoreFormatButtonClick = async () => {
+    if (isExportingSecondScoreFormat) return;
 
-    const link = document.createElement('a');
-    link.href = excelUrl;
-    link.download = '면접 전형 점수 양식.xlsx';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(excelUrl);
+    const { data, isError } = await fetchSecondScoreFormat();
+
+    if (isError || !data) {
+      toast('면접 전형 점수 양식 다운로드에 실패했습니다.', 'ERROR');
+      return;
+    }
+
+    downloadBlob(new Blob([data]), '면접 전형 점수 양식.xlsx');
   };
 
-  return { handleExportSecondScoreFormatButtonClick };
+  return { handleExportSecondScoreFormatButtonClick, isExportingSecondScoreFormat };
 };
 
 export const useUploadSecondScoreFormatAction = (

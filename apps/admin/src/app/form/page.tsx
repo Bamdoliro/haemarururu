@@ -87,7 +87,7 @@ const FormPage = () => {
     handleMergeFormPdfButtonClick,
     isMergeFormPdfPending,
   } = usePrintFormURLActions();
-  const { handleExportAllAdmissionTicketButtonClick } =
+  const { handleExportAllAdmissionTicketButtonClick, isExportingAdmissionTicket } =
     useExportAllAdmissionTicketAction();
   const { handleExportAllPersonalStatementButtonClick, isExportingPersonalStatement } =
     useExportAllPersonalStatementAction();
@@ -313,6 +313,8 @@ const FormPage = () => {
                       label: '수험표 전체 발급하기',
                       value: 'export_all_exam_tickets',
                       onClick: handleExportAllAdmissionTicketButtonClick,
+                      isLoading: isExportingAdmissionTicket,
+                      loadingLabel: '수험표 발급 중...',
                     },
                     {
                       icon: <IconArticlePerson width={24} height={24} />,

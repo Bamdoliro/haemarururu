@@ -27,6 +27,7 @@ export const useExportSecondScoreFormatQuery = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.SECOND_SCORE_FORMAT],
     queryFn: getSecondScoreFormat,
+    enabled: false,
   });
 
   return { data, ...restQuery };
@@ -36,6 +37,7 @@ export const useExportAllAdmissionTicket = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_EXPORT_ALL_ADMISSION_TICKET],
     queryFn: getAllAdmissionTicket,
+    enabled: false,
   });
 
   return { data, ...restQuery };
