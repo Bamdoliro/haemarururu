@@ -15,6 +15,8 @@ export const FORM_STATUS_CATEGORY: Record<FormStatus, string> = {
   FINAL_SUBMITTED: '원서 입력',
   SUBMITTED: '제출',
   RECEIVED: '접수',
+  ARRIVED: '학교도착',
+  NOT_ARRIVED: '미도착',
   NO_SHOW: '불참',
   FIRST_PASSED: '면접 합격',
   PASSED: '최종 합격',

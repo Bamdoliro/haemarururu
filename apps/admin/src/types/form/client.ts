@@ -4,6 +4,8 @@ export type FormStatus =
   | 'FAILED'
   | 'FINAL_SUBMITTED'
   | 'SUBMITTED'
+  | 'ARRIVED'
+  | 'NOT_ARRIVED'
   | 'APPROVED'
   | 'NO_SHOW'
   | 'FIRST_PASSED'

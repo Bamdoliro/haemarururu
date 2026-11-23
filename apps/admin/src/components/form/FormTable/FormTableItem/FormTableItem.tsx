@@ -95,7 +95,7 @@ const FormTableItem = ({
   const getDocumentStatus = (documentStatus: boolean | null, FormStatus?: string) => {
     if (FormStatus === 'REJECTED') return '반려';
     else if (FormStatus === 'APPROVED') return '승인';
-    else if (documentStatus) return '학교도착';
+    else if (documentStatus || FormStatus === 'ARRIVED') return '학교도착';
     return '미도착';
   };
   const getDocumentColor = (documentStatus: boolean | null, FormStatus?: string) => {
