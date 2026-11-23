@@ -45,13 +45,13 @@ export const getStatusConfig = (schedule: Schedule, status?: string, name?: stri
     FIRST_PASSED: {
       text: firstResult ? '1차 합격' : '검토중',
       script: firstResult
-        ? `서류 합격하셨습니댜.<br />남은 전형도 힘내시길 바랍니다.`
+        ? `서류 합격하셨습니다.<br />남은 전형도 힘내시길 바랍니다.`
         : `아직 서류 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     PASSED: {
       text: finalResult ? '최종합격' : '검토중',
       script: finalResult
-        ? `최종 합격하셨습니댜.<br />위대한 여정의 시작을 축하드립니다.`
+        ? `최종 합격하셨습니다.<br />위대한 여정의 시작을 축하드립니다.`
         : `아직 최종 합격자 발표일이 아닙니다.<br />발표일까지 기다려 주세요.`,
     },
     REJECTED: {
