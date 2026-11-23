@@ -27,6 +27,7 @@ export const useExportSecondScoreFormatQuery = () => {
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.SECOND_SCORE_FORMAT],
     queryFn: getSecondScoreFormat,
+    enabled: false,
   });
 
   return { data, ...restQuery };
