@@ -16,7 +16,6 @@ export const useStatusFormatter = (status: FormStatus) => {
       'FIRST_PASSED',
       'PASSED',
       'ENTERED',
-      't',
     ];
 
     if (status === 'REJECTED') return { text: '반려', color: color.red };
