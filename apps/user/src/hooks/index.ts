@@ -5,4 +5,5 @@ export { default as useGradeCaculation } from './useGradeCaculation';
 export { default as useDragAndDrop } from './useDragAndDrop';
 export { default as useSessionExpired } from './useSessionExpired';
 export { useModalSuppression } from './useModalSuppression';
+export { default as useNow } from './useNow';
 export { useToast } from '@maru/hooks';

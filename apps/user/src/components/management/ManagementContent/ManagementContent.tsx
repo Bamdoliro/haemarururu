@@ -14,7 +14,12 @@ const ManagementContent = () => {
   const schedule = useSchedule();
   const { data: statusData } = useFormStatusQuery();
   const now = dayjs();
-  const { handleWriteFormContinue, handleDownloadForm } = useBoxClick(statusData?.status);
+  const {
+    isFormExportPeriod,
+    formExportGuide,
+    handleWriteFormContinue,
+    handleDownloadForm,
+  } = useBoxClick(statusData?.status);
 
   if (now.isBetween(schedule.원서_접수, schedule.일차_합격_발표)) {
     return (
@@ -31,7 +36,9 @@ const ManagementContent = () => {
           />
           <CheckingBox
             title="내 원서 확인하기"
-            subTitle="클릭해서 원서를 다운로드 받으세요."
+            subTitle={
+              isFormExportPeriod ? '클릭해서 원서를 다운로드 받으세요.' : formExportGuide
+            }
             onClick={handleDownloadForm}
             isIcon
           />

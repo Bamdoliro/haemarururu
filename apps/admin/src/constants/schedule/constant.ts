@@ -14,8 +14,8 @@ interface ScheduleOrderRule {
 }
 
 export const SCHEDULE_FIELDS: ScheduleField[] = [
-  { key: 'applicationFormStart', label: '원서 접수 시작', type: 'datetime-local' },
-  { key: 'visitSubmissionAt', label: '방문 원서 접수', type: 'datetime-local' },
+  { key: 'applicationFormStart', label: '원서 작성 시작', type: 'datetime-local' },
+  { key: 'visitSubmissionAt', label: '원서 접수 시작', type: 'datetime-local' },
   { key: 'applicationFormEnd', label: '원서 접수 마감', type: 'datetime-local' },
   { key: 'selectFirstPassAt', label: '1차 선발 실행', type: 'datetime-local' },
   { key: 'announcementOfFirstPass', label: '1차 합격 발표', type: 'datetime-local' },

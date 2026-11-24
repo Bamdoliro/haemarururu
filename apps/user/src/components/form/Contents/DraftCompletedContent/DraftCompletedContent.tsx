@@ -3,6 +3,9 @@ import { IconCheckCircle } from '@maru/icon';
 import { Button, Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
+import { useNow } from '@/hooks';
+import { useSchedule } from '@/services/schedule/queries';
+import { formatResultDateTime } from '@/utils';
 
 interface DraftCompletedContentProps {
   onClick: () => void;
@@ -10,6 +13,11 @@ interface DraftCompletedContentProps {
 }
 
 const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) => {
+  const schedule = useSchedule();
+  const now = useNow([schedule.방문_원서_접수, schedule.원서_접수_마감]);
+  const isBeforeSubmitPeriod = now.isBefore(schedule.방문_원서_접수);
+  const isAfterSubmitPeriod = !now.isBefore(schedule.원서_접수_마감);
+
   return (
     <StyledDraftCompletedContent>
       <Row gap={8} alignItems="center">
@@ -31,11 +39,29 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
         <Text fontType="H3" color={color.gray900}>
           초안을 제출하시겠습니까?
         </Text>
+        {isBeforeSubmitPeriod && (
+          <Text fontType="p1" color={color.red}>
+            원서 제출은 {formatResultDateTime(schedule.방문_원서_접수)}부터 가능합니다.
+            <br />
+            작성한 내용은 저장되어 있어요.
+          </Text>
+        )}
+        {isAfterSubmitPeriod && (
+          <Text fontType="p1" color={color.red}>
+            원서 접수 기간이 마감되어 원서를 제출할 수 없습니다.
+          </Text>
+        )}
         <Row gap={16}>
           <Button onClick={onClick} styleType="SECONDARY" size="LARGE">
             원서 작성으로 되돌아가기
           </Button>
-          <Button onClick={check} size="LARGE">
+          <Button
+            onClick={check}
+            styleType={
+              isBeforeSubmitPeriod || isAfterSubmitPeriod ? 'DISABLED' : 'PRIMARY'
+            }
+            size="LARGE"
+          >
             제출
           </Button>
         </Row>
