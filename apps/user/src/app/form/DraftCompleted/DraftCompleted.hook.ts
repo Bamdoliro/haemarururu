@@ -23,10 +23,17 @@ export const useCTAButton = () => {
   };
 
   const handleSubmitDraftForm = () => {
-    if (dayjs().isBefore(schedule.방문_원서_접수)) {
+    const now = dayjs();
+
+    if (now.isBefore(schedule.방문_원서_접수)) {
       alert(
         `원서 제출은 ${formatResultDateTime(schedule.방문_원서_접수)}부터 가능합니다.`,
       );
+      return;
+    }
+
+    if (now.isAfter(schedule.원서_접수_마감)) {
+      alert('원서 접수 기간이 마감되어 원서를 제출할 수 없습니다.');
       return;
     }
 

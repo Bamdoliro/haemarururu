@@ -14,8 +14,9 @@ interface DraftCompletedContentProps {
 
 const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) => {
   const schedule = useSchedule();
-  const now = useNow([schedule.방문_원서_접수]);
+  const now = useNow([schedule.방문_원서_접수, schedule.원서_접수_마감]);
   const isBeforeSubmitPeriod = now.isBefore(schedule.방문_원서_접수);
+  const isAfterSubmitPeriod = now.isAfter(schedule.원서_접수_마감);
 
   return (
     <StyledDraftCompletedContent>
@@ -44,13 +45,20 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
             작성한 내용은 저장되어 있어요.
           </Text>
         )}
+        {isAfterSubmitPeriod && (
+          <Text fontType="p1" color={color.red}>
+            원서 접수 기간이 마감되어 원서를 제출할 수 없습니다.
+          </Text>
+        )}
         <Row gap={16}>
           <Button onClick={onClick} styleType="SECONDARY" size="LARGE">
             원서 작성으로 되돌아가기
           </Button>
           <Button
             onClick={check}
-            styleType={isBeforeSubmitPeriod ? 'DISABLED' : 'PRIMARY'}
+            styleType={
+              isBeforeSubmitPeriod || isAfterSubmitPeriod ? 'DISABLED' : 'PRIMARY'
+            }
             size="LARGE"
           >
             제출
