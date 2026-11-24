@@ -22,7 +22,7 @@ const PassBox = () => {
         앞으로의 여정에 당신과 함께할 수 있어 영광입니다.
         <br />
         <br />
-        합격자께서는 2025년 12월 29일(월) 오전 10시, 본관 5층 대동관으로 와 주시길
+        합격자께서는 2026년 12월 29일(화) 오후 4시(16시), 본관 5층 대동관으로 와 주시길
         바랍니다.
       </Text>
       <Button size="LARGE" styleType="PRIMARY" onClick={handleMoveMainPage}>
