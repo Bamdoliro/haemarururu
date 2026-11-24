@@ -12,14 +12,14 @@ const ScheduleList = () => {
   const SCHEDULE_LIST = [
     {
       id: 1,
-      title: '원서 작성',
+      title: '인터넷 원서접수',
       date: formatScheduleDate([schedule.원서_접수, schedule.원서_접수_마감], 'FORM'),
       startTime: schedule.원서_접수,
       endTime: schedule.원서_접수_마감,
     },
     {
       id: 2,
-      title: '원서 접수',
+      title: '방문 원서 접수',
       date: formatScheduleDate(
         [schedule.방문_원서_접수, schedule.원서_접수_마감],
         'FORM',
