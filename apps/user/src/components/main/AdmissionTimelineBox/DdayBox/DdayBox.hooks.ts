@@ -71,7 +71,7 @@ export const useRemainDate = () => {
   const status = getScheduleStatus(schedule).get(currentTime.toString());
   const remainTime = remainDays >= 1 || remainDays < 0 ? formatDay(remainDays) : timeDiff;
 
-  // 원서 접수가 타깃일 때는 시작일만이 아니라 접수 기간 전체(방문 원서 접수 기준)를 보여준다
+  // 원서 접수가 타깃일 때는 시작일만이 아니라 접수 기간 전체(원서 접수 시작 기준)를 보여준다
   const isApplicationTarget =
     currentTime.isSame(schedule.방문_원서_접수) ||
     currentTime.isSame(schedule.원서_접수_마감);
