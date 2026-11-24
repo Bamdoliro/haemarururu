@@ -11,12 +11,22 @@ interface PassBoxProps {
 const PassBox = ({ interviewNumber }: PassBoxProps) => {
   const { handleMoveMainPage, handleDownloadAdmissionsGuideline } = useCTAButton();
 
+  const session = interviewNumber?.includes('오후')
+    ? '오후'
+    : interviewNumber?.includes('오전')
+      ? '오전'
+      : null;
+
   return (
     <StyledPassBox>
       <Column gap={24} alignItems="center">
         <Text fontType="p1" color={color.gray900} textAlign="center">
-          {interviewNumber}
-          <br />
+          {session && (
+            <>
+              수험생은 {session} 소집자입니다.
+              <br />
+            </>
+          )}
           (오전 소집자는 본관 08:00 / 오후 소집자는 체육관 12:20)
           <br />
           여러분을 응원합니다.
