@@ -1,9 +1,10 @@
 import { ROUTES } from '@/constants/common/constants';
-import { useUser } from '@/hooks';
+import { useNow, useUser } from '@/hooks';
 import { useExportFormQuery } from '@/services/form/queries';
 import { useDownloadAdmissionTicketQuery } from '@/services/result/queries';
 import { useSchedule } from '@/services/schedule/queries';
 import { downloadFile, formatResultDateTime } from '@/utils';
+import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import { useRouter } from 'next/navigation';
@@ -14,14 +15,18 @@ export const useBoxClick = (status?: string) => {
   const router = useRouter();
   const { userData } = useUser();
   const schedule = useSchedule();
-  const now = dayjs();
-  const isFormExportPeriod = now.isBetween(
-    schedule.방문_원서_접수,
-    schedule.원서_접수_마감,
-  );
-  const formExportGuide = now.isBefore(schedule.방문_원서_접수)
-    ? `원서 출력은 ${formatResultDateTime(schedule.방문_원서_접수)}부터 가능합니다.`
-    : '원서 접수 기간이 마감되어 원서를 출력할 수 없습니다.';
+  const now = useNow([schedule.방문_원서_접수, schedule.원서_접수_마감]);
+
+  const checkFormExportPeriod = (time: Dayjs) =>
+    time.isBetween(schedule.방문_원서_접수, schedule.원서_접수_마감);
+
+  const getFormExportGuide = (time: Dayjs) =>
+    time.isBefore(schedule.방문_원서_접수)
+      ? `원서 출력은 ${formatResultDateTime(schedule.방문_원서_접수)}부터 가능합니다.`
+      : '원서 접수 기간이 마감되어 원서를 출력할 수 없습니다.';
+
+  const isFormExportPeriod = checkFormExportPeriod(now);
+  const formExportGuide = getFormExportGuide(now);
   const { data: exportFormData } = useExportFormQuery();
   const { data: admissionTicketData } = useDownloadAdmissionTicketQuery();
 
@@ -45,8 +50,9 @@ export const useBoxClick = (status?: string) => {
   };
 
   const handleDownloadForm = () => {
-    if (!isFormExportPeriod) {
-      alert(formExportGuide);
+    const current = dayjs();
+    if (!checkFormExportPeriod(current)) {
+      alert(getFormExportGuide(current));
       return;
     }
 

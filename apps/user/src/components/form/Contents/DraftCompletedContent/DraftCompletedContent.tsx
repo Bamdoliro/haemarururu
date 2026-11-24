@@ -3,7 +3,7 @@ import { IconCheckCircle } from '@maru/icon';
 import { Button, Column, Row, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
-import dayjs from 'dayjs';
+import { useNow } from '@/hooks';
 import { useSchedule } from '@/services/schedule/queries';
 import { formatResultDateTime } from '@/utils';
 
@@ -14,7 +14,8 @@ interface DraftCompletedContentProps {
 
 const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) => {
   const schedule = useSchedule();
-  const isBeforeSubmitPeriod = dayjs().isBefore(schedule.방문_원서_접수);
+  const now = useNow([schedule.방문_원서_접수]);
+  const isBeforeSubmitPeriod = now.isBefore(schedule.방문_원서_접수);
 
   return (
     <StyledDraftCompletedContent>
