@@ -30,7 +30,8 @@ export const useExportFormQuery = () => {
     queryKey: [KEY.EXPORT_FORM],
     queryFn: getExportForm,
     enabled:
-      isLoggedIn && day.isBetween(schedule.방문_원서_접수, schedule.원서_접수_마감),
+      isLoggedIn &&
+      day.isBetween(schedule.방문_원서_접수, schedule.원서_접수_마감, null, '[)'),
     retry: false,
   });
 

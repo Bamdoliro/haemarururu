@@ -16,7 +16,7 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
   const schedule = useSchedule();
   const now = useNow([schedule.방문_원서_접수, schedule.원서_접수_마감]);
   const isBeforeSubmitPeriod = now.isBefore(schedule.방문_원서_접수);
-  const isAfterSubmitPeriod = now.isAfter(schedule.원서_접수_마감);
+  const isAfterSubmitPeriod = !now.isBefore(schedule.원서_접수_마감);
 
   return (
     <StyledDraftCompletedContent>

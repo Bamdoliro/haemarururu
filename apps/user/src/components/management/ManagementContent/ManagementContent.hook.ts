@@ -18,7 +18,7 @@ export const useBoxClick = (status?: string) => {
   const now = useNow([schedule.방문_원서_접수, schedule.원서_접수_마감]);
 
   const checkFormExportPeriod = (time: Dayjs) =>
-    time.isBetween(schedule.방문_원서_접수, schedule.원서_접수_마감);
+    time.isBetween(schedule.방문_원서_접수, schedule.원서_접수_마감, null, '[)');
 
   const getFormExportGuide = (time: Dayjs) =>
     time.isBefore(schedule.방문_원서_접수)

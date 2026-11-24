@@ -32,7 +32,7 @@ export const useCTAButton = () => {
       return;
     }
 
-    if (now.isAfter(schedule.원서_접수_마감)) {
+    if (!now.isBefore(schedule.원서_접수_마감)) {
       alert('원서 접수 기간이 마감되어 원서를 제출할 수 없습니다.');
       return;
     }
