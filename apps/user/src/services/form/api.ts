@@ -6,7 +6,7 @@ import type {
   GetSaveFormRes,
   GetSchoolListRes,
 } from '@/types/form/remote';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 export const getFormStatus = async () => {
   const { data } = await maru.get<GetFormStatusRes>('/forms/status');
@@ -23,9 +23,15 @@ export const getExportForm = async () => {
 };
 
 export const getSaveForm = async () => {
-  const { data } = await maru.get<GetSaveFormRes>('/form/draft');
+  try {
+    const { data } = await maru.get<GetSaveFormRes>('/form/draft');
 
-  return data;
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 404) return null;
+
+    throw error;
+  }
 };
 
 export const postSaveForm = async (formData: Form) => {

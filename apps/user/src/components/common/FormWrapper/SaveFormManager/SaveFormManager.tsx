@@ -14,7 +14,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 
 const SaveFormManager = () => {
-  const { data: saveFormData } = useSaveFormQuery();
+  const { data: saveFormData, isFetching, isSuccess, isError } = useSaveFormQuery();
   const [isSaveFormLoaded, setIsSaveFormLoaded] = useAtom(isSaveFormLoadedAtom);
   const setForm = useSetAtom(formAtom);
   const setSubjectList = useSetAtom(subjectListAtom);
@@ -23,7 +23,12 @@ const SaveFormManager = () => {
   const setNewGEDSubjectList = useSetAtom(newGEDSubjectListAtom);
 
   useEffect(() => {
-    if (!saveFormData || isSaveFormLoaded) return;
+    if (isSaveFormLoaded || isFetching) return;
+    if (!isSuccess && !isError) return;
+
+    setIsSaveFormLoaded(true);
+
+    if (isError || !saveFormData) return;
 
     const subjectList = saveFormData.grade.subjectList;
     const graduationType = saveFormData.education.graduationType;
@@ -43,9 +48,10 @@ const SaveFormManager = () => {
       updateSubjects[0](updateSlicedSubjectList(subjectList, 0, updateSubjects[2]));
       updateSubjects[1](updateSlicedSubjectList(subjectList, updateSubjects[2]));
     }
-
-    setIsSaveFormLoaded(true);
   }, [
+    isError,
+    isFetching,
+    isSuccess,
     isSaveFormLoaded,
     saveFormData,
     setForm,
