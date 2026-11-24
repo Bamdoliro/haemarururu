@@ -42,6 +42,7 @@ const DraftCompletedContent = ({ onClick, check }: DraftCompletedContentProps) =
         {isBeforeSubmitPeriod && (
           <Text fontType="p1" color={color.red}>
             원서 제출은 {formatResultDateTime(schedule.방문_원서_접수)}부터 가능합니다.
+            <br />
             작성한 내용은 저장되어 있어요.
           </Text>
         )}
