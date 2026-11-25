@@ -3,7 +3,7 @@ import { Button, Column, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useDragAndDrop, useOpenFileUploader, useUser } from '@/hooks';
+import { useDragAndDrop, useOpenFileUploader } from '@/hooks';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SmartCrop from 'smartcrop';
 import {
@@ -12,7 +12,6 @@ import {
 } from '@/services/form/mutations';
 import { profileAtom, formProfileAtom } from '@/stores';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { getStoredProfile, saveStoredProfile } from '@/utils';
 
 const MIN_WIDTH = 113.4;
 const MIN_HEIGHT = 151.2;
@@ -36,22 +35,18 @@ const ProfileUploader = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { openFileUploader, ref: imageUploaderRef } = useOpenFileUploader();
 
-  const { userData } = useUser();
-  const owner = userData.phoneNumber;
-
-  const { refreshProfileMutate } = useRefreshProfileMutation();
+  const { refreshProfileMutate, isPending: isRefreshing } = useRefreshProfileMutation();
 
   const { uploadProfileMutate, isPending: isUploading } = useUploadProfileMutation();
 
   const hasRefreshedRef = useRef(false);
 
   useEffect(() => {
-    if (!owner || hasRefreshedRef.current) return;
+    if (hasRefreshedRef.current) return;
     hasRefreshedRef.current = true;
 
-    const storedProfile = getStoredProfile(owner);
-    if (storedProfile) refreshProfileMutate(storedProfile);
-  }, [owner, refreshProfileMutate]);
+    refreshProfileMutate();
+  }, [refreshProfileMutate]);
 
   useEffect(() => {
     const hasImage = !!profileUrl?.downloadUrl;
@@ -158,7 +153,6 @@ const ProfileUploader = ({
             uploadProfileMutate(croppedFile, {
               onSuccess: () => {
                 setProfile({ ...fileData, file: croppedFile });
-                if (owner) saveStoredProfile(owner, fileData);
               },
               onError: () => {
                 setPreviewUrl(null);
@@ -177,7 +171,7 @@ const ProfileUploader = ({
 
       reader.readAsDataURL(file);
     },
-    [isUploading, owner, setProfile, uploadProfileMutate],
+    [isUploading, setProfile, uploadProfileMutate],
   );
 
   const handleOpenFileUploader = useCallback(() => {
@@ -228,6 +222,11 @@ const ProfileUploader = ({
       {isUploading && (
         <Text fontType="p2" color={color.gray500}>
           증명사진을 업로드하는 중입니다...
+        </Text>
+      )}
+      {!isUploading && isRefreshing && !previewUrl && !profileUrl?.downloadUrl && (
+        <Text fontType="p2" color={color.gray500}>
+          증명사진을 불러오는 중입니다...
         </Text>
       )}
       {(previewUrl || profileUrl?.downloadUrl) && (

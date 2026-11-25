@@ -1,7 +1,6 @@
 import { useApiError } from '@/hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
-  getUploadProfile,
   patchSubmitFinalForm,
   postFormDocument,
   postSaveForm,
@@ -94,14 +93,21 @@ export const useUploadProfileMutation = () => {
   const { mutate: uploadProfileMutate, ...restMutation } = useMutation({
     mutationKey: UPLOAD_PROFILE_MUTATION_KEY,
     mutationFn: async (file: File) => {
-      const res = await postUploadProfileImage({
+      const fileData: FileDocument = {
         fileName: file.name,
         mediaType: file.type,
         fileSize: file.size,
-      });
-      const { uploadUrl, downloadUrl } = res.data;
+      };
+      const res = await postUploadProfileImage(fileData);
+      const { uploadUrl } = res.data;
       await putProfileUpoload(file, uploadUrl);
-      return { uploadUrl, downloadUrl } as { uploadUrl: string; downloadUrl: string };
+
+      // 업로드 전에는 S3에 파일이 없어 downloadUrl이 null로 내려오므로, 업로드 후 다시 발급받는다.
+      const { data } = await postUploadProfileImage(fileData);
+      if (!data.downloadUrl)
+        throw new Error('증명사진 다운로드 URL을 발급받지 못했습니다.');
+
+      return { uploadUrl, downloadUrl: data.downloadUrl as string };
     },
     onSuccess: ({ uploadUrl, downloadUrl }) => {
       setFormProfile({ uploadUrl, downloadUrl });
@@ -114,27 +120,22 @@ export const useUploadProfileMutation = () => {
   return { uploadProfileMutate, ...restMutation };
 };
 
-export const useGetRefreshProfileMutation = () => {
-  const { mutate: getRefreshProfileMutate, ...restMutation } = useMutation({
-    mutationFn: (downloadUrl: string) => getUploadProfile(downloadUrl),
-  });
-
-  return { getRefreshProfileMutate, ...restMutation };
+// 증명사진은 사용자별로 같은 S3 경로에 저장되므로, 파일 정보와 상관없이 다운로드 URL을 다시 발급받을 수 있다.
+const PROFILE_REFRESH_METADATA: FileDocument = {
+  fileName: 'identification-picture.jpg',
+  mediaType: 'image/jpeg',
+  fileSize: 1,
 };
 
 export const useRefreshProfileMutation = () => {
   const setFormProfile = useSetAtom(formProfileAtom);
-  const { getRefreshProfileMutate } = useGetRefreshProfileMutation();
 
   const { mutate: refreshProfileMutate, ...restMutation } = useMutation({
-    mutationFn: (fileData: FileDocument) => postUploadProfileImage(fileData),
+    mutationFn: () => postUploadProfileImage(PROFILE_REFRESH_METADATA),
     onSuccess: (res) => {
       const { uploadUrl, downloadUrl } = res.data;
-      setFormProfile({
-        uploadUrl: uploadUrl,
-        downloadUrl: downloadUrl,
-      });
-      getRefreshProfileMutate(downloadUrl);
+      if (!downloadUrl) return;
+      setFormProfile({ uploadUrl, downloadUrl });
     },
   });
 

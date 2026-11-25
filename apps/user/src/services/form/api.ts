@@ -90,12 +90,6 @@ export const putProfileUpoload = async (file: File | null, url: string) => {
   return response;
 };
 
-export const getUploadProfile = async (url: string) => {
-  const { data } = await maru.get(url, { responseType: 'blob' });
-
-  return URL.createObjectURL(data);
-};
-
 export const putFormCorrection = async (formData: Form) => {
   const { data } = await maru.put('/forms', formData);
 
